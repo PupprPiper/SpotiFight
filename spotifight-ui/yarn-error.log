@@ -6069,4 +6069,7 @@ Trace:
       at /usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:95:12
       at runCommand (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:87312:22)
       at Object.<anonymous> (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:87412:14)
+<<<<<<< HEAD
 >>>>>>> stashem
+=======
+>>>>>>> b5369dc4a08cb4623622673d7713f12230c33639

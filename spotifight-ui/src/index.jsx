@@ -7,6 +7,7 @@ import allReducers from './reducers/index';
 import './index.scss';
 import App from './App.jsx';
 
+<<<<<<< HEAD
 
 
 <<<<<<< HEAD
@@ -17,6 +18,11 @@ ReactDOM.render(<h1>HEY GUYS THIS IS STYLED</h1>, document.getElementById('app')
 >>>>>>> tiny fixes to merge
 
 >>>>>>> stashem
+=======
+
+
+
+>>>>>>> b5369dc4a08cb4623622673d7713f12230c33639
 const store = createStore(allReducers);
 
 render(
