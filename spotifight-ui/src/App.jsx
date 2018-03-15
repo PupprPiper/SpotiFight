@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {
@@ -10,9 +10,24 @@ import {
   brown500,
   yellow500
 } from 'material-ui/styles/colors';
-import Navbar from './components/Global/Navbar/navbar';
-import Home from './components/Home/Home';
+import { createBrowserHistory } from 'history';
 
+import Navbar from './components/Global/Navbar/navbar';
+import Sidebar from './components/Global/Sidebar/Sidebar';
+import appRoutes from './routes';
+
+import Auth from './components/Auth/Auth';
+import Chat from './components/Chat/Chat';
+import GameRoom from './components/GameRoom/GameRoom';
+import Games from './components/Games/Games';
+import Home from './components/Home/Home';
+import LandingPage from './components/LandingPage/LandingPage';
+import LeaderBoard from './components/LeaderBoard/LeaderBoard';
+import Lobby from './components/Lobby/Lobby';
+import MusicPlayer from './components/MusicPlayer/MusicPlayer';
+import UserProfile from './components/UserProfile/UserProfile';
+
+const hist = createBrowserHistory();
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: red500,
@@ -28,14 +43,23 @@ export default class App extends Component {
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-        <BrowserRouter>
+        <Router history={hist}>
           <div>
             <Navbar />
+            <Sidebar />
             <Switch>
-              {/* <Route path="/home" exact component={Home} /> */}
+              {appRoutes.map((route, index) => {
+                return (
+                  <Route
+                    path={route.path}
+                    component={route.component}
+                    key={index}
+                  />
+                );
+              })}
             </Switch>
           </div>
-        </BrowserRouter>
+        </Router>
       </MuiThemeProvider>
     );
   }

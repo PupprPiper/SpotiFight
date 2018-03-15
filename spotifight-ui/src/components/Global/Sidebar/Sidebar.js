@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { RaisedButton, Drawer, AppBar, MenuItem } from './../Material-Globals';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { toggleMenu } from './../../../actions/index';
+import appRoutes from './../../../routes';
 
 class Navbar extends Component {
   constructor() {
@@ -22,11 +23,18 @@ class Navbar extends Component {
             onLeftIconButtonClick={() => this.handleToggle()}
             title="Spotifight"
           />
-          <MenuItem>
-            Home
-            {/* <Link to="/home">Home</Link> */}
-          </MenuItem>
-          <MenuItem>Lobby</MenuItem>
+          {appRoutes.map((route, index) => {
+            return (
+              <NavLink
+                onClick={() => this.handleToggle()}
+                to={route.path}
+                key={index}
+                activeClassName="active"
+              >
+                <MenuItem>{route.sidebarName}</MenuItem>
+              </NavLink>
+            );
+          })}
         </Drawer>
       </div>
     );
