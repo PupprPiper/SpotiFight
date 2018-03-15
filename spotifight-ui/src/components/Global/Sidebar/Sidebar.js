@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { RaisedButton, Drawer, AppBar, MenuItem } from './../Material-Globals';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -23,8 +23,7 @@ class Navbar extends Component {
             title="Spotifight"
           />
           <MenuItem>
-            Home
-            {/* <Link to="/home">Home</Link> */}
+            <NavLink to="/">Home</NavLink>
           </MenuItem>
           <MenuItem>Lobby</MenuItem>
         </Drawer>

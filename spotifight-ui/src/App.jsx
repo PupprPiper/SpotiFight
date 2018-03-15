@@ -11,7 +11,9 @@ import {
   yellow500
 } from 'material-ui/styles/colors';
 import Navbar from './components/Global/Navbar/navbar';
+import Sidebar from './components/Global/Sidebar/Sidebar';
 import Home from './components/Home/Home';
+import Lobby from './components/Lobby/Lobby';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -31,8 +33,10 @@ export default class App extends Component {
         <BrowserRouter>
           <div>
             <Navbar />
+            <Sidebar />
             <Switch>
-              {/* <Route path="/home" exact component={Home} /> */}
+              <Route path="/" exact component={Home} />
+              <Route path="/lobby" exact component={Lobby} />
             </Switch>
           </div>
         </BrowserRouter>
