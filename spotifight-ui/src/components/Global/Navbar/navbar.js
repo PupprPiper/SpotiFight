@@ -18,11 +18,22 @@ class Navbar extends Component {
 
   render() {
     return (
+<<<<<<< HEAD
       <AppBar
         title="Spotifight"
         onLeftIconButtonClick={() => this.handleToggle()}
         iconClassNameRight="muidocs-icon-navigation-expand-more"
       />
+=======
+      <div>
+        <Sidebar />
+        <AppBar style={{ margin: 0 }}
+          title="Spotifight"
+          onLeftIconButtonClick={() => this.handleToggle()}
+          iconClassNameRight="muidocs-icon-navigation-expand-more"
+        />
+      </div>
+>>>>>>> merged
     );
   }
 }

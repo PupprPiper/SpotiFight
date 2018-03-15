@@ -12,6 +12,7 @@ import App from './App.jsx';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 ReactDOM.render(<h1>HEY GUYS THIS IS STYLED</h1>, document.getElementById('app'));
 =======
@@ -20,6 +21,12 @@ ReactDOM.render(<h1>HEY GUYS THIS IS STYLED</h1>, document.getElementById('app')
 =======
 ReactDOM.render(<h1>HEY GUYS THIS IS STYLED</h1>, document.getElementById('app'));
 >>>>>>> this is committed
+=======
+=======
+ReactDOM.render(<h1>HEY GUYS THIS IS STYLED</h1>, document.getElementById('app'));
+=======
+>>>>>>> tiny fixes to merge
+>>>>>>> merged
 
 >>>>>>> stashem
 const store = createStore(allReducers);

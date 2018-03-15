@@ -1,9 +1,13 @@
 Arguments: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js run react-dev
 =======
   /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js run start
 >>>>>>> stashem
+=======
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js start
+>>>>>>> tiny fixes to merge
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
