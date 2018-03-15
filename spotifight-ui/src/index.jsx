@@ -11,10 +11,15 @@ import App from './App.jsx';
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 ReactDOM.render(<h1>HEY GUYS THIS IS STYLED</h1>, document.getElementById('app'));
 =======
 >>>>>>> tiny fixes to merge
+=======
+=======
+ReactDOM.render(<h1>HEY GUYS THIS IS STYLED</h1>, document.getElementById('app'));
+>>>>>>> this is committed
 
 >>>>>>> stashem
 const store = createStore(allReducers);
