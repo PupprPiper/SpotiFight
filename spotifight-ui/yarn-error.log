@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js run start
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js start
 
 PATH: 
   /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin

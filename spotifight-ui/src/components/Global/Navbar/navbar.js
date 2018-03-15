@@ -21,7 +21,7 @@ class Navbar extends Component {
     return (
       <div>
         <Sidebar />
-        <AppBar
+        <AppBar style={{ margin: 0 }}
           title="Spotifight"
           onLeftIconButtonClick={() => this.handleToggle()}
           iconClassNameRight="muidocs-icon-navigation-expand-more"
