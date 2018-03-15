@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { toggleMenu } from './../../../actions/index';
 
 import { AppBar } from './../Material-Globals';
-import Sidebar from './../Sidebar/Sidebar';
 
 class Navbar extends Component {
   constructor() {
@@ -19,14 +18,11 @@ class Navbar extends Component {
 
   render() {
     return (
-      <div>
-        <Sidebar />
-        <AppBar
-          title="Spotifight"
-          onLeftIconButtonClick={() => this.handleToggle()}
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
-        />
-      </div>
+      <AppBar
+        title="Spotifight"
+        onLeftIconButtonClick={() => this.handleToggle()}
+        iconClassNameRight="muidocs-icon-navigation-expand-more"
+      />
     );
   }
 }
