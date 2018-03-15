@@ -12,8 +12,18 @@ import {
 } from 'material-ui/styles/colors';
 import Navbar from './components/Global/Navbar/navbar';
 import Sidebar from './components/Global/Sidebar/Sidebar';
+import appRoutes from './routes';
+
+import Auth from './components/Auth/Auth';
+import Chat from './components/Chat/Chat';
+import GameRoom from './components/GameRoom/GameRoom';
+import Games from './components/Games/Games';
 import Home from './components/Home/Home';
+import LandingPage from './components/LandingPage/LandingPage';
+import LeaderBoard from './components/LeaderBoard/LeaderBoard';
 import Lobby from './components/Lobby/Lobby';
+import MusicPlayer from './components/MusicPlayer/MusicPlayer';
+import UserProfile from './components/UserProfile/UserProfile';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -35,8 +45,16 @@ export default class App extends Component {
             <Navbar />
             <Sidebar />
             <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/lobby" exact component={Lobby} />
+              <Route path="/" exact component={Home} />;
+              <Route path="/chat" component={Chat} />;
+              <Route path="/game-room" component={GameRoom} />;
+              <Route path="/games" component={Games} />;
+              <Route path="/auth" component={Auth} />;
+              <Route path="/landing-page" component={LandingPage} />;
+              <Route path="/leader-board" component={LeaderBoard} />;
+              <Route path="/lobby" component={Lobby} />;
+              <Route path="/music-player" component={MusicPlayer} />;
+              <Route path="/user-profile" component={UserProfile} />;
             </Switch>
           </div>
         </BrowserRouter>
