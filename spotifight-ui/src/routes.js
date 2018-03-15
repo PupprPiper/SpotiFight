@@ -27,7 +27,7 @@ import UserProfile from './components/UserProfile/UserProfile';
 
 const appRoutes = [
   {
-    path: '/',
+    path: '/home',
     sidebarName: 'Home',
     icon: HomeIcon,
     component: Home
@@ -79,8 +79,8 @@ const appRoutes = [
     sidebarName: 'User Profile',
     icon: AccountBox,
     component: UserProfile
-  }
-  // { redirect: true, path: '/', to: '/dashboard
+  },
+  { redirect: true, path: '/', to: '/home', navbarName: 'Redirect' }
 ];
 
 export default appRoutes;

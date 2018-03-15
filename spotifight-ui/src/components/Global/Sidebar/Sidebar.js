@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { RaisedButton, Drawer, AppBar, MenuItem } from './../Material-Globals';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -25,13 +25,14 @@ class Navbar extends Component {
           />
           {appRoutes.map((route, index) => {
             return (
-              <Link
+              <NavLink
                 onClick={() => this.handleToggle()}
                 to={route.path}
                 key={index}
+                activeClassName="active"
               >
                 <MenuItem>{route.sidebarName}</MenuItem>
-              </Link>
+              </NavLink>
             );
           })}
         </Drawer>
