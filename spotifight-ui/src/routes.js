@@ -80,7 +80,7 @@ const appRoutes = [
     icon: AccountBox,
     component: UserProfile
   },
-  { redirect: true, path: '/', to: '/home', navbarName: 'Redirect' }
+  { redirect: true, path: '/', to: '/home' }
 ];
 
 export default appRoutes;
