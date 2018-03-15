@@ -1,2 +1,5 @@
 node_modules
+spotfight-ui/server/.DS_Store
+spotfight-ui/src/yarn-error.log
+yarn-error.log
 yarn.lock
