@@ -1,0 +1,17 @@
+const express = require('express')
+const bodyParser = require('body-parser')
+const path = require('path')
+const app = express();
+const router = require('./routes')
+const port = 3000
+require('../database/config/index')
+
+app.use(bodyParser.json())
+
+app.use(bodyParser.urlencoded({extended:true}))
+
+app.use(express.static(path.join(__dirname, "../client/public")))
+
+app.use(router)
+
+app.listen(port, () => console.log(`server listening on port ${port}`))
