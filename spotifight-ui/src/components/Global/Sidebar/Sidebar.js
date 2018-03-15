@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { RaisedButton, Drawer, AppBar, MenuItem } from './../Material-Globals';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { toggleMenu } from './../../../actions/index';
-
-import { AppBar } from './../Material-Globals';
-import Sidebar from './../Sidebar/Sidebar';
 
 class Navbar extends Component {
   constructor() {
     super();
   }
-
-  componentDidMount() {}
 
   handleToggle() {
     this.props.toggleMenu(!this.props.menuIsOpen);
@@ -20,18 +17,23 @@ class Navbar extends Component {
   render() {
     return (
       <div>
-        <Sidebar />
-        <AppBar
-          title="Spotifight"
-          onLeftIconButtonClick={() => this.handleToggle()}
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
-        />
+        <Drawer width={300} openSecondary={false} open={this.props.menuIsOpen}>
+          <AppBar
+            onLeftIconButtonClick={() => this.handleToggle()}
+            title="Spotifight"
+          />
+          <MenuItem>
+            Home
+            {/* <Link to="/home">Home</Link> */}
+          </MenuItem>
+          <MenuItem>Lobby</MenuItem>
+        </Drawer>
       </div>
     );
   }
 }
 
-const mapStateToProps = function(state) {
+const mapStateToProps = state => {
   return {
     menuIsOpen: state.menuIsOpen
   };
