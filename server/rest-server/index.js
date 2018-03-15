@@ -10,8 +10,12 @@ app.use(bodyParser.json())
 
 app.use(bodyParser.urlencoded({extended:true}))
 
-app.use(express.static(path.join(__dirname, "../../spotifight-ui/public")))
+app.use(express.static(path.join(__dirname, "../../spotifight-ui/public/")))
 
-app.use(router)
+app.use(router);
+
+app.use('*', (err, res) => {
+  res.sendFile(path.resolve(__dirname, './../../spotifight-ui/public', 'index.html'));
+})
 
 app.listen(port, () => console.log(`server listening on port ${port}`))
