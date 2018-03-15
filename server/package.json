@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon rest-server/index.js",
-    "start:db": "../database/config/setup.js"
+    "start:db": "babel-node database/config/setup.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
