@@ -9,6 +9,11 @@ import App from './App.jsx';
 
 
 
+<<<<<<< HEAD
+=======
+ReactDOM.render(<h1>HEY GUYS THIS IS STYLED</h1>, document.getElementById('app'));
+
+>>>>>>> stashem
 const store = createStore(allReducers);
 
 render(
