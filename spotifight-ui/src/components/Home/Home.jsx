@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import randomstring from "randomstring";
 
-let randomRoom;
+
 export default class Home extends Component {
   constructor() {
     super();
@@ -13,21 +13,26 @@ export default class Home extends Component {
     }
   }
 
-  randomRoom() {
-    randomRoom = `${randomstring.generate()}`;
-  }
+  // randomRoom() {
+  //   randomRoom = `${randomstring.generate()}`;
+  // }
   handleGameRoomRedirect() {
-    this.randomRoom();
-    this.props.history.push({
-      pathname: `/game-room/${randomRoom}`,
-      state: { game: this.state.game }
-    });
+    // this.randomRoom();
+    // this.props.history.push({
+    //   pathname: `/game-room/${randomRoom}`,
+    //   state: { game: this.state.game }
+    // });
+    
   }
   render() {
     return (
       <div>
         {console.log(this.props)}
         Hello from Home
+        <input
+          type="text"
+          value=""
+        />
         <input
           type="submit"
           value="CREATE"
