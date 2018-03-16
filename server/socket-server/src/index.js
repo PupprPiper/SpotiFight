@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-const http = require('http');
-const SocketIo = require('socket.io');
-
-const server = http.createServer();
-const io = SocketIo(server);
-
-
-io.on('connection', (client) => {
-  console.log('client connected')
-});
-
-const PORT = process.env.PORT || 4155;
-server.listen(PORT, () => console.log(`socket server listening on port ${PORT}`));
-=======
 const express = require('express')
 const app = express()
 const http = require('http').Server(app)
@@ -30,10 +15,13 @@ io.on('connection', (client) => {
   // each(clientEvents, (handler, event) => {
   //   client.on(event, handler.bind(null, { io, client, room }));
   // });
-
+  client.join('lobby', )
+  client.on('message', (message) => {
+    io.emit('serverMessage', message)
+    console.log('message received!!')
+  })
   console.log('a user has connected to socket server')
 });
 
 const PORT = 8000
 http.listen(PORT, () => console.log(`socket server listening on port ${PORT}`));
->>>>>>> 7c14b479117b3164461ec715750192285fcca41d
