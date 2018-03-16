@@ -15,7 +15,11 @@ io.on('connection', (client) => {
   // each(clientEvents, (handler, event) => {
   //   client.on(event, handler.bind(null, { io, client, room }));
   // });
-
+  client.join('lobby', )
+  client.on('message', (message) => {
+    io.emit('serverMessage', message)
+    console.log('message received!!')
+  })
   console.log('a user has connected to socket server')
 });
 
