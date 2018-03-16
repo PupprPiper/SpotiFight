@@ -2,15 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { toggleMenu } from './../../../actions/index';
+import List from 'material-ui-icons';
 
-import { AppBar } from './../Material-Globals';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  MenuIcon,
+  Button,
+  IconButton
+} from './../Material-Globals';
 
 class Navbar extends Component {
   constructor() {
     super();
   }
-
-  componentDidMount() {}
 
   handleToggle() {
     this.props.toggleMenu(!this.props.menuIsOpen);
@@ -18,11 +24,16 @@ class Navbar extends Component {
 
   render() {
     return (
-      <AppBar
-        title="Spotifight"
-        onLeftIconButtonClick={() => this.handleToggle()}
-        iconClassNameRight="muidocs-icon-navigation-expand-more"
-      />
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton onClick={() => this.handleToggle()} color="inherit" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="title" color="inherit">
+            Spotifight
+          </Typography>
+        </Toolbar>
+      </AppBar>
     );
   }
 }
@@ -38,3 +49,10 @@ const mapDispatchToProps = function(dispatch) {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+{
+  /* <AppBar
+        title="Spotifight"
+        onLeftIconButtonClick={() => this.handleToggle()}
+        iconClassNameRight="muidocs-icon-navigation-expand-more"
+      /> */
+}
