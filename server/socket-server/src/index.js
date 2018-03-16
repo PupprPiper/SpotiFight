@@ -66,7 +66,7 @@ io.on('connection', (client) => {
   // });
   console.log('this is our query', client.handshake.query)
 
-  const room = rooms.findOrCreate(client.handshake.query.roomId)
+  // const room = rooms.findOrCreate(client.handshake.query.roomId)
   client.join(client.handshake.query.roomId)
 
 

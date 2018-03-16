@@ -12,6 +12,7 @@ export default class GameRoom extends Component {
     this.clickButton = this.clickButton.bind(this);
   }
   componentDidMount() {
+    console.log("PROPS HERE", this.props)
     this.socket = io.connect("http://localhost:8000", {
       query: { roomId: this.props.location.pathname.slice(11) }
     });
