@@ -10,6 +10,7 @@ import App from './App';
 const store = createStore(allReducers);
 
 render(
+  
   <Provider store={store}>
     <App />
   </Provider>,

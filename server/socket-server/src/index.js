@@ -1,10 +1,32 @@
+require('babel-register')
+require('babel-polyfill')
 const express = require('express')
 const app = express()
 const http = require('http').Server(app)
 const io= require('socket.io')(http)
 
 
-// const rooms = new Rooms(io);
+class Rooms {
+  constructor(io) {
+    this.io = io;
+    this.store = new Map();
+    this.findOrCreate = this.findOrCreate.bind(this)
+  }
+
+  findOrCreate(roomId) {
+    let room = this.store.get(roomId);
+    if (room) {
+      room = new Map();
+      room.set('id', roomId);
+      room.set('text', startingText);
+      this.store.set(roomId, room);
+    }
+    return room;
+  }
+}
+
+const rooms = new Rooms(io)
+
 
 io.on('connection', (client) => {
   // success('client connected');
@@ -15,10 +37,17 @@ io.on('connection', (client) => {
   // each(clientEvents, (handler, event) => {
   //   client.on(event, handler.bind(null, { io, client, room }));
   // });
-  client.join('lobby', )
+  console.log('this is our query', client.handshake.query)
+
+  const room = rooms.findOrCreate(client.handshake.query.roomId)
+  client.join(client.handshake.query.roomId)
+
+
   client.on('message', (message) => {
     io.emit('serverMessage', message)
     console.log('message received!!')
+    console.log(client.handshake.query)
+    console.log('this is our room', room)
   })
   console.log('a user has connected to socket server')
 });
