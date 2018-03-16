@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 require('babel-register');
 require('babel-polyfill');
 
 
+=======
+>>>>>>> rebasing
 export default class Rooms {
   constructor(io) {
     this.io = io;
