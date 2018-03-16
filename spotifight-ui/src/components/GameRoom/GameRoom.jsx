@@ -11,12 +11,12 @@ export default class GameRoom extends Component {
     this.clickButton = this.clickButton.bind(this);
   }
   componentDidMount() {
-  //   this.socket = io.connect("http://localhost:8000");
-  //   this.setState({socket: this.socket})
-  //   this.socket.emit('message', { message: "TESTINGGGGG" });
-  //   this.socket.on('serverMessage', data => {
-  //     this.setState({test: data})
-    // })
+    this.socket = io.connect("http://localhost:8000");
+    this.setState({socket: this.socket})
+    this.socket.emit('message', { message: "TESTINGGGGG" });
+    this.socket.on('serverMessage', data => {
+      this.setState({test: data})
+    })
   }
   clickButton(e){
     console.log('CLICK WORKED')
@@ -29,7 +29,7 @@ export default class GameRoom extends Component {
         {console.log('TEST HERE ', this.state.test)}
       Hello from GameRoom
       <input id="test" type="text"/>
-      {/* <input type="submit" onClick={() => this.clickButton()}/> */}
+      <input type="submit" onClick={() => this.clickButton()}/>
       </div>
     )
   }
