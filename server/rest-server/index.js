@@ -4,6 +4,9 @@ const path = require('path')
 const app = express();
 const router = require('./routes')
 const port = 3000
+require('babel-register')
+require('babel-polyfill')
+
 require('../database/config/index')
 
 app.use(bodyParser.json())
