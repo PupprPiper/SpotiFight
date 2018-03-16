@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { RaisedButton, Drawer, AppBar, MenuItem } from './../Material-Globals';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {
+  Button,
+  Drawer,
+  AppBar,
+  List,
+  ListItem,
+  IconButton,
+  Typography,
+  Toolbar,
+  MenuIcon
+} from './../Material-Globals';
+
 import { toggleMenu } from './../../../actions/index';
 import appRoutes from './../../../routes';
 
@@ -18,23 +29,35 @@ class Navbar extends Component {
   render() {
     return (
       <div>
-        <Drawer width={300} openSecondary={false} open={this.props.menuIsOpen}>
-          <AppBar
-            onLeftIconButtonClick={() => this.handleToggle()}
-            title="Spotifight"
-          />
-          {appRoutes.map((route, index) => {
-            return (
-              <NavLink
+        <Drawer width={300} open={this.props.menuIsOpen}>
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton
                 onClick={() => this.handleToggle()}
-                to={route.path}
-                key={index}
-                activeClassName="active"
+                color="inherit"
+                aria-label="Menu"
               >
-                <MenuItem>{route.sidebarName}</MenuItem>
-              </NavLink>
-            );
-          })}
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="title" color="inherit">
+                Spotifight
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <List>
+            {appRoutes.map((route, index) => {
+              return (
+                <NavLink
+                  onClick={() => this.handleToggle()}
+                  to={route.path}
+                  key={index}
+                  activeClassName="active"
+                >
+                  <ListItem>{route.sidebarName}</ListItem>
+                </NavLink>
+              );
+            })}
+          </List>
         </Drawer>
       </div>
     );
