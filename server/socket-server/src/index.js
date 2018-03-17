@@ -1,23 +1,15 @@
-
+require('babel-register');
+require('babel-polyfill');
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-require('babel-register')
-require('babel-polyfill')
-const express = require('express')
-const app = express()
-const http = require('http').Server(app)
-const io= require('socket.io')(http)
-
-
-
 class Rooms {
   constructor(io) {
     this.io = io;
     this.store = new Map();
-    this.findOrCreate = this.findOrCreate.bind(this)
+    this.findOrCreate = this.findOrCreate.bind(this);
   }
 
   findOrCreate(roomId) {
@@ -32,9 +24,7 @@ class Rooms {
   }
 }
 
-const rooms = new Rooms(io)
-
-
+const rooms = new Rooms(io);
 
 let users = [];
 let connections = [];
@@ -55,46 +45,21 @@ io.on('connection', socket => {
     io.sockets.emit('new message', { msg: data });
   });
 
-io.on('connection', (client) => {
-  // success('client connected');
-  // const { roomId } = client.handshake.query;
-  // const room = rooms.findOrCreate(roomId || 'default');
-  // client.join(room.get('id'));
+  io.on('connection', client => {
+    console.log('this is our query', client.handshake.query);
 
-  // each(clientEvents, (handler, event) => {
-  //   client.on(event, handler.bind(null, { io, client, room }));
-  // });
-  console.log('this is our query', client.handshake.query)
+    const room = rooms.findOrCreate(client.handshake.query.roomId);
+    client.join(client.handshake.query.roomId);
 
-  const room = rooms.findOrCreate(client.handshake.query.roomId)
-  client.join(client.handshake.query.roomId)
-
-
-  client.on('message', (message) => {
-    io.emit('serverMessage', message)
-    console.log('message received!!')
-    console.log(client.handshake.query)
-    console.log('this is our room', room)
-  })
-  console.log('a user has connected to socket server')
+    client.on('message', message => {
+      io.emit('serverMessage', message);
+      console.log('message received!!');
+      console.log(client.handshake.query);
+      console.log('this is our room', room);
+    });
+    console.log('a user has connected to socket server');
+  });
 });
-
-// io.on('connection', client => {
-//   // success('client connected');
-//   // const { roomId } = client.handshake.query;
-//   // const room = rooms.findOrCreate(roomId || 'default');
-//   // client.join(room.get('id'));
-
-//   // each(clientEvents, (handler, event) => {
-//   //   client.on(event, handler.bind(null, { io, client, room }));
-//   // });
-//   client.join('lobby');
-//   client.on('message', message => {
-//     io.emit('serverMessage', message);
-//     console.log('message received!!');
-//   });
-//   console.log('a user has connected to socket server');
-// });
 
 const PORT = 8000;
 http.listen(PORT, () => console.log(`socket server listening on port ${PORT}`));
