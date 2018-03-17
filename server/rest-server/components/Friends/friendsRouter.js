@@ -5,7 +5,7 @@ import { friendsController } from './friendsControllers';
 const router = express.Router();
 
 router.route('/addFriend')
-  .post(friendsController);
+  .post(friendsController.addFriend);
 
 router.route('/fetchAllFriends/:user_id')
   .get(friendController);
