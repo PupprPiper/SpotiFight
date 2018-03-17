@@ -30,8 +30,8 @@ function ButtonGrid(props) {
 
       {
         props.players.map((player) => {
-          return (<Grid key={player.userName}  item xs={3}>
-            <Paper className={`${classes.paper}`}>
+          return (<Grid align="center" key={player.userName}  item xs={6}>
+            <Paper className={`${classes.paper}`} style={{ minWidth: '110px', maxWidth:'300px' }}>
                 <img src={player.img} className="buttonCard" />
               <PlayerButton player={player}/>
             </Paper>
