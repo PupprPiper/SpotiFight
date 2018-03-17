@@ -1,23 +1,15 @@
-<<<<<<< HEAD
-require('babel-register')
-require('babel-polyfill')
-const express = require('express')
-const app = express()
-const http = require('http').Server(app)
-const io= require('socket.io')(http)
-
-=======
+require('babel-register');
+require('babel-polyfill');
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
->>>>>>> (feat) basic chat working using sockets
 
 class Rooms {
   constructor(io) {
     this.io = io;
     this.store = new Map();
-    this.findOrCreate = this.findOrCreate.bind(this)
+    this.findOrCreate = this.findOrCreate.bind(this);
   }
 
   findOrCreate(roomId) {
@@ -32,33 +24,8 @@ class Rooms {
   }
 }
 
-const rooms = new Rooms(io)
+const rooms = new Rooms(io);
 
-
-<<<<<<< HEAD
-io.on('connection', (client) => {
-  // success('client connected');
-  // const { roomId } = client.handshake.query;
-  // const room = rooms.findOrCreate(roomId || 'default');
-  // client.join(room.get('id'));
-
-  // each(clientEvents, (handler, event) => {
-  //   client.on(event, handler.bind(null, { io, client, room }));
-  // });
-  console.log('this is our query', client.handshake.query)
-
-  const room = rooms.findOrCreate(client.handshake.query.roomId)
-  client.join(client.handshake.query.roomId)
-
-
-  client.on('message', (message) => {
-    io.emit('serverMessage', message)
-    console.log('message received!!')
-    console.log(client.handshake.query)
-    console.log('this is our room', room)
-  })
-  console.log('a user has connected to socket server')
-=======
 let users = [];
 let connections = [];
 
@@ -77,7 +44,6 @@ io.on('connection', socket => {
     console.log(data);
     io.sockets.emit('new message', { msg: data });
   });
->>>>>>> (feat) basic chat working using sockets
 });
 
 // io.on('connection', client => {
