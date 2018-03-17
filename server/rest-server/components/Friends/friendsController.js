@@ -1,5 +1,5 @@
 module.exports = {
   addFriend: (req, res) => {
-    console.log(req)
+    res.status(200).send('add friend received')
     }
 }
