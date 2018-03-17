@@ -36,7 +36,7 @@ let connections = [];
 io.on('connection', client => {
   if(client.handshake.query.roomName){
     client.join(client.handshake.query.roomName)
-    console.log('inside???: ', client.handshake.query);
+    console.log('inside???: ', client.handshake.query.roomName);
 
   }
   connections.push(client);
@@ -52,7 +52,7 @@ io.on('connection', client => {
   client.on('send message', data => {
     console.log(data);
     // io.sockets.emit('new message', { msg: data });
-    io.to('test').emit('new message', { msg: data });
+    io.in('test').emit('new message', { msg: data });
   });
 
   // join room

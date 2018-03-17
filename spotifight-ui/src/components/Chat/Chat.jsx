@@ -9,7 +9,9 @@ import {
 } from './../Global/Material-Globals';
 import './Chat.scss';
 
-let socket = io.connect('http://localhost:8000');
+let socket = io.connect('http://localhost:8000', {query: {
+  roomName: 'test'
+}});
 
 export default class Chat extends Component {
   constructor() {
