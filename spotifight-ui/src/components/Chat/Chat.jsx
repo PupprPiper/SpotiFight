@@ -9,7 +9,9 @@ import {
 } from './../Global/Material-Globals';
 import './Chat.scss';
 
-let socket = io.connect('http://localhost:8000');
+let socket = io.connect('http://localhost:8000', {query: {
+  roomName: 'test'
+}});
 
 export default class Chat extends Component {
   constructor() {
@@ -22,6 +24,7 @@ export default class Chat extends Component {
 
   componentDidMount() {
     socket.on('new message', data => {
+      console.log('MESSAGED RECIEVED ', data)
       this.setState({
         messages: this.state.messages.concat([data.msg])
       });
