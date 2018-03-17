@@ -18,9 +18,6 @@ export default class Chat extends Component {
       textField: '',
       messages: []
     };
-  }
-
-  componentDidMount() {
     socket.on('new message', data => {
       this.setState({
         messages: this.state.messages.concat([data.msg])

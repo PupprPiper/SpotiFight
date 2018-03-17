@@ -16,13 +16,9 @@ import {
 
 import { toggleMenu } from './../../../actions/index';
 import appRoutes from './../../../routes';
-import TitleBar from './../Navbar/titleBar';
+import TitleBar from './../TitleBar/titleBar';
 
 class Navbar extends Component {
-  componentDidMount() {
-    console.log(TitleBar);
-  }
-
   handleToggle() {
     this.props.toggleMenu(!this.props.menuIsOpen);
   }
@@ -31,28 +27,12 @@ class Navbar extends Component {
     return (
       <div>
         <Drawer width={300} open={this.props.menuIsOpen}>
-          {/* <TitleBar /> */}
-          {/* <TitleBar
-            onClick={this.handleToggle}
-            color={'inherit'}
-            title={'Spotifight'}
-            icon={MenuIcon}
-          /> */}
-
-          <AppBar position="static">
-            <Toolbar>
-              <IconButton
-                onClick={() => this.handleToggle()}
-                color="inherit"
-                aria-label="Menu"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="title" color="inherit">
-                Spotifight
-              </Typography>
-            </Toolbar>
-          </AppBar>
+          <TitleBar
+            handleCLick={() => this.handleToggle()}
+            color="inherit"
+            title="Spotifight"
+            Icon={MenuIcon}
+          />
 
           <List>
             {appRoutes.map((route, index) => {
