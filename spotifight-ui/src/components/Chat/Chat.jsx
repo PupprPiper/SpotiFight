@@ -22,6 +22,7 @@ export default class Chat extends Component {
 
   componentDidMount() {
     socket.on('new message', data => {
+      console.log('MESSAGED RECIEVED ', data)
       this.setState({
         messages: this.state.messages.concat([data.msg])
       });
