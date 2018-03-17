@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MenuIcon } from './components/Global/Material-Globals';
+import { toggleMenu } from './actions/index';
 
 import TitleBar from './components/Global/TitleBar/titleBar';
 import Sidebar from './components/Global/Sidebar/Sidebar';
@@ -12,6 +13,7 @@ import { toggleMenu } from './actions/index';
 class App extends Component {
   handleToggle() {
     this.props.toggleMenu(!this.props.menuIsOpen);
+    console.log(this.props.menuIsOpen);
   }
 
   render() {
@@ -19,7 +21,12 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <div>
-            <TitleBar title="Spotifight" onClick={() => this.handleToggle} color="inherit" Icon={MenuIcon} />
+            <TitleBar
+              title="Spotifight"
+              handleCLick={() => this.handleToggle()}
+              color="inherit"
+              Icon={MenuIcon}
+            />
             <Sidebar />
             <Switch>
               {appRoutes.map((route, index) => {
