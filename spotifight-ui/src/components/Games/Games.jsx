@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-
+import Masher from './Masher/Masher.jsx';
 
 export default class Games extends Component {
   render() {
-    return <div> </div>;
+    return <div>
+      <Masher />
+     </div>;
   }
 }
