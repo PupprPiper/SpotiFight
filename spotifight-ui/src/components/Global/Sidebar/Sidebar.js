@@ -16,10 +16,11 @@ import {
 
 import { toggleMenu } from './../../../actions/index';
 import appRoutes from './../../../routes';
+import TitleBar from './../Navbar/titleBar';
 
 class Navbar extends Component {
-  constructor() {
-    super();
+  componentDidMount() {
+    console.log(TitleBar);
   }
 
   handleToggle() {
@@ -30,6 +31,14 @@ class Navbar extends Component {
     return (
       <div>
         <Drawer width={300} open={this.props.menuIsOpen}>
+          {/* <TitleBar /> */}
+          {/* <TitleBar
+            onClick={this.handleToggle}
+            color={'inherit'}
+            title={'Spotifight'}
+            icon={MenuIcon}
+          /> */}
+
           <AppBar position="static">
             <Toolbar>
               <IconButton
@@ -44,6 +53,7 @@ class Navbar extends Component {
               </Typography>
             </Toolbar>
           </AppBar>
+
           <List>
             {appRoutes.map((route, index) => {
               return (
