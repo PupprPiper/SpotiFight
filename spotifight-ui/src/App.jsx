@@ -8,7 +8,6 @@ import { toggleMenu } from './actions/index';
 import TitleBar from './components/Global/TitleBar/titleBar';
 import Sidebar from './components/Global/Sidebar/Sidebar';
 import appRoutes from './routes';
-import { toggleMenu } from './actions/index';
 
 class App extends Component {
   handleToggle() {
