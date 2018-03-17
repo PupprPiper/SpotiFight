@@ -20,9 +20,6 @@ export default class Chat extends Component {
       textField: '',
       messages: []
     };
-  }
-
-  componentDidMount() {
     socket.on('new message', data => {
       console.log('MESSAGED RECIEVED ', data)
       this.setState({
