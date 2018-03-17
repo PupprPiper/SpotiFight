@@ -5,6 +5,7 @@ const setup = async () => {
   // await queries.createDatabase()
   // await queries.useDatabase()
   await queries.createUserTable()
+  await queries.createFriendsTable()
   process.exit()
 }
 

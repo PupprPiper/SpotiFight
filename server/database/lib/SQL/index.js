@@ -1,43 +1,37 @@
-const db = require('../../config/index')
+const db = require("../../config/index");
 
 module.exports = {
-  createDatabase : async () =>{
+  createDatabase: async () => {
     try {
-    await db.queryAsync(
-      `CREATE DATABASE spotifight`
-    );
-    console.log('successfully started database')
-  } catch(err) {
-    console.log('createdatabase did not work')
-  }
+      await db.queryAsync(`CREATE DATABASE spotifight`);
+      console.log("successfully started database");
+    } catch (err) {
+      console.log("createdatabase did not work");
+    }
   },
 
   dropDatabase: async () => {
-    try{
-    await db.queryAsync(
-    `DROP DATABASE IF EXISTS spotifight`
-    )
-    console.log('successfully dropped database')
-  }catch(err){
-    console.log('drop database did not work')
-  }
+    try {
+      await db.queryAsync(`DROP DATABASE IF EXISTS spotifight`);
+      console.log("successfully dropped database");
+    } catch (err) {
+      console.log("drop database did not work");
+    }
   },
 
   useDatabase: async () => {
-    try{
-    await db.queryAsync(
-      `USE IF EXISTS SPOTIFIGHT`
-    );
-    console.log('YOU ARE USING SPOTIFIGHT DATABASE')
-  } catch(err){
-    console.log('you are not using database')
-  }
+    try {
+      await db.queryAsync(`USE IF EXISTS SPOTIFIGHT`);
+      console.log("YOU ARE USING SPOTIFIGHT DATABASE");
+    } catch (err) {
+      console.log("you are not using database");
+    }
   },
 
   createUserTable: async () => {
-    try{
-    await db.queryAsync(
-      `
+    try {
+      await db.queryAsync(
+        `
       CREATE TABLE IF NOT EXISTS users
       (
       id SERIAL,
@@ -49,10 +43,28 @@ module.exports = {
         PRIMARY KEY(id)
       )
       `
-    );
-    console.log('you created a usertable!')
-  } catch(err){
-  console.log('you did not create a usertable', err)
-}
-}
-}
+      );
+      console.log("you created a usertable!");
+    } catch (err) {
+      console.log("you did not create a usertable", err);
+    }
+  },
+
+  createFriendsTable: async () => {
+    try {
+      await db.queryAsync(
+        `
+    CREATE TABLE IF NOT EXISTS friends
+    (
+    id SERIAL,
+    user_id INT NOT NULL,
+    friend_id INT NOT NULL
+    )
+    `
+      );
+      console.log("you created a friends table!");
+    } catch (err) {
+      console.log("you did not create a friends table", err);
+    }
+  }
+};
