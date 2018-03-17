@@ -1,4 +1,5 @@
-
+require('babel-register');
+require('babel-polyfill');
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
@@ -13,6 +14,11 @@ let users = [];
 let connections = [];
 
 io.on('connection', client => {
+  
+  if(client.handshake.query.roomId){
+    client.join(client.handshake.query.roomId)
+    console.log('new user has joined room: ', client.handshake.query.roomId);
+  }
   connections.push(client);
   console.log(`Connected %s clients connected ${connections.length}`);
 
@@ -25,34 +31,19 @@ io.on('connection', client => {
   // send message
   client.on('send message', data => {
     console.log(data);
-    // io.sockets.emit('new message', { msg: data });
-    io.in('test').emit('new message', { msg: data });
+    io.in(client.handshake.query.roomId).emit('new message', { msg: data });
   });
 
-io.on('connection', (client) => {
-  // success('client connected');
-  // const { roomId } = client.handshake.query;
-  // const room = rooms.findOrCreate(roomId || 'default');
-  // client.join(room.get('id'));
-
-  // each(clientEvents, (handler, event) => {
-  //   client.on(event, handler.bind(null, { io, client, room }));
-  // });
-  console.log('this is our query', client.handshake.query)
-
-  const room = rooms.findOrCreate(client.handshake.query.roomId)
-  client.join(client.handshake.query.roomId)
-
-
-  client.on('game', (message) => {
-    io.emit('serverMessage', message)
-    console.log('message received!!')
-    console.log(client.handshake.query)
-    console.log('this is our room', room)
+  client.on('startGameHost', data =>{
+    console.log(data);
+    io.in(client.handshake.query.roomId).emit('startGameAll', data)
   })
-  console.log('a user has connected to socket server')
-});
+
+
 })
+
+
 
 const PORT = 8000;
 http.listen(PORT, () => console.log(`socket server listening on port ${PORT}`));
+
