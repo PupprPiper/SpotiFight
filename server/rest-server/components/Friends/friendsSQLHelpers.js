@@ -15,6 +15,16 @@ module.exports  = {
     (user_id=${req.body.friend_id} AND friend_id=${req.body.user_id})
     RETURNING id, user_id, friend_id
   `
+  },
+  
+  fetchAllFriendsHelper:  (req) => {
+    return `
+      SELECT u.id, u.username, u.wins, u.losses
+      FROM users AS u
+        INNER JOIN friends AS f
+        ON (u.id = f.friend_id)
+        WHERE f.user_id=${req.body.user_id}
+    `
   }
 
 }
