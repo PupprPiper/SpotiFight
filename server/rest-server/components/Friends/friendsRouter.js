@@ -8,10 +8,10 @@ const router = express.Router();
 router.route('/addFriend')
   .post(friendsController.addFriend);
 
-// router.route('/fetchAllFriends/:user_id')
-//   .get(friendsController.fetchAllFriends);
+router.route('/fetchAllFriends/:user_id')
+  .get(friendsController.fetchAllFriends);
 
-// router.route('/deleteFriend/:user_id/:friend_id')
-//   .delete(friendController.deleteFriend);
+router.route('/deleteFriend/:user_id/:friend_id')
+  .delete(friendsController.deleteFriend);
 
 module.exports = router;

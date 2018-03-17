@@ -1,5 +1,11 @@
 module.exports = {
   addFriend: (req, res) => {
-    res.status(200).send('add friend received')
-    }
-}
+    res.send("add friend received");
+  },
+  deleteFriend: (req, res) => {
+    res.send("delete friend received");
+  },
+  fetchAllFriends: (req, res) => {
+    res.send('fetch all friends received')
+  }
+};
