@@ -1,17 +1,31 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { MenuIcon } from './components/Global/Material-Globals';
+import { toggleMenu } from './actions/index';
 
-import Navbar from './components/Global/Navbar/navbar';
+import TitleBar from './components/Global/TitleBar/titleBar';
 import Sidebar from './components/Global/Sidebar/Sidebar';
 import appRoutes from './routes';
 
-export default class App extends Component {
+class App extends Component {
+  handleToggle() {
+    this.props.toggleMenu(!this.props.menuIsOpen);
+    console.log(this.props.menuIsOpen);
+  }
+
   render() {
     return (
       <div>
         <BrowserRouter>
           <div>
-            <Navbar />
+            <TitleBar
+              title="Spotifight"
+              handleCLick={() => this.handleToggle()}
+              color="inherit"
+              Icon={MenuIcon}
+            />
             <Sidebar />
             <Switch>
               {appRoutes.map((route, index) => {
@@ -30,3 +44,15 @@ export default class App extends Component {
     );
   }
 }
+
+const mapStateToProps = function(state) {
+  return {
+    menuIsOpen: state.menuIsOpen
+  };
+};
+
+const mapDispatchToProps = function(dispatch) {
+  return bindActionCreators({ toggleMenu }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
