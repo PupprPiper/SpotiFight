@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ButtonGrid from './ButtonGrid.jsx';
 import players from './seed.js';
 import Subheader from 'material-ui/List/ListSubheader';
+import './Masher.scss';
 
 
 import {
@@ -63,7 +64,7 @@ export default class Masher extends Component {
       'I AM IN MASHER'
     }
     return <div>
-    <Subheader>{this.state.counter}</Subheader>  
+    <div align="center" className="flipInY masher-counter">{this.state.counter}</div>
       <ButtonGrid players={this.state.players}/>
     </div>;
   }
