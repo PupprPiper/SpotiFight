@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import io from "socket.io-client";
 import Lobby from '../Lobby/Lobby.jsx'
 import Chat from '../Chat/Chat.jsx'
-
+import Masher from '../Games/Masher/Masher.jsx'
 export default class GameRoom extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +10,7 @@ export default class GameRoom extends Component {
       socket: null,
       test: "",
       currRoom: Lobby,
+      selectedGame: 'Masher'
     };
    
   }
@@ -21,18 +22,18 @@ export default class GameRoom extends Component {
     
     
     this.socket.on('startGameAll', (data)=> {
-
-      this.setState({currRoom: data})
+      
+      this.setState({currRoom: Masher})
     })
     // this.socket.on("serverMessage", data => {
     //   this.setState({ test: data });
     // });
   }
   startGame() {
-    this.socket.emit('startGameHost', ()=> {
-      
-    })
-  
+    this.socket.emit('startGameHost', 
+     this.state.selectedGame
+    )
+    this.setState({currRoom: Masher})
   }
   render() {
     return (
