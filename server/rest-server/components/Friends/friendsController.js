@@ -1,5 +1,8 @@
+const helpers = require('./friendsSQLHelpers');
+
 module.exports = {
   addFriend: (req, res) => {
+    console.log(req.body)
     res.send("add friend received");
   },
   deleteFriend: (req, res) => {
