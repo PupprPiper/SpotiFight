@@ -78,6 +78,7 @@ io.on('connection', (client) => {
   })
   console.log('a user has connected to socket server')
 });
+})
 
 // io.on('connection', client => {
 //   // success('client connected');
