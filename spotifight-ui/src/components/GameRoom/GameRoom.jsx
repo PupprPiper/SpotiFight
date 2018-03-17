@@ -3,6 +3,11 @@ import io from "socket.io-client";
 import Lobby from '../Lobby/Lobby.jsx'
 import Chat from '../Chat/Chat.jsx'
 import Masher from '../Games/Masher/Masher.jsx'
+
+const games = {
+'Masher': Masher
+
+}
 export default class GameRoom extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +28,7 @@ export default class GameRoom extends Component {
     
     this.socket.on('startGameAll', (data)=> {
       
-      this.setState({currRoom: Masher})
+      this.setState({currRoom: games[this.state.selectedGame]})
     })
     // this.socket.on("serverMessage", data => {
     //   this.setState({ test: data });
@@ -31,9 +36,9 @@ export default class GameRoom extends Component {
   }
   startGame() {
     this.socket.emit('startGameHost', 
-     this.state.selectedGame
+    this.state.selectedGame
     )
-    this.setState({currRoom: Masher})
+  this.setState({currRoom: games[this.state.selectedGame]})
   }
   render() {
     return (
