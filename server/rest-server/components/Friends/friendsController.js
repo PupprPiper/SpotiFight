@@ -2,7 +2,7 @@ const helpers = require('./friendsSQLHelpers');
 
 module.exports = {
   addFriend: (req, res) => {
-    console.log(req.body)
+    helpers.addFriendHelper(req)
     res.send("add friend received");
   },
   deleteFriend: (req, res) => {
