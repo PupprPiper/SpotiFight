@@ -16,7 +16,7 @@ router.use('/friends', friendsRouter);
 router.use('/spotify', spotifyRouter);
 
 // auth route
-router.use('/auth', authRouter);
+// router.use('/auth', authRouter);
 
 
 
