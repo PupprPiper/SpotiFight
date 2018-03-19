@@ -35,7 +35,7 @@ export default class Lobby extends Component {
         }&type=track`,
         headers: {
           Authorization:
-            "Bearer " + token
+            "Bearer " + token.data
         }
       }).then(data => {
         console.log(data);
