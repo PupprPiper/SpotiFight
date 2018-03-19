@@ -2,20 +2,19 @@ const helpers = require('./friendsSQLHelpers');
 const db = require('../../../database/config')
 
 module.exports = {
-  addFriend: (req, res) => {
-    console.log(req.url)
+  addFriend: async (req, res) => {
     var queryString = helpers.addFriendHelper(req);
-    db.queryAsync(queryString)
+    var data = await db.queryAsync(queryString)
     res.send("add friend received");
   },
-  deleteFriend: (req, res) => {
+  deleteFriend: async (req, res) => {
     var queryString = helpers.deleteFriendHelper(req);
-    db.queryAsync(queryString)
+    var data = await db.queryAsync(queryString)
     res.send("delete friend received");
   },
-  fetchAllFriends: (req, res) => {
+  fetchAllFriends: async (req, res) => {
     var queryString = helpers.fetchAllFriendsHelper(req);
-    db.queryAsync(queryString)
-    res.send('fetch all friends received')
+    var data = await db.queryAsync(queryString)
+    res.send(data.rows)
   }
 };

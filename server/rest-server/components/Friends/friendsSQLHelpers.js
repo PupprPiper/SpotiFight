@@ -23,7 +23,7 @@ module.exports  = {
       FROM users AS u
         INNER JOIN friends AS f
         ON (u.id = f.friend_id)
-        WHERE f.user_id=${req.body.user_id}
+        WHERE f.user_id=${req.params.user_id}
     `
   }
 
