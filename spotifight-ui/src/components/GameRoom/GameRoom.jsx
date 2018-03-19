@@ -20,6 +20,8 @@ export default class GameRoom extends Component {
    
   }
   componentDidMount() {
+
+    
     this.socket = io.connect("http://localhost:8000", {
       query: { roomId: this.props.location.pathname.slice(11) }
     });
