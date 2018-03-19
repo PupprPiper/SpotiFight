@@ -24,6 +24,7 @@ import LeaderBoard from './components/LeaderBoard/LeaderBoard';
 import Lobby from './components/Lobby/Lobby';
 import MusicPlayer from './components/MusicPlayer/MusicPlayer';
 import UserProfile from './components/UserProfile/UserProfile';
+import Friends from './components/Friends/Friends';
 
 const appRoutes = [
   {
@@ -31,6 +32,12 @@ const appRoutes = [
     sidebarName: 'Home',
     icon: HomeIcon,
     component: Home
+  },
+  {
+    path: '/friends',
+    sidebarName: 'Friends',
+    icon: Person,
+    component: Friends
   },
   {
     path: '/chat',
