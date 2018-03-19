@@ -120,22 +120,32 @@ module.exports = {
       console.log('error dropping favorite_songs table ', err)
     }
   },
-  createHistoryTable: async () => {
-    try {
-      await db.queryAsync(
-        `
-    CREATE TABLE IF NOT EXISTS history
-    (
-      id SERIAL,
-      song_name VARCHAR(100),
-      user_id INT NOT NULL,
-      FOREIGN KEY(user_id) REFERENCES users(id)
-    )
-    `
-      );
-      console.log("you created a friends table!");
-    } catch (err) {
-      console.log("you did not create a friends table", err);
-    }
-  }
+  // fix this later 
+  // createHistoryTable: async () => {
+  //   try {
+  //     await db.queryAsync(
+  //       `
+  //   CREATE TABLE IF NOT EXISTS history
+  //   (
+  //     id SERIAL,
+  //     game_name VARCHAR(100),
+  //     winner_id INT NOT NULL,
+  //     FOREIGN KEY(winner_id) REFERENCES users(id)
+  //   )
+  //   `
+  //     );
+  //     console.log("you created a friends table!");
+  //   } catch (err) {
+  //     console.log("you did not create a friends table", err);
+  //   }
+  // },
+  // dropHistoryTable: async () => {
+  //   try{
+  //     await db.queryAsync(
+  //       `DROP TABLE IF EXISTS history`
+  //     )
+  //   } catch(err){
+  //     console.log('error dropping history table ', err)
+  //   }
+  // }
 };
