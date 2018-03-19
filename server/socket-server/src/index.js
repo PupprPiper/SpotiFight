@@ -42,8 +42,6 @@ io.on('connection', client => {
 
 })
 
-
-
 const PORT = 8000;
 http.listen(PORT, () => console.log(`socket server listening on port ${PORT}`));
 
