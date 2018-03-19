@@ -1,4 +1,4 @@
-const helpers = require('./friendsSQLHelpers');
+const helpers = require('./userSQLHelpers');
 const db = require('../../../database/config')
 
 module.exports = {
