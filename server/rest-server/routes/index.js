@@ -11,7 +11,7 @@ router.use('/users', userRouter);
 // router.use('/leaderboard', leaderboardRouter);
 
 // auth route
-router.use('/auth', authRouter);
+// router.use('/auth', authRouter);
 
 
 
