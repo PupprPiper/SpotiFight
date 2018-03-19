@@ -15,9 +15,10 @@ export default class GameRoom extends Component {
       socket: null,
       test: "",
       currRoom: Lobby,
-      selectedGame: 'Masher'
+      selectedGame: 'Masher',
+      players: []
     };
-   
+
   }
   componentDidMount() {
 
@@ -26,10 +27,10 @@ export default class GameRoom extends Component {
       query: { roomId: this.props.location.pathname.slice(11) }
     });
     this.setState({ socket: this.socket });
-    
-    
+
+
     this.socket.on('startGameAll', (data)=> {
-      
+
       this.setState({currRoom: games[this.state.selectedGame]})
     })
     // this.socket.on("serverMessage", data => {
@@ -37,7 +38,7 @@ export default class GameRoom extends Component {
     // });
   }
   startGame() {
-    this.socket.emit('startGameHost', 
+    this.socket.emit('startGameHost',
     this.state.selectedGame
     )
   this.setState({currRoom: games[this.state.selectedGame]})
