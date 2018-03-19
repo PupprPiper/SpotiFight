@@ -40,7 +40,7 @@ module.exports = {
       wins INT NOT NULL,
       losses INT NOT NULL,
       CONSTRAINT users_pk
-        PRIMARY KEY(id)
+      PRIMARY KEY(id)
       )
       `
       );
