@@ -1,7 +1,15 @@
-const addUserQuery = require('./userQueries')
+const helpers = require('./userSQLHelpers');
+const db = require('../../../database/config')
 
-const addUserController = async(req, res) => {
-
+module.exports = {
+  addUser: async(req, res) => {
+    var queryString = helpers.addUserHelper(req);
+    var data = await db.queryAsync(queryString);
+    res.send('add user received')
+  },
+  fetchAllUsers: async(req, res) => {
+    var queryString = helpers.fetchAllUsersHelper(req);
+    var data = await db.queryAsync(queryString);
+    res.send('add user received')
+  }
 }
-
-module.exports.addUserController = addUserController;

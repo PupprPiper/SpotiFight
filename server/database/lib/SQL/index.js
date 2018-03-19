@@ -4,9 +4,9 @@ module.exports = {
   createDatabase: async () => {
     try {
       await db.queryAsync(`CREATE DATABASE spotifight`);
-      console.log("successfully started database");
+      console.log("successfully created database");
     } catch (err) {
-      console.log("createdatabase did not work");
+      console.log("error creating database ", err);
     }
   },
 
@@ -15,7 +15,7 @@ module.exports = {
       await db.queryAsync(`DROP DATABASE IF EXISTS spotifight`);
       console.log("successfully dropped database");
     } catch (err) {
-      console.log("drop database did not work");
+      console.log("error dropping database ", err);
     }
   },
 
@@ -24,7 +24,7 @@ module.exports = {
       await db.queryAsync(`USE IF EXISTS SPOTIFIGHT`);
       console.log("YOU ARE USING SPOTIFIGHT DATABASE");
     } catch (err) {
-      console.log("you are not using database");
+      console.log("error using database ", err);
     }
   },
 
@@ -37,6 +37,8 @@ module.exports = {
       id SERIAL,
       email VARCHAR(255) UNIQUE NOT NULL,
       username VARCHAR(255) UNIQUE NOT NULL,
+      status VARCHAR(140),
+      avatar_url TEXT,
       wins INT NOT NULL,
       losses INT NOT NULL,
       CONSTRAINT users_pk
@@ -46,7 +48,16 @@ module.exports = {
       );
       console.log("you created a usertable!");
     } catch (err) {
-      console.log("you did not create a usertable", err);
+      console.log("error creating user table", err);
+    }
+  },
+  dropUserTable: async () => {
+    try {
+      await db.queryAsync(
+        `DROP TABLE IF EXISTS users`
+      );
+    } catch (err) {
+      console.log('error dropping users table ', err)
     }
   },
 
@@ -72,5 +83,69 @@ module.exports = {
     } catch (err) {
       console.log("you did not create a friends table", err);
     }
-  }
+  },
+  dropFriendsTable: async () => {
+    try{
+      await db.queryAsync(
+        `DROP TABLE IF EXISTS friends`
+      )
+    } catch(err){
+      console.log('error dropping friends table ', error)
+    }
+  },
+  createFavoriteSongsTable: async () => {
+    try {
+      await db.queryAsync(
+        `
+    CREATE TABLE IF NOT EXISTS favorite_songs
+    (
+      id SERIAL,
+      song_name VARCHAR(100),
+      user_id INT NOT NULL,
+      FOREIGN KEY(user_id) REFERENCES users(id)
+    )
+    `
+      );
+      console.log("you created a friends table!");
+    } catch (err) {
+      console.log("you did not create a friends table", err);
+    }
+  },
+  dropFavoriteSongsTable: async () => {
+    try{
+      await db.queryAsync(
+        `DROP TABLE IF EXISTS favorite_songs`
+      )
+    } catch(err){
+      console.log('error dropping favorite_songs table ', err)
+    }
+  },
+  // fix this later 
+  // createHistoryTable: async () => {
+  //   try {
+  //     await db.queryAsync(
+  //       `
+  //   CREATE TABLE IF NOT EXISTS history
+  //   (
+  //     id SERIAL,
+  //     game_name VARCHAR(100),
+  //     winner_id INT NOT NULL,
+  //     FOREIGN KEY(winner_id) REFERENCES users(id)
+  //   )
+  //   `
+  //     );
+  //     console.log("you created a friends table!");
+  //   } catch (err) {
+  //     console.log("you did not create a friends table", err);
+  //   }
+  // },
+  // dropHistoryTable: async () => {
+  //   try{
+  //     await db.queryAsync(
+  //       `DROP TABLE IF EXISTS history`
+  //     )
+  //   } catch(err){
+  //     console.log('error dropping history table ', err)
+  //   }
+  // }
 };
