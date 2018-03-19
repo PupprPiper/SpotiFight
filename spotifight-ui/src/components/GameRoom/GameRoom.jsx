@@ -16,25 +16,49 @@ export default class GameRoom extends Component {
       socket: null,
       test: "",
       currRoom: Lobby,
+<<<<<<< HEAD
       selectedGame: "Masher"
     };
+=======
+      selectedGame: 'Masher',
+      players: []
+    };
+
+>>>>>>> little bit of socket logic
   }
   async componentWillMount() {
     this.socket = await io.connect("http://localhost:8000", {
       query: { roomId: this.props.location.pathname.slice(11) }
     });
+<<<<<<< HEAD
     await this.setState({ socket: this.socket });
 
     this.socket.on("startGameAll", data => {
       this.setState({ currRoom: games[this.state.selectedGame] });
     });
+=======
+    this.setState({ socket: this.socket });
+
+
+    this.socket.on('startGameAll', (data)=> {
+
+      this.setState({currRoom: games[this.state.selectedGame]})
+    })
+>>>>>>> little bit of socket logic
     // this.socket.on("serverMessage", data => {
     //   this.setState({ test: data });
     // });
   }
   startGame() {
+<<<<<<< HEAD
     this.socket.emit("startGameHost", this.state.selectedGame);
     this.setState({ currRoom: games[this.state.selectedGame] });
+=======
+    this.socket.emit('startGameHost',
+    this.state.selectedGame
+    )
+  this.setState({currRoom: games[this.state.selectedGame]})
+>>>>>>> little bit of socket logic
   }
   render() {
     return (
