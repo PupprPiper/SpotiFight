@@ -10,8 +10,8 @@ export default class Friends extends Component {
     };
   }
 
-  async addFriend() {
-    var allUsers = await axios.get('http://localhost:3000/friends/fetchAllUsers');
+  addFriend() {
+    var allUsers =  axios.get('http://localhost:3000/friends/fetchAllUsers');
     var user = allUsers.data.rows.filter(user => user.username === this.state.input);
     if(user[0].id){
       var body = {
@@ -23,13 +23,13 @@ export default class Friends extends Component {
     this.fetchAllFriends();
   }
 
-  async fetchAllFriends() {
-    var allFriends = await axios.get(`http://localhost:3000/friends/fetchAllFriends/${this.state.user_id}`)
+  fetchAllFriends () {
+    var allFriends =  axios.get(`http://localhost:3000/friends/fetchAllFriends/${this.state.user_id}`)
     this.setState({friends: allFriends.data})
   }
 
   componentDidMount() {
-    this.fetchAllFriends()
+    // this.fetchAllFriends()
   }
 
   render() {
