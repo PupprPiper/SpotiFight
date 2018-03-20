@@ -48,29 +48,26 @@ export default class GameRoom extends Component {
   render() {
     return (
       <div>
-        <this.state.currRoom socket={this.state.socket} />
+        <this.state.currRoom socket={this.state.socket}
+        userImg={this.state.userImg}
+        localUser={this.state.localUser}
+        />
         <Grid container>
           <Grid item md={5}/>
-
             <Grid item md={2}>
               <Button
                 variant="raised"
                 color="secondary"
-                onClick={() => this.startGame()}
-              >
-
+                onClick={() => this.startGame()} >
                 START GAME
               </Button>
             </Grid>
             <Grid item md={5}/>
           </Grid>
 
-       < this.state.currRoom
-       localUser={this.state.localUser}
-       socket={this.state.socket}
-     userImg={this.state.userImg} />
 
-        <input type="submit" value = 'START' onClick={() => this.startGame()} />
+
+
       </div>
     );
   }
