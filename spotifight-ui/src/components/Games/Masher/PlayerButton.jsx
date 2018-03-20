@@ -22,7 +22,7 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     minWidth: 300,
-    width: '100%',
+    width: '100%'
   },
   image: {
     position: 'relative',
@@ -89,9 +89,6 @@ const styles = theme => ({
   }
 });
 
-
-
-
 const images = [
   {
     url: '/static/images/grid-list/breakfast.jpg',
@@ -116,45 +113,50 @@ class PlayerButton extends Component {
       score: this.props.player.score,
       scoreDisplay: 0,
       player: this.props.player.userName,
-      socket: this.props.socket,
-
-
+      socket: this.props.socket
     }
 
-    this.props.socket.on('displayUpdate', data=> {
-        if (this.state.player = data.player) {
-          this.setState({scoreDisplay: data.score[this.props.player.userName]});
-        }
-      })
+    this.clearGameBoard = this.clearGameBoard.bind(this);
+    this.buildGameBoard = this.buildGameBoard.bind(this);
 
+    this.props.socket.on('displayUpdate', data => {
+      if (this.state.player = data.player) {
+        this.setState({
+          scoreDisplay: data.score[this.props.player.userName]
+        });
+      }
+    });
 
   }
 
+  clearGameBoard() {
+    this.props.socket.emit('clearBoard', {})
+  }
 
-componentWillMount() {
-    this.props.socket.emit('clearBoard');
+  buildGameBoard() {
+    this.props.socket.emit('buildBoard', {
+      localUser: this.props.player.userName,
+      score: this.state.score
+    });
+  }
 
+  componentWillMount() {
+    this.clearGameBoard();
+  }
 
-}
+  componentDidMount() {
+    this.buildGameBoard();
+  }
 
-componentDidMount() {
-      this.props.socket.emit('buildBoard', {localUser: this.props.player.userName, score: this.state.score});
-}
-
-      updateScore () {
-        let socket = this.state.socket;
-        this.props.socket.emit('updateScore', {localUser: this.props.player.userName});
-
-      }
-
+  updateScore() {
+    let socket = this.state.socket;
+    this.props.socket.emit('updateScore', {localUser: this.props.player.userName});
+  }
 
   render(props) {
-    {
-      // console.log(this.props.socket, 'IN BUTTON ACTUAL');
-    }
     return (<div className="btn-div">
-    <Subheader>{this.props.player.userName}</Subheader>
-      <button className="btn draw-border" onClick={()=> this.updateScore()}>{this.state.scoreDisplay}</button>
+      <Subheader>{this.props.player.userName}</Subheader>
+      <button className="btn draw-border" onClick={() => this.updateScore()}>{this.state.scoreDisplay}</button>
     </div>);
   }
 }

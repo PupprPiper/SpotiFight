@@ -57,7 +57,6 @@ export default class Masher extends Component {
     var id = setInterval(()=> this.countdown(), 1000);
     if (this.counter === 0) {
       clearInterval(id);
-
     }
 
   }
