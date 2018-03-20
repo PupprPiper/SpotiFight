@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
-import Lobby from '../Lobby/Lobby.jsx'
-import Chat from '../Chat/Chat.jsx'
-import Masher from '../Games/Masher/Masher.jsx'
+import Lobby from "../Lobby/Lobby.jsx";
+import Chat from "../Chat/Chat.jsx";
+import Masher from "../Games/Masher/Masher.jsx";
+import Button from "material-ui/Button";
+import Grid from "material-ui/Grid";
 
 const games = {
-'Masher': Masher
-
-}
+  Masher: Masher
+};
 export default class GameRoom extends Component {
   constructor(props) {
     super(props);
@@ -15,39 +16,46 @@ export default class GameRoom extends Component {
       socket: null,
       test: "",
       currRoom: Lobby,
-      selectedGame: 'Masher'
+      selectedGame: "Masher"
     };
-   
   }
-  componentDidMount() {
-
-    
-    this.socket = io.connect("http://localhost:8000", {
+  async componentWillMount() {
+    this.socket = await io.connect("http://localhost:8000", {
       query: { roomId: this.props.location.pathname.slice(11) }
     });
-    this.setState({ socket: this.socket });
-    
-    
-    this.socket.on('startGameAll', (data)=> {
-      
-      this.setState({currRoom: games[this.state.selectedGame]})
-    })
+    await this.setState({ socket: this.socket });
+
+    this.socket.on("startGameAll", data => {
+      this.setState({ currRoom: games[this.state.selectedGame] });
+    });
     // this.socket.on("serverMessage", data => {
     //   this.setState({ test: data });
     // });
   }
   startGame() {
-    this.socket.emit('startGameHost', 
-    this.state.selectedGame
-    )
-  this.setState({currRoom: games[this.state.selectedGame]})
+    this.socket.emit("startGameHost", this.state.selectedGame);
+    this.setState({ currRoom: games[this.state.selectedGame] });
   }
   render() {
     return (
       <div>
-
-       < this.state.currRoom/>
-        <input type="submit" value = 'START' onClick={() => this.startGame()} />
+        <this.state.currRoom socket={this.state.socket} />
+        <Grid container>
+          <Grid item md={5}/>
+          
+            <Grid item md={2}>
+              <Button
+                variant="raised"
+                color="secondary"
+                onClick={() => this.startGame()}
+              >
+                {" "}
+                START GAME
+              </Button>
+            </Grid>
+            <Grid item md={5}/>
+          </Grid>
+        
       </div>
     );
   }
