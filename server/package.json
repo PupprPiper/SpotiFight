@@ -7,7 +7,11 @@
     "start:all": "babel-node database/config/setup.js && nodemon rest-server/index.js",
     "start": "nodemon rest-server/index.js",
     "start:db": "babel-node database/config/setup.js",
+<<<<<<< HEAD
     "socket":  "nodemon socket-server/src/index.js"
+=======
+    "socket": "nodemon socket-server/src/index.js"
+>>>>>>> fixed up lobby and games
   },
   "dependencies": {
     "axios": "^0.18.0",
