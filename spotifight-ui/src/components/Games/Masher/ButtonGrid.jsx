@@ -13,14 +13,15 @@ const styles = theme => ({
   paper: {
     padding: theme.spacing.unit * 2,
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
+
   }
 });
 
 function ButtonGrid(props) {
 
   {
-    console.log(props.players, 'IN BUTTON GRID')
+    console.log(props, 'IN BUTTON GRID')
   }
 
   const {classes} = props;
@@ -33,7 +34,7 @@ function ButtonGrid(props) {
           return (<Grid align="center" key={player.userName}  item xs={6}>
             <Paper className={`${classes.paper}`} style={{ minWidth: '110px', maxWidth:'300px' }}>
                 <img src={player.img} className="buttonCard" />
-              <PlayerButton player={player}/>
+              <PlayerButton player={player} socket={props.socket}/>
             </Paper>
           </Grid>)
         })
