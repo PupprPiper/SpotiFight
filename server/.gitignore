@@ -1,4 +1,6 @@
 /node_modules
+/environment/keys.js
 .DS_Store
 yarn.lock
 yarn-error.log
+package-lock.json

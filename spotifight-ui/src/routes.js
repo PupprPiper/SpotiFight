@@ -15,6 +15,8 @@ import {
 } from 'material-ui-icons';
 
 import Auth from './components/Auth/Auth';
+import Login from './components/Auth/Login';
+import Signup from './components/Auth/Signup';
 import Chat from './components/Chat/Chat';
 import GameRoom from './components/GameRoom/GameRoom';
 import Games from './components/Games/Games';
@@ -38,6 +40,18 @@ const appRoutes = [
     sidebarName: 'Friends',
     icon: Person,
     component: Friends
+  },
+  {
+    path: '/signup',
+    sidebarName: 'Signup',
+    icon: AccountBox,
+    component: Signup
+  },
+  {
+    path: '/login',
+    sidebarName: 'Login',
+    icon: AccountBox,
+    component: Login
   },
   {
     path: '/chat',

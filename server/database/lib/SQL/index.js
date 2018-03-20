@@ -38,7 +38,7 @@ module.exports = {
       email VARCHAR(255) UNIQUE NOT NULL,
       username VARCHAR(255) UNIQUE NOT NULL,
       status VARCHAR(140),
-      avatar_url TEXT,
+      avatar_url VARCHAR(255),
       wins INT NOT NULL,
       losses INT NOT NULL,
       CONSTRAINT users_pk

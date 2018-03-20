@@ -12,7 +12,6 @@ import appRoutes from './routes';
 class App extends Component {
   handleToggle() {
     this.props.toggleMenu(!this.props.menuIsOpen);
-    console.log(this.props.menuIsOpen);
   }
 
   render() {
