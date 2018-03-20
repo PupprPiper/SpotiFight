@@ -18,8 +18,7 @@ export default class Lobby extends Component {
     this.searchSong = this.searchSong.bind(this);
   }
   componentDidMount() {
-    // this.socket = io.connect("http://localhost:8000");
-    // this.setState({ socket: this.socket });
+
   }
 
   searchSong() {
