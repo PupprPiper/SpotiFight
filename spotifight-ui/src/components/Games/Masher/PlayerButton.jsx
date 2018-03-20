@@ -89,6 +89,9 @@ const styles = theme => ({
   }
 });
 
+
+
+
 const images = [
   {
     url: '/static/images/grid-list/breakfast.jpg',
@@ -111,23 +114,47 @@ class PlayerButton extends Component {
     super(props)
     this.state = {
       score: this.props.player.score,
-      player: this.props.player.userName
+      scoreDisplay: 0,
+      player: this.props.player.userName,
+      socket: this.props.socket,
+
+
     }
+
+    this.props.socket.on('displayUpdate', data=> {
+        if (this.state.player = data.player) {
+          this.setState({scoreDisplay: data.score[this.props.player.userName]});
+        }
+      })
+
+
   }
 
 
+componentWillMount() {
+    this.props.socket.emit('clearBoard');
+
+
+}
+
+componentDidMount() {
+      this.props.socket.emit('buildBoard', {localUser: this.props.player.userName, score: this.state.score});
+}
+
       updateScore () {
-        this.setState({score: this.state.score +=1})
+        let socket = this.state.socket;
+        this.props.socket.emit('updateScore', {localUser: this.props.player.userName});
+
       }
 
 
   render(props) {
     {
-      console.log(this.props.players, 'IN BUTTON ACTUAL');
+      // console.log(this.props.socket, 'IN BUTTON ACTUAL');
     }
     return (<div className="btn-div">
-    <Subheader>{this.state.player}</Subheader>
-      <button className="btn draw-border" onClick={()=> this.updateScore()}>{this.state.score}</button>
+    <Subheader>{this.props.player.userName}</Subheader>
+      <button className="btn draw-border" onClick={()=> this.updateScore()}>{this.state.scoreDisplay}</button>
     </div>);
   }
 }

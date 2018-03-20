@@ -7,7 +7,6 @@ import Grid from "material-ui/Grid";
 export default class Lobby extends Component {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
     this.state = {
       socket: "",
       songURI: null,
@@ -30,7 +29,12 @@ export default class Lobby extends Component {
           this.state.searchQuery
         }&type=track`,
         headers: {
+<<<<<<< HEAD
           Authorization: "Bearer " + token.data
+=======
+          Authorization:
+            "Bearer " + token.data
+>>>>>>> functional socket game
         }
       }).then(data => {
         console.log(data);
@@ -39,6 +43,10 @@ export default class Lobby extends Component {
           songPreview: data.data.tracks.items[0].preview_url
         });
       });
+<<<<<<< HEAD
+=======
+
+>>>>>>> functional socket game
     });
   }
 
@@ -46,22 +54,6 @@ export default class Lobby extends Component {
     this.setState({
       searchQuery: e.target.value
     });
-=======
-    this.state = {socket: ''
-    socketID = '',
-
-
-    }
-  }
-  componentDidMount() {
-    this.socket = io.connect("http://localhost:8000");
-    this.setState({socket: this.socket,
-                   socketID: this.socket.id,
-                   
-
-        })
-    console.log(this.socket,'here is my socket Id')
->>>>>>> little bit of socket logic
   }
   render() {
     return (
