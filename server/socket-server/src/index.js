@@ -31,7 +31,7 @@ io.on('connection', client => {
   // send message
   client.on('send message', data => {
     console.log(data);
-    io.in(client.handshake.query.roomId).emit('new message', { msg: data });
+    io.in(client.handshake.query.roomId).emit('newMessage', { msg: data });
   });
 
   client.on('startGameHost', data =>{

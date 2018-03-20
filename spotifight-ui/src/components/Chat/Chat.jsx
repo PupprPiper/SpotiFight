@@ -1,38 +1,44 @@
-import React, { Component } from 'react';
-import io from 'socket.io-client';
+import React, { Component } from "react";
+import io from "socket.io-client";
 import {
   Button,
   TextField,
   Grid,
   Paper,
   Icon
-} from './../Global/Material-Globals';
-import './Chat.scss';
+} from "./../Global/Material-Globals";
+import "./Chat.scss";
 
-let socket = io.connect('http://localhost:8000', {query: {
-  roomName: 'test'
-}});
+// let socket = io.connect('http://localhost:8000', {query: {
+//   roomName: 'test'
+// }});
 
 export default class Chat extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      textField: '',
+      textField: "",
       messages: []
     };
-    socket.on('new message', data => {
-      console.log('MESSAGED RECIEVED ', data)
-      this.setState({
-        messages: this.state.messages.concat([data.msg])
-      });
-    });
   }
-
+  componentDidUpdate(prevProps) {
+    
+    if (prevProps.socket !== this.props.socket) {
+      !this.props.socket
+        ? console.log("didnt mount")
+        : this.props.socket.on("newMessage", data => {
+            console.log("MESSAGED RECIEVED ", data);
+            this.setState({
+              messages: this.state.messages.concat([data.msg])
+            });
+          });
+    }
+  }
   handleSend() {
     this.state.textField
-      ? socket.emit('send message', this.state.textField)
-      : console.log('text field empty');
-    this.setState({ textField: '' });
+      ? this.props.socket.emit("send message", this.state.textField)
+      : console.log("text field empty");
+    this.setState({ textField: "" });
   }
 
   setTextField(e) {
@@ -46,10 +52,9 @@ export default class Chat extends Component {
   render() {
     return (
       <div className="chat">
+       
         <Grid container spacing={24}>
-          <Grid item xs={12} sm={4}>
-            <Paper>users go here</Paper>
-          </Grid>
+          <Grid item xs={12} sm={4} />
           <Grid item xs={12} sm={8}>
             <div>
               {this.state.messages.map((message, index) => {

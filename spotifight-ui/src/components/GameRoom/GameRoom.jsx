@@ -19,13 +19,13 @@ export default class GameRoom extends Component {
     };
    
   }
-  componentDidMount() {
+  async componentWillMount() {
 
     
-    this.socket = io.connect("http://localhost:8000", {
+    this.socket = await io.connect("http://localhost:8000", {
       query: { roomId: this.props.location.pathname.slice(11) }
     });
-    this.setState({ socket: this.socket });
+    await this.setState({ socket: this.socket });
     
     
     this.socket.on('startGameAll', (data)=> {
@@ -46,7 +46,7 @@ export default class GameRoom extends Component {
     return (
       <div>
 
-       < this.state.currRoom/>
+       < this.state.currRoom socket = {this.state.socket}/>
         <input type="submit" value = 'START' onClick={() => this.startGame()} />
       </div>
     );

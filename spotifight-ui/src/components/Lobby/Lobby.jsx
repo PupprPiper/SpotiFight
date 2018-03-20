@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
 import axios from "axios";
+import Chat from '../Chat/Chat.jsx'
 
 export default class Lobby extends Component {
   constructor(props) {
@@ -9,33 +10,27 @@ export default class Lobby extends Component {
       socket: "",
       songURI: null,
       searchQuery: null,
-      songPreview: null
+      songPreview: null,
+      ready: false,
+
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.searchSong = this.searchSong.bind(this);
   }
   componentDidMount() {
-    this.socket = io.connect("http://localhost:8000");
-    this.setState({ socket: this.socket });
+    // this.socket = io.connect("http://localhost:8000");
+    // this.setState({ socket: this.socket });
   }
 
   searchSong() {
-    const client_id = "557cbbb0600048049128711433d8ccaa";
-    const redirect_uri = "http://localhost:3000";
-    var url = "https://accounts.spotify.com/authorize";
-    url += "?response_type=token";
-    url += "&client_id=" + encodeURIComponent(client_id);
-
-    url += "&redirect_uri=" + encodeURIComponent(redirect_uri);
-
     axios.get("/spotify").then(token => {
+      console.log(token);
       axios({
         url: `https://api.spotify.com/v1/search?q=${
           this.state.searchQuery
         }&type=track`,
         headers: {
-          Authorization:
-            "Bearer " + token
+          Authorization: "Bearer " + token.data
         }
       }).then(data => {
         console.log(data);
@@ -44,9 +39,7 @@ export default class Lobby extends Component {
           songPreview: data.data.tracks.items[0].preview_url
         });
       });
-    
     });
-
   }
 
   handleSearchChange(e) {
@@ -57,7 +50,7 @@ export default class Lobby extends Component {
   render() {
     return (
       <div>
-        {console.log(this.state)}
+       {console.log('lobby', this.props)}
         <div>Hello from Lobby</div>
         <div>Please search for your Song</div>
         <div>
@@ -65,17 +58,18 @@ export default class Lobby extends Component {
           <input type="text" onChange={this.handleSearchChange} />
           <input type="submit" onClick={() => this.searchSong()} />
         </div>
-
+       
         <div>
           <iframe
             src={`https://open.spotify.com/embed?uri=${this.state.songURI}`}
             width="300"
             height="80"
-            frameborder="0"
+            frameBorder="0"
             allowtransparency="true"
             allow="encrypted-media"
           />
           {/* <audio src = {this.state.songPreview} autoPlay/> */}
+          <Chat socket = {this.props.socket}/>
         </div>
       </div>
     );
