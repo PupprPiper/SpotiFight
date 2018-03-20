@@ -8,7 +8,7 @@ import { bindActionCreators } from "redux";
 import players from "../Games/Masher/seed.js";
 import Grid from "material-ui/Grid";
 import { gameSwitch } from "../../actions/index";
-import { bindActionCreators } from "redux";
+import Button from "material-ui/Button";
 
 const mapStateToProps = function(state) {
   return {
@@ -20,7 +20,9 @@ const mapDispatchToProps = function(dispatch) {
   return bindActionCreators({ gameSwitch }, dispatch);
 };
 
-const games = {};
+const games = {
+  'Masher': Masher
+};
 class GameRoom extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +30,6 @@ class GameRoom extends Component {
       socket: null,
       test: "",
       currRoom: Lobby,
-
       players: players,
       socketID: "",
       localUser: "MikeUser",
@@ -42,13 +43,11 @@ class GameRoom extends Component {
     this.socket = await io.connect("http://localhost:8000", {
       query: { roomId: this.props.location.pathname.slice(11) }
     });
-
+    await this.setState({ socket: this.socket });
     this.socket.on("startGameAll", data => {
       this.setState({ currRoom: games[data] });
     });
-    // this.socket.on("serverMessage", data => {
-    //   this.setState({ test: data });
-    // });
+
   }
 
   startGame() {
@@ -78,6 +77,7 @@ class GameRoom extends Component {
                 START GAME
               </Button>
             )}
+            
           </Grid>
           <Grid item md={5} />
         </Grid>
