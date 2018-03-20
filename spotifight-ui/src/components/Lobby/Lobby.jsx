@@ -34,7 +34,10 @@ export default class Lobby extends Component {
 =======
           Authorization:
             "Bearer " + token.data
+<<<<<<< HEAD
 >>>>>>> functional socket game
+=======
+>>>>>>> 6b6fb43441e12b017bac21a184143bde7ecd696c
         }
       }).then(data => {
         console.log(data);
@@ -44,7 +47,12 @@ export default class Lobby extends Component {
         });
       });
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+
+    });
+>>>>>>> 6b6fb43441e12b017bac21a184143bde7ecd696c
 
 >>>>>>> functional socket game
     });
