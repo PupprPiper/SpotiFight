@@ -5,6 +5,7 @@ import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
 import PlayerButton from './PlayerButton';
 import './ButtonGrid.scss';
+import players from './seed.js'
 
 const styles = theme => ({
   root: {
@@ -30,7 +31,7 @@ function ButtonGrid(props) {
     <Grid container spacing={24}>
 
       {
-        props.players.map((player) => {
+        players.map((player) => {
           return (<Grid align="center" key={player.userName}  item xs={6}>
             <Paper className={`${classes.paper}`} style={{ minWidth: '110px', maxWidth:'300px' }}>
                 <img src={player.img} className="buttonCard" />

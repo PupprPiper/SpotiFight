@@ -31,8 +31,7 @@ export default class Lobby extends Component {
         headers: {
 
           Authorization: "Bearer " + token.data
-          Authorization:
-            "Bearer " + token.data
+
         }
       }).then(data => {
         console.log(data);
@@ -41,15 +40,6 @@ export default class Lobby extends Component {
           songPreview: data.data.tracks.items[0].preview_url
         });
       });
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-
-    });
->>>>>>> 6b6fb43441e12b017bac21a184143bde7ecd696c
-
->>>>>>> functional socket game
     });
   }
 
