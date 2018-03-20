@@ -1,5 +1,8 @@
-node_modules
+environment/keys.js
 public/bundle.js
+
+## node ##
+node_modules
 package-lock.json
 yarn-error.log
 yarn.lock
