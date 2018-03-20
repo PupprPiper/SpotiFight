@@ -4,6 +4,8 @@ import axios from "axios";
 import Chat from "../Chat/Chat.jsx";
 import Grid from "material-ui/Grid";
 
+
+
 export default class Lobby extends Component {
   constructor(props) {
     super(props);
@@ -18,8 +20,7 @@ export default class Lobby extends Component {
     this.searchSong = this.searchSong.bind(this);
   }
   componentDidMount() {
-    // this.socket = io.connect("http://localhost:8000");
-    // this.setState({ socket: this.socket });
+
   }
 
   searchSong() {

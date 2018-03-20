@@ -3,58 +3,71 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import randomstring from "randomstring";
 import io from "socket.io-client";
 import Button from "material-ui/Button";
+import Masher from "../Games/Masher/Masher";
+import {gameSwitch} from "../../actions/index"
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+const mapStateToProps = function(state) {
+  return {
+    game: state.game
+  };
+};
+
+const mapDispatchToProps = function(dispatch) {
+  return bindActionCreators({ gameSwitch }, dispatch);
+};
+
+const Games = {
+  'Masher': Masher
+};
 let randomRoom;
-export default class Home extends Component {
+ class Home extends Component {
   constructor() {
     super();
     this.state = {
-      socket: null
-      // roomName: null
+      socket: null,
+      game: null
     };
+    this.handleGameSelect = this.handleGameSelect.bind(this)
   }
-  componentDidMount() {
-    // this.socket = io.connect("http://localhost:8000")
-    // this.setState({ socket: this.socket });
-  }
+  componentDidMount() {}
 
   randomRoom() {
     randomRoom = `${randomstring.generate()}`;
   }
   handleGameRoomRedirect() {
     this.randomRoom();
-    // this.socket = io.connect("http://localhost:8000", {
-    //     query: {
-    //       roomId: randomRoom
-    //     }
-    //   })
-    //   this.setState({ socket: this.socket });
 
     this.props.history.push({
       pathname: `/game-room/${randomRoom}`,
       state: { game: this.state.game }
     });
   }
+  handleGameSelect(item) {
+    this.setState({game: item})
+    this.props.gameSwitch(item)
+    
+  }
 
-  // joinRoom(){
-  //     // this.socket.emit('joinRoom', this.state.roomName)
-  //     this.socket = io.connect("http://localhost:8000", {
-  //       query: {
-  //         roomName: this.state.roomName
-  //       }
-  //     })
-  //     this.setState({ socket: this.socket });
-  //     this.props.history.push({pathname: '/'})
-
-  //   }
   render() {
     return (
       <div>
-        <div>Select a game</div>
-        <Button variant="raised" color = 'secondary' onClick={() => this.handleGameRoomRedirect()}>
+        {console.log(this.props)}
+        <div>Select a game:</div>
+        {Object.keys(Games).map((item, index)=>{
+          return <div key = {index}onClick = {()=>{this.handleGameSelect(item)}}> {item} </div>
+        })}
+        <Button
+          variant="raised"
+          color="secondary"
+          onClick={() => this.handleGameRoomRedirect()}
+        >
           CREATE A NEW GAME ROOM
         </Button>
       </div>
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
