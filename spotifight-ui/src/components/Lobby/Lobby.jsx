@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import io from "socket.io-client";
 import axios from "axios";
-import Chat from '../Chat/Chat.jsx'
+import Chat from "../Chat/Chat.jsx";
+import Grid from "material-ui/Grid";
 
 export default class Lobby extends Component {
   constructor(props) {
@@ -11,8 +12,7 @@ export default class Lobby extends Component {
       songURI: null,
       searchQuery: null,
       songPreview: null,
-      ready: false,
-
+      ready: false
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.searchSong = this.searchSong.bind(this);
@@ -24,7 +24,6 @@ export default class Lobby extends Component {
 
   searchSong() {
     axios.get("/spotify").then(token => {
-      console.log(token);
       axios({
         url: `https://api.spotify.com/v1/search?q=${
           this.state.searchQuery
@@ -50,15 +49,32 @@ export default class Lobby extends Component {
   render() {
     return (
       <div>
-       {console.log('lobby', this.props)}
-        <div>Hello from Lobby</div>
-        <div>Please search for your Song</div>
+        {console.log("lobby", this.props)}
+        <Grid container>
+        
+          <Grid item md={3}>
+            {" "}
+            <div> Player One</div>
+            <div> Player Two</div>
+            <div> Player Three</div>
+          </Grid>
+          <Grid item md={6}>
+            <Chat socket={this.props.socket} />
+          </Grid>
+          <Grid item md={3}>
+            <div> Player Four</div>
+            <div> Player Five</div>
+            <div> Player Six</div>
+          </Grid>
+       
+        </Grid>
+
         <div>
-          {" "}
+          Please search for your Song
           <input type="text" onChange={this.handleSearchChange} />
           <input type="submit" onClick={() => this.searchSong()} />
         </div>
-       
+
         <div>
           <iframe
             src={`https://open.spotify.com/embed?uri=${this.state.songURI}`}
@@ -69,7 +85,6 @@ export default class Lobby extends Component {
             allow="encrypted-media"
           />
           {/* <audio src = {this.state.songPreview} autoPlay/> */}
-          <Chat socket = {this.props.socket}/>
         </div>
       </div>
     );

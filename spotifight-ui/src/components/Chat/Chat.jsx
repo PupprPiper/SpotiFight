@@ -9,9 +9,7 @@ import {
 } from "./../Global/Material-Globals";
 import "./Chat.scss";
 
-// let socket = io.connect('http://localhost:8000', {query: {
-//   roomName: 'test'
-// }});
+
 
 export default class Chat extends Component {
   constructor(props) {
@@ -53,9 +51,9 @@ export default class Chat extends Component {
     return (
       <div className="chat">
        
-        <Grid container spacing={24}>
-          <Grid item xs={12} sm={4} />
-          <Grid item xs={12} sm={8}>
+        
+        
+          
             <div>
               {this.state.messages.map((message, index) => {
                 return <Paper key={index}>{message}</Paper>;
@@ -72,8 +70,8 @@ export default class Chat extends Component {
               onChange={e => this.setTextField(e)}
             />
             <Button onClick={() => this.handleSend()}>send</Button>
-          </Grid>
-        </Grid>
+          
+        
       </div>
     );
   }
