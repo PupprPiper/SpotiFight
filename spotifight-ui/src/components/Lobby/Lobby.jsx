@@ -29,7 +29,9 @@ export default class Lobby extends Component {
           this.state.searchQuery
         }&type=track`,
         headers: {
+
           Authorization: "Bearer " + token.data
+
         }
       }).then(data => {
         console.log(data);
@@ -51,7 +53,7 @@ export default class Lobby extends Component {
       <div>
         {console.log("lobby", this.props)}
         <Grid container>
-        
+
           <Grid item md={3}>
             {" "}
             <div> Player One</div>
@@ -66,7 +68,7 @@ export default class Lobby extends Component {
             <div> Player Five</div>
             <div> Player Six</div>
           </Grid>
-       
+
         </Grid>
 
         <div>

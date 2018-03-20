@@ -22,7 +22,7 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     minWidth: 300,
-    width: '100%',
+    width: '100%'
   },
   image: {
     position: 'relative',
@@ -111,23 +111,52 @@ class PlayerButton extends Component {
     super(props)
     this.state = {
       score: this.props.player.score,
-      player: this.props.player.userName
+      scoreDisplay: 0,
+      player: this.props.player.userName,
+      socket: this.props.socket
     }
+
+    this.clearGameBoard = this.clearGameBoard.bind(this);
+    this.buildGameBoard = this.buildGameBoard.bind(this);
+
+    this.props.socket.on('displayUpdate', data => {
+      if (this.state.player = data.player) {
+        this.setState({
+          scoreDisplay: data.score[this.props.player.userName]
+        });
+      }
+    });
+
   }
 
+  clearGameBoard() {
+    this.props.socket.emit('clearBoard', {})
+  }
 
-      updateScore () {
-        this.setState({score: this.state.score +=1})
-      }
+  buildGameBoard() {
+    this.props.socket.emit('buildBoard', {
+      localUser: this.props.player.userName,
+      score: this.state.score
+    });
+  }
 
+  componentWillMount() {
+    this.clearGameBoard();
+  }
+
+  componentDidMount() {
+    this.buildGameBoard();
+  }
+
+  updateScore() {
+    let socket = this.state.socket;
+    this.props.socket.emit('updateScore', {localUser: this.props.player.userName});
+  }
 
   render(props) {
-    {
-      console.log(this.props.players, 'IN BUTTON ACTUAL');
-    }
     return (<div className="btn-div">
-    <Subheader>{this.state.player}</Subheader>
-      <button className="btn draw-border" onClick={()=> this.updateScore()}>{this.state.score}</button>
+      <Subheader>{this.props.player.userName}</Subheader>
+      <button className="btn draw-border" onClick={() => this.updateScore()}>{this.state.scoreDisplay}</button>
     </div>);
   }
 }

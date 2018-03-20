@@ -6,8 +6,3 @@ cache:
   - node_modules
 install:
   - yarn
-script:
-  # - npm run db &
-  # - sleep 10
-  # - npm run server &
-  # - sleep 10
