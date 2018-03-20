@@ -20,7 +20,7 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <div>
-            <AuthWrapped />
+
             <TitleBar
               title="Spotifight"
               handleCLick={() => this.handleToggle()}
