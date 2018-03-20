@@ -8,6 +8,7 @@ import { toggleMenu } from './actions/index';
 import TitleBar from './components/Global/TitleBar/titleBar';
 import Sidebar from './components/Global/Sidebar/Sidebar';
 import appRoutes from './routes';
+import AuthWrapped from './components/Auth/Auth.jsx';
 
 class App extends Component {
   handleToggle() {
@@ -19,6 +20,7 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <div>
+
             <TitleBar
               title="Spotifight"
               handleCLick={() => this.handleToggle()}

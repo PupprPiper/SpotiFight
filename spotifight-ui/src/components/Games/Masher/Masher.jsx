@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import ButtonGrid from './ButtonGrid.jsx';
-import players from './seed.js';
+
 import Subheader from 'material-ui/List/ListSubheader';
+import './Masher.scss';
 
 
 import {
@@ -24,9 +25,12 @@ export default class Masher extends Component {
     super(props)
 
     this.state = {
-      userName: "A Dude",
-      players: players,
-      counter: 10
+      localUser: this.props.localUser,
+      players: this.props.players,
+      socketID: this.props.socketID,
+      counter: 10,
+      socket: this.props.socket
+
     }
 
 
@@ -59,12 +63,12 @@ export default class Masher extends Component {
 
   render(props) {
     {
-      console.log(this.state.players),
+      console.log('MASHER PROPS', this.props),
       'I AM IN MASHER'
     }
     return <div>
-    <Subheader>{this.state.counter}</Subheader>  
-      <ButtonGrid players={this.state.players}/>
+    <div align="center" className="flipInY masher-counter">{this.state.counter}</div>
+      <ButtonGrid players={this.state.players} socket={this.state.socket}/>
     </div>;
   }
 }
