@@ -1,7 +1,7 @@
-const googleLoginHelper = ({ email, username, password }) => {
+const googleLoginHelper = (email, username) => {
   return `
-    INSERT INTO users (email, username, password, wins, losses)
-    VALUES ('${email}', '${username}', '${password}', 0, 0)
+    INSERT INTO users (email, username, wins, losses)
+    VALUES ('${email}', '${username}', 0, 0)
     RETURNING id, email
   `;
 };

@@ -4,6 +4,8 @@ const keys = require('./keys');
 const db = require('./../database/config');
 const helpers = require('./../rest-server/components/Auth/authSQLHelper');
 
+passport.serializeUser((user, done) => {});
+
 passport.use(
   new GoogleStrategy(
     {
@@ -13,14 +15,29 @@ passport.use(
       clientSecret: keys.google.clientSecret
     },
     (accessToken, refreshToken, profile, done) => {
-      // console.log('profile!!!', profile);
-      let userInfo = {
-        email: profile.email,
-        wins: 0,
-        losses: 0,
-        image: profile.photos[0].value
-      };
-      // googleProfile = profile;
+
+      db
+        .query(`SELECT * FROM users WHERE email = '${profile.emails[0].value}';` )
+        .then(data => console.log('!!!!query!!!!', data))
+        .catch(err => {
+          console.error('!!!!err!!!!', err);
+        });
+
+      // console.log('!!!!query!!!!', query);
+      // db
+      //   .query(`SELECT * FROM users WHERE email = ${profile.emails[0].value}`)
+      //   .then(data => {
+      //     if (data) {
+      //       console.log('data exits!!!');
+      //       const queryStr = helpers.googleLoginHelper(
+      //         profile.emails[0].value,
+      //         profile.displayName
+      //       );
+      //     } else {
+      //       console.log('data does not exist. saving to database!!!');
+      //       db.queryAsync(queryStr);
+      //     }
+      //   });
     }
   )
 );

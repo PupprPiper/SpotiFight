@@ -10,7 +10,7 @@ const {
 router.route('/google').get(googleLoginCtrl);
 
 // callback route for google to redirect to
-router.route('/google/redirect').get(googleRedirectCtrl);
+router.route('/google/redirect').get(passport.authenticate('google'));
 // .get(googleRedirectCtrl, passport.authenticate('google'));
 // .get(passport.authenticate('google'));
 // logout

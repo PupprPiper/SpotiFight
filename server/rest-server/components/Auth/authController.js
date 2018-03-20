@@ -4,7 +4,7 @@ const passportSetup = require('./../../../environment/passport-setup');
 
 // google oauth
 const googleLoginCtrl = passport.authenticate('google', {
-  scope: ['profile']
+  scope: ['profile', 'email']
 });
 
 // google redirect
@@ -13,9 +13,8 @@ const googleLoginCtrl = passport.authenticate('google', {
 //   res.status(200).send('YOU HAVE REACHED THE CALLBACK URI');
 // });
 
-
 const googleRedirectCtrl = (req, res) => {
-  req.status(200).send('you have reached the callback uri');
+  res.status(200).send('you have reached the callback uri');
 };
 // const googleRedirectCtrl = (req, res) => {
 //   console.log(req.user);

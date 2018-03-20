@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon rest-server/index.js",
     "start:db": "babel-node database/config/setup.js",
-    "socket":  "node socket-server/src/index.js"
+    "socket": "node socket-server/src/index.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
