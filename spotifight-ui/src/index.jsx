@@ -7,6 +7,7 @@ import './index.scss';
 
 import App from './App';
 
+
 const store = createStore(allReducers);
 
 render(
