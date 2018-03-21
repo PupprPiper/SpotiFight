@@ -23,9 +23,15 @@ export default class GameRoom extends Component {
       players: players,
       socketID: '',
       localUser: 'MikeUser',
-      userImg: 'https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg'
+      userImg: 'https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg',
+      winner: '',
 
     };
+
+    this.getWinner = this.getWinner.bind(this);
+
+
+
 
   }
   async componentWillMount() {
@@ -34,9 +40,23 @@ export default class GameRoom extends Component {
     });
 
   await this.setState({ socket: this.socket });
+
     this.socket.on('startGameAll', (data)=> {
       this.setState({currRoom: games[this.state.selectedGame]})
     })
+
+    this.state.socket.on('finalScoreObject', (finalScore)=> {
+      console.log(finalScore, 'HERE IS THE FINAL SCORE');
+    var winner =  this.getWinner(finalScore);
+    this.setState({winner: winner})
+    this.state.socket.emit('broadcastWinner', winner);
+  });
+
+  }
+
+  componentDidUpdate() {
+
+
 
   }
 
@@ -45,12 +65,23 @@ export default class GameRoom extends Component {
     this.setState({ currRoom: games[this.state.selectedGame] });
   }
 
+  getWinner(final) {
+    console.log(final, 'in final score')
+      let values = Object.entries(final);
+    values = values.sort((a, b)=> {
+        return b[1] - a[1];
+      })
+      console.log(values[0], '<------HERE IS YOUR WINNER')
+      return values[0];
+  }
+
   render() {
     return (
       <div>
         <this.state.currRoom socket={this.state.socket}
         userImg={this.state.userImg}
         localUser={this.state.localUser}
+        winner = {this.state.winner}
         />
         <Grid container>
           <Grid item md={5}/>
@@ -64,10 +95,6 @@ export default class GameRoom extends Component {
             </Grid>
             <Grid item md={5}/>
           </Grid>
-
-
-
-
       </div>
     );
   }
