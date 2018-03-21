@@ -7,10 +7,13 @@ module.exports = {
       RETURNING id, email, username, status, avatar_url, wins, losses
     `;
   },
-  fetchAllUsersHelper: (req) => {
+  fetchAllUsersHelper: req => {
     return `
       SELECT id, email, username, status, avatar_url, wins, losses
       FROM users
-    `
+    `;
   },
+  getOneUser: email => {
+    return `SELECT * FROM users WHERE email = '${email}';`;
+  }
 };

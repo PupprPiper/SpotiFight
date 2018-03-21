@@ -7,8 +7,7 @@ const googleLoginCtrl = passport.authenticate('google', {
 });
 
 const googleRedirectCtrl = (req, res) => {
-  console.log('user!!!---->', req.user)
-  res.status(200).send('you have reached the callback uri');
+  res.status(200).redirect(`/user-profile/${req.user.email}`);
 };
 
 // logout
