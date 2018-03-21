@@ -7,6 +7,7 @@ import Masher from "../Games/Masher/Masher";
 import {gameSwitch} from "../../actions/index"
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import './Home.scss'
 
 const mapStateToProps = function(state) {
   return {
@@ -55,9 +56,9 @@ let randomRoom;
       <div>
         {console.log(this.props)}
         <div>Select a game:</div>
-        {Object.keys(Games).map((item, index)=>{
-          return <div key = {index}onClick = {()=>{this.handleGameSelect(item)}}> {item} </div>
-        })}
+        
+         <div onClick = {()=>{this.handleGameSelect('Masher')}}> <img className = 'column green' src = 'http://www.pvhc.net/img218/nqsltgpugozgfjmxmsec.png'/></div>
+        
         <Button
           variant="raised"
           color="secondary"
