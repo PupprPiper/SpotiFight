@@ -41,7 +41,10 @@ class GameRoom extends Component {
       localUser: 'MikeUser',
       userImg: 'https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg',
       winner: '',
+<<<<<<< HEAD
 >>>>>>> GAME WORKS COMPLETELY
+=======
+>>>>>>> 20c7aa6fed94d4812ed078ea5b05e95b73ff3c1f
 
       selectedGame: this.props.game
     };
@@ -51,9 +54,17 @@ class GameRoom extends Component {
     this.getWinner = this.getWinner.bind(this);
 
 
+<<<<<<< HEAD
 
 
 >>>>>>> GAME WORKS COMPLETELY
+=======
+    this.getWinner = this.getWinner.bind(this);
+
+
+
+
+>>>>>>> 20c7aa6fed94d4812ed078ea5b05e95b73ff3c1f
   }
   async componentWillMount() {
     this.socket = await io.connect("http://localhost:8000", {
@@ -72,6 +83,19 @@ class GameRoom extends Component {
       this.setState({currRoom: games[this.state.selectedGame]})
     })
 >>>>>>> GAME WORKS COMPLETELY
+
+    this.state.socket.on('finalScoreObject', (finalScore)=> {
+      console.log(finalScore, 'HERE IS THE FINAL SCORE');
+    var winner =  this.getWinner(finalScore);
+    this.setState({winner: winner})
+    this.state.socket.emit('broadcastWinner', winner);
+  });
+
+  }
+
+  componentDidUpdate() {
+
+
 
     this.state.socket.on('finalScoreObject', (finalScore)=> {
       console.log(finalScore, 'HERE IS THE FINAL SCORE');
@@ -117,7 +141,10 @@ class GameRoom extends Component {
         userImg={this.state.userImg}
         localUser={this.state.localUser}
         winner = {this.state.winner}
+<<<<<<< HEAD
 >>>>>>> GAME WORKS COMPLETELY
+=======
+>>>>>>> 20c7aa6fed94d4812ed078ea5b05e95b73ff3c1f
         />
         <Grid container>
           <Grid item md={5} />
@@ -135,10 +162,13 @@ class GameRoom extends Component {
             
           </Grid>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <Grid item md={5} />
         </Grid>
 =======
 >>>>>>> GAME WORKS COMPLETELY
+=======
+>>>>>>> 20c7aa6fed94d4812ed078ea5b05e95b73ff3c1f
       </div>
     );
   }
