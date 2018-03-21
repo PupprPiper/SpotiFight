@@ -7,32 +7,6 @@ const io = require('socket.io')(http);
 const Masher = require('./masher');
 
 
-// class Rooms {
-//   constructor(io) {
-//     this.io = io;
-//     this.store = new Map();
-//     this.findOrCreate = this.findOrCreate.bind(this)
-//   }
-
-class Rooms {
-  constructor(io) {
-    this.io = io;
-    this.store = new Map();
-    this.findOrCreate = this.findOrCreate.bind(this);
-  }
-
-  findOrCreate(roomId) {
-    let room = this.store.get(roomId);
-    if (room) {
-      room = new Map();
-      room.set('id', roomId);
-      room.set('text', startingText);
-      this.store.set(roomId, room);
-    }
-    return room;
-  }
-}
-
 
 
 let users = [];
@@ -70,6 +44,10 @@ io.on('connection', client => {
   client.on('broadcastWinner', data => {
     console.log(data);
     io.in(client.handshake.query.roomId).emit('receiveWinner', data)
+  });
+
+  client.on('SEND_WINNER_SONG', data => {
+    io.in(client.handshake.query.roomId).emit('GLOBAL_SONG', data)
   });
 
 

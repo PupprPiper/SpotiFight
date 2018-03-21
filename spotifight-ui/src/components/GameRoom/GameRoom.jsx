@@ -7,17 +7,18 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import players from "../Games/Masher/seed.js";
 import Grid from "material-ui/Grid";
-import { gameSwitch } from "../../actions/index";
+import { gameSwitch, songSwitch } from "../../actions/index";
 import Button from "material-ui/Button";
 
 const mapStateToProps = function(state) {
   return {
-    game: state.game
+    game: state.game,
+    mySong: state.mySong
   };
 };
 
 const mapDispatchToProps = function(dispatch) {
-  return bindActionCreators({ gameSwitch }, dispatch);
+  return bindActionCreators({ gameSwitch, songSwitch }, dispatch);
 };
 
 const games = {
@@ -32,11 +33,11 @@ class GameRoom extends Component {
       currRoom: Lobby,
       players: players,
       socketID: "",
-      localUser: "Nelson",
+      localUser: "Nelson Chen",
       userImg:
         "https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg",
       winner: "",
-
+      globalSong: null,
       selectedGame: this.props.game
     };
 
@@ -51,13 +52,24 @@ class GameRoom extends Component {
       this.setState({ currRoom: games[data] });
     });
 
+
+  
     this.state.socket.on("finalScoreObject", finalScore => {
-      console.log(finalScore, "HERE IS THE FINAL SCORE");
+      
       var winner = this.getWinner(finalScore);
       this.setState({ winner: winner });
       this.state.socket.emit("broadcastWinner", winner);
+      console.log('this is the winner', winner)
+      if(this.state.localUser === winner[0]){
+        this.state.socket.emit('SEND_WINNER_SONG', this.props.mySong)
+      }
     });
+
+    this.state.socket.on('GLOBAL_SONG', song => {
+      this.setState({globalSong:song})
+    })
   }
+  
 
   startGame() {
     this.socket.emit("startGameHost", this.state.selectedGame);
@@ -65,12 +77,12 @@ class GameRoom extends Component {
   }
 
   getWinner(final) {
-    console.log(final, "in final score");
+    // console.log(final, "in final score");
     let values = Object.entries(final);
     values = values.sort((a, b) => {
       return b[1] - a[1];
     });
-    console.log(values[0], "<------HERE IS YOUR WINNER");
+    // console.log(values[0], "<------HERE IS YOUR WINNER");
     return values[0];
 
 
@@ -79,6 +91,9 @@ class GameRoom extends Component {
   render() {
     return (
       <div>
+        {console.log('gameroom props' ,this.props)}
+        {console.log('gameroom state', this .state)}
+        <audio src = {this.state.globalSong} autoPlay/>
         <this.state.currRoom
           socket={this.state.socket}
           userImg={this.state.userImg}

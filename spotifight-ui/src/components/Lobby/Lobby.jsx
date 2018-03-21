@@ -3,10 +3,21 @@ import io from "socket.io-client";
 import axios from "axios";
 import Chat from "../Chat/Chat.jsx";
 import Grid from "material-ui/Grid";
+import {songSwitch} from "../../actions/index"
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+const mapStateToProps = function(state) {
+  return {
+    mySong : state.mySong
+  };
+};
 
+const mapDispatchToProps = function(dispatch) {
+  return bindActionCreators({ songSwitch }, dispatch);
+};
 
-export default class Lobby extends Component {
+class Lobby extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,11 +46,15 @@ export default class Lobby extends Component {
 
         }
       }).then(data => {
-        console.log(data);
+       if(data.data.tracks.items[0].preview_url === null) {
+         alert('This song does not have a preview URL on spotify')
+       }
         this.setState({
           songURI: data.data.tracks.items[0].uri,
           songPreview: data.data.tracks.items[0].preview_url
         });
+        this.props.songSwitch(data.data.tracks.items[0].preview_url)
+        
       });
     });
   }
@@ -52,7 +67,7 @@ export default class Lobby extends Component {
   render() {
     return (
       <div>
-        {console.log("lobby", this.props)}
+      
         <Grid container>
 
           <Grid item md={3}>
@@ -93,3 +108,5 @@ export default class Lobby extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Lobby);
