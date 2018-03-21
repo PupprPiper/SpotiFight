@@ -93,8 +93,7 @@ class GameRoom extends Component {
               <Button
                 variant="raised"
                 color="secondary"
-                onClick={() => this.startGame()}
-              >
+                onClick={() => this.startGame()}>
                 START GAME
               </Button>
             )}
