@@ -27,9 +27,13 @@ const mapDispatchToProps = function(dispatch) {
 const games = {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   Masher: Masher,
   MusicTrivia: MusicTrivia,
   RPSLS: RPSLS
+=======
+  'Masher': Masher
+>>>>>>> this has been committed
 =======
   'Masher': Masher
 >>>>>>> this has been committed
@@ -46,6 +50,7 @@ class GameRoom extends Component {
       currRoom: Lobby,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       players: [],
       socketID: "",
       localUser: this.props.userProfile.username,
@@ -56,12 +61,17 @@ class GameRoom extends Component {
 =======
 =======
 >>>>>>> this has been committed
+=======
+>>>>>>> this has been committed
       players: players,
       socketID: '',
       localUser: 'MikeUser',
       userImg: 'https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg',
       winner: '',
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> this has been committed
+=======
 >>>>>>> this has been committed
 =======
 >>>>>>> this has been committed
@@ -94,6 +104,7 @@ class GameRoom extends Component {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   
     this.state.socket.on("finalScoreObject", finalScore => {
@@ -114,6 +125,8 @@ class GameRoom extends Component {
 =======
 =======
 >>>>>>> this has been committed
+=======
+>>>>>>> this has been committed
     this.state.socket.on('finalScoreObject', (finalScore)=> {
       console.log(finalScore, 'HERE IS THE FINAL SCORE');
     var winner =  this.getWinner(finalScore);
@@ -122,6 +135,9 @@ class GameRoom extends Component {
   });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> this has been committed
+=======
 >>>>>>> this has been committed
 =======
 >>>>>>> this has been committed
@@ -136,6 +152,7 @@ class GameRoom extends Component {
   getWinner(final) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     // console.log(final, "in final score");
     let values = Object.entries(final);
     values = values.sort((a, b) => {
@@ -148,6 +165,8 @@ class GameRoom extends Component {
 =======
 =======
 >>>>>>> this has been committed
+=======
+>>>>>>> this has been committed
     console.log(final, 'in final score')
       let values = Object.entries(final);
     values = values.sort((a, b)=> {
@@ -156,6 +175,9 @@ class GameRoom extends Component {
       console.log(values[0], '<------HERE IS YOUR WINNER')
       return values[0];
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> this has been committed
+=======
 >>>>>>> this has been committed
 =======
 >>>>>>> this has been committed
@@ -164,6 +186,7 @@ class GameRoom extends Component {
   render() {
     return (
       <div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         {console.log('gameroom props' ,this.props)}
@@ -178,11 +201,16 @@ class GameRoom extends Component {
 =======
 =======
 >>>>>>> this has been committed
+=======
+>>>>>>> this has been committed
         <this.state.currRoom socket={this.state.socket}
         userImg={this.state.userImg}
         localUser={this.state.localUser}
         winner = {this.state.winner}
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> this has been committed
+=======
 >>>>>>> this has been committed
 =======
 >>>>>>> this has been committed
