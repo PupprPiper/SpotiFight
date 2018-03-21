@@ -36,7 +36,6 @@ let handleGoogleProfile = (profile, doneCb) => {
     .query(`SELECT * FROM users WHERE email = '${profile.emails[0].value}';`)
     .then(data => {
       if (data.rows[0]) {
-        console.log('!!!!!data rows!!!!!!', data.rows[0]);
         doneCb(null, data.rows[0]);
       } else {
         const queryStr = helpers.googleLoginHelper(
