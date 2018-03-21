@@ -31,22 +31,60 @@ class GameRoom extends Component {
       test: "",
       currRoom: Lobby,
       players: players,
+<<<<<<< HEAD
       socketID: "",
       localUser: "MikeUser",
       userImg:
         "https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg",
+=======
+      socketID: '',
+      localUser: 'MikeUser',
+      userImg: 'https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg',
+      winner: '',
+>>>>>>> GAME WORKS COMPLETELY
 
       selectedGame: this.props.game
     };
+<<<<<<< HEAD
+=======
+
+    this.getWinner = this.getWinner.bind(this);
+
+
+
+
+>>>>>>> GAME WORKS COMPLETELY
   }
   async componentWillMount() {
     this.socket = await io.connect("http://localhost:8000", {
       query: { roomId: this.props.location.pathname.slice(11) }
     });
+<<<<<<< HEAD
     await this.setState({ socket: this.socket });
     this.socket.on("startGameAll", data => {
       this.setState({ currRoom: games[data] });
     });
+=======
+
+  await this.setState({ socket: this.socket });
+
+    this.socket.on('startGameAll', (data)=> {
+      this.setState({currRoom: games[this.state.selectedGame]})
+    })
+>>>>>>> GAME WORKS COMPLETELY
+
+    this.state.socket.on('finalScoreObject', (finalScore)=> {
+      console.log(finalScore, 'HERE IS THE FINAL SCORE');
+    var winner =  this.getWinner(finalScore);
+    this.setState({winner: winner})
+    this.state.socket.emit('broadcastWinner', winner);
+  });
+
+  }
+
+  componentDidUpdate() {
+
+
 
   }
 
@@ -55,14 +93,31 @@ class GameRoom extends Component {
     this.setState({ currRoom: games[this.state.selectedGame] });
   }
 
+  getWinner(final) {
+    console.log(final, 'in final score')
+      let values = Object.entries(final);
+    values = values.sort((a, b)=> {
+        return b[1] - a[1];
+      })
+      console.log(values[0], '<------HERE IS YOUR WINNER')
+      return values[0];
+  }
+
   render() {
     return (
       <div>
+<<<<<<< HEAD
         {console.log("gameroom", this.props)}
         <this.state.currRoom
           socket={this.state.socket}
           userImg={this.state.userImg}
           localUser={this.state.localUser}
+=======
+        <this.state.currRoom socket={this.state.socket}
+        userImg={this.state.userImg}
+        localUser={this.state.localUser}
+        winner = {this.state.winner}
+>>>>>>> GAME WORKS COMPLETELY
         />
         <Grid container>
           <Grid item md={5} />
@@ -79,8 +134,11 @@ class GameRoom extends Component {
             )}
             
           </Grid>
+<<<<<<< HEAD
           <Grid item md={5} />
         </Grid>
+=======
+>>>>>>> GAME WORKS COMPLETELY
       </div>
     );
   }
