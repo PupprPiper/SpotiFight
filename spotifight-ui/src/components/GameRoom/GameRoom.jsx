@@ -31,58 +31,28 @@ class GameRoom extends Component {
       test: "",
       currRoom: Lobby,
       players: players,
-<<<<<<< HEAD
-      socketID: "",
-      localUser: "MikeUser",
-      userImg:
-        "https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg",
-=======
       socketID: '',
       localUser: 'MikeUser',
       userImg: 'https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg',
       winner: '',
-<<<<<<< HEAD
->>>>>>> GAME WORKS COMPLETELY
-=======
->>>>>>> 20c7aa6fed94d4812ed078ea5b05e95b73ff3c1f
 
       selectedGame: this.props.game
     };
-<<<<<<< HEAD
-=======
 
     this.getWinner = this.getWinner.bind(this);
 
 
-<<<<<<< HEAD
 
 
->>>>>>> GAME WORKS COMPLETELY
-=======
-    this.getWinner = this.getWinner.bind(this);
-
-
-
-
->>>>>>> 20c7aa6fed94d4812ed078ea5b05e95b73ff3c1f
   }
   async componentWillMount() {
     this.socket = await io.connect("http://localhost:8000", {
       query: { roomId: this.props.location.pathname.slice(11) }
     });
-<<<<<<< HEAD
     await this.setState({ socket: this.socket });
     this.socket.on("startGameAll", data => {
       this.setState({ currRoom: games[data] });
     });
-=======
-
-  await this.setState({ socket: this.socket });
-
-    this.socket.on('startGameAll', (data)=> {
-      this.setState({currRoom: games[this.state.selectedGame]})
-    })
->>>>>>> GAME WORKS COMPLETELY
 
     this.state.socket.on('finalScoreObject', (finalScore)=> {
       console.log(finalScore, 'HERE IS THE FINAL SCORE');
@@ -90,25 +60,6 @@ class GameRoom extends Component {
     this.setState({winner: winner})
     this.state.socket.emit('broadcastWinner', winner);
   });
-
-  }
-
-  componentDidUpdate() {
-
-
-
-    this.state.socket.on('finalScoreObject', (finalScore)=> {
-      console.log(finalScore, 'HERE IS THE FINAL SCORE');
-    var winner =  this.getWinner(finalScore);
-    this.setState({winner: winner})
-    this.state.socket.emit('broadcastWinner', winner);
-  });
-
-  }
-
-  componentDidUpdate() {
-
-
 
   }
 
@@ -130,21 +81,10 @@ class GameRoom extends Component {
   render() {
     return (
       <div>
-<<<<<<< HEAD
-        {console.log("gameroom", this.props)}
-        <this.state.currRoom
-          socket={this.state.socket}
-          userImg={this.state.userImg}
-          localUser={this.state.localUser}
-=======
         <this.state.currRoom socket={this.state.socket}
         userImg={this.state.userImg}
         localUser={this.state.localUser}
         winner = {this.state.winner}
-<<<<<<< HEAD
->>>>>>> GAME WORKS COMPLETELY
-=======
->>>>>>> 20c7aa6fed94d4812ed078ea5b05e95b73ff3c1f
         />
         <Grid container>
           <Grid item md={5} />
@@ -159,16 +99,8 @@ class GameRoom extends Component {
                 START GAME
               </Button>
             )}
-            
+
           </Grid>
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <Grid item md={5} />
-        </Grid>
-=======
->>>>>>> GAME WORKS COMPLETELY
-=======
->>>>>>> 20c7aa6fed94d4812ed078ea5b05e95b73ff3c1f
       </div>
     );
   }
