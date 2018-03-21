@@ -39,17 +39,27 @@ export default class Masher extends Component {
 
 
 
-  countdown() {
+async countdown () {
     if (this.state.counter > 0) {
       this.setState({
         counter: this.state.counter -= 1
       })
     }
     if (this.state.counter===0) {
-      alert('game over!')
       this.setState({
-        counter: this.state.counter -= 1
+        counter: this.state.counter = 'GAME OVER'
       })
+
+        this.state.socket.emit('finalScore');
+        console.log(this.props.winner)
+        this.state.socket.on('receiveWinner', (winner) => {
+          this.setState({
+            counter: this.state.counter = `${winner[0]} WINS! FINAL SCORE: ${winner[1]}`
+          })
+      })
+
+
+
     }
   }
 
