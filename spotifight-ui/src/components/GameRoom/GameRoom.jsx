@@ -10,6 +10,7 @@ import Grid from "material-ui/Grid";
 import { gameSwitch, songSwitch } from "../../actions/index";
 import Button from "material-ui/Button";
 import MusicTrivia from '../Games/MusicTrivia/MusicTrivia'
+import RPSLS from '../Games/RPSLS/rpsls.jsx'
 
 const mapStateToProps = function(state) {
   return {
@@ -25,7 +26,8 @@ const mapDispatchToProps = function(dispatch) {
 
 const games = {
   Masher: Masher,
-  MusicTrivia: MusicTrivia
+  MusicTrivia: MusicTrivia,
+  RPSLS: RPSLS
 };
 class GameRoom extends Component {
   constructor(props) {

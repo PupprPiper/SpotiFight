@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MusicTrivia from '../Games/MusicTrivia/MusicTrivia'
 import './Home.scss'
+import RPSLS from '../Games/RPSLS/rpsls'
 
 const mapStateToProps = function(state) {
   return {
@@ -23,7 +24,11 @@ const mapDispatchToProps = function(dispatch) {
 
 const Games = {
   'Masher': Masher,
+<<<<<<< HEAD
   'MusicTrivia': MusicTrivia
+=======
+  'RPSLS': RPSLS
+>>>>>>> rebasing
 };
 let randomRoom;
  class Home extends Component {
@@ -64,6 +69,8 @@ let randomRoom;
         
          <div onClick = {()=>{this.handleGameSelect('Masher')}}> <img className = 'column green' src = 'http://www.pvhc.net/img218/nqsltgpugozgfjmxmsec.png'/></div>
          <div onClick = {()=>{this.handleGameSelect('MusicTrivia')}}> <img className = 'column green' src = 'https://upload.wikimedia.org/wikipedia/en/2/27/Trivia.png'/></div>
+         <div onClick = {()=>{this.handleGameSelect('RPSLS')}}> <img className = 'column green' src = 'http://www.pvhc.net/img218/nqsltgpugozgfjmxmsec.png'/></div>
+        
         <Button
           variant="raised"
           color="secondary"
