@@ -7,32 +7,6 @@ const io = require('socket.io')(http);
 const Masher = require('./masher');
 
 
-// class Rooms {
-//   constructor(io) {
-//     this.io = io;
-//     this.store = new Map();
-//     this.findOrCreate = this.findOrCreate.bind(this)
-//   }
-
-class Rooms {
-  constructor(io) {
-    this.io = io;
-    this.store = new Map();
-    this.findOrCreate = this.findOrCreate.bind(this);
-  }
-
-  findOrCreate(roomId) {
-    let room = this.store.get(roomId);
-    if (room) {
-      room = new Map();
-      room.set('id', roomId);
-      room.set('text', startingText);
-      this.store.set(roomId, room);
-    }
-    return room;
-  }
-}
-
 
 
 let users = [];
@@ -51,6 +25,7 @@ io.on('connection', client => {
   // disconnect
   client.on('disconnect', data => {
     connections.splice(connections.indexOf(client), 1);
+    
     console.log(`Disconnected: %s clients connected ${connections.length}`);
   });
 
@@ -71,6 +46,26 @@ io.on('connection', client => {
     console.log(data);
     io.in(client.handshake.query.roomId).emit('receiveWinner', data)
   });
+
+  client.on('SEND_WINNER_SONG', data => {
+    io.in(client.handshake.query.roomId).emit('GLOBAL_SONG', data)
+  });
+
+  client.on('USER_ENTER_LOBBY',  user => {
+    users.push(user)
+    io.in(client.handshake.query.roomId).emit('newMessage', {
+      msg: `${user.username} has entered lobby`
+    });
+    console.log(`${user.username} has entered lobby`)
+    client.on('disconnect', data =>{
+      users.splice(users.indexOf(user.username), 1)
+      io.in(client.handshake.query.roomId).emit('newMessage', {
+        msg: `${user.username} has disconnected`
+      });
+      io.in(client.handshake.query.roomId).emit('ACTIVE_USERS', users)
+    })
+    io.in(client.handshake.query.roomId).emit('ACTIVE_USERS', users)
+  })
 
 
 

@@ -1,6 +1,6 @@
 
 const players = [{
-  userName: 'Nelson',
+  userName: 'Nelson Chen',
   score: 0,
     img: 'https://i.imgur.com/sR4rK.jpg'
 }, {

@@ -73,7 +73,7 @@ async countdown () {
 
   render(props) {
     {
-      console.log('MASHER PROPS', this.props),
+
       'I AM IN MASHER'
     }
     return <div>
