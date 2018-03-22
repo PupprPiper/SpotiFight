@@ -1,6 +1,5 @@
 const passport = require('passport');
 const passportSetup = require('./../../../environment/passport-setup');
-<<<<<<< HEAD
 const jwt = require('jsonwebtoken');
 
 <<<<<<< HEAD
@@ -12,7 +11,10 @@ const LocalStrategy = require('passport-local').Strategy
 const LocalStrategy = require('passport-local').Strategy
 
 
+<<<<<<< HEAD
 >>>>>>> git commit pre ryan rebase - auth
+=======
+>>>>>>> stupid merge markers
 // google oauth
 const googleLoginCtrl = passport.authenticate('google', {
   scope: ['profile', 'email']
@@ -32,14 +34,23 @@ const logoutCtrl = (req, res) => {
 
 const vanillaLoginCtrl = (req, res) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   
 =======
+=======
+
+}
+
+>>>>>>> stupid merge markers
 
 >>>>>>> git commit pre ryan rebase - auth
 }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> stupid merge markers
 
 
 
