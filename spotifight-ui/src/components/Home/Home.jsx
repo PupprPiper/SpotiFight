@@ -24,11 +24,8 @@ const mapDispatchToProps = function(dispatch) {
 
 const Games = {
   'Masher': Masher,
-<<<<<<< HEAD
-  'MusicTrivia': MusicTrivia
-=======
+  'MusicTrivia': MusicTrivia,
   'RPSLS': RPSLS
->>>>>>> rebasing
 };
 let randomRoom;
  class Home extends Component {
