@@ -6,30 +6,39 @@ export default class rpsls extends Component {
     this.state = {
       choices: ["rock", "paper", "scissors", "lizard", "spock"],
       outcome: {
-        scissorspaper: "win",
-        paperrock: "win",
-        rocklizard: "win",
-        lizardspock: "win",
-        spockscissors: "win",
-        scissorslizard: "win",
-        lizardpaper: "win",
-        paperspock: "win",
-        spockrock: "win",
-        rockscissors: "win",
-        paperscissors: "lose",
-        rockpaper: "lose",
-        lizardrock: "lose",
-        spocklizard: "lose",
-        scissorsspock: "lose",
-        lizardscissors: "lose",
-        paperlizard: "lose",
-        spockpaper: "lose",
-        rockspock: "lose",
-        scissorsrock: "lose"
+        scissorspaper: "WIN!",
+        paperrock: "WIN!",
+        rocklizard: "WIN!",
+        lizardspock: "WIN!",
+        spockscissors: "WIN!",
+        scissorslizard: "WIN!",
+        lizardpaper: "WIN!",
+        paperspock: "WIN!",
+        spockrock: "WIN!",
+        rockscissors: "WIN!",
+        paperscissors: "LOSE!",
+        rockpaper: "LOSE!",
+        lizardrock: "LOSE!",
+        spocklizard: "LOSE!",
+        scissorsspock: "LOSE!",
+        lizardscissors: "LOSE!",
+        paperlizard: "LOSE!",
+        spockpaper: "LOSE!",
+        rockspock: "LOSE!",
+        scissorsrock: "LOSE!"
+      },
+      images: {
+        rock: 'https://www.wikihow.com/images/thumb/8/8d/Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet1.jpg/aid614957-v4-728px-Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet1.jpg.webp',
+        paper: 'https://www.wikihow.com/images/thumb/5/59/Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet3.jpg/aid614957-v4-728px-Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet3.jpg.webp',
+        scissors: 'https://www.wikihow.com/images/thumb/1/14/Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet2.jpg/aid614957-v4-728px-Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet2.jpg.webp',
+        lizard: 'https://www.wikihow.com/images/thumb/a/a9/Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet4.jpg/aid614957-v4-728px-Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet4.jpg.webp',
+        spock: 'https://www.wikihow.com/images/thumb/1/15/Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet5.jpg/aid614957-v4-728px-Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet5.jpg.webp'
+
       },
       opponentChoice: null,
       madeChoice: false,
-      result: null
+      result: null,
+      ended: false
     };
     this.makeChoice = this.makeChoice.bind(this);
   }
@@ -46,20 +55,24 @@ export default class rpsls extends Component {
       this.setState({opponentChoice: this.state.choices[Math.floor(Math.random() * 5 + 1)]})
     }else{
       console.log(this.state.outcome[result])
+      this.setState({ended: true,
+      result: this.state.outcome[result]})
     }
   }
 
   render(props) {
     return (
       <div>
-        {console.log(this.state.opponentChoice)}
+        <div>
+          {this.state.ended ? <h3>YOU {this.state.result}</h3> : null}
+        </div>
+        <div>
         {this.state.choices.map((choice, i) => {
           return (
-            <button onClick={() => this.makeChoice(i)} key={i} index={i}>
-              {choice}
-            </button>
+            <img key={i} index={i} onClick={() => this.makeChoice(i)} src={this.state.images[choice]} alt={choice}/>
           );
         })}
+        </div>
       </div>
     );
   }
