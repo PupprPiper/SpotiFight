@@ -1,11 +1,15 @@
 const passport = require('passport');
 const passportSetup = require('./../../../environment/passport-setup');
+<<<<<<< HEAD
 const jwt = require('jsonwebtoken');
 
 
 const LocalStrategy = require('passport-local').Strategy
 
 
+=======
+const LocalStrategy = require('passport-local').Strategy
+>>>>>>> 91bbb6edb419d2a90c0e3b9b869c0f8c1f4e3cfc
 // google oauth
 const googleLoginCtrl = passport.authenticate('google', {
   scope: ['profile', 'email']
@@ -24,13 +28,24 @@ const logoutCtrl = (req, res) => {
 };
 
 const vanillaLoginCtrl = (req, res) => {
+<<<<<<< HEAD
 
+}
+
+=======
+  
 }
 
 
 
+>>>>>>> 91bbb6edb419d2a90c0e3b9b869c0f8c1f4e3cfc
 
 
 
 
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 91bbb6edb419d2a90c0e3b9b869c0f8c1f4e3cfc
 module.exports = { googleLoginCtrl, googleRedirectCtrl, logoutCtrl };
