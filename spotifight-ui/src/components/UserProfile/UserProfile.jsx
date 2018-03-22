@@ -38,7 +38,6 @@ class UserProfile extends Component {
     this.setState({ loading: false, user: payload.data.userProfile });
     localStorage.setItem('token', payload.data.token);
     localStorage.setItem('user', payload.data.userProfile);
-    console.log(localStorage);
   }
 
   render() {
