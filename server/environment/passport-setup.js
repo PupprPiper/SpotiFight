@@ -3,6 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20');
 const keys = require('./keys');
 const db = require('./../database/config');
 const helpers = require('./../rest-server/components/Auth/authSQLHelper');
+const LocalStrategy = require('passport-local').Strategy;
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -57,3 +58,18 @@ let handleGoogleProfile = (profile, doneCb) => {
     })
     .catch(err => console.error(err));
 };
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
