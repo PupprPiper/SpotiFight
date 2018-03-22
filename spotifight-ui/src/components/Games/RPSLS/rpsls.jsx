@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import './rpsls.scss';
 export default class rpsls extends Component {
   constructor(props) {
     super(props);
@@ -28,17 +28,17 @@ export default class rpsls extends Component {
         scissorsrock: "LOSE!"
       },
       images: {
-        rock: 'https://www.wikihow.com/images/thumb/8/8d/Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet1.jpg/aid614957-v4-728px-Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet1.jpg.webp',
-        paper: 'https://www.wikihow.com/images/thumb/5/59/Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet3.jpg/aid614957-v4-728px-Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet3.jpg.webp',
-        scissors: 'https://www.wikihow.com/images/thumb/1/14/Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet2.jpg/aid614957-v4-728px-Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet2.jpg.webp',
-        lizard: 'https://www.wikihow.com/images/thumb/a/a9/Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet4.jpg/aid614957-v4-728px-Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet4.jpg.webp',
-        spock: 'https://www.wikihow.com/images/thumb/1/15/Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet5.jpg/aid614957-v4-728px-Play-Rock-Paper-Scissors-Lizard-Spock-Step-2Bullet5.jpg.webp'
+        rock: 'https://i.imgur.com/z8yK0Q4.jpg',
+        paper: 'https://i.imgur.com/wXq7nj8.jpg',
+        scissors: 'https://i.imgur.com/jljkva5.jpg',
+        lizard: 'https://i.imgur.com/6ix7L4A.jpg',
+        spock: 'https://i.imgur.com/sRHZvfq.jpg'
 
       },
       opponentChoice: null,
       madeChoice: false,
       result: null,
-      ended: false
+      ended: false,
     };
     this.makeChoice = this.makeChoice.bind(this);
   }
@@ -69,7 +69,7 @@ export default class rpsls extends Component {
         <div>
         {this.state.choices.map((choice, i) => {
           return (
-            <img key={i} index={i} onClick={() => this.makeChoice(i)} src={this.state.images[choice]} alt={choice}/>
+            <img className="choices" key={i} index={i} onClick={() => this.makeChoice(i)} src={this.state.images[choice]} alt={choice}/>
           );
         })}
         </div>
