@@ -2,6 +2,10 @@ const passport = require('passport');
 const passportSetup = require('./../../../environment/passport-setup');
 const jwt = require('jsonwebtoken');
 
+
+const LocalStrategy = require('passport-local').Strategy
+
+
 // google oauth
 const googleLoginCtrl = passport.authenticate('google', {
   scope: ['profile', 'email']
@@ -19,4 +23,17 @@ const logoutCtrl = (req, res) => {
   // req.logout();
 };
 
+<<<<<<< HEAD
+=======
+const vanillaLoginCtrl = (req, res) => {
+
+}
+
+
+
+
+
+
+
+>>>>>>> git commit pre ryan rebase - auth
 module.exports = { googleLoginCtrl, googleRedirectCtrl, logoutCtrl };

@@ -4,8 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start:all":
-      "babel-node database/config/setup.js && nodemon rest-server/index.js && nodemon socket-server/src/index.js",
+    "start:all": "babel-node database/config/setup.js && nodemon rest-server/index.js && nodemon socket-server/src/index.js",
     "start": "nodemon rest-server/index.js",
     "start:db": "babel-node database/config/setup.js",
     "socket": "nodemon socket-server/src/index.js"
@@ -29,6 +28,7 @@
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
     "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "pg": "^7.4.1",
     "socket.io": "^2.0.4",
     "socket.io-client": "^2.0.4"
