@@ -62,7 +62,7 @@ io.on('connection', client => {
       io.in(client.handshake.query.roomId).emit('newMessage', {
         msg: `${user.username} has disconnected`
       });
-      console.log(`${user} has disconnected`);
+      io.in(client.handshake.query.roomId).emit('ACTIVE_USERS', users)
     })
     io.in(client.handshake.query.roomId).emit('ACTIVE_USERS', users)
   })

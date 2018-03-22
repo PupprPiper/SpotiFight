@@ -71,7 +71,7 @@ class Lobby extends Component {
           <Grid item md={3}>
             <Grid container spacing={24}>
               {this.props.players.map((item, index) => {
-                if(index === Math.floor(this.props.players.length/2)){
+                // if(index === Math.floor(this.props.players.length/2)){
                 return (
                   <Grid align="left" key={index} item xs={12}>
                     <Paper>
@@ -79,7 +79,8 @@ class Lobby extends Component {
                       <div> <img src = {item.avatar_url} />  {item.username} </div>
                     </Paper>
                   </Grid>
-                )};
+                )
+              // };
               })}
             </Grid>
           </Grid>
