@@ -1,5 +1,6 @@
 const passport = require('passport');
 const passportSetup = require('./../../../environment/passport-setup');
+const jwt = require('jsonwebtoken');
 
 // google oauth
 const googleLoginCtrl = passport.authenticate('google', {
@@ -7,14 +8,15 @@ const googleLoginCtrl = passport.authenticate('google', {
 });
 
 const googleRedirectCtrl = (req, res) => {
+  // const token = jwt.sign({user: req.user}, 'spotifight');
+  // res.json({ token: token }).redirect(`/user-profile/${req.user.email}`);
   res.status(200).redirect(`/user-profile/${req.user.email}`);
 };
 
 // logout
 const logoutCtrl = (req, res) => {
-  console.log('logging out');
-  res.status(200).send('logging out');
+  // res.status(200).send(req.logout);
+  // req.logout();
 };
 
 module.exports = { googleLoginCtrl, googleRedirectCtrl, logoutCtrl };
-

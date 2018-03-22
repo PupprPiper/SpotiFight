@@ -25,6 +25,7 @@ class UserProfile extends Component {
 
   componentDidMount() {
     let email = this.props.location.pathname.match(/\w+@\w+.\w+/)[0];
+    console.log(email);
     this.setState({
       loading: true
     });
@@ -32,16 +33,22 @@ class UserProfile extends Component {
   }
 
   async getUser(email) {
-    let user = await axios.get(`/users/email/${email}`);
-    console.log(user.data);
-    this.props.storeCurrentUser(user.data);
-    this.setState({ loading: false, user: user.data });
+    let payload = await axios.get(`/users/email/${email}`);
+    this.props.storeCurrentUser(payload.data.userProfile);
+    this.setState({ loading: false, user: payload.data.userProfile });
+    localStorage.setItem('token', payload.data.token);
+    localStorage.setItem('user', payload.data.userProfile);
   }
 
   render() {
-    const { loading, user } = this.state;
+    let { loading } = this.state;
+    let user = this.props.userProfile;
     if (this.state.loading) {
       return <div>loading</div>;
+    }
+
+    if (!user) {
+      return <div>not logged in</div>;
     }
 
     return (
