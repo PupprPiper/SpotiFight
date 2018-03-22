@@ -11,6 +11,7 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 
 import MenuIcon from 'material-ui-icons/Menu';
+import ExitToApp from 'material-ui-icons/ExitToApp';
 
 export {
   TextField,
@@ -25,5 +26,6 @@ export {
   MenuIcon,
   Grid,
   Paper,
-  Icon
+  Icon,
+  ExitToApp
 };

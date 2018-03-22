@@ -1,32 +1,29 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { MenuIcon } from './components/Global/Material-Globals';
-import { toggleMenu } from './actions/index';
 
-import TitleBar from './components/Global/TitleBar/titleBar';
-import Sidebar from './components/Global/Sidebar/Sidebar';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  MenuIcon,
+  Button,
+  IconButton,
+  ExitToApp
+} from './components/Global/Material-Globals';
+import axios from 'axios';
 import appRoutes from './routes';
-import AuthWrapped from './components/Auth/Auth.jsx';
+import { persistStore } from 'redux-persist';
+
+import AppTitleBar from './components/Global/TitleBar/appTitleBar';
+import Sidebar from './components/Global/Sidebar/Sidebar';
 
 class App extends Component {
-  handleToggle() {
-    this.props.toggleMenu(!this.props.menuIsOpen);
-  }
-
   render() {
     return (
       <div>
         <BrowserRouter>
           <div>
-
-            <TitleBar
-              title="Spotifight"
-              handleCLick={() => this.handleToggle()}
-              color="inherit"
-              Icon={MenuIcon}
-            />
+            <AppTitleBar />
             <Sidebar />
             <Switch>
               {appRoutes.map((route, index) => {
@@ -46,14 +43,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = function(state) {
-  return {
-    menuIsOpen: state.menuIsOpen
-  };
-};
-
-const mapDispatchToProps = function(dispatch) {
-  return bindActionCreators({ toggleMenu }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

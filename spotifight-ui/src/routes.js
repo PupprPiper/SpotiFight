@@ -39,7 +39,8 @@ const appRoutes = [
     path: '/friends',
     sidebarName: 'Friends',
     icon: Person,
-    component: Friends
+    component: Friends,
+    protected: true
   },
   {
     path: '/signup',
@@ -57,19 +58,22 @@ const appRoutes = [
     path: '/chat',
     sidebarName: 'Chat',
     icon: Person,
-    component: Chat
+    component: Chat,
+    protected: true
   },
   {
     path: '/game-room',
     sidebarName: 'Game Room',
     icon: Gamepad,
-    component: GameRoom
+    component: GameRoom,
+    protected: true
   },
   {
     path: '/games',
     sidebarName: 'Games',
     icon: Gamepad,
-    component: Games
+    component: Games,
+    protected: true
   },
   {
     path: '/landing-page',
@@ -81,25 +85,29 @@ const appRoutes = [
     path: '/leader-board',
     sidebarName: 'Leader Board',
     icon: Accessibility,
-    component: LeaderBoard
+    component: LeaderBoard,
+    protected: true
   },
   {
     path: '/lobby',
     sidebarName: 'Lobby',
     icon: Room,
-    component: Lobby
+    component: Lobby,
+    protected: true
   },
   {
     path: '/music-player',
     sidebarName: 'Music Player',
     icon: MusicNote,
-    component: MusicPlayer
+    component: MusicPlayer,
+    protected: true
   },
   {
     path: '/user-profile',
     sidebarName: 'User Profile',
     icon: AccountBox,
-    component: UserProfile
+    component: UserProfile,
+    protected: true
   },
   { redirect: true, path: '/', to: '/home' }
 ];
