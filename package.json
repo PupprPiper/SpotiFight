@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "animate.css": "^3.6.1"
+    "animate.css": "^3.6.1",
+    "passport-local": "^1.0.0"
   }
 }

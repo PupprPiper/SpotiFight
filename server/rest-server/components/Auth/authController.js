@@ -1,6 +1,6 @@
 const passport = require('passport');
 const passportSetup = require('./../../../environment/passport-setup');
-
+const LocalStrategy = require('passport-local').Strategy
 // google oauth
 const googleLoginCtrl = passport.authenticate('google', {
   scope: ['profile', 'email']
@@ -16,5 +16,14 @@ const logoutCtrl = (req, res) => {
   res.status(200).send('logging out');
 };
 
-module.exports = { googleLoginCtrl, googleRedirectCtrl, logoutCtrl };
+const vanillaLoginCtrl = (req, res) => {
+  
+}
 
+
+
+
+
+
+
+module.exports = { googleLoginCtrl, googleRedirectCtrl, logoutCtrl };
