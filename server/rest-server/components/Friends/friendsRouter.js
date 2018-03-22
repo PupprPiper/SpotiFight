@@ -2,16 +2,31 @@
 const express = require('express');
 
 // import { friendsController } from './friendsControllers';
-const friendsController = require('./friendsController')
+const friendsController = require('./friendsController');
 const router = express.Router();
 
-router.route('/addFriend')
-  .post(friendsController.addFriend);
+const verifyToken = (req, res, next) => {
+  const bearerHeader = req.headers['authorization'];
+  if (typeof bearerHeader !== 'undefined') {
+    const bearer = bearerHeader.split(' ');
+    const bearerToken = bearer[1];
+  } else {
+    res.sendStatus(403);
+  }
+};
 
-router.route('/fetchAllFriends/:user_id')
+router.get('/', (req, res) => {
+  res.send('you have reached friends');
+});
+
+router.route('/addFriend').post(friendsController.addFriend);
+
+router
+  .route('/fetchAllFriends/:user_id')
   .get(friendsController.fetchAllFriends);
 
-router.route('/deleteFriend/:user_id/:friend_id')
+router
+  .route('/deleteFriend/:user_id/:friend_id')
   .delete(friendsController.deleteFriend);
 
 module.exports = router;
