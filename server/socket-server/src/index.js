@@ -25,6 +25,7 @@ io.on('connection', client => {
   // disconnect
   client.on('disconnect', data => {
     connections.splice(connections.indexOf(client), 1);
+    
     console.log(`Disconnected: %s clients connected ${connections.length}`);
   });
 
@@ -49,6 +50,22 @@ io.on('connection', client => {
   client.on('SEND_WINNER_SONG', data => {
     io.in(client.handshake.query.roomId).emit('GLOBAL_SONG', data)
   });
+
+  client.on('USER_ENTER_LOBBY',  user => {
+    users.push(user)
+    io.in(client.handshake.query.roomId).emit('newMessage', {
+      msg: `${user.username} has entered lobby`
+    });
+    console.log(`${user.username} has entered lobby`)
+    client.on('disconnect', data =>{
+      users.splice(users.indexOf(user.username), 1)
+      io.in(client.handshake.query.roomId).emit('newMessage', {
+        msg: `${user.username} has disconnected`
+      });
+      console.log(`${user} has disconnected`);
+    })
+    io.in(client.handshake.query.roomId).emit('ACTIVE_USERS', users)
+  })
 
 
 
