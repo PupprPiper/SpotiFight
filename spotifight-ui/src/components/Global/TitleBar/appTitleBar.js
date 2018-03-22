@@ -22,12 +22,14 @@ class AppTitleBar extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({ isLoggedIn: !!localStorage.getItem('token') });
+    console.log('props-->', this.props);
   }
 
   handleToggle() {
     this.props.toggleMenu(!this.props.menuIsOpen);
+    console.log('from title bar -->', this.props);
   }
 
   async logout() {
