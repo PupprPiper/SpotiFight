@@ -80,7 +80,7 @@ export default class rpsls extends Component {
     return (
       <div>
         <div>
-          {console.log('HERE IS THE FINAL WINNER ', this.state.winner)}
+          {console.log('HERE IS THE FINAL WINNER ', this.state)}
           {console.log(this.state.opponentChoice)}
           {this.state.ended ? <h3>YOU {this.state.result}</h3> : null}
         </div>
