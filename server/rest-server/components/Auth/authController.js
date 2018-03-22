@@ -23,8 +23,6 @@ const logoutCtrl = (req, res) => {
   // req.logout();
 };
 
-<<<<<<< HEAD
-=======
 const vanillaLoginCtrl = (req, res) => {
 
 }
@@ -35,5 +33,4 @@ const vanillaLoginCtrl = (req, res) => {
 
 
 
->>>>>>> git commit pre ryan rebase - auth
 module.exports = { googleLoginCtrl, googleRedirectCtrl, logoutCtrl };
