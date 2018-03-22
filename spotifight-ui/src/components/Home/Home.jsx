@@ -7,11 +7,13 @@ import Masher from "../Games/Masher/Masher";
 import {gameSwitch} from "../../actions/index"
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import MusicTrivia from '../Games/MusicTrivia/MusicTrivia'
 import './Home.scss'
 
 const mapStateToProps = function(state) {
   return {
-    game: state.game
+    game: state.game,
+    userProfile: state.userProfile
   };
 };
 
@@ -20,7 +22,8 @@ const mapDispatchToProps = function(dispatch) {
 };
 
 const Games = {
-  'Masher': Masher
+  'Masher': Masher,
+  'MusicTrivia': MusicTrivia
 };
 let randomRoom;
  class Home extends Component {
@@ -32,7 +35,9 @@ let randomRoom;
     };
     this.handleGameSelect = this.handleGameSelect.bind(this)
   }
-  componentDidMount() {}
+  componentDidMount() {
+    
+  }
 
   randomRoom() {
     randomRoom = `${randomstring.generate()}`;
@@ -58,7 +63,7 @@ let randomRoom;
         <div>Select a game:</div>
         
          <div onClick = {()=>{this.handleGameSelect('Masher')}}> <img className = 'column green' src = 'http://www.pvhc.net/img218/nqsltgpugozgfjmxmsec.png'/></div>
-        
+         <div onClick = {()=>{this.handleGameSelect('MusicTrivia')}}> <img className = 'column green' src = 'https://upload.wikimedia.org/wikipedia/en/2/27/Trivia.png'/></div>
         <Button
           variant="raised"
           color="secondary"

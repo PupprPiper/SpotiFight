@@ -22,7 +22,7 @@ const styles = theme => ({
 function ButtonGrid(props) {
 
   {
-    console.log(props, 'IN BUTTON GRID')
+  
   }
 
   const {classes} = props;
