@@ -47,6 +47,10 @@ class GameRoom extends Component {
     };
 
     this.getWinner = this.getWinner.bind(this);
+
+
+
+
   }
   async componentWillMount() {
     this.socket = await io.connect("http://localhost:8000", {
@@ -59,7 +63,9 @@ class GameRoom extends Component {
 
     this.socket.on('ACTIVE_USERS', data=> {
       console.log('this is the active users', data)
-      this.setState({players: data})
+
+      this.setState({players: data});
+
     })
 
     this.socket.on("startGameAll", data => {
@@ -67,9 +73,9 @@ class GameRoom extends Component {
     });
 
 
-  
+
     this.state.socket.on("finalScoreObject", finalScore => {
-      
+
       var winner = this.getWinner(finalScore);
       this.setState({ winner: winner });
       this.state.socket.emit("broadcastWinner", winner);
@@ -82,9 +88,9 @@ class GameRoom extends Component {
     this.state.socket.on('GLOBAL_SONG', song => {
       this.setState({globalSong:song})
     })
-   
+
   }
-  
+
 
   startGame() {
     this.socket.emit("startGameHost", this.state.selectedGame);
@@ -124,14 +130,13 @@ class GameRoom extends Component {
               <Button
                 variant="raised"
                 color="secondary"
-                onClick={() => this.startGame()}
-              >
+                onClick={() => this.startGame()}>
                 START GAME
               </Button>
             )}
+
           </Grid>
         </Grid>
-        
       </div>
     );
   }

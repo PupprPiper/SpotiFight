@@ -22,7 +22,7 @@ const styles = theme => ({
 function ButtonGrid(props) {
 
   {
-  
+
   }
 
   const {classes} = props;
@@ -31,10 +31,10 @@ function ButtonGrid(props) {
     <Grid container spacing={24}>
 
       {
-        players.map((player) => {
-          return (<Grid align="center" key={player.userName}  item xs={6}>
+        props.players.map((player) => {
+          return (<Grid align="center" key={player.username}  item xs={6}>
             <Paper className={`${classes.paper}`} style={{ minWidth: '110px', maxWidth:'300px' }}>
-                <img src={player.img} className="buttonCard" />
+                <img src={player.avatar_url} className="buttonCard" />
               <PlayerButton player={player} socket={props.socket}/>
             </Paper>
           </Grid>)

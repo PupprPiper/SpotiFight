@@ -122,7 +122,7 @@ class PlayerButton extends Component {
     this.props.socket.on('displayUpdate', data => {
       if (this.state.player = data.player) {
         this.setState({
-          scoreDisplay: data.score[this.props.player.userName]
+          scoreDisplay: data.score[this.props.player.username]
         });
       }
     });
@@ -150,12 +150,12 @@ class PlayerButton extends Component {
 
   updateScore() {
     let socket = this.state.socket;
-    this.props.socket.emit('updateScore', {localUser: this.props.player.userName});
+    this.props.socket.emit('updateScore', {localUser: this.props.player.username});
   }
 
   render(props) {
     return (<div className="btn-div">
-      <Subheader>{this.props.player.userName}</Subheader>
+      <Subheader>{this.props.player.username}</Subheader>
       <button className="btn draw-border" onClick={() => this.updateScore()}>{this.state.scoreDisplay}</button>
     </div>);
   }
