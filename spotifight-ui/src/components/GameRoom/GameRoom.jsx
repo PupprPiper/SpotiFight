@@ -25,9 +25,13 @@ const mapDispatchToProps = function(dispatch) {
 };
 
 const games = {
+<<<<<<< HEAD
   Masher: Masher,
   MusicTrivia: MusicTrivia,
   RPSLS: RPSLS
+=======
+  'Masher': Masher
+>>>>>>> 08dc4549e32285ad79bdb38f5bce38a1be092a2e
 };
 class GameRoom extends Component {
   constructor(props) {
@@ -36,6 +40,7 @@ class GameRoom extends Component {
       socket: null,
       test: "",
       currRoom: Lobby,
+<<<<<<< HEAD
       players: [],
       socketID: "",
       localUser: this.props.userProfile.username,
@@ -43,6 +48,13 @@ class GameRoom extends Component {
         "https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg",
       winner: "",
       globalSong: null,
+=======
+      players: players,
+      socketID: '',
+      localUser: 'MikeUser',
+      userImg: 'https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg',
+      winner: '',
+>>>>>>> 08dc4549e32285ad79bdb38f5bce38a1be092a2e
       selectedGame: this.props.game
     };
 
@@ -72,6 +84,7 @@ class GameRoom extends Component {
       this.setState({ currRoom: games[data] });
     });
 
+<<<<<<< HEAD
 
 
     this.state.socket.on("finalScoreObject", finalScore => {
@@ -88,6 +101,14 @@ class GameRoom extends Component {
     this.state.socket.on('GLOBAL_SONG', song => {
       this.setState({globalSong:song})
     })
+=======
+    this.state.socket.on('finalScoreObject', (finalScore)=> {
+      console.log(finalScore, 'HERE IS THE FINAL SCORE');
+    var winner =  this.getWinner(finalScore);
+    this.setState({winner: winner})
+    this.state.socket.emit('broadcastWinner', winner);
+  });
+>>>>>>> 08dc4549e32285ad79bdb38f5bce38a1be092a2e
 
   }
 
@@ -98,6 +119,7 @@ class GameRoom extends Component {
   }
 
   getWinner(final) {
+<<<<<<< HEAD
     // console.log(final, "in final score");
     let values = Object.entries(final);
     values = values.sort((a, b) => {
@@ -107,11 +129,21 @@ class GameRoom extends Component {
     return values[0];
 
 
+=======
+    console.log(final, 'in final score')
+      let values = Object.entries(final);
+    values = values.sort((a, b)=> {
+        return b[1] - a[1];
+      })
+      console.log(values[0], '<------HERE IS YOUR WINNER')
+      return values[0];
+>>>>>>> 08dc4549e32285ad79bdb38f5bce38a1be092a2e
   }
 
   render() {
     return (
       <div>
+<<<<<<< HEAD
         {console.log('gameroom props' ,this.props)}
         {console.log('gameroom state', this .state)}
         <audio src = {this.state.globalSong} autoPlay/>
@@ -121,6 +153,12 @@ class GameRoom extends Component {
           localUser={this.state.localUser}
           winner={this.state.winner}
           players={this.state.players}
+=======
+        <this.state.currRoom socket={this.state.socket}
+        userImg={this.state.userImg}
+        localUser={this.state.localUser}
+        winner = {this.state.winner}
+>>>>>>> 08dc4549e32285ad79bdb38f5bce38a1be092a2e
         />
         <Grid container>
           <Grid item md={5} />
