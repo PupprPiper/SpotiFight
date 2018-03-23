@@ -8,7 +8,6 @@ const LocalStrategy = require('passport-local').Strategy
 
 
 
-const LocalStrategy = require('passport-local').Strategy
 
 // google oauth
 const googleLoginCtrl = passport.authenticate('google', {
