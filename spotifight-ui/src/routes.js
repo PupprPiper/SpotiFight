@@ -27,6 +27,10 @@ import Lobby from './components/Lobby/Lobby';
 import MusicPlayer from './components/MusicPlayer/MusicPlayer';
 import UserProfile from './components/UserProfile/UserProfile';
 import Friends from './components/Friends/Friends';
+import Flappy from './components/Games/Flappy/Flappy';
+
+// import store from './components/Games/Flappy/store';
+const store = 'test';
 
 const appRoutes = [
   {
@@ -108,6 +112,13 @@ const appRoutes = [
     icon: AccountBox,
     component: UserProfile,
     protected: true
+  },
+  {
+    path: '/flappy',
+    sidebarName: 'Flappy',
+    icon: AccountBox,
+    component: Flappy,
+    store: store
   },
   { redirect: true, path: '/', to: '/home' }
 ];

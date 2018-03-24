@@ -11,7 +11,8 @@ module.exports = {
     path: DIST_DIR
   },
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.jsx?/,
         include: SRC_DIR,
         loader: 'babel-loader',
@@ -21,8 +22,17 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"]
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            // options: {}
+          }
+        ]
+      }
     ]
   },
   resolve: {

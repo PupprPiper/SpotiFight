@@ -1,8 +1,8 @@
 module.exports = {
   google: {
     clientID:
-      '668624890134-6k5g07fkdmfa3djtvpgf6sda4hivm4tm.apps.googleusercontent.com',
-    clientSecret: '8tpG-M5RkYDOmQ262IOh7rbR'
+      '314631715674-p75jf4f3i7ddaa465kabch9e9u6qspu1.apps.googleusercontent.com',
+    clientSecret: 'LnO61VV4ose47KPTtmlaozV7'
   },
   session: {
     cookieKey: 'spotifightIsAwesome'

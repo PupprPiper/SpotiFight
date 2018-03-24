@@ -9,7 +9,11 @@ export const gameSwitch = game => {
 export const storeCurrentUser = profile => {
   return { type: 'USER_PROFILE', payload: profile };
 };
+
 export const songSwitch = function(game) {
   return { type: 'MY_SONG', payload: game };
+};
 
+export const flappyStore = store => {
+  return { type: 'FLAPPY_STORE', payload: store };
 };
