@@ -12,6 +12,14 @@ router.use('/home', (req, res) => {
 // user route
 router.use('/users', userRouter);
 router.use('/friends', friendsRouter);
+
+router.post('/', (req, res) => {
+ if (!!req.body) {
+   console.log(req.body, 'here is my token');
+ }
+
+});
+
 // router.use('/songs', songRouter);
 // router.use('/history', historyRouter);
 // router.use('/leaderboard', leaderboardRouter);
