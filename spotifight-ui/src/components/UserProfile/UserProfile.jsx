@@ -24,11 +24,11 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
-    let email = this.props.location.pathname.match(/\w+@\w+.\w+/)[0];
-    console.log(email);
     this.setState({
       loading: true
     });
+
+    let email = this.props.location.pathname.match(/\w+@\w+.\w+/)[0];
     this.getUser(email);
   }
 
@@ -43,11 +43,9 @@ class UserProfile extends Component {
   render() {
     let { loading } = this.state;
     let user = this.props.userProfile;
-    if (this.state.loading) {
+    if (loading) {
       return <div>loading</div>;
-    }
-
-    if (!user) {
+    } else if (!user) {
       return <div>not logged in</div>;
     }
 
