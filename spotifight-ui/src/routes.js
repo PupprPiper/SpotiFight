@@ -114,8 +114,6 @@ const appRoutes = [
     component: UserProfile,
     protected: true
   },
-<<<<<<< HEAD
-<<<<<<< HEAD
   {
     path: '/flappy',
     sidebarName: 'Flappy',
@@ -124,12 +122,6 @@ const appRoutes = [
     store: store
   },
   { redirect: true, path: '/', to: '/home' }
-=======
-  { redirect: true, path: '/', to: '/login' }
->>>>>>> refactored sockets to clean them up
-=======
-  { redirect: true, path: '/', to: '/login' }
->>>>>>> 52c5e0b5d2f16e2f5f37cb606180b2a97d367ef8
 ];
 
 export default appRoutes;
