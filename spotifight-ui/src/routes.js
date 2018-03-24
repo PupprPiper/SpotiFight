@@ -33,7 +33,8 @@ const appRoutes = [
     path: '/home',
     sidebarName: 'Home',
     icon: HomeIcon,
-    component: Home
+    component: Home,
+    protected: true,
   },
   {
     path: '/friends',
@@ -109,7 +110,7 @@ const appRoutes = [
     component: UserProfile,
     protected: true
   },
-  { redirect: true, path: '/', to: '/home' }
+  { redirect: true, path: '/', to: '/login' }
 ];
 
 export default appRoutes;
