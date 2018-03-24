@@ -74,6 +74,7 @@ class GameRoom extends Component {
       var winner = this.getWinner(finalScore);
       this.setState({ winner: winner });
       this.state.socket.emit("broadcastWinner", winner);
+        this.state.socket.emit('clearBoard', {})
       console.log("this is the winner", winner);
       if (this.state.localUser === winner[0]) {
         this.state.socket.emit("SEND_WINNER_SONG", this.props.mySong);
@@ -83,10 +84,10 @@ class GameRoom extends Component {
     this.state.socket.on("GLOBAL_SONG", song => {
       this.setState({ globalSong: song });
     });
-    
+
   }
   componentDidMount(){
-   
+
   }
 
   startGame() {
@@ -135,7 +136,7 @@ class GameRoom extends Component {
               </Button>
             )}
             {this.state.currRoom === Lobby ? null :
-            
+
             <Button
             variant="raised"
             color="secondary"
@@ -145,7 +146,7 @@ class GameRoom extends Component {
           </Button>
             }
 
-          
+
           </Grid>
         </Grid>
       </div>

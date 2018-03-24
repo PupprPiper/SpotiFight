@@ -11,7 +11,7 @@ const Masher = require('./masher');
 
 let users = [];
 let connections = [];
-let masherGame = {};
+
 
 io.on('connection', client => {
 
@@ -107,6 +107,7 @@ io.on('connection', client => {
 
 // MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER
 
+<<<<<<< HEAD
 =======
 >>>>>>> refactored sockets to clean them up
  Masher.updateScore(client, users, connections, masherGame, io);
@@ -127,6 +128,12 @@ io.on('connection', client => {
 =======
  Masher.finalScore(client, users, connections, masherGame, io);
 >>>>>>> refactor
+=======
+ Masher.updateScore(client, users, connections, io);
+ Masher.clearBoard(client, users, connections, io);
+ Masher.buildBoard(client, users, connections, io);
+ Masher.finalScore(client, users, connections, io);
+>>>>>>> rebase check
 
 })
 
