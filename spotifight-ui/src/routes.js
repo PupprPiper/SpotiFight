@@ -115,6 +115,9 @@ const appRoutes = [
     protected: true
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> merge markers
   {
     path: '/flappy',
     sidebarName: 'Flappy',
@@ -123,9 +126,12 @@ const appRoutes = [
     store: store
   },
   { redirect: true, path: '/', to: '/home' }
+<<<<<<< HEAD
 =======
   { redirect: true, path: '/', to: '/login' }
 >>>>>>> refactored sockets to clean them up
+=======
+>>>>>>> merge markers
 ];
 
 export default appRoutes;
