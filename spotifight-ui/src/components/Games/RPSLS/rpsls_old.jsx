@@ -35,25 +35,54 @@ export default class rpsls extends Component {
         spock: 'https://i.imgur.com/sRHZvfq.jpg'
 
       },
+      opponentChoice: null,
+      madeChoice: false,
+      result: null,
+      ended: false,
       localUser: this.props.localUser,
       players: this.props.players,
-      socket: this.props.socket
+      socketID: this.props.socketID,
+      socket: this.props.socket,
+      winner: null
     };
     this.makeChoice = this.makeChoice.bind(this);
   }
   componentDidMount() {
-
+    this.state.socket.on('receiveWinner', data => {
+      this.setState({winner: data})
+    })
+    this.setState({opponentChoice: this.state.choices[Math.floor(Math.random() * 5 + 1)]})
   }
 
   async makeChoice(i) {
-   
+    console.log('yours ',this.state.choices[i], 'opponent ', this.state.opponentChoice)
+    var result = this.state.choices[i] + this.state.opponentChoice;
+    if(!this.state.ended){
+      if(!this.state.outcome[result]){
+        console.log('TIE!')
+        this.setState({opponentChoice: this.state.choices[Math.floor(Math.random() * 5 + 1)]})
+      }else{
+        console.log(this.state.outcome[result])
+        await this.setState({ended: true,
+        result: this.state.outcome[result]})
+      }
+    }else{
+      console.log('THE GAME ALREADY ENDED')
+    }
+    console.log('RESULT OF GAME HERE ',this.state.result)
+    if(this.state.result === 'WIN!'){
+      console.log('GETS TO BROADCAST WINNER')
+      this.state.socket.emit("broadcastWinner", this.state.localUser)
+    }
   }
 
   render(props) {
     return (
       <div>
         <div>
-
+          {console.log('HERE IS THE FINAL WINNER ', this.state)}
+          {console.log(this.state.opponentChoice)}
+          {this.state.ended ? <h3>YOU {this.state.result}</h3> : null}
         </div>
         <div>
         {this.state.choices.map((choice, i) => {
