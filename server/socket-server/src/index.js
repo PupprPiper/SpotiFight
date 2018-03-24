@@ -112,6 +112,7 @@ io.on('connection', client => {
  Masher.updateScore(client, users, connections, masherGame, io);
  Masher.clearBoard(client, users, connections, masherGame, io);
  Masher.buildBoard(client, users, connections, masherGame, io);
+<<<<<<< HEAD
  Masher.finalScore(client, users, connections, masherGame, io)
 <<<<<<< HEAD
 >>>>>>> refactored sockets to clean them up
@@ -123,6 +124,9 @@ io.on('connection', client => {
   });
 =======
 >>>>>>> refactored sockets to clean them up
+=======
+ Masher.finalScore(client, users, connections, masherGame, io);
+>>>>>>> refactor
 
 })
 
