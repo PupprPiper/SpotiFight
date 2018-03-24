@@ -13,6 +13,7 @@ let users = [];
 let connections = [];
 let masherGame = {};
 let person= ''
+
 io.on("connection", client => {
   let roomId = client.handshake.query.roomId;
   if (client.handshake.query.roomId) {
