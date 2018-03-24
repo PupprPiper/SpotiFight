@@ -12,7 +12,7 @@ let userObject = {};
 let users = [];
 let connections = [];
 let masherGame = {};
-
+let person= ''
 io.on("connection", client => {
   let roomId = client.handshake.query.roomId;
   if (client.handshake.query.roomId) {
@@ -33,10 +33,13 @@ io.on("connection", client => {
   });
 
   // send message
+  client.on('CHAT_USER', chatter =>{
+    person = chatter;
+  })
   client.on("send message", data => {
     console.log(data);
     io.in(client.handshake.query.roomId).emit("newMessage", {
-      msg: data
+      msg: person + ': ' +data
     });
   });
 
