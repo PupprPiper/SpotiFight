@@ -66,6 +66,7 @@ io.on("connection", client => {
       io.in(client.handshake.query.roomId).emit("newMessage", {
         msg: `${user.username} has disconnected`
       });
+<<<<<<< HEAD
       io
         .in(client.handshake.query.roomId)
         .emit("ACTIVE_USERS", userObject[roomId]);
@@ -105,6 +106,21 @@ io.on("connection", client => {
       score: masherGame
     });
   });
+=======
+      io.in(client.handshake.query.roomId).emit('ACTIVE_USERS', users)
+    })
+    io.in(client.handshake.query.roomId).emit('ACTIVE_USERS', users)
+  })
+
+
+
+// MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER
+
+ Masher.updateScore(client, users, connections, masherGame, io);
+ Masher.clearBoard(client, users, connections, masherGame, io);
+ Masher.buildBoard(client, users, connections, masherGame, io);
+ Masher.finalScore(client, users, connections, masherGame, io)
+>>>>>>> refactored sockets to clean them up
 
   client.on("finalScore", data => {
     const finalScore = masherGame;
