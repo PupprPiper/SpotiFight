@@ -72,14 +72,7 @@ io.on('connection', client => {
  Masher.updateScore(client, users, connections, masherGame, io);
  Masher.clearBoard(client, users, connections, masherGame, io);
  Masher.buildBoard(client, users, connections, masherGame, io);
- Masher.finalScore(client, users, connections, masherGame, io)
-<<<<<<< HEAD
-=======
-
-// END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER
-
-
->>>>>>> 52c5e0b5d2f16e2f5f37cb606180b2a97d367ef8
+ Masher.finalScore(client, users, connections, masherGame, io);
 
 })
 

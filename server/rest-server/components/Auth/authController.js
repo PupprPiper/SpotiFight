@@ -8,11 +8,13 @@ const LocalStrategy = require('passport-local').Strategy
 
 
 const isLoggedIn = async (req, res) => {
+
 const token = req.body.token;
 const user =  await jwt.verify(token, 'spotifight');
 let email = user.user;
-let payload = await axios.get(`/users/email/${email}`);
-console.log(payload, 'to see what Im dealing with')
+console.log(user, 'here the user brah')
+
+
 
 }
 //just a change
