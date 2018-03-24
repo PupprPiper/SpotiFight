@@ -3,7 +3,8 @@ const passport = require('passport');
 const {
   googleLoginCtrl,
   googleRedirectCtrl,
-  logoutCtrl
+  logoutCtrl,
+  isLoggedIn
 } = require('./authController');
 
 // google auth
@@ -15,6 +16,9 @@ router.get(
   passport.authenticate('google'),
   googleRedirectCtrl
 );
+
+router.post('/isLoggedIn', isLoggedIn)
+
 
 // logout
 router.route('/logout').get(logoutCtrl);

@@ -1,11 +1,20 @@
 const passport = require('passport');
 const passportSetup = require('./../../../environment/passport-setup');
-
+const axios = require('axios');
 const jwt = require('jsonwebtoken');
 
 
 const LocalStrategy = require('passport-local').Strategy
 
+
+const isLoggedIn = async (req, res) => {
+const token = req.body.token;
+const user =  await jwt.verify(token, 'spotifight');
+let email = user.user;
+let payload = await axios.get(`/users/email/${email}`);
+console.log(payload, 'to see what Im dealing with')
+
+}
 //just a change
 
 
@@ -26,4 +35,4 @@ const logoutCtrl = (req, res) => {
   // req.logout();
 };
 
-module.exports = { googleLoginCtrl, googleRedirectCtrl, logoutCtrl };
+module.exports = { googleLoginCtrl, googleRedirectCtrl, logoutCtrl, isLoggedIn };
