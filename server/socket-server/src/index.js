@@ -7,15 +7,19 @@ const io = require("socket.io")(http);
 const Masher = require("./masher");
 const rpsls = require("./rpsls");
 
+const Lobby = require("./Lobby");
+const GameRoom = require("./GameRoom");
+const Chat = require("./Chat");
 
 let userObject = {};
 let users = [];
 let connections = [];
 let masherGame = {};
-let person= ''
 
 io.on("connection", client => {
+  //SOCKET ROOM SET UP DO NOT DELETE
   let roomId = client.handshake.query.roomId;
+
   if (client.handshake.query.roomId) {
     client.join(client.handshake.query.roomId);
     if (!userObject[roomId]) {
@@ -23,13 +27,13 @@ io.on("connection", client => {
     }
     console.log("new user has joined room: ", client.handshake.query.roomId);
   }
+  
   connections.push(client);
   console.log(`Connected %s clients connected ${connections.length}`);
 
   // disconnect
   client.on("disconnect", data => {
     connections.splice(connections.indexOf(client), 1);
-
     console.log(`Disconnected: %s clients connected ${connections.length}`);
   });
 
