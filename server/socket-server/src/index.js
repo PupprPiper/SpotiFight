@@ -16,17 +16,12 @@ let masherGame = {};
 io.on('connection', client => {
 
   if (client.handshake.query.roomId) {
-<<<<<<< HEAD
     client.join(client.handshake.query.roomId);
     if (!userObject[roomId]) {
       userObject[roomId] = [];
     }
     console.log("new user has joined room: ", client.handshake.query.roomId);
 
-=======
-    client.join(client.handshake.query.roomId)
-    console.log('new user has joined room: ', client.handshake.query.roomId);
->>>>>>> ee2bf969d16069996ca45cd832555bd3cdf6eab4
   }
   connections.push(client);
   console.log(`Connected %s clients connected ${connections.length}`);
@@ -76,24 +71,16 @@ io.on('connection', client => {
     io.in(client.handshake.query.roomId).emit('ACTIVE_USERS', users)
   })
 
-<<<<<<< HEAD
 
 
 // MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER
 
-=======
-// MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER
-
->>>>>>> ee2bf969d16069996ca45cd832555bd3cdf6eab4
  Masher.updateScore(client, users, connections, masherGame, io);
  Masher.clearBoard(client, users, connections, masherGame, io);
  Masher.buildBoard(client, users, connections, masherGame, io);
  Masher.finalScore(client, users, connections, masherGame, io);
-<<<<<<< HEAD
 
 
-=======
->>>>>>> ee2bf969d16069996ca45cd832555bd3cdf6eab4
 
 })
 

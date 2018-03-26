@@ -3,8 +3,6 @@ require('babel-polyfill');
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
-<<<<<<< HEAD
-=======
 
 module.exports = {
 
@@ -24,7 +22,6 @@ module.exports = {
   clearBoard: (client, users, connections, masherGame, io) => { client.on('clearBoard', data => {
     return masherGame = {}
   })},
->>>>>>> ee2bf969d16069996ca45cd832555bd3cdf6eab4
 
   buildBoard: (client, users, connections, masherGame, io) => {client.on('buildBoard', data => {
       masherGame[data.localUser] = 0
@@ -35,15 +32,11 @@ module.exports = {
     })},
 
 
-<<<<<<< HEAD
-module.exports = {
-=======
   finalScore: (client, users, connections, masherGame, io) => {client.on('finalScore', data => {
       const finalScore = masherGame;
       io.in(client.handshake.query.roomId).emit('finalScoreObject', finalScore);
       console.log('finalScore firing on server', finalScore)
     })},
->>>>>>> ee2bf969d16069996ca45cd832555bd3cdf6eab4
 
   updateScore: (client, users, connections, masherGame, io) => {
     client.on('updateScore', data => {
