@@ -42,11 +42,15 @@ export default class rpsls extends Component {
     this.makeChoice = this.makeChoice.bind(this);
   }
   componentDidMount() {
-
+    console.log('players list here ', this.state.players)
   }
 
   async makeChoice(i) {
-   
+    console.log(this.state.localUser, this.state.choices[i])
+   this.state.socket.emit('makeChoice', {
+     user: this.state.localUser,
+     choice: this.state.choices[i]
+    })
   }
 
   render(props) {

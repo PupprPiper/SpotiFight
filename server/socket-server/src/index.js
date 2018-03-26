@@ -5,9 +5,10 @@ const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 const Masher = require("./masher");
+const rpsls = require("./rpsls");
+
 
 let userObject = {};
-
 let users = [];
 let connections = [];
 let masherGame = {};
@@ -20,7 +21,6 @@ io.on("connection", client => {
       userObject[roomId] = [];
     }
     console.log("new user has joined room: ", client.handshake.query.roomId);
-
   }
   connections.push(client);
   console.log(`Connected %s clients connected ${connections.length}`);
@@ -88,6 +88,10 @@ io.on("connection", client => {
   Masher.finalScore(client, users, connections, masherGame, io);
 
   // END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER
+
+  rpsls.makeChoice(client, users, connections, masherGame, io);
+
+
 });
 
 const PORT = 8000;
