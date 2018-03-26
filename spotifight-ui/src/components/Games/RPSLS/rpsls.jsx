@@ -34,10 +34,9 @@ export default class rpsls extends Component {
         lizard: "https://i.imgur.com/6ix7L4A.jpg",
         spock: "https://i.imgur.com/sRHZvfq.jpg"
       },
-      localUser: this.props.localUser,
       players: this.props.players,
-      socket: this.props.socket,
       userChoice: null,
+      opp: null,
       oppChoice: null,
       result: null,
       winner: null
@@ -45,16 +44,16 @@ export default class rpsls extends Component {
     this.makeChoice = this.makeChoice.bind(this);
   }
   componentDidMount() {
-    this.state.socket.on("oppChoice", data => {
-      if (data.user !== this.state.localUser) {
-        this.setState({ oppChoice: data.choice });
+    this.props.socket.on("oppChoice", data => {
+      if (data.user !== this.props.localUser) {
+        this.setState({ opp: data.user, oppChoice: data.choice });
       }
       this.checkWin();
     });
-    this.state.socket.on('final', (data) => {
+    this.props.socket.on('final', (data) => {
       this.setState({result: 'END', winner: data})
     });
-    this.state.socket.on('restart', () => {
+    this.props.socket.on('restart', () => {
       this.setState({userChoice: null, oppChoice: null})
     })
   }
@@ -62,8 +61,8 @@ export default class rpsls extends Component {
   async makeChoice(i) {
     if(this.state.result !== 'END'){
       this.setState({userChoice: this.state.choices[i]})
-      this.state.socket.emit("makeChoice", {
-        user: this.state.localUser,
+      this.props.socket.emit("makeChoice", {
+        user: this.props.localUser,
         choice: this.state.choices[i]
       });
     }
@@ -78,7 +77,7 @@ export default class rpsls extends Component {
         this.setState({result: 'TIE', userChoice: null, oppChoice: null})
         result = null;
       }else if(this.state.outcome[result] === 'WIN!'){
-        this.state.socket.emit('winner', this.state.localUser)
+        this.props.socket.emit('winner', this.props.localUser)
       }
 
     }
