@@ -1,69 +1,74 @@
-require("babel-register");
-require("babel-polyfill");
-const express = require("express");
+require('babel-register');
+require('babel-polyfill');
+const express = require('express');
 const app = express();
-const http = require("http").Server(app);
-const io = require("socket.io")(http);
-const Masher = require("./masher");
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const Masher = require('./masher');
 
-let userObject = {};
+
+
 
 let users = [];
 let connections = [];
 let masherGame = {};
 
-io.on("connection", client => {
-  let roomId = client.handshake.query.roomId;
+io.on('connection', client => {
+
   if (client.handshake.query.roomId) {
+<<<<<<< HEAD
     client.join(client.handshake.query.roomId);
     if (!userObject[roomId]) {
       userObject[roomId] = [];
     }
     console.log("new user has joined room: ", client.handshake.query.roomId);
 
+=======
+    client.join(client.handshake.query.roomId)
+    console.log('new user has joined room: ', client.handshake.query.roomId);
+>>>>>>> ee2bf969d16069996ca45cd832555bd3cdf6eab4
   }
   connections.push(client);
   console.log(`Connected %s clients connected ${connections.length}`);
 
   // disconnect
-  client.on("disconnect", data => {
+  client.on('disconnect', data => {
     connections.splice(connections.indexOf(client), 1);
 
     console.log(`Disconnected: %s clients connected ${connections.length}`);
   });
 
   // send message
-  client.on("send message", data => {
+  client.on('send message', data => {
     console.log(data);
-    io.in(client.handshake.query.roomId).emit("newMessage", {
+    io.in(client.handshake.query.roomId).emit('newMessage', {
       msg: data
     });
   });
 
-  client.on("startGameHost", data => {
+  client.on('startGameHost', data => {
     console.log(data);
-    io.in(client.handshake.query.roomId).emit("startGameAll", data);
+    io.in(client.handshake.query.roomId).emit('startGameAll', data)
   });
 
-  client.on("broadcastWinner", data => {
+  client.on('broadcastWinner', data => {
     console.log(data);
-    io.in(client.handshake.query.roomId).emit("receiveWinner", data);
+    io.in(client.handshake.query.roomId).emit('receiveWinner', data)
   });
 
-  client.on("SEND_WINNER_SONG", data => {
-    io.in(client.handshake.query.roomId).emit("GLOBAL_SONG", data);
+  client.on('SEND_WINNER_SONG', data => {
+    io.in(client.handshake.query.roomId).emit('GLOBAL_SONG', data)
   });
 
-  client.on("USER_ENTER_LOBBY", user => {
-    userObject[roomId].push(user);
-    console.log("userObject", userObject);
-    io.in(client.handshake.query.roomId).emit("newMessage", {
+  client.on('USER_ENTER_LOBBY',  user => {
+    users.push(user)
+    io.in(client.handshake.query.roomId).emit('newMessage', {
       msg: `${user.username} has entered lobby`
     });
-    console.log(`${user.username} has entered lobby`);
-    client.on("disconnect", data => {
-      userObject[roomId].splice(userObject[roomId].indexOf(user.username), 1);
-      io.in(client.handshake.query.roomId).emit("newMessage", {
+    console.log(`${user.username} has entered lobby`)
+    client.on('disconnect', data =>{
+      users.splice(users.indexOf(user.username), 1)
+      io.in(client.handshake.query.roomId).emit('newMessage', {
         msg: `${user.username} has disconnected`
       });
       io.in(client.handshake.query.roomId).emit('ACTIVE_USERS', users)
@@ -71,19 +76,26 @@ io.on("connection", client => {
     io.in(client.handshake.query.roomId).emit('ACTIVE_USERS', users)
   })
 
+<<<<<<< HEAD
 
 
 // MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER
 
+=======
+// MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER
+
+>>>>>>> ee2bf969d16069996ca45cd832555bd3cdf6eab4
  Masher.updateScore(client, users, connections, masherGame, io);
  Masher.clearBoard(client, users, connections, masherGame, io);
  Masher.buildBoard(client, users, connections, masherGame, io);
  Masher.finalScore(client, users, connections, masherGame, io);
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> ee2bf969d16069996ca45cd832555bd3cdf6eab4
 
-  // END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER
-});
+})
 
 const PORT = 8000;
 http.listen(PORT, () => console.log(`socket server listening on port ${PORT}`));
