@@ -90,7 +90,7 @@ io.on("connection", client => {
   // END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER
 
   rpsls.makeChoice(client, users, connections, masherGame, io);
-
+  rpsls.winner(client, users, connections, masherGame, io);
 
 });
 

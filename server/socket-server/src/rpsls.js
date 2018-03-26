@@ -9,5 +9,11 @@ module.exports = {
     client.on('makeChoice', data => {
       io.in(client.handshake.query.roomId).emit('oppChoice', data)
     })
+  },
+  winner: (client, users, connections, masherGame, io) => {
+    client.on('winner', data => {
+      console.log('THE WINNER ', data)
+      io.in(client.handshake.query.roomId).emit('final', data)
+    })
   }
 }

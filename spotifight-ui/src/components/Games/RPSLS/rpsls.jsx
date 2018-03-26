@@ -38,7 +38,9 @@ export default class rpsls extends Component {
       players: this.props.players,
       socket: this.props.socket,
       userChoice: null,
-      oppChoice: null
+      oppChoice: null,
+      result: null,
+      winner: null
     };
     this.makeChoice = this.makeChoice.bind(this);
   }
@@ -46,8 +48,8 @@ export default class rpsls extends Component {
     this.state.socket.on("oppChoice", data => {
       if (data.user !== this.state.localUser) {
         this.setState({ oppChoice: data.choice });
-
       }
+      this.checkWin();
     });
   }
 
@@ -57,6 +59,20 @@ export default class rpsls extends Component {
       user: this.state.localUser,
       choice: this.state.choices[i]
     });
+  }
+  
+  checkWin () {
+    var result = this.state.userChoice + this.state.oppChoice;
+    console.log('RESULT HERE ', result)
+
+    if(this.state.userChoice && this.state.oppChoice){
+      if(this.state.userChoice === this.state.oppChoice){
+        this.setState({result: 'TIE'})
+      }else if(this.state.outcome[result] === 'WIN!'){
+        this.state.socket.emit('winner', this.state.localUser)
+      }
+
+    }
   }
 
   render(props) {
