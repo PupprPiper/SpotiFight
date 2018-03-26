@@ -63,7 +63,7 @@ class GameRoom extends Component {
       console.log("this is the active users", data);
 
       this.setState({ players: data });
-      this.setState({host: this.state.players[0].username})
+      // this.setState({host: this.state.players[0].username})
     });
 
     this.socket.on("startGameAll", data => {

@@ -4,11 +4,11 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 
-let masherGame = {};
+
 
 module.exports = {
 
-  updateScore: (client, users, connections, io) => {
+  updateScore: (client, users, connections, masherGame, io) => {
     client.on('updateScore', data => {
       if (!masherGame.hasOwnProperty(data.localUser)) {
         masherGame[data.localUser] = 1;
@@ -22,12 +22,12 @@ module.exports = {
       });
     })
   },
-  clearBoard: (client, users, connection, io) => {
+  clearBoard: (client, users, connections, masherGame, io) => {
     client.on('clearBoard', data => {
       masherGame = {}
     })
   },
-  buildBoard: (client, users, connections, io) => {
+  buildBoard: (client, users, connections, masherGame, io) => {
     client.on('buildBoard', data => {
       masherGame[data.localUser] = 0
       io.in(client.handshake.query.roomId).emit('displayUpdate', {
@@ -36,14 +36,13 @@ module.exports = {
       });
     })
   },
-  finalScore: (client, users, connections, io) => {
+  finalScore: (client, users, connections, masherGame, io) => {
     client.on('finalScore', data => {
       const finalScore = masherGame;
       io.in(client.handshake.query.roomId).emit('finalScoreObject', finalScore);
       console.log('finalScore firing on server', finalScore)
     })
   },
-
 }
 
 // client.on('updateScore', data => {

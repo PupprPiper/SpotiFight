@@ -78,13 +78,9 @@ io.on("connection", client => {
  Masher.updateScore(client, users, connections, masherGame, io);
  Masher.clearBoard(client, users, connections, masherGame, io);
  Masher.buildBoard(client, users, connections, masherGame, io);
- Masher.finalScore(client, users, connections, masherGame, io)
+ Masher.finalScore(client, users, connections, masherGame, io);
 
-  client.on("finalScore", data => {
-    const finalScore = masherGame;
-    io.in(client.handshake.query.roomId).emit("finalScoreObject", finalScore);
-    console.log("finalScore firing on server", finalScore);
-  });
+
 
   // END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER
 });
