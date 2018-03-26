@@ -37,7 +37,8 @@ const appRoutes = [
     path: '/home',
     sidebarName: 'Home',
     icon: HomeIcon,
-    component: Home
+    component: Home,
+    protected: true,
   },
   {
     path: '/friends',
