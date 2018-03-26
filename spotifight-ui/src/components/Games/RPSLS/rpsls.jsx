@@ -51,23 +51,32 @@ export default class rpsls extends Component {
       }
       this.checkWin();
     });
+    this.state.socket.on('final', (data) => {
+      this.setState({result: 'END', winner: data})
+    });
+    this.state.socket.on('restart', () => {
+      this.setState({userChoice: null, oppChoice: null})
+    })
   }
 
   async makeChoice(i) {
-    this.setState({userChoice: this.state.choices[i]})
-    this.state.socket.emit("makeChoice", {
-      user: this.state.localUser,
-      choice: this.state.choices[i]
-    });
+    if(this.state.result !== 'END'){
+      this.setState({userChoice: this.state.choices[i]})
+      this.state.socket.emit("makeChoice", {
+        user: this.state.localUser,
+        choice: this.state.choices[i]
+      });
+    }
   }
-  
+
   checkWin () {
     var result = this.state.userChoice + this.state.oppChoice;
     console.log('RESULT HERE ', result)
 
-    if(this.state.userChoice && this.state.oppChoice){
+    if(this.state.userChoice && this.state.oppChoice && this.state.result !== 'END'){
       if(this.state.userChoice === this.state.oppChoice){
-        this.setState({result: 'TIE'})
+        this.setState({result: 'TIE', userChoice: null, oppChoice: null})
+        result = null;
       }else if(this.state.outcome[result] === 'WIN!'){
         this.state.socket.emit('winner', this.state.localUser)
       }
@@ -78,7 +87,10 @@ export default class rpsls extends Component {
   render(props) {
     return (
       <div>
-        <div />
+        {this.state.result === 'TIE' ? <h3>TIE! Go again </h3> 
+        : this.state.result === 'END' ? <h3>{this.state.winner} WINS! </h3>
+        : null}
+      <div/>
         <div>
           {this.state.choices.map((choice, i) => {
             return (
