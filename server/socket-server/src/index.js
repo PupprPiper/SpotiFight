@@ -81,39 +81,55 @@ io.on("connection", client => {
 
   // MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER  MASHER
 
-  client.on("updateScore", data => {
-    if (!masherGame.hasOwnProperty(data.localUser)) {
-      masherGame[data.localUser] = 1;
-    } else {
-      masherGame[data.localUser] += 1;
-    }
-    console.log(masherGame);
-    io.in(client.handshake.query.roomId).emit("displayUpdate", {
-      player: data.localUser,
-      score: masherGame
-    });
-  });
 
-  client.on("clearBoard", data => {
-    masherGame = {};
-  });
-
-  client.on("buildBoard", data => {
-    masherGame[data.localUser] = 0;
-    io.in(client.handshake.query.roomId).emit("displayUpdate", {
-      player: data.localUser,
-      score: masherGame
-    });
-  });
-
-  client.on("finalScore", data => {
-    const finalScore = masherGame;
-    io.in(client.handshake.query.roomId).emit("finalScoreObject", finalScore);
-    console.log("finalScore firing on server", finalScore);
-  });
+  Masher.updateScore(client, users, connections, masherGame, io);
+  Masher.clearBoard(client, users, connections, masherGame, io);
+  Masher.buildBoard(client, users, connections, masherGame, io);
+  Masher.finalScore(client, users, connections, masherGame, io);
 
   // END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER
 });
 
 const PORT = 8000;
 http.listen(PORT, () => console.log(`socket server listening on port ${PORT}`));
+
+
+
+
+
+
+
+
+
+
+
+  // client.on("updateScore", data => {
+  //   if (!masherGame.hasOwnProperty(data.localUser)) {
+  //     masherGame[data.localUser] = 1;
+  //   } else {
+  //     masherGame[data.localUser] += 1;
+  //   }
+  //   console.log(masherGame);
+  //   io.in(client.handshake.query.roomId).emit("displayUpdate", {
+  //     player: data.localUser,
+  //     score: masherGame
+  //   });
+  // });
+  //
+  // client.on("clearBoard", data => {
+  //   masherGame = {};
+  // });
+  //
+  // client.on("buildBoard", data => {
+  //   masherGame[data.localUser] = 0;
+  //   io.in(client.handshake.query.roomId).emit("displayUpdate", {
+  //     player: data.localUser,
+  //     score: masherGame
+  //   });
+  // });
+  //
+  // client.on("finalScore", data => {
+  //   const finalScore = masherGame;
+  //   io.in(client.handshake.query.roomId).emit("finalScoreObject", finalScore);
+  //   console.log("finalScore firing on server", finalScore);
+  // });
