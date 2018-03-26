@@ -20,7 +20,9 @@ module.exports = {
   })},
 
   clearBoard: (client, users, connections, masherGame, io) => { client.on('clearBoard', data => {
-    return masherGame = {}
+    masherGame = {}
+
+    return masherGame;
   })},
 
   buildBoard: (client, users, connections, masherGame, io) => {client.on('buildBoard', data => {
