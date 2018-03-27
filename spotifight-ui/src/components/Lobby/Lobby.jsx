@@ -3,21 +3,24 @@ import io from "socket.io-client";
 import axios from "axios";
 import Chat from "../Chat/Chat.jsx";
 import Grid from "material-ui/Grid";
-import { songSwitch } from "../../actions/index";
+import { songSwitch, gameSwitch } from "../../actions/index";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Paper from "material-ui/Paper";
 import { withStyles } from "material-ui/styles";
+import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
+import Divider from 'material-ui/Divider';
 
 const mapStateToProps = function(state) {
   return {
     mySong: state.mySong,
-    userProfile: state.userProfile
+    userProfile: state.userProfile,
+    game: state.game
   };
 };
 
 const mapDispatchToProps = function(dispatch) {
-  return bindActionCreators({ songSwitch }, dispatch);
+  return bindActionCreators({ gameSwitch, songSwitch }, dispatch);
 };
 
 class Lobby extends Component {
@@ -63,6 +66,12 @@ class Lobby extends Component {
       searchQuery: e.target.value
     });
   }
+  handleGameSelect(item) {
+
+    this.props.gameSwitch(item)
+    
+  }
+
   render() {
     return (
       <div>
@@ -93,7 +102,18 @@ class Lobby extends Component {
             <div> Player Six</div>
           </Grid>
         </Grid>
+        
+        {this.props.host === this.props.localUser ? ( <List>
+          <ListItem onClick = {()=>{this.handleGameSelect('Masher')}} >  <ListItemText primary = 'Masher'/></ListItem>
+          <Divider />
+          <ListItem onClick = {()=>{this.handleGameSelect('MusicTrivia')}}> <ListItemText primary = 'MusicTrivia'/></ListItem>
+          <Divider />
+          <ListItem onClick = {()=>{this.handleGameSelect('RPSLS')}}><ListItemText primary = 'RPSLS'/></ListItem>
+          <Divider />
+          </List>) : null
 
+        }
+      
         <div>
           Please search for your Song
           <input type="text" onChange={this.handleSearchChange} />
@@ -112,6 +132,7 @@ class Lobby extends Component {
             {/* <audio src = {this.state.songPreview} autoPlay/> */}
           </div>
         )}
+    
       </div>
     );
   }

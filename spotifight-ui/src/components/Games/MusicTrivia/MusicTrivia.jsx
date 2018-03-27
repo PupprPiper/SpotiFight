@@ -1,8 +1,23 @@
 import React, { Component } from "react";
 import Questions from './Questions.js'
 import Paper from "material-ui/Paper";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { gameSwitch, songSwitch } from "../../../actions/index"
 
-export default class MusicTrivia extends Component {
+const mapStateToProps = function(state) {
+  return {
+    game: state.game,
+    mySong: state.mySong,
+    userProfile: state.userProfile
+  };
+};
+
+const mapDispatchToProps = function(dispatch) {
+  return bindActionCreators({ gameSwitch, songSwitch }, dispatch);
+};
+
+class MusicTrivia extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,6 +32,10 @@ export default class MusicTrivia extends Component {
   async componentWillMount() {
      this.setState({
       question: this.randomElement(Questions),
+    })
+    this.props.socket.on('REMOVE_TRIVIA_OPTIONS_ALL', data =>{
+      this.state.question.O = ''
+      this.forceUpdate()
     })
   }
 
@@ -35,8 +54,16 @@ export default class MusicTrivia extends Component {
     })
     if(this.state.userAnswer === this.state.question.A){
       await this.setState({
-        trivia_winner: this.props.localUser
+        trivia_winner: this.props.localUser,
       })
+      
+    }
+    if(this.state.trivia_winner === this.props.localUser) {
+      
+      this.state.question.O = ''
+      this.props.socket.emit("REMOVE_TRIVIA_OPTIONS", '')
+      this.props.socket.emit("SEND_WINNER_SONG", this.props.mySong)
+      this.forceUpdate()
     }
   }
 
@@ -48,12 +75,13 @@ export default class MusicTrivia extends Component {
     {console.log('trivia props', this.props)}
      <Paper> {this.state.question.Q}</Paper> 
 
-     <div> { 
-       
+     <div> { this.state.question.O ?
        this.state.question.O.map(item => {
          return <div onClick ={()=>this.userAnswerChange(item)}> {item} </div>
-       })
+       }) : null
        }</div>
     </div>;
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(MusicTrivia)
