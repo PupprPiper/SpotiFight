@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import ButtonGrid from './ButtonGrid.jsx';
+import React, { Component } from "react";
+import ButtonGrid from "./ButtonGrid.jsx";
 
-import Subheader from 'material-ui/List/ListSubheader';
-import './Masher.scss';
-import axios from 'axios';
+import Subheader from "material-ui/List/ListSubheader";
+import "./Masher.scss";
+import axios from "axios";
 
 import {
   TextField,
@@ -17,80 +17,86 @@ import {
   IconButton,
   MenuIcon,
   Grid
-} from '../../Global/Material-Globals.js';
+} from "../../Global/Material-Globals.js";
 
 export default class Masher extends Component {
-
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       localUser: this.props.localUser,
       players: this.props.players,
       socketID: this.props.socketID,
       counter: 10,
-      socket: this.props.socket
-
-    }
-
-
-
+      socket: this.props.socket,
+      savedResultsToDb: false
+    };
   }
 
-
-
-async countdown () {
+  countdown() {
     if (this.state.counter > 0) {
       this.setState({
-        counter: this.state.counter -= 1
-      })
+        counter: (this.state.counter -= 1)
+      });
     }
-    if (this.state.counter===0) {
+    if (this.state.counter === 0) {
       this.setState({
-        counter: this.state.counter = 'GAME OVER'
-      })
+        counter: (this.state.counter = "GAME OVER")
+      });
 
-        this.state.socket.emit('finalScore');
-        this.state.socket.on('receiveWinner', (winner) => {
-          this.setState({
-            counter: this.state.counter = `${winner[0]} WINS! FINAL SCORE: ${winner[1]}`
-          })
-          //ADDS WIN/LOSS to table
-          console.log(this.props.localUser, this.props.host)
-          if(this.props.localUser === this.props.host){
-            this.props.players.forEach((player => {
-              if(player.username !== winner[0]){
-                console.log('GETS TO LOSER')
-                axios.put('http://localhost:3000/users/addWinLoss', {field: 'losses', user_id: player.id })
-              }else{
-                console.log('GETS TO WINNER')
-                axios.put('http://localhost:3000/users/addWinLoss', {field: 'wins', user_id: player.id })
-              }
-            }))
-          }
-      })
-
-
-
+      //this makes it so that only host emits(prevents multiple receiveWinners)
+      if (this.props.localUser === this.props.host) {
+        console.log("GETS HERE");
+        this.state.socket.emit("finalScore");
+      }
     }
   }
 
   componentDidMount() {
-    var id = setInterval(()=> this.countdown(), 1000);
+    var id = setInterval(() => this.countdown(), 1000);
     if (this.counter === 0) {
       clearInterval(id);
     }
-
+    this.state.socket.on("receiveWinner", winner => {
+      this.setState({
+        counter: (this.state.counter = `${winner[0]} WINS! FINAL SCORE: ${
+          winner[1]
+        }`)
+      });
+      //ADDS WIN/LOSS to table
+      console.log(this.props.localUser, this.props.host);
+      if (this.props.localUser === this.props.host && !this.state.savedResultsToDb) {
+        this.props.players.forEach(player => {
+          if (player.username !== winner[0]) {
+            console.log("GETS TO LOSER");
+            axios.put("http://localhost:3000/users/addWinLoss", {
+              field: "losses",
+              user_id: player.id
+            });
+          } else {
+            console.log("GETS TO WINNER");
+            axios.put("http://localhost:3000/users/addWinLoss", {
+              field: "wins",
+              user_id: player.id
+            });
+          }
+        });
+        this.setState({savedResultsToDb: true})
+      }
+    });
   }
 
   render(props) {
     {
-
-      'I AM IN MASHER'
+      ("I AM IN MASHER");
     }
-    return <div>
-    <div align="center" className="flipInY masher-counter">{this.state.counter}</div>
-      <ButtonGrid players={this.state.players} socket={this.state.socket}/>
-    </div>;
+    return (
+      <div>
+        <div align="center" className="flipInY masher-counter">
+          {this.state.counter}
+        </div>
+        <ButtonGrid players={this.state.players} socket={this.state.socket} />
+      </div>
+    );
   }
 }

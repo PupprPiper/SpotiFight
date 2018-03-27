@@ -25,9 +25,7 @@ module.exports = {
     });
   },
   addWinLoss: async (req, res) => {
-    console.log('REQ FROM WIN LOSS IS HERE ', req.body)
     var queryString = helpers.addWinLossHelper(req);
-    console.log('QUERY STRING FROM WIN LOSS IS HERE ', queryString)
     var data = await db.queryAsync(queryString);
     res.send('updated win/loss column!');
   }

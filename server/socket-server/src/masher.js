@@ -36,6 +36,7 @@ module.exports = {
 
   finalScore: (client, users, connections, masherGame, io) => {client.on('finalScore', data => {
       const finalScore = masherGame;
+      console.log('DATA HEREEEEE ', data)
       io.in(client.handshake.query.roomId).emit('finalScoreObject', finalScore);
       console.log('finalScore firing on server', finalScore)
     })},
