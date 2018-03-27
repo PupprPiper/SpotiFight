@@ -28,19 +28,26 @@ class Friends extends Component {
   }
 
   async fetchAllFriends () {
-    var allFriends =  await axios.get(`http://localhost:3000/friends/fetchAllFriends/${this.props.userProfile.id}`)
+    var allFriends =  await axios.get(`http://localhost:3000/friends/fetchAllFriends/${this.props.userProfile.id}`);
+    console.log(allFriends)
     this.setState({friends: allFriends.data})
   }
 
   componentDidMount() {
     this.fetchAllFriends()
+    console.log(this.state.friends)
   }
 
   render() {
     return <div>
       <input type='text' onChange={(e) => this.setState({input: e.target.value})}/>
       <input type="submit" value="Add Friend" onClick={() => this.addFriend()}/>
-      
+      <h3>Your Friends</h3>
+      <ul>
+      {this.state.friends.map((friend, i) => {
+        return <li key={i} index={i}>{friend.username}</li>
+      })}
+      </ul>
       </div>;
   }
 }
