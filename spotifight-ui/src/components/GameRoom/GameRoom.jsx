@@ -44,8 +44,8 @@ class GameRoom extends Component {
         "https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg",
       winner: "",
       globalSong: null,
-      selectedGame: this.props.game,
-      host: null
+      // selectedGame: this.props.game,
+      host: null,
     };
 
     this.getWinner = this.getWinner.bind(this);
@@ -63,7 +63,7 @@ class GameRoom extends Component {
       console.log("this is the active users", data);
 
       this.setState({ players: data });
-      // this.setState({host: this.state.players[0].username})
+      this.setState({host: this.state.players[0].username})
     });
 
     this.socket.on("startGameAll", data => {
@@ -91,8 +91,8 @@ class GameRoom extends Component {
   }
 
   startGame() {
-    this.socket.emit("startGameHost", this.state.selectedGame);
-    this.setState({ currRoom: games[this.state.selectedGame] });
+    this.socket.emit("startGameHost", this.props.game);
+    this.setState({ currRoom: games[this.props.game] });
   }
   lobbyReturn(){
     this.setState({currRoom: Lobby})
@@ -120,13 +120,13 @@ class GameRoom extends Component {
           winner={this.state.winner}
           players={this.state.players}
           host = {this.state.host}
-          selectedGame ={this.state.selectedGame}
+          // selectedGame ={this.props.game}
         />
         <Grid container>
           <Grid item md={5} />
 
           <Grid item md={2}>
-            {this.state.selectedGame === null ? null : (
+            {this.props.game=== null ? null : (
               <Button
                 variant="raised"
                 color="secondary"
@@ -149,6 +149,7 @@ class GameRoom extends Component {
 
           </Grid>
         </Grid>
+        
       </div>
     );
   }

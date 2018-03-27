@@ -33,10 +33,12 @@ export default class Chat extends Component {
     }
   }
   handleSend() {
+    this.props.socket.emit("CHAT_USER", this.props.localUser)
     this.state.textField
       ? this.props.socket.emit("send message", this.state.textField)
       : console.log("text field empty");
     this.setState({ textField: "" });
+    
   }
 
   setTextField(e) {
