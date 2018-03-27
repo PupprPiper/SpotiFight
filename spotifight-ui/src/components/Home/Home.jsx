@@ -7,9 +7,10 @@ import Masher from '../Games/Masher/Masher';
 import { gameSwitch } from '../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import MusicTrivia from '../Games/MusicTrivia/MusicTrivia';
-import './Home.scss';
-import RPSLS from '../Games/RPSLS/rpsls';
+import MusicTrivia from '../Games/MusicTrivia/MusicTrivia'
+import './Home.scss'
+import RPSLS from '../Games/RPSLS/rpsls'
+import axios from 'axios';
 
 import GameList from './GameList';
 
@@ -19,7 +20,9 @@ class Home extends Component {
     this.state = {
       game: null
     };
+
   }
+
 
   render() {
     return (

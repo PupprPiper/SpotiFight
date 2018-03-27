@@ -17,10 +17,7 @@ const Trivia = require('./Trivia')
 let userObject = {};
 let users = [];
 let connections = [];
-let masherGame = {};
-let person = '';
 
-let flappyGame = {};
 
 io.on("connection", client => {
   //SOCKET ROOM SET UP DO NOT DELETE
@@ -33,7 +30,7 @@ io.on("connection", client => {
     }
     console.log("new user has joined room: ", client.handshake.query.roomId);
   }
-  
+
   connections.push(client);
   console.log(`Connected %s clients connected ${connections.length}`);
 
@@ -71,12 +68,3 @@ Lobby.lobbyActions(client, io, userObject, roomId)
 
 const PORT = 8000;
 http.listen(PORT, () => console.log(`socket server listening on port ${PORT}`));
-
-
-
-
-
-
-
-
-

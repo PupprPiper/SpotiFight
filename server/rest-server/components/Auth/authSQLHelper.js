@@ -6,4 +6,9 @@ const googleLoginHelper = (email, username, avatarUrl) => {
   `;
 };
 
-module.exports = { googleLoginHelper };
+const validateUser = (email) => {
+ return
+ `SELECT username from users WHERE email = '${email}'`
+}
+
+module.exports = { googleLoginHelper, validateUser };
