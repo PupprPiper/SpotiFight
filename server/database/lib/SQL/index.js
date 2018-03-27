@@ -76,6 +76,7 @@ module.exports = {
       FOREIGN KEY(user_id) REFERENCES users(id),
       CONSTRAINT fk_friends_friend_id
       FOREIGN KEY(friend_id) REFERENCES users(id)
+      UNIQUE (user_id, friend_id)
     )
     `
       );

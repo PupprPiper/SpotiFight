@@ -8,6 +8,8 @@ module.exports = {
     res.send("add friend received");
   },
   deleteFriend: async (req, res) => {
+    console.log('GETS HERE');
+    console.log('QUERY STRING ', queryString)
     var queryString = helpers.deleteFriendHelper(req);
     var data = await db.queryAsync(queryString)
     res.send("delete friend received");
