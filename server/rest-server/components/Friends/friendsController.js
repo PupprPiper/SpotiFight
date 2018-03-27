@@ -15,7 +15,6 @@ module.exports = {
   fetchAllFriends: async (req, res) => {
     var queryString = helpers.fetchAllFriendsHelper(req);
     var data = await db.queryAsync(queryString);
-    console.log('FETCH ALL FRIENDS DATA HERE: ', data)
     res.send(data.rows)
   }
 };
