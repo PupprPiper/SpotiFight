@@ -9,6 +9,7 @@ module.exports  = {
   },
 
   deleteFriendHelper: (req) => {
+    console.log('HERE IS THE REQ ', req.body)
     return `
     DELETE FROM friends
     WHERE (user_id=${req.body.user_id} AND friend_id=${req.body.friend_id}) OR 

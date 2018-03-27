@@ -21,7 +21,7 @@ class Friends extends Component {
         user_id: this.props.userProfile.id,
         friend_id: friend[0].id
       };
-      axios.post("http://localhost:3000/friends/addFriend", body);
+      await axios.post("http://localhost:3000/friends/addFriend", body);
     }
     this.fetchAllFriends();
   }
@@ -38,9 +38,13 @@ class Friends extends Component {
   }
 
   async removeFriend(i) {
-    console.log(this.props.userProfile.id, this.state.friends[i].id)
-    var body = {user_id: this.props.userProfile.id, friend_id: this.state.friends[i].id};
-    await axios.delete("http://localhost:3000/friends/deleteFriend", body)
+    var body = {
+      data: {
+        user_id: this.props.userProfile.id, 
+        friend_id: this.state.friends[i].id
+      }
+    };
+    await axios.delete(`http://localhost:3000/friends/deleteFriend/${this.props.userProfile.id}/${this.state.friends[i].id}`, body)
     this.fetchAllFriends();
   }
 
