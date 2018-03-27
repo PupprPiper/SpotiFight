@@ -15,5 +15,11 @@ module.exports = {
       console.log('THE WINNER ', data)
       io.in(client.handshake.query.roomId).emit('final', data)
     })
+  },
+  tie: (client, users, connections, masherGame, io) => {
+    client.on('tie', data => {
+      console.log('THE WINNER ', data)
+      io.in(client.handshake.query.roomId).emit('restart')
+    })
   }
 }
