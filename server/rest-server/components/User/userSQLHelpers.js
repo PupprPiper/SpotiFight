@@ -15,5 +15,10 @@ module.exports = {
   },
   getOneUser: email => {
     return `SELECT * FROM users WHERE email = '${email}';`;
+  },
+  addWinLossHelper: req => {
+    return `
+      UPDATE users SET ${req.body.field} = ${req.body.field} + 1 where id = ${req.body.user_id}
+    `
   }
 };
