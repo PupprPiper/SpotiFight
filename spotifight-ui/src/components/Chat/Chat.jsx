@@ -32,6 +32,17 @@ export default class Chat extends Component {
           });
     }
   }
+
+  componentDidMount(){
+    if(this.props.socket !== null){
+    this.props.socket.on("newMessage", data => {
+      console.log("MESSAGED RECIEVED ", data);
+      this.setState({
+        messages: this.state.messages.concat([data.msg])
+      });
+    });
+  }
+  }
   handleSend() {
     this.props.socket.emit("CHAT_USER", this.props.localUser)
     this.state.textField

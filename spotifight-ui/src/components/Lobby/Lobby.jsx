@@ -16,6 +16,7 @@ const mapStateToProps = function(state) {
     mySong: state.mySong,
     userProfile: state.userProfile,
     game: state.game
+
   };
 };
 
@@ -31,7 +32,8 @@ class Lobby extends Component {
       songURI: null,
       searchQuery: null,
       songPreview: null,
-      ready: false
+      ready: false,
+      topTen: [],
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.searchSong = this.searchSong.bind(this);
@@ -53,7 +55,8 @@ class Lobby extends Component {
         }
         this.setState({
           songURI: data.data.tracks.items[0].uri,
-          songPreview: data.data.tracks.items[0].preview_url
+          songPreview: data.data.tracks.items[0].preview_url,
+          topTen: data.data.tracks.items
         });
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
         this.props.userProfile.userSong = this.props.mySong;
@@ -72,10 +75,17 @@ class Lobby extends Component {
     
   }
 
+  handleSongClick(e){
+    this.setState({
+      songURI: e.uri,
+      songPreview: e.preview_url
+    })
+  }
+
   render() {
     return (
       <div>
-        {console.log("lobby props", this.props)}
+        {console.log("lobby top ten", this.state.topTen)}
         <Grid container>
           <Grid item md={3}>
             <Grid container spacing={24}>
@@ -119,6 +129,11 @@ class Lobby extends Component {
           <input type="text" onChange={this.handleSearchChange} />
           <input type="submit" onClick={() => this.searchSong()} />
         </div>
+        <List>
+        {this.state.topTen.map(item =>{
+          return <ListItem  onClick = {()=>this.handleSongClick(item)} > <ListItemText primary ={item.name} secondary = {item.artists[0].name}/> </ListItem> <Divider />
+        })}
+        </List>
         {!this.state.songURI ? null : (
           <div>
             <iframe
