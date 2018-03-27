@@ -131,7 +131,7 @@ class Lobby extends Component {
         </div>
         <List>
         {this.state.topTen.map(item =>{
-          return <ListItem  onClick = {()=>this.handleSongClick(item)} > <ListItemText primary ={item.name} secondary = {item.artists[0].name}/> </ListItem> <Divider />
+          return <ListItem  onClick = {()=>this.handleSongClick(item)} > <ListItemText primary ={item.name} secondary = {item.artists[0].name}/> </ListItem> 
         })}
         </List>
         {!this.state.songURI ? null : (
