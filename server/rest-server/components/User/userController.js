@@ -11,7 +11,7 @@ module.exports = {
   fetchAllUsers: async (req, res) => {
     var queryString = helpers.fetchAllUsersHelper(req);
     var data = await db.queryAsync(queryString);
-    res.send('add user received');
+    res.send(data.rows);
   },
   getOneUser: async (req, res) => {
     var queryString = helpers.getOneUser(req.params.email);
