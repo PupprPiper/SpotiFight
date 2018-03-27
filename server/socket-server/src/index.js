@@ -50,10 +50,13 @@ Lobby.lobbyActions(client, io, userObject, roomId)
 
 
 
-  Masher.updateScore(client, users, connections, masherGame, io);
-  Masher.clearBoard(client, users, connections, masherGame, io);
-  Masher.buildBoard(client, users, connections, masherGame, io);
-  Masher.finalScore(client, users, connections, masherGame, io);
+  Masher.updateScore(client, users, connections,  io);
+  Masher.clearBoard(client, users, connections,  io);
+  Masher.buildBoard(client, users, connections,  io);
+  Masher.finalScore(client, users, connections, io);
+
+  // END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER
+
   rpsls.makeChoice(client, users, connections, masherGame, io);
   rpsls.winner(client, users, connections, masherGame, io);
 
