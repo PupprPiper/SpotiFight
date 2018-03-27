@@ -63,18 +63,15 @@ export default class Masher extends Component {
           winner[1]
         }`)
       });
-      //ADDS WIN/LOSS to table
-      console.log(this.props.localUser, this.props.host);
+
       if (this.props.localUser === this.props.host && !this.state.savedResultsToDb) {
         this.props.players.forEach(player => {
           if (player.username !== winner[0]) {
-            console.log("GETS TO LOSER");
             axios.put("http://localhost:3000/users/addWinLoss", {
               field: "losses",
               user_id: player.id
             });
           } else {
-            console.log("GETS TO WINNER");
             axios.put("http://localhost:3000/users/addWinLoss", {
               field: "wins",
               user_id: player.id
