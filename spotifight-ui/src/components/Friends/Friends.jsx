@@ -10,13 +10,15 @@ export default class Friends extends Component {
     };
   }
 
-  addFriend() {
-    var allUsers =  axios.get('http://localhost:3000/friends/fetchAllUsers');
-    var user = allUsers.data.rows.filter(user => user.username === this.state.input);
-    if(user[0].id){
+  async addFriend() {
+    var allUsers =  await axios.get('http://localhost:3000/users/fetchAllUsers');
+    console.log('ALL USERS HERE ', allUsers)
+    var user = allUsers.data.filter(user => user.username === this.state.input);
+    console.log('FILTERED USER HERE ', user)
+    if(user.id){
       var body = {
-        user_id,
-        friend_id: user[0].id
+        user_id: this.state.user_id,
+        friend_id: user.id
       }
       axios.post('http://localhost:3000/friends/addFriend', body)
     }
