@@ -31,6 +31,7 @@ class Verify extends Component {
 
   render() {
     // {console.log(this.props, 'here is verify props')}
+>>>>>>> protecting routes with JWT
     return (<div></div>);
   }
 

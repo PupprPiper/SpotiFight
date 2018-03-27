@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import Verify from '../Auth/Verify.jsx'
 import axios from "axios";
 import Verify from '../Auth/Verify.jsx'
 
