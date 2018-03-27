@@ -3,7 +3,7 @@ import ButtonGrid from './ButtonGrid.jsx';
 
 import Subheader from 'material-ui/List/ListSubheader';
 import './Masher.scss';
-
+import axios from 'axios';
 
 import {
   TextField,
@@ -56,6 +56,18 @@ async countdown () {
           this.setState({
             counter: this.state.counter = `${winner[0]} WINS! FINAL SCORE: ${winner[1]}`
           })
+          //ADDS WIN/LOSS to table
+          console.log(this.props.localUser, this.props.host)
+          if(this.props.localUser === this.props.host){
+            this.props.players.forEach((player => {
+              if(player.username !== winner){
+                console.log('GETS HERE')
+                axios.put('http://localhost:3000/users/addWinLoss', {field: 'losses', user_id: player.id })
+              }else{
+                axios.put('http://localhost:3000/users/addWinLoss', {field: 'wins', user_id: player.id })
+              }
+            }))
+          }
       })
 
 
