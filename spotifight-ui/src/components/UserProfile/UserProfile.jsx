@@ -13,6 +13,7 @@ import {
 
 import { storeCurrentUser } from './../../actions/index';
 import './UserProfile.scss';
+import Verify from '../Auth/Verify.jsx';
 
 class UserProfile extends Component {
   constructor() {
@@ -68,6 +69,7 @@ class UserProfile extends Component {
           </CardContent>
           <CardActions>footer here</CardActions>
         </Card>
+          <Verify history={this.props.history}  />
       </div>
     );
   }

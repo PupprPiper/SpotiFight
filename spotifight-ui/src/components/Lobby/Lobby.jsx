@@ -12,6 +12,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Paper from "material-ui/Paper";
 import { withStyles } from "material-ui/styles";
+import Verify from '../Auth/Verify.jsx';
+
 import {
   List,
   ListItem,
@@ -264,6 +266,7 @@ class Lobby extends Component {
             </Grid>
           </Grid>
         </Grid>
+        <Verify />
       </div>
     );
   }

@@ -9,8 +9,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MusicTrivia from '../Games/MusicTrivia/MusicTrivia'
 import './Home.scss'
-import RPSLS from '../Games/RPSLS/rpsls'
+import RPSLS from '../Games/RPSLS/rpsls';
 import axios from 'axios';
+import Verify from '../Auth/Verify.jsx';
 
 import GameList from './GameList';
 
@@ -31,6 +32,7 @@ class Home extends Component {
         <GameList
           history={this.props.history}
         />
+        <Verify />
       </div>
     );
   }
