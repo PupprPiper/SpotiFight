@@ -51,7 +51,6 @@ async countdown () {
       })
 
         this.state.socket.emit('finalScore');
-        console.log(this.props.winner)
         this.state.socket.on('receiveWinner', (winner) => {
           this.setState({
             counter: this.state.counter = `${winner[0]} WINS! FINAL SCORE: ${winner[1]}`
