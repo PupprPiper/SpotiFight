@@ -149,6 +149,7 @@ class GameRoom extends Component {
 
           </Grid>
         </Grid>
+        
       </div>
     );
   }
