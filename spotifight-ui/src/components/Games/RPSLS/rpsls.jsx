@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./rpsls.scss";
-import axios from 'axios';
+import axios from "axios";
 export default class rpsls extends Component {
   constructor(props) {
     super(props);
@@ -45,32 +45,44 @@ export default class rpsls extends Component {
     this.makeChoice = this.makeChoice.bind(this);
   }
   componentDidMount() {
+    console.log(
+      "LEFT PLAYERS ",
+      this.props.leftPlayers,
+      "RIGHT PLAYERS ",
+      this.props.rightPlayers
+    );
     this.props.socket.on("oppChoice", data => {
       if (data.user !== this.props.localUser) {
         this.setState({ opp: data.user, oppChoice: data.choice });
       }
       this.checkWin();
     });
-    this.props.socket.on('final', (data) => {
-      this.setState({result: 'END', winner: data});
-      if(this.props.localUser === this.props.host){
-        this.props.players.forEach((player => {
-          if(player.username !== this.state.winner){
-            axios.put('http://localhost:3000/users/addWinLoss', {field: 'losses', user_id: player.id })
-          }else{
-            axios.put('http://localhost:3000/users/addWinLoss', {field: 'wins', user_id: player.id })
+    this.props.socket.on("final", data => {
+      this.setState({ result: "END", winner: data });
+      if (this.props.localUser === this.props.host) {
+        this.props.players.forEach(player => {
+          if (player.username !== this.state.winner) {
+            axios.put("http://localhost:3000/users/addWinLoss", {
+              field: "losses",
+              user_id: player.id
+            });
+          } else {
+            axios.put("http://localhost:3000/users/addWinLoss", {
+              field: "wins",
+              user_id: player.id
+            });
           }
-        }))
+        });
       }
     });
-    this.props.socket.on('restart', () => {
-      this.setState({userChoice: null, oppChoice: null})
-    })
+    this.props.socket.on("restart", () => {
+      this.setState({ userChoice: null, oppChoice: null });
+    });
   }
 
   async makeChoice(i) {
-    if(this.state.result !== 'END'){
-      this.setState({userChoice: this.state.choices[i]})
+    if (this.state.result !== "END") {
+      this.setState({ userChoice: this.state.choices[i] });
       this.props.socket.emit("makeChoice", {
         user: this.props.localUser,
         choice: this.state.choices[i]
@@ -78,28 +90,50 @@ export default class rpsls extends Component {
     }
   }
 
-  checkWin () {
+  checkWin() {
     var result = this.state.userChoice + this.state.oppChoice;
-    console.log('RESULT HERE ', result)
+    console.log("RESULT HERE ", result);
 
-    if(this.state.userChoice && this.state.oppChoice && this.state.result !== 'END'){
-      if(this.state.userChoice === this.state.oppChoice){
-        this.setState({result: 'TIE', userChoice: null, oppChoice: null})
+    if (
+      this.state.userChoice &&
+      this.state.oppChoice &&
+      this.state.result !== "END"
+    ) {
+      if (this.state.userChoice === this.state.oppChoice) {
+        this.setState({ result: "TIE", userChoice: null, oppChoice: null });
         result = null;
-      }else if(this.state.outcome[result] === 'WIN!'){
-        this.props.socket.emit('winner', this.props.localUser)
+      } else if (this.state.outcome[result] === "WIN!") {
+        this.props.socket.emit("winner", this.props.localUser);
       }
-
     }
   }
 
   render(props) {
     return (
       <div>
-        {this.state.result === 'TIE' ? <h3>TIE! Go again </h3> 
-        : this.state.result === 'END' ? <h3>{this.state.winner} WINS! </h3>
-        : null}
-      <div/>
+        {this.state.result === "TIE" ? (
+          <h3>TIE! Go again </h3>
+        ) : this.state.result === "END" ? (
+          <h3>{this.state.winner} WINS! </h3>
+        ) : null}
+        <div />
+
+        <Grid container spacing={24}>
+          {props.players.map(player => {
+            return (
+              <Grid align="center" key={player.username} item xs={6}>
+                <Paper
+                  className={`${classes.paper}`}
+                  style={{ minWidth: "110px", maxWidth: "300px" }}
+                >
+                  <img src={player.avatar_url} className="buttonCard" />
+                  <PlayerButton player={player} socket={props.socket} />
+                </Paper>
+              </Grid>
+            );
+          })}
+        </Grid>
+        
         <div>
           {this.state.choices.map((choice, i) => {
             return (
