@@ -42,7 +42,8 @@ export default class rpsls extends Component {
       opp: null,
       oppChoice: null,
       result: null,
-      winner: null
+      winner: null,
+      tie: false
     };
     this.makeChoice = this.makeChoice.bind(this);
   }
@@ -102,8 +103,16 @@ export default class rpsls extends Component {
       this.state.result !== "END"
     ) {
       if (this.state.userChoice === this.state.oppChoice) {
-        this.setState({ result: "TIE", userChoice: null, oppChoice: null });
+        this.setState({ result: "TIE" });
         result = null;
+        //this is so we can show the choices made for a second before resetting
+        setTimeout(() => {
+          this.setState({
+            result: null,
+            userChoice: null,
+            oppChoice: null
+          });
+        }, 1000)
       } else if (this.state.outcome[result] === "WIN!") {
         this.props.socket.emit("winner", this.props.localUser);
       }
@@ -119,23 +128,29 @@ export default class rpsls extends Component {
           <h3>{this.state.winner} WINS! </h3>
         ) : null}
         <div />
-
         <Grid container spacing={24}>
           {this.state.players.map((player, i) => {
             return (
               <Grid align="center" key={i} item xs={6}>
-                <Paper
-                  style={{ minWidth: "110px", maxWidth: "300px" }}
-                >
+                <Paper style={{ minWidth: "110px", maxWidth: "300px" }}>
                   <img src={player.avatar_url} className="buttonCard" />
                   <p>{player.username}</p>
 
-                  {(this.state.result === "TIE" || this.state.result === "END")
-                  ? i === 0 
-                  ? <img src = {this.state.images[this.state.userChoice]}/> 
-                  : <img src = {this.state.images[this.state.oppChoice]}/> 
-                  : null
-                }
+                  {this.state.result === "END" ? (
+                    i === 0 ? (
+                      <img src={this.state.images[this.state.userChoice]} />
+                    ) : (
+                      <img src={this.state.images[this.state.oppChoice]} />
+                    )
+                  ) : null}
+
+                  {this.state.result === "TIE" ? (
+                    i === 0 ? (
+                      <img src={this.state.images[this.state.userChoice]} />
+                    ) : (
+                      <img src={this.state.images[this.state.oppChoice]} />
+                    )
+                  ) : null}
                 </Paper>
               </Grid>
             );
