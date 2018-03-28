@@ -56,7 +56,6 @@ export default class rpsls extends Component {
       if(this.props.localUser === this.props.host){
         this.props.players.forEach((player => {
           if(player.username !== this.state.winner){
-            console.log('GETS HERE')
             axios.put('http://localhost:3000/users/addWinLoss', {field: 'losses', user_id: player.id })
           }else{
             axios.put('http://localhost:3000/users/addWinLoss', {field: 'wins', user_id: player.id })
