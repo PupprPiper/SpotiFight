@@ -82,10 +82,17 @@ export default class Chat extends Component {
               name="textField"
               value={this.state.textField}
               onChange={e => this.setTextField(e)}
+              onKeyPress={(ev) => {
+                
+                if (ev.key === 'Enter') {
+                  this.handleSend()
+                  ev.preventDefault();
+                }
+              }}
             />
             </div>
             <div align = 'center'> 
-            <Button onClick={() => this.handleSend()}>send message</Button>
+            <Button type = 'submit' onClick={() => this.handleSend()}>send message</Button>
             </div>
           
         

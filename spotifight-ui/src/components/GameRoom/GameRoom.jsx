@@ -46,9 +46,10 @@ class GameRoom extends Component {
       globalSong: null,
       host: null,
       leftPlayers: [],
-      rightPlayers: []
+      rightPlayers: [],
+      force : 1
     };
-
+    this.force = this.force.bind(this)
     this.getWinner = this.getWinner.bind(this);
   }
   async componentWillMount() {
@@ -105,6 +106,10 @@ class GameRoom extends Component {
     });
 
   }
+
+  force(){
+this.forceUpdate()
+  }
   componentDidMount(){
 
 
@@ -130,7 +135,7 @@ class GameRoom extends Component {
   render() {
     return (
       <div>
-
+        
         <audio src={this.state.globalSong} autoPlay />
         <this.state.currRoom
           socket={this.state.socket}
@@ -141,6 +146,7 @@ class GameRoom extends Component {
           host = {this.state.host}
           leftPlayers = {this.state.leftPlayers}
           rightPlayers = {this.state.rightPlayers}
+          force = {this.force}
         />
         <Grid container>
           <Grid item md={5} />

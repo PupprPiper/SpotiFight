@@ -28,7 +28,8 @@ const style = {
     overflow: "scroll",
     maxHeight: 300,
     maxWidth: 700,
-    margin: 'auto'
+    margin: 'auto',
+    cursor: 'pointer'
   }
 };
 
@@ -54,8 +55,8 @@ class Lobby extends Component {
       songPreview: null,
       ready: false,
       topTen: [],
-      leftPlayers: [],
-      rightPlayers: []
+      song: ''
+
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.searchSong = this.searchSong.bind(this);
@@ -80,12 +81,14 @@ class Lobby extends Component {
           alert("This song does not have a preview URL on spotify");
         }
         this.setState({
+          song: data.data.tracks.items[0],
           songURI: data.data.tracks.items[0].uri,
           songPreview: data.data.tracks.items[0].preview_url,
           topTen: data.data.tracks.items
         });
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
-        this.props.userProfile.userSong = this.props.mySong;
+        this.props.userProfile.userSong = data.data.tracks.items[0].name;
+       
       });
     });
   }
@@ -104,6 +107,7 @@ class Lobby extends Component {
       alert("This song does not have a preview URL on spotify");
     }
     this.setState({
+      song: e,
       songURI: e.uri,
       songPreview: e.preview_url
     });
@@ -123,7 +127,7 @@ class Lobby extends Component {
                     <Paper>
                       <div>
                         {" "}
-                        <img src={item.avatar_url} /> {item.username}{" "}
+                        <img src={item.avatar_url} /> {item.username} <div align ='right'>Song: {item.userSong}</div>
                       </div>
                     </Paper>
               
