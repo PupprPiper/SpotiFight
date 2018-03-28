@@ -28,12 +28,18 @@ class UserProfile extends Component {
       loading: true
     });
 
-    let email = this.props.location.pathname.match(/\w+@\w+.\w+/)[0];
+    let email = this.props.location.pathname
+      .match(
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )[0]
+      .replace('/user-profile/', '');
     this.getUser(email);
   }
 
   async getUser(email) {
     let payload = await axios.get(`/users/email/${email}`);
+    payload.data.userProfile.avatar_url = payload.data.userProfile.avatar_url + '0';
+    console.log('user profile', payload.data.userProfile);
     this.props.storeCurrentUser(payload.data.userProfile);
     this.setState({ loading: false, user: payload.data.userProfile });
     localStorage.setItem('token', payload.data.token);

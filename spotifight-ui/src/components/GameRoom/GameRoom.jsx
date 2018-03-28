@@ -10,6 +10,7 @@ import Grid from "material-ui/Grid";
 import { gameSwitch, songSwitch } from "../../actions/index";
 import Button from "material-ui/Button";
 import MusicTrivia from "../Games/MusicTrivia/MusicTrivia";
+import Flappy from "../Games/Flappy/Flappy";
 import RPSLS from "../Games/RPSLS/rpsls.jsx";
 
 const mapStateToProps = function(state) {
@@ -28,8 +29,10 @@ const games = {
   Lobby: Lobby,
   Masher: Masher,
   MusicTrivia: MusicTrivia,
-  RPSLS: RPSLS
+  RPSLS: RPSLS,
+  Flappy: Flappy
 };
+
 class GameRoom extends Component {
   constructor(props) {
     super(props);
@@ -135,7 +138,6 @@ this.forceUpdate()
   render() {
     return (
       <div>
-        
         <audio src={this.state.globalSong} autoPlay />
         <this.state.currRoom
           socket={this.state.socket}

@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 
-const GridCell = (props) => {
+const GridCell = ({ cell }) => {
   const style = {
     width: 20,
     height: 20,
     // border: '1px solid black',
-    backgroundColor: props.cell
+    backgroundColor: cell
   };
   return <div style={style} />;
 };
 
-export default GridCell;
+const OpponentGridCell = ({ cell }) => {
+  const style = {
+    width: 5,
+    height: 5,
+    // border: '1px solid black',
+    backgroundColor: cell
+  };
+  return <div style={style} />;
+};
+
+module.exports = { GridCell, OpponentGridCell };

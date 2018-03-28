@@ -7,6 +7,8 @@ const io = require("socket.io")(http);
 const Masher = require("./masher");
 const rpsls = require("./rpsls");
 
+const Flappy = require("./flappy")
+
 const Lobby = require("./Lobby");
 const GameRoom = require("./GameRoom");
 const Chat = require("./Chat");
@@ -17,6 +19,8 @@ let users = [];
 let connections = [];
 let masherGame = {};
 let person = '';
+
+let flappyGame = {};
 
 io.on("connection", client => {
   //SOCKET ROOM SET UP DO NOT DELETE
@@ -56,6 +60,13 @@ Lobby.lobbyActions(client, io, userObject, roomId)
   rpsls.makeChoice(client, users, connections, masherGame, io);
   rpsls.winner(client, users, connections, masherGame, io);
 
+
+  // END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER
+
+  // START FLAPPY
+  Flappy.updateCrashed(client, users, connections, flappyGame, io);
+  Flappy.updateGrid(client, users, connections, flappyGame, io);
+  // END FLAPPY
 });
 
 const PORT = 8000;
