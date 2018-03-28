@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./rpsls.scss";
 import axios from "axios";
+import Paper from "material-ui/Paper";
+import Grid from "material-ui/Grid";
 export default class rpsls extends Component {
   constructor(props) {
     super(props);
@@ -119,22 +121,28 @@ export default class rpsls extends Component {
         <div />
 
         <Grid container spacing={24}>
-          {props.players.map(player => {
+          {this.state.players.map((player, i) => {
             return (
-              <Grid align="center" key={player.username} item xs={6}>
+              <Grid align="center" key={i} item xs={6}>
                 <Paper
-                  className={`${classes.paper}`}
                   style={{ minWidth: "110px", maxWidth: "300px" }}
                 >
                   <img src={player.avatar_url} className="buttonCard" />
-                  <PlayerButton player={player} socket={props.socket} />
+                  <p>{player.username}</p>
+
+                  {(this.state.result === "TIE" || this.state.result === "END")
+                  ? i === 0 
+                  ? <img src = {this.state.images[this.state.userChoice]}/> 
+                  : <img src = {this.state.images[this.state.oppChoice]}/> 
+                  : null
+                }
                 </Paper>
               </Grid>
             );
           })}
         </Grid>
-        
-        <div>
+
+        <div align="center">
           {this.state.choices.map((choice, i) => {
             return (
               <img
