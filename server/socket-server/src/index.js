@@ -49,16 +49,15 @@ Lobby.lobbyActions(client, io, userObject, roomId)
   Trivia.removeOptions(client, io, userObject, roomId)
 
 
+  Trivia.removeOptions(client, io, userObject, roomId)
 
   Masher.updateScore(client, users, connections,  io);
   Masher.clearBoard(client, users, connections,  io);
   Masher.buildBoard(client, users, connections,  io);
   Masher.finalScore(client, users, connections, io);
 
-  // END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER
-
-  rpsls.makeChoice(client, users, connections, masherGame, io);
-  rpsls.winner(client, users, connections, masherGame, io);
+  rpsls.makeChoice(client, users, connections, io);
+  rpsls.winner(client, users, connections, io);
 
 
   // END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER

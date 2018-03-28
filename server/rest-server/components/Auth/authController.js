@@ -52,11 +52,15 @@ const createNewUser = async (req, res) => {
 
   bcrypt.hash(password, 9, async (err, hash) => {
     try {
-      if (err) {} else {
+      if (err) {
+        console.log(err, 'here the error is sign up')
+      } else {
+        console.log(hash, 'here the has, dog, we up in sign up')
         const data = await db.query(q.vanillaSignUpHelper(email, hash, username))
         response = data;
       }
-    } catch (error) {
+    } catch(error)  {
+      console.log(error.constraint, 'rejected, baby! Im in create new user')
       res.json(error);
     } finally {
       res.json(response);
@@ -96,6 +100,7 @@ const login = async (req, res) => {
 
 // logout
 const logoutCtrl = (req, res) => {
+
   // res.status(200).send(req.logout);
   // req.logout();
 };
