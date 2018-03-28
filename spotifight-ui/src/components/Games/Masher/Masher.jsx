@@ -46,7 +46,6 @@ export default class Masher extends Component {
 
       //this makes it so that only host emits(prevents multiple receiveWinners)
       if (this.props.localUser === this.props.host) {
-        console.log("GETS HERE");
         this.state.socket.emit("finalScore");
       }
     }
