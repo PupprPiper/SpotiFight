@@ -44,8 +44,9 @@ class GameRoom extends Component {
         "https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg",
       winner: "",
       globalSong: null,
-      // selectedGame: this.props.game,
       host: null,
+      leftPlayers: [],
+      rightPlayers: []
     };
 
     this.getWinner = this.getWinner.bind(this);
@@ -64,7 +65,25 @@ class GameRoom extends Component {
 
       this.setState({ players: data });
       this.setState({host: this.state.players[0].username})
+      let left = this.state.players.filter((item,index)=>{
+        if(index %2 ===0 || index ===0){
+         return item
+       }
+     })
+     let right = this.state.players.filter((item,index)=>{
+      if(index %2 ===1){
+       return item
+     }
+   })
+     console.log('left', left)
+     this.setState({
+       leftPlayers: left,
+       rightPlayers: right
+     })
+  
     });
+
+
 
     this.socket.on("startGameAll", data => {
       this.setState({ currRoom: games[data] });
@@ -88,6 +107,7 @@ class GameRoom extends Component {
   }
   componentDidMount(){
 
+
   }
 
   startGame() {
@@ -110,8 +130,7 @@ class GameRoom extends Component {
   render() {
     return (
       <div>
-        {console.log("gameroom props", this.props)}
-        {console.log("gameroom state", this.state)}
+
         <audio src={this.state.globalSong} autoPlay />
         <this.state.currRoom
           socket={this.state.socket}
@@ -120,20 +139,24 @@ class GameRoom extends Component {
           winner={this.state.winner}
           players={this.state.players}
           host = {this.state.host}
-          // selectedGame ={this.props.game}
+          leftPlayers = {this.state.leftPlayers}
+          rightPlayers = {this.state.rightPlayers}
         />
         <Grid container>
           <Grid item md={5} />
 
           <Grid item md={2}>
             {this.props.game=== null ? null : (
+              <div align='center'> 
               <Button
                 variant="raised"
                 color="secondary"
                 onClick={() => this.startGame()}
+                
               >
                 START GAME
               </Button>
+              </div>
             )}
             {this.state.currRoom === Lobby ? null :
 

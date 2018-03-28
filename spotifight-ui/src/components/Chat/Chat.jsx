@@ -72,6 +72,7 @@ export default class Chat extends Component {
                 return <Paper key={index}>{message}</Paper>;
               })}
             </div>
+            <div align = 'center'> 
             <TextField
               className="text-field"
               label="message"
@@ -82,7 +83,10 @@ export default class Chat extends Component {
               value={this.state.textField}
               onChange={e => this.setTextField(e)}
             />
-            <Button onClick={() => this.handleSend()}>send</Button>
+            </div>
+            <div align = 'center'> 
+            <Button onClick={() => this.handleSend()}>send message</Button>
+            </div>
           
         
       </div>
