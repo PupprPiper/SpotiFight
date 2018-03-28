@@ -41,7 +41,10 @@ io.on("connection", client => {
 
 
   Chat.sendMessage(client, io, users, person)
-  
+GameRoom.startGameHost(client, io, userObject)
+GameRoom.broadcastWinner(client, io, userObject)
+GameRoom.sendWinnerSong(client, io, userObject)
+Lobby.lobbyActions(client, io, userObject, roomId)
   Trivia.removeOptions(client, io, userObject, roomId)
 
 
