@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./rpsls.scss";
+import axios from 'axios';
 export default class rpsls extends Component {
   constructor(props) {
     super(props);
@@ -51,7 +52,16 @@ export default class rpsls extends Component {
       this.checkWin();
     });
     this.props.socket.on('final', (data) => {
-      this.setState({result: 'END', winner: data})
+      this.setState({result: 'END', winner: data});
+      if(this.props.localUser === this.props.host){
+        this.props.players.forEach((player => {
+          if(player.username !== this.state.winner){
+            axios.put('http://localhost:3000/users/addWinLoss', {field: 'losses', user_id: player.id })
+          }else{
+            axios.put('http://localhost:3000/users/addWinLoss', {field: 'wins', user_id: player.id })
+          }
+        }))
+      }
     });
     this.props.socket.on('restart', () => {
       this.setState({userChoice: null, oppChoice: null})

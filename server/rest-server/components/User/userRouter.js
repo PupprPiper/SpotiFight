@@ -4,5 +4,6 @@ const userController = require('./userController');
 router.route('/addUser').post(userController.addUser);
 router.route('/fetchAllUsers').get(userController.fetchAllUsers);
 router.route('/email/:email').get(userController.getOneUser);
+router.route('/addWinLoss').put(userController.addWinLoss);
 
 module.exports = router;

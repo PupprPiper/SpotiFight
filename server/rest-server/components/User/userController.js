@@ -23,5 +23,10 @@ module.exports = {
       };
       res.status(200).send(payload);
     });
+  },
+  addWinLoss: async (req, res) => {
+    var queryString = helpers.addWinLossHelper(req);
+    var data = await db.queryAsync(queryString);
+    res.send('updated win/loss column!');
   }
 };
