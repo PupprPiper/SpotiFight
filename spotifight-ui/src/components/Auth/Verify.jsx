@@ -7,7 +7,9 @@ class Verify extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {}
+    this.state = {
+
+    }
     this.authCheck = this.authCheck.bind(this);
 
   }

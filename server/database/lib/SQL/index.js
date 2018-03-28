@@ -37,6 +37,7 @@ module.exports = {
       id SERIAL,
       email VARCHAR(255) UNIQUE NOT NULL,
       username VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(300), 
       status VARCHAR(140),
       avatar_url VARCHAR(255),
       wins INT NOT NULL,
@@ -121,7 +122,7 @@ module.exports = {
       console.log('error dropping favorite_songs table ', err)
     }
   },
-  // fix this later 
+  // fix this later
   // createHistoryTable: async () => {
   //   try {
   //     await db.queryAsync(
