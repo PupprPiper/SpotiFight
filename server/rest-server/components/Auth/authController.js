@@ -96,7 +96,6 @@ const login = async (req, res) => {
 
 // logout
 const logoutCtrl = (req, res) => {
-
   // res.status(200).send(req.logout);
   // req.logout();
 };
