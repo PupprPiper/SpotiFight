@@ -64,8 +64,8 @@ Lobby.lobbyActions(client, io, userObject, roomId)
   // END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER
 
   // START FLAPPY
-  Flappy.updateCrashed(client, users, connections, flappyGame, io);
-  Flappy.updateGrid(client, users, connections, flappyGame, io);
+  Flappy.updateCrashed(client, users, connections, io);
+  Flappy.updateGrid(client, users, connections, io);
   // END FLAPPY
 });
 
