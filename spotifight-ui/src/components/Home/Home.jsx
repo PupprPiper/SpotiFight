@@ -35,6 +35,9 @@ class Home extends Component {
       }
     })
   }
+  handleRoomSelect(room){
+    this.props.history.push({pathname: `/game-room/${room}`})
+  }
 
 
   render() {

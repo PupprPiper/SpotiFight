@@ -72,7 +72,9 @@ class Lobby extends Component {
       ready: false,
       topTen: [],
       song: "",
-      songChoices: {}
+      songChoices: {},
+      players: this.props.players
+
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.searchSong = this.searchSong.bind(this);

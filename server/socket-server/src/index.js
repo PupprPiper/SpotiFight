@@ -41,6 +41,7 @@ io.on("connection", client => {
     console.log(`Disconnected: %s clients connected ${connections.length}`);
   });
 
+  client.emit('OPEN_ROOMS', Object.keys(userObject))
 
   Chat.sendMessage(client, io, users, person)
 GameRoom.startGameHost(client, io, userObject)
