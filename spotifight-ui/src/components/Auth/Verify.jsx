@@ -21,7 +21,6 @@ class Verify extends Component {
 
   authCheck() {
     const token = localStorage.getItem('token')
-    console.log(token);
     axios.post('auth/isLoggedIn', {token: token}).then((data) => {
       console.log('auth token has been sent: data back->', data.data)
       if (data.data === 'redirect') {
@@ -31,7 +30,7 @@ class Verify extends Component {
   }
 
   render() {
-    {console.log(this.props, 'here is verify props')}
+    // {console.log(this.props, 'here is verify props')}
     return (<div></div>);
   }
 

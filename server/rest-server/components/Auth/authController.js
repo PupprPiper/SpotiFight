@@ -12,18 +12,22 @@ const isLoggedIn = async (req, res) => {
   try {
     const token = req.body.token;
     if (token) {
-      const user = await jwt.verify(token, 'spotifight');
+      const user = await jwt.verify(token, 'spotifight')
       let email = user.user;
+        console.log(email, user.user, token, 'back up in isLoggedIn' )
       const data = await db.query(`SELECT username from users WHERE email = '${email}'`)
       const name = data.rows[0].username;
+      console.log(name)
       if (!name) {
-        res.status(200).redirect(`redirect`);
+        res.status(200).json(`redirect`);
+      } else {
+        res.status(200).json(`granted`);
       }
     } else {
-      res.status(200).send(`redirect`);
+      res.status(200).json(`redirect`);
     }
   } catch (error) {
-    res.status(200).send(`redirect`);
+    res.status(200).json(`redirect`);
   }
 }
 //just a change
@@ -92,7 +96,6 @@ const login = async (req, res) => {
 
 // logout
 const logoutCtrl = (req, res) => {
-
   // res.status(200).send(req.logout);
   // req.logout();
 };
