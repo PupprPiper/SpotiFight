@@ -1,5 +1,7 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import Verify from '../Auth/Verify.jsx'
 import axios from "axios";
+
 
 export default class LeaderBoard extends Component {
   constructor() {
@@ -25,7 +27,7 @@ export default class LeaderBoard extends Component {
     return (
       <div>
         <h3>LEADERBOARD</h3>
-        {this.state.users ? 
+        {this.state.users ?
         (<table align="center">
           <thead>
             <tr>
@@ -50,6 +52,7 @@ export default class LeaderBoard extends Component {
           </tbody>
         </table>):null
         }
+              <Verify history={this.props.history}  />
       </div>
     );
   }

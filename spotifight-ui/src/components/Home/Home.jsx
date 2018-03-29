@@ -7,9 +7,11 @@ import Masher from '../Games/Masher/Masher';
 import { gameSwitch } from '../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import MusicTrivia from '../Games/MusicTrivia/MusicTrivia';
-import './Home.scss';
+import MusicTrivia from '../Games/MusicTrivia/MusicTrivia'
+import './Home.scss'
 import RPSLS from '../Games/RPSLS/rpsls';
+import axios from 'axios';
+import Verify from '../Auth/Verify.jsx';
 
 import GameList from './GameList';
 
@@ -19,7 +21,21 @@ class Home extends Component {
     this.state = {
       game: null
     };
+
   }
+
+  authCheck() {
+    const token = localStorage.getItem('token')
+    console.log(token);
+    axios.post('auth/isLoggedIn', {token: token})
+    .then((data) => {
+      console.log('auth token has been sent: data back->', data.data)
+      if (data.data === 'redirect') {
+        this.props.history.push('/login');
+      }
+    })
+  }
+
 
   render() {
     return (
@@ -28,6 +44,7 @@ class Home extends Component {
         <GameList
           history={this.props.history}
         />
+        <Verify />
       </div>
     );
   }

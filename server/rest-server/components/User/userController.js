@@ -21,7 +21,7 @@ module.exports = {
         userProfile: data.rows[0],
         token: token
       };
-      res.status(200).send(payload);
+      res.status(200).json(payload);
     });
   },
   addWinLoss: async (req, res) => {

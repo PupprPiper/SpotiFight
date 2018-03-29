@@ -1,4 +1,5 @@
 const db = require("../../config/index");
+const def_pic = 'http://2.bp.blogspot.com/-HzFJhEY3KtU/Tea7Ku92cpI/AAAAAAAAALw/uBMzwdFi_kA/s1600/1.jpg';
 
 module.exports = {
   createDatabase: async () => {
@@ -37,8 +38,9 @@ module.exports = {
       id SERIAL,
       email VARCHAR(255) UNIQUE NOT NULL,
       username VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(300),
       status VARCHAR(140),
-      avatar_url VARCHAR(255),
+      avatar_url VARCHAR(255) DEFAULT '${def_pic}',
       wins INT NOT NULL,
       losses INT NOT NULL,
       CONSTRAINT users_pk
@@ -121,7 +123,7 @@ module.exports = {
       console.log('error dropping favorite_songs table ', err)
     }
   },
-  // fix this later 
+  // fix this later
   // createHistoryTable: async () => {
   //   try {
   //     await db.queryAsync(

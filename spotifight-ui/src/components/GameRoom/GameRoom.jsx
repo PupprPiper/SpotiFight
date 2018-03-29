@@ -14,6 +14,7 @@ import Masher from '../Games/Masher/Masher.jsx';
 import MusicTrivia from '../Games/MusicTrivia/MusicTrivia';
 import Flappy from '../Games/Flappy/Flappy';
 import RPSLS from '../Games/RPSLS/rpsls.jsx';
+import Verify from '../Auth/Verify.jsx';
 
 class GameRoom extends Component {
   constructor(props) {
@@ -142,6 +143,7 @@ class GameRoom extends Component {
             )}
           </Grid>
         </Grid>
+          <Verify history={this.props.history}  />
       </div>
     );
   }

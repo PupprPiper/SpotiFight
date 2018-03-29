@@ -17,10 +17,8 @@ const Trivia = require('./Trivia')
 let userObject = {};
 let users = [];
 let connections = [];
-let masherGame = {};
-let person = '';
+let person = ""
 
-let flappyGame = {};
 
 io.on("connection", client => {
   //SOCKET ROOM SET UP DO NOT DELETE
@@ -33,7 +31,7 @@ io.on("connection", client => {
     }
     console.log("new user has joined room: ", client.handshake.query.roomId);
   }
-  
+
   connections.push(client);
   console.log(`Connected %s clients connected ${connections.length}`);
 
@@ -52,31 +50,24 @@ Lobby.lobbyActions(client, io, userObject, roomId)
   Trivia.removeOptions(client, io, userObject, roomId)
 
 
+  Trivia.removeOptions(client, io, userObject, roomId)
 
-  Masher.updateScore(client, users, connections, masherGame, io);
-  Masher.clearBoard(client, users, connections, masherGame, io);
-  Masher.buildBoard(client, users, connections, masherGame, io);
-  Masher.finalScore(client, users, connections, masherGame, io);
-  rpsls.makeChoice(client, users, connections, masherGame, io);
-  rpsls.winner(client, users, connections, masherGame, io);
+  Masher.updateScore(client, users, connections,  io);
+  Masher.clearBoard(client, users, connections,  io);
+  Masher.buildBoard(client, users, connections,  io);
+  Masher.finalScore(client, users, connections, io);
+
+  rpsls.makeChoice(client, users, connections, io);
+  rpsls.winner(client, users, connections, io);
 
 
   // END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER
 
   // START FLAPPY
-  Flappy.updateCrashed(client, users, connections, flappyGame, io);
-  Flappy.updateGrid(client, users, connections, flappyGame, io);
+  Flappy.updateCrashed(client, users, connections, io);
+  Flappy.updateGrid(client, users, connections, io);
   // END FLAPPY
 });
 
 const PORT = 8000;
 http.listen(PORT, () => console.log(`socket server listening on port ${PORT}`));
-
-
-
-
-
-
-
-
-

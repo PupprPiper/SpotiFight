@@ -8,6 +8,7 @@ import {
   Icon
 } from "./../Global/Material-Globals";
 import "./Chat.scss";
+import Verify from '../Auth/Verify.jsx';
 
 
 
@@ -20,7 +21,7 @@ export default class Chat extends Component {
     };
   }
   componentDidUpdate(prevProps) {
-    
+
     if (prevProps.socket !== this.props.socket) {
       !this.props.socket
         ? console.log("didnt mount")
@@ -49,7 +50,7 @@ export default class Chat extends Component {
       ? this.props.socket.emit("send message", this.state.textField)
       : console.log("text field empty");
     this.setState({ textField: "" });
-    
+
   }
 
   setTextField(e) {
@@ -63,16 +64,16 @@ export default class Chat extends Component {
   render() {
     return (
       <div className="chat">
-       
-        
-        
-          
+
+
+
+
             <div>
               {this.state.messages.map((message, index) => {
                 return <Paper key={index}>{message}</Paper>;
               })}
             </div>
-            <div align = 'center'> 
+            <div align = 'center'>
             <TextField
               className="text-field"
               label="message"
@@ -83,7 +84,7 @@ export default class Chat extends Component {
               value={this.state.textField}
               onChange={e => this.setTextField(e)}
               onKeyPress={(ev) => {
-                
+
                 if (ev.key === 'Enter') {
                   this.handleSend()
                   ev.preventDefault();
@@ -91,11 +92,11 @@ export default class Chat extends Component {
               }}
             />
             </div>
-            <div align = 'center'> 
+            <div align = 'center'>
             <Button type = 'submit' onClick={() => this.handleSend()}>send message</Button>
             </div>
-          
-        
+            <Verify history={this.props.history}  />
+
       </div>
     );
   }
