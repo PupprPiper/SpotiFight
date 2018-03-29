@@ -8,7 +8,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Paper from "material-ui/Paper";
 import { withStyles } from "material-ui/styles";
-import List, {
+import {
+  List,
   ListItem,
   ListItemIcon,
   ListItemText,
@@ -73,7 +74,10 @@ class Lobby extends Component {
           this.setState({ songChoices: this.props.songSelections });
           });
         this.props.socket.on('newUser', () => {
-          this.setState({songChoices: this.props.songSelections})
+          if(this.props.songSelections){
+            this.setState({songChoices: this.props.songSelections})
+          }
+
         })
     }
   }
@@ -98,8 +102,9 @@ class Lobby extends Component {
           topTen: data.data.tracks.items
         });
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
-
+        console.log('SONG SELECTIONS HERE ', this.props.songSelections)
         var temp = Object.assign({}, this.props.songSelections);
+        console.log('RIGHT HERE ', temp)
         temp[this.props.localUser] = data.data.tracks.items[0].name;
         this.setState({songChoices: temp})
         this.props.socket.emit("sendSongChoices", temp);
@@ -138,7 +143,7 @@ class Lobby extends Component {
                 return (
                   <ListItem key={index} dense button className="list-item">
                     <Avatar src={item.avatar_url} />
-                    <ListItemText primary={`Song: ${item.userSong}`} />
+                    <ListItemText primary={`${item.username}`} secondary={`Song: ${this.state.songChoices.hasOwnProperty([item.username]) ? this.state.songChoices[item.username] : ''}`} />
                   </ListItem>
                 );
               })}
@@ -233,18 +238,12 @@ class Lobby extends Component {
           </Grid>
           <Grid item md={3}>
             <Grid container spacing={24}>
-              {this.props.rightPlayers.map((item, index) => {
+            {this.props.rightPlayers.map((item, index) => {
                 return (
-                  <Grid align="left" key={index} item xs={12}>
-                    <Paper>
-                    <div>
-                    {console.log('RIGHT USER URL? ', item.avatar_url)}
-                      <img src={item.avatar_url} /> {item.username}{" "}
-                      <div align="right">Song: {this.state.songChoices[item.username]}</div>
-                    </div>
-                  </Paper>
-
-                  </Grid>
+                  <ListItem key={index} dense button className="list-item">
+                    <Avatar src={item.avatar_url} />
+                    <ListItemText primary={`${item.username}`} secondary={`Song: ${this.state.songChoices.hasOwnProperty([item.username]) ? this.state.songChoices[item.username] : ''}`} />
+                  </ListItem>
                 );
               })}
             </Grid>
