@@ -35,7 +35,7 @@ io.on("connection", client => {
   connections.push(client);
   console.log(`Connected %s clients connected ${connections.length}`);
 
-
+  Lobby.lobbyActions(client, io, userObject, roomId)
   client.on("disconnect", data => {
     connections.splice(connections.indexOf(client), 1);
     console.log(`Disconnected: %s clients connected ${connections.length}`);
@@ -47,7 +47,7 @@ io.on("connection", client => {
 GameRoom.startGameHost(client, io, userObject)
 GameRoom.broadcastWinner(client, io, userObject)
 GameRoom.sendWinnerSong(client, io, userObject)
-Lobby.lobbyActions(client, io, userObject, roomId)
+
   Trivia.removeOptions(client, io, userObject, roomId)
 
 
