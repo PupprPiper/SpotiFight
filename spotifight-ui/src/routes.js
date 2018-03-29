@@ -1,8 +1,4 @@
 
-
-
-
-
 import {
   AccountBox,
   MusicNote,
@@ -37,14 +33,6 @@ import Verify from './components/Auth/Verify';
 
 // import store from './components/Games/Flappy/store';
 const store = 'test';
-
-
-
-
-
-
-
-
 
 const appRoutes = [
   {

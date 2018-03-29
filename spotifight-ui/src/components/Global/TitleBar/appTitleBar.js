@@ -20,7 +20,7 @@ class AppTitleBar extends Component {
     this.state = {
       isLoggedIn: false
     };
-    this.authorizeUser = this.authorizeUser.bind(this);
+    
   }
 
 
@@ -67,7 +67,7 @@ class AppTitleBar extends Component {
             Spotifight
           </Typography>
           {
-            this.state.isLoggedIn
+            this.props.userProfile
               ? logoutBtn
               : ''
           }
