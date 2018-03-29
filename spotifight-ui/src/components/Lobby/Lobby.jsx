@@ -92,13 +92,9 @@ class Lobby extends Component {
           topTen: data.data.tracks.items
         });
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
-        // this.props.userProfile.userSong = data.data.tracks.items[0].name;
-        // var obj = {};
-        // obj[this.props.localUser] = data.data.tracks.items[0].name;
-        
+
         var temp = Object.assign({}, this.state.songChoices);
         temp[this.props.localUser] = data.data.tracks.items[0].name;
-        console.log(temp)
         this.setState({songChoices: temp})
         this.props.socket.emit("sendSongChoices", temp);
       });
@@ -138,7 +134,8 @@ class Lobby extends Component {
                   <Grid align="left" key={index} item xs={12}>
                     <Paper>
                       <div>
-                        <img src={item.avatar_url} /> {item.username}{" "}
+                        {console.log('LEFT USER URL? ', item.avatar_url)}
+                        <img src={item.avatar_url} /> {item.username}
                         <div align="right">Song: {this.state.songChoices[item.username]}</div>
                       </div>
                     </Paper>
@@ -238,6 +235,7 @@ class Lobby extends Component {
                   <Grid align="left" key={index} item xs={12}>
                     <Paper>
                     <div>
+                    {console.log('RIGHT USER URL? ', item.avatar_url)}
                       <img src={item.avatar_url} /> {item.username}{" "}
                       <div align="right">Song: {this.state.songChoices[item.username]}</div>
                     </div>
