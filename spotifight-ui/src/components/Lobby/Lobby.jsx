@@ -49,7 +49,7 @@ class Lobby extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      socket: this.props.socket,
+      // socket: this.props.socket,
       songURI: null,
       searchQuery: null,
       songPreview: null,
@@ -66,7 +66,9 @@ class Lobby extends Component {
         this.props.socket.on("songChoices", data => {
             this.setState({ songChoices: data });
           });
-          this.props.socket.on("newUser", )
+          this.props.socket.on("newUser", () => {
+            this.props.socket.emit("sendSongChoices", this.state.songChoices)
+          })
     }
   }
 
@@ -91,9 +93,14 @@ class Lobby extends Component {
         });
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
         // this.props.userProfile.userSong = data.data.tracks.items[0].name;
-        var obj = {};
-        obj[this.props.localUser] = data.data.tracks.items[0].name;
-        this.props.socket.emit("pickSong", obj);
+        // var obj = {};
+        // obj[this.props.localUser] = data.data.tracks.items[0].name;
+        
+        var temp = Object.assign({}, this.state.songChoices);
+        temp[this.props.localUser] = data.data.tracks.items[0].name;
+        console.log(temp)
+        this.setState({songChoices: temp})
+        this.props.socket.emit("sendSongChoices", temp);
       });
     });
   }
@@ -230,11 +237,11 @@ class Lobby extends Component {
                 return (
                   <Grid align="left" key={index} item xs={12}>
                     <Paper>
-                      <div>
-                        {" "}
-                        <img src={item.avatar_url} /> {item.username}{" "}
-                      </div>
-                    </Paper>
+                    <div>
+                      <img src={item.avatar_url} /> {item.username}{" "}
+                      <div align="right">Song: {this.state.songChoices[item.username]}</div>
+                    </div>
+                  </Paper>
                   </Grid>
                 );
               })}

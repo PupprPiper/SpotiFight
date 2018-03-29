@@ -16,6 +16,8 @@ lobbyActions: (client, io, userObject, roomId) => {
       msg: `${user.username} has entered lobby`
     });
 
+    io.in(client.handshake.query.roomId).emit("newUser");
+
     console.log(`${user.username} has entered lobby`);
     client.on("disconnect", data => {
       userObject[roomId].splice(userObject[roomId].indexOf(user.username), 1);
@@ -34,7 +36,7 @@ lobbyActions: (client, io, userObject, roomId) => {
       .in(client.handshake.query.roomId)
       .emit("ACTIVE_USERS", userObject[roomId]);
 
-      client.on('pickSong', data => {
+      client.on('sendSongChoices', data => {
         console.log('PICKED SONG OBJECT ', data)
         io.in(client.handshake.query.roomId).emit("songChoices", data);
       })
