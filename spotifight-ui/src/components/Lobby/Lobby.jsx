@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { Component } from "react";
 import io from "socket.io-client";
 import axios from "axios";
@@ -10,20 +9,6 @@ import { bindActionCreators } from "redux";
 import Paper from "material-ui/Paper";
 import { withStyles } from "material-ui/styles";
 import List, {
-=======
-import React, { Component } from 'react';
-import io from 'socket.io-client';
-import axios from 'axios';
-import Chat from '../Chat/Chat.jsx';
-import Grid from 'material-ui/Grid';
-import { songSwitch, gameSwitch } from '../../actions/index';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import Paper from 'material-ui/Paper';
-import { withStyles } from 'material-ui/styles';
-import {
-  List,
->>>>>>> (refactor) lobby
   ListItem,
   ListItemIcon,
   ListItemText,
@@ -74,17 +59,13 @@ class Lobby extends Component {
       songPreview: null,
       ready: false,
       topTen: [],
-<<<<<<< HEAD
       song: "",
       songChoices: {}
-=======
-      song: ''
->>>>>>> (refactor) lobby
+
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.searchSong = this.searchSong.bind(this);
   }
-<<<<<<< HEAD
   componentDidUpdate(prevProps) {
     if (prevProps.socket !== this.props.socket) {
         this.props.socket.on("songChoices", data => {
@@ -96,9 +77,6 @@ class Lobby extends Component {
         })
     }
   }
-=======
-  componentDidMount() {}
->>>>>>> (refactor) lobby
 
   searchSong() {
     axios.get('/spotify').then(token => {
@@ -120,15 +98,12 @@ class Lobby extends Component {
           topTen: data.data.tracks.items
         });
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
-<<<<<<< HEAD
 
         var temp = Object.assign({}, this.props.songSelections);
         temp[this.props.localUser] = data.data.tracks.items[0].name;
         this.setState({songChoices: temp})
         this.props.socket.emit("sendSongChoices", temp);
-=======
-        this.props.userProfile.userSong = data.data.tracks.items[0].name;
->>>>>>> (refactor) lobby
+
       });
     });
   }
