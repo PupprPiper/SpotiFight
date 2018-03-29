@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { Component } from "react";
 import io from "socket.io-client";
 import axios from "axios";
@@ -9,23 +10,40 @@ import { bindActionCreators } from "redux";
 import Paper from "material-ui/Paper";
 import { withStyles } from "material-ui/styles";
 import List, {
+=======
+import React, { Component } from 'react';
+import io from 'socket.io-client';
+import axios from 'axios';
+import Chat from '../Chat/Chat.jsx';
+import Grid from 'material-ui/Grid';
+import { songSwitch, gameSwitch } from '../../actions/index';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Paper from 'material-ui/Paper';
+import { withStyles } from 'material-ui/styles';
+import {
+  List,
+>>>>>>> (refactor) lobby
   ListItem,
   ListItemIcon,
   ListItemText,
-  ListItemAvatar
-} from "material-ui/List";
-import Divider from "material-ui/Divider";
-import Avatar from "material-ui/Avatar";
-import "./Lobby.scss";
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  Divider,
+  Avatar,
+  Checkbox
+} from './../Global/Material-Globals';
+
+import './Lobby.scss';
 
 const style = {
   avatar: {
     height: 100,
     width: 100,
-    cursor: "pointer"
+    cursor: 'pointer'
   },
   musicList: {
-    overflow: "scroll",
+    overflow: 'scroll',
     maxHeight: 300,
     maxWidth: 700,
     margin: "auto",
@@ -56,12 +74,17 @@ class Lobby extends Component {
       songPreview: null,
       ready: false,
       topTen: [],
+<<<<<<< HEAD
       song: "",
       songChoices: {}
+=======
+      song: ''
+>>>>>>> (refactor) lobby
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.searchSong = this.searchSong.bind(this);
   }
+<<<<<<< HEAD
   componentDidUpdate(prevProps) {
     if (prevProps.socket !== this.props.socket) {
         this.props.socket.on("songChoices", data => {
@@ -73,19 +96,22 @@ class Lobby extends Component {
         })
     }
   }
+=======
+  componentDidMount() {}
+>>>>>>> (refactor) lobby
 
   searchSong() {
-    axios.get("/spotify").then(token => {
+    axios.get('/spotify').then(token => {
       axios({
         url: `https://api.spotify.com/v1/search?q=${
           this.state.searchQuery
         }&type=track`,
         headers: {
-          Authorization: "Bearer " + token.data
+          Authorization: 'Bearer ' + token.data
         }
       }).then(data => {
         if (data.data.tracks.items[0].preview_url === null) {
-          alert("This song does not have a preview URL on spotify");
+          alert('This song does not have a preview URL on spotify');
         }
         this.setState({
           song: data.data.tracks.items[0],
@@ -94,11 +120,15 @@ class Lobby extends Component {
           topTen: data.data.tracks.items
         });
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
+<<<<<<< HEAD
 
         var temp = Object.assign({}, this.props.songSelections);
         temp[this.props.localUser] = data.data.tracks.items[0].name;
         this.setState({songChoices: temp})
         this.props.socket.emit("sendSongChoices", temp);
+=======
+        this.props.userProfile.userSong = data.data.tracks.items[0].name;
+>>>>>>> (refactor) lobby
       });
     });
   }
@@ -114,7 +144,7 @@ class Lobby extends Component {
 
   handleSongClick(e) {
     if (e.preview_url === null) {
-      alert("This song does not have a preview URL on spotify");
+      alert('This song does not have a preview URL on spotify');
     }
     this.setState({
       song: e,
@@ -126,22 +156,15 @@ class Lobby extends Component {
   render() {
     return (
       <div>
-        {console.log("lobby props", this.props)}
-        {console.log("lobby states", this.state)}
         <Grid container>
           <Grid item md={3}>
             <Grid container spacing={24}>
               {this.props.leftPlayers.map((item, index) => {
                 return (
-                  <Grid align="left" key={index} item xs={12}>
-                    <Paper>
-                      <div>
-                        {console.log('LEFT USER URL? ', item.avatar_url)}
-                        <img src={item.avatar_url} /> {item.username}
-                        <div align="right">Song: {this.props.songSelections[item.username]}</div>
-                      </div>
-                    </Paper>
-                  </Grid>
+                  <ListItem key={index} dense button className="list-item">
+                    <Avatar src={item.avatar_url} />
+                    <ListItemText primary={`Song: ${item.userSong}`} />
+                  </ListItem>
                 );
               })}
             </Grid>
@@ -154,11 +177,12 @@ class Lobby extends Component {
             <div align="center">
               Please search for your Song:
               <div align="center">
-                <input type="text" onChange={this.handleSearchChange} />{" "}
+
+                <input type="text" onChange={this.handleSearchChange} />{' '}
               </div>
               <div align="center">
-                {" "}
-                <input type="submit" onClick={() => this.searchSong()} />{" "}
+                {' '}
+                <input type="submit" onClick={() => this.searchSong()} />{' '}
               </div>
             </div>
             {!this.state.songURI ? null : (
@@ -181,7 +205,7 @@ class Lobby extends Component {
               {this.state.topTen.map(item => {
                 return (
                   <ListItem onClick={() => this.handleSongClick(item)}>
-                    {" "}
+                    {' '}
                     <ListItemAvatar>
                       <Avatar
                         src={item.album.images[0].url}
@@ -191,7 +215,7 @@ class Lobby extends Component {
                     <ListItemText
                       primary={item.name}
                       secondary={item.artists[0].name}
-                    />{" "}
+                    />{' '}
                   </ListItem>
                 );
               })}
@@ -202,25 +226,27 @@ class Lobby extends Component {
                   <div>Select a game:</div>
                   <ListItem
                     onClick={() => {
-                      this.handleGameSelect("Masher");
+                      this.handleGameSelect('Masher');
                     }}
                   >
-                    {" "}
+                    {' '}
                     <ListItemText primary="Masher" />
                   </ListItem>
                   <Divider />
                   <ListItem
                     onClick={() => {
-                      this.handleGameSelect("MusicTrivia");
+
+                      this.handleGameSelect('MusicTrivia');
                     }}
                   >
-                    {" "}
+                    {' '}
                     <ListItemText primary="MusicTrivia" />
                   </ListItem>
                   <Divider />
                   <ListItem
                     onClick={() => {
-                      this.handleGameSelect("RPSLS");
+
+                      this.handleGameSelect('RPSLS');
                     }}
                   >
                     <ListItemText primary="RPSLS" />
@@ -242,6 +268,7 @@ class Lobby extends Component {
                       <div align="right">Song: {this.state.songChoices[item.username]}</div>
                     </div>
                   </Paper>
+
                   </Grid>
                 );
               })}

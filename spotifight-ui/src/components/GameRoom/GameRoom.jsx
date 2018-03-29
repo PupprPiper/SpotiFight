@@ -1,138 +1,103 @@
-import React, { Component } from "react";
-import io from "socket.io-client";
-import Lobby from "../Lobby/Lobby.jsx";
-import Chat from "../Chat/Chat.jsx";
-import Masher from "../Games/Masher/Masher.jsx";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import players from "../Games/Masher/seed.js";
-import Grid from "material-ui/Grid";
-import { gameSwitch, songSwitch } from "../../actions/index";
-import Button from "material-ui/Button";
-import MusicTrivia from "../Games/MusicTrivia/MusicTrivia";
-import Flappy from "../Games/Flappy/Flappy";
-import RPSLS from "../Games/RPSLS/rpsls.jsx";
+import React, { Component } from 'react';
+import io from 'socket.io-client';
+import Chat from '../Chat/Chat.jsx';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import players from '../Games/Masher/seed.js';
+import Grid from 'material-ui/Grid';
+import { gameSwitch, songSwitch } from '../../actions/index';
+import Button from 'material-ui/Button';
+import { games, assignLeftPlayer, assignRightPlayer } from './gameRoomHelpers';
 
-const mapStateToProps = function(state) {
-  return {
-    game: state.game,
-    mySong: state.mySong,
-    userProfile: state.userProfile
-  };
-};
-
-const mapDispatchToProps = function(dispatch) {
-  return bindActionCreators({ gameSwitch, songSwitch }, dispatch);
-};
-
-const games = {
-  Lobby: Lobby,
-  Masher: Masher,
-  MusicTrivia: MusicTrivia,
-  RPSLS: RPSLS,
-  Flappy: Flappy
-};
+import Lobby from '../Lobby/Lobby.jsx';
+import Masher from '../Games/Masher/Masher.jsx';
+import MusicTrivia from '../Games/MusicTrivia/MusicTrivia';
+import Flappy from '../Games/Flappy/Flappy';
+import RPSLS from '../Games/RPSLS/rpsls.jsx';
 
 class GameRoom extends Component {
   constructor(props) {
     super(props);
     this.state = {
       socket: null,
-      test: "",
+      test: '',
       currRoom: Lobby,
       players: [],
-      socketID: "",
+      socketID: '',
       localUser: this.props.userProfile.username,
       userImg:
-        "https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg",
-      winner: "",
+        'https://lh3.googleusercontent.com/-tcP7CBn3lpg/Tg15KKkK6pI/AAAAAAAAABQ/Hph0kqR-hKU/w530-h530-n-rw/photo.jpg',
+      winner: '',
       globalSong: null,
       host: null,
       leftPlayers: [],
       rightPlayers: [],
-      force : 1
+      force: 1
     };
-    this.force = this.force.bind(this)
+    this.force = this.force.bind(this);
     this.getWinner = this.getWinner.bind(this);
   }
+
   async componentWillMount() {
-    this.socket = await io.connect("http://localhost:8000", {
+    // connect to server
+    this.socket = await io.connect('http://localhost:8000', {
       query: { roomId: this.props.location.pathname.slice(11) }
     });
 
     await this.setState({ socket: this.socket });
-
-    this.state.socket.emit("USER_ENTER_LOBBY", this.props.userProfile);
-
-    this.socket.on("ACTIVE_USERS", data => {
-      console.log("this is the active users", data);
-
+    // send user to lobby
+    this.state.socket.emit('USER_ENTER_LOBBY', this.props.userProfile);
+    // listen for other users in room
+    this.socket.on('ACTIVE_USERS', data => {
       this.setState({ players: data });
-      this.setState({host: this.state.players[0].username})
-      let left = this.state.players.filter((item,index)=>{
-        if(index %2 ===0 || index ===0){
-         return item
-       }
-     })
-     let right = this.state.players.filter((item,index)=>{
-      if(index %2 ===1){
-       return item
-     }
-   })
-     console.log('left', left)
-     console.log('right', right)
-     this.setState({
-       leftPlayers: left,
-       rightPlayers: right
-     })
-  
+
+      this.setState({ host: this.state.players[0].username });
+
+      let left = assignLeftPlayer(this.state.players);
+      let right = assignRightPlayer(this.state.players);
+
+
+      this.setState({
+        leftPlayers: left,
+        rightPlayers: right
+      });
     });
 
-
-
-    this.socket.on("startGameAll", data => {
+    this.socket.on('startGameAll', data => {
       this.setState({ currRoom: games[data] });
     });
 
-    this.state.socket.on("finalScoreObject", finalScore => {
+    this.state.socket.on('finalScoreObject', finalScore => {
       var winner = this.getWinner(finalScore);
       this.setState({ winner: winner });
-      this.state.socket.emit("broadcastWinner", winner);
-        this.state.socket.emit('clearBoard', {})
-      console.log("this is the winner", winner);
+      this.state.socket.emit('broadcastWinner', winner);
+      this.state.socket.emit('clearBoard', {});
       if (this.state.localUser === winner[0]) {
-        this.state.socket.emit("SEND_WINNER_SONG", this.props.mySong);
+        this.state.socket.emit('SEND_WINNER_SONG', this.props.mySong);
       }
     });
 
-    this.state.socket.on("GLOBAL_SONG", song => {
+    this.state.socket.on('GLOBAL_SONG', song => {
       this.setState({ globalSong: song });
     });
-
   }
 
-  force(){
-this.forceUpdate()
-  }
-  componentDidMount(){
-
-
+  force() {
+    this.forceUpdate();
   }
 
   startGame() {
-    this.socket.emit("startGameHost", this.props.game);
+    this.socket.emit('startGameHost', this.props.game);
     this.setState({ currRoom: games[this.props.game] });
   }
-  lobbyReturn(){
-    this.setState({currRoom: Lobby})
+  lobbyReturn() {
+    this.setState({ currRoom: Lobby });
   }
   getWinner(final) {
-    // console.log(final, "in final score");
     let values = Object.entries(final);
     values = values.sort((a, b) => {
       return b[1] - a[1];
     });
-    // console.log(values[0], "<------HERE IS YOUR WINNER");
     return values[0];
   }
 
@@ -146,45 +111,52 @@ this.forceUpdate()
           localUser={this.state.localUser}
           winner={this.state.winner}
           players={this.state.players}
-          host = {this.state.host}
-          leftPlayers = {this.state.leftPlayers}
-          rightPlayers = {this.state.rightPlayers}
-          force = {this.force}
+          host={this.state.host}
+          leftPlayers={this.state.leftPlayers}
+          rightPlayers={this.state.rightPlayers}
+          force={this.force}
         />
         <Grid container>
           <Grid item md={5} />
 
           <Grid item md={2}>
-            {this.props.game=== null ? null : (
-              <div align='center'> 
+            {this.props.game === null ? null : (
+              <div align="center">
+                <Button
+                  variant="raised"
+                  color="secondary"
+                  onClick={() => this.startGame()}
+                >
+                  START GAME
+                </Button>
+              </div>
+            )}
+            {this.state.currRoom === Lobby ? null : (
               <Button
                 variant="raised"
                 color="secondary"
-                onClick={() => this.startGame()}
-                
+                onClick={() => this.lobbyReturn()}
               >
-                START GAME
+                RETURN TO LOBBY
               </Button>
-              </div>
             )}
-            {this.state.currRoom === Lobby ? null :
-
-            <Button
-            variant="raised"
-            color="secondary"
-            onClick={() => this.lobbyReturn()}
-          >
-            RETURN TO LOBBY
-          </Button>
-            }
-
-
           </Grid>
         </Grid>
-        
       </div>
     );
   }
 }
+
+const mapStateToProps = function(state) {
+  return {
+    game: state.game,
+    mySong: state.mySong,
+    userProfile: state.userProfile
+  };
+};
+
+const mapDispatchToProps = function(dispatch) {
+  return bindActionCreators({ gameSwitch, songSwitch }, dispatch);
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameRoom);
