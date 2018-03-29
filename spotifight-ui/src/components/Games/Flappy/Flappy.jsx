@@ -1,38 +1,48 @@
 import React, { Component } from 'react';
-import Grid from './grid';
+import { Grid } from './grid';
 import { Button } from './../../Global/Material-Globals';
 import io from 'socket.io-client';
+import './Flappy.scss';
+
+import {
+  bird,
+  towers,
+  createGrid,
+  createTowers,
+  moveTowers,
+  checkCeilingAndFloor,
+  banStyle
+} from './gameHelpers';
+import PlayerStatus from './playerStatus';
 
 export default class Flappy extends Component {
   constructor(props) {
     super(props);
+
     let grid = [];
     for (let i = 0; i < 20; i++) {
-      grid.push(new Array(30).fill('red'));
+      grid.push(new Array(30).fill('yellow'));
     }
-    let bird = {
-      height: 10,
-      position: 2
-    };
-    let towers = [
-      { position: 29, height: 5, upright: false },
-      { position: 26, height: 8, upright: true },
-      { position: 22, height: 7, upright: false },
-      { position: 18, height: 6, upright: true },
-      { position: 14, height: 7, upright: false },
-      { position: 11, height: 3, upright: true },
-      { position: 7, height: 8, upright: false },
-      { position: 3, height: 2, upright: true }
-    ];
+
     grid[bird.height][bird.position] = 'yellow';
+
+    let socket = this.props.socket;
 
     this.state = {
       grid: grid,
       bird: bird,
       crashed: false,
       score: 0,
-      towers
+      towers,
+      user: this.props.localUser,
+      opponents: {}
     };
+
+    socket.on('CRASHED', data => {
+      this.state.opponents[data.username] = data;
+      this.setState({ opponents: this.state.opponents });
+    });
+
     this.timerId = setInterval(() => {
       if (this.state.crashed) {
         return;
@@ -40,31 +50,16 @@ export default class Flappy extends Component {
 
       let gridCopy = [];
       let towersCopy = this.state.towers.slice();
-      for (let i = 0; i < 20; i++) {
-        gridCopy.push(new Array(30).fill('red'));
-      }
-
-      for (let i = 0; i < towersCopy.length; i++) {
-        for (let j = 0; j < towersCopy[i].height; j++) {
-          if (towersCopy[i].upright) {
-            gridCopy[19 - j][towersCopy[i].position] = 'blue';
-          } else {
-            gridCopy[j][towersCopy[i].position] = 'blue';
-          }
-        }
-      }
       let birdCopy = this.state.bird;
-
-      for (let i = 0; i < towersCopy.length; i++) {
-        towersCopy[i].position--;
-        if (towersCopy[i].position < 0) {
-          towersCopy[i].position = 29;
-          towersCopy[i].height = Math.floor(Math.random() * 7) + 3;
-        }
-      }
+      let crashed = false;
+      // towers
+      createGrid(gridCopy, towersCopy);
+      createTowers(gridCopy, towersCopy);
+      moveTowers(towersCopy);
 
       birdCopy.height++;
-      let crashed = false;
+
+      // game crashes
       if (birdCopy.height > 19 || birdCopy.height < 0) {
         birdCopy.height = 10;
         crashed = true;
@@ -77,8 +72,15 @@ export default class Flappy extends Component {
         }
       }
 
-      crashed ? this.setState({ crashed: true }) : '';
+      if (crashed) {
+        this.setState({ crashed: true });
 
+        socket.emit('PLAYER_CRASHED', {
+          username: this.props.localUser,
+          crashed: true
+        });
+      }
+      // birdy copy
       gridCopy[birdCopy.height][birdCopy.position] = 'yellow';
 
       this.setState({
@@ -87,9 +89,17 @@ export default class Flappy extends Component {
         towers: towersCopy,
         score: this.state.score + 1
       });
+    }, 200);
+  }
 
-      console.log(this.state);
-    }, 150);
+  componentDidMount() {
+    let obj = {};
+    this.props.players.forEach(player => {
+      obj[player.username] = { username: player.username, crashed: false };
+    });
+    this.setState({
+      opponents: obj
+    });
   }
 
   handleClick() {
@@ -98,28 +108,30 @@ export default class Flappy extends Component {
     }
     let birdCopy = this.state.bird;
     birdCopy.height -= 3;
-    this.setState({
-      bird: birdCopy
-    });
-  }
-
-  restart() {
-    this.setState({ crashed: false, score: 0 });
+    this.setState({ bird: birdCopy });
   }
 
   render() {
     let gameOver = (
       <div>
-        Game Over!
-        <Button onClick={() => this.restart()} color="primary">
-          restart
-        </Button>
+        Game Over! <h1>score: {this.state.score}</h1>
+        <div style={banStyle} />
+        <PlayerStatus opponents={this.state.opponents} />
       </div>
     );
+
+    let gameOn = (
+      <div>
+        {/* <Grid grid={this.state.grid} style={banStyle} /> */}
+        <Grid grid={this.state.grid} />
+        {this.state.score}
+        <PlayerStatus opponents={this.state.opponents} />
+      </div>
+    );
+
     return (
       <div onClick={() => this.handleClick()}>
-        {this.state.crashed ? gameOver : this.state.score}
-        <Grid grid={this.state.grid} />
+        {this.state.crashed ? gameOver : gameOn}
       </div>
     );
   }

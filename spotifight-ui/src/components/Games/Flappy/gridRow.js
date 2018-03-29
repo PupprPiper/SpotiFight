@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
-import GridCell from './gridCell';
+import { GridCell, OpponentGridCell } from './gridCell';
 
-const GridRow = props => {
+const GridRow = ({ row }) => {
   const style = { display: 'flex' };
   return (
     <div style={style}>
-      {props.row.map((cell, i) => {
+      {row.map((cell, i) => {
         return <GridCell cell={cell} key={i} />;
       })}
     </div>
   );
 };
 
-export default GridRow;
+const OpponentGridRow = ({ row }) => {
+  const style = { display: 'flex' };
+  return (
+    <div style={style}>
+      {row.map((cell, i) => {
+        return <OpponentGridCell cell={cell} key={i} />;
+      })}
+    </div>
+  );
+};
+
+module.exports = { GridRow, OpponentGridRow };

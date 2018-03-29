@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import GridRow from './gridRow';
+import { GridRow, OpponentGridRow } from './gridRow';
 
-const Grid = props => {
-  return <div>{props.grid.map((row, i) => <GridRow row={row} key={i} />)}</div>;
+const Grid = ({ grid }) => {
+  return <div>{grid.map((row, i) => <GridRow row={row} key={i} />)}</div>;
 };
 
-export default Grid;
+const OpponentGrid = ({ grid }) => {
+  return <div>{grid.map((row, i) => <OpponentGridRow row={row} key={i} />)}</div>;
+};
+
+module.exports = { Grid, OpponentGrid };

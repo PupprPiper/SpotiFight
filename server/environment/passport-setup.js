@@ -27,6 +27,7 @@ passport.use(
       clientSecret: keys.google.clientSecret
     },
     (accessToken, refreshToken, profile, done) => {
+      console.log('profile-->', profile);
       handleGoogleProfile(profile, done);
     }
   )
@@ -59,10 +60,12 @@ let handleGoogleProfile = (profile, doneCb) => {
     .catch(err => console.error(err));
 };
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
+passport.use(
+  new LocalStrategy(function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
+      if (err) {
+        return done(err);
+      }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
@@ -71,5 +74,5 @@ passport.use(new LocalStrategy(
       }
       return done(null, user);
     });
-  }
-));
+  })
+);
