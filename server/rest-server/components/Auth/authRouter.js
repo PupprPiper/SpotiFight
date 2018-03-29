@@ -19,9 +19,6 @@ router.get(
   googleRedirectCtrl
 );
 
-router.post('/isLoggedIn', isLoggedIn)
-router.post('/signUp', createNewUser)
-
 
 router.post('/signUp', createNewUser)
 router.post('/login', login)
