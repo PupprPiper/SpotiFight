@@ -17,3 +17,7 @@ export const songSwitch = function(game) {
 export const flappyStore = store => {
   return { type: 'FLAPPY_STORE', payload: store };
 };
+
+export const updateSongSelections = (songList) => {
+  return { type: 'SONG_SELECTIONS', payload: songList }
+};

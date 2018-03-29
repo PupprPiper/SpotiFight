@@ -80,6 +80,7 @@ class GameRoom extends Component {
      }
    })
      console.log('left', left)
+     console.log('right', right)
      this.setState({
        leftPlayers: left,
        rightPlayers: right
