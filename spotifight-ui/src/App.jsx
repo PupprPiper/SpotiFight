@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {MenuIcon} from './components/Global/Material-Globals';
 import {toggleMenu} from './actions/index';
 
-import TitleBar from './components/Global/TitleBar/titleBar';
+import AppTitleBar from './components/Global/TitleBar/appTitleBar';
 import Sidebar from './components/Global/Sidebar/Sidebar';
 import appRoutes from './routes';
 import axios from 'axios';
@@ -34,7 +34,7 @@ class App extends Component {
     return (<div>
       <BrowserRouter>
         <div>
-          <TitleBar title="Spotifight" handleCLick={() => this.handleToggle()} color="inherit" Icon={MenuIcon}/>
+          <AppTitleBar title="Spotifight" handleCLick={() => this.handleToggle()} color="inherit" Icon={MenuIcon}/>
           <Sidebar/>
           <Switch>
             {

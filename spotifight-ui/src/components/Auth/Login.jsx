@@ -38,7 +38,7 @@ class Login extends Component {
       if (data.access) {
         // localStorage.setItem('token', data.token);
         // localStorage.setItem('user', data.email);
-        console.log(data.message)
+        console.log(data, 'here is the access data on the dom')
         this.props.history.push(`/user-profile/${data.email}`)
       } else {
         $('#submit').prop('disabled', false)
