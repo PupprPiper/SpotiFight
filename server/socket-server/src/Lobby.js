@@ -14,6 +14,8 @@ module.exports = {
         msg: `${user.username} has entered lobby`
       });
 
+      io.in(client.handshake.query.roomId).emit("newUser");
+
       console.log(`${user.username} has entered lobby`);
       client.on("disconnect", data => {
         userObject[roomId].splice(userObject[roomId].indexOf(user.username), 1);

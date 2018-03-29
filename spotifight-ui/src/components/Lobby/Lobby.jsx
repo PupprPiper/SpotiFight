@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import Chat from "../Chat/Chat.jsx";
 import Grid from "material-ui/Grid";
-import { songSwitch, gameSwitch } from "../../actions/index";
+import { songSwitch, gameSwitch, updateSongSelections } from "../../actions/index";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Paper from "material-ui/Paper";
@@ -37,12 +37,13 @@ const mapStateToProps = function(state) {
   return {
     mySong: state.mySong,
     userProfile: state.userProfile,
-    game: state.game
+    game: state.game,
+    songSelections: state.songSelections
   };
 };
 
 const mapDispatchToProps = function(dispatch) {
-  return bindActionCreators({ gameSwitch, songSwitch }, dispatch);
+  return bindActionCreators({ gameSwitch, songSwitch, updateSongSelections }, dispatch);
 };
 
 class Lobby extends Component {
@@ -64,8 +65,12 @@ class Lobby extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.socket !== this.props.socket) {
         this.props.socket.on("songChoices", data => {
-            this.setState({ songChoices: data });
+          this.props.updateSongSelections(data);
+          this.setState({ songChoices: this.props.songSelections });
           });
+        this.props.socket.on('newUser', () => {
+          this.setState({songChoices: this.props.songSelections})
+        })
     }
   }
 
@@ -90,7 +95,8 @@ class Lobby extends Component {
         });
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
 
-        var temp = Object.assign({}, this.state.songChoices);
+        // var temp = Object.assign({}, this.state.songChoices);
+        var temp = Object.assign({}, this.props.songSelections);
         temp[this.props.localUser] = data.data.tracks.items[0].name;
         this.setState({songChoices: temp})
         this.props.socket.emit("sendSongChoices", temp);
@@ -133,7 +139,7 @@ class Lobby extends Component {
                       <div>
                         {console.log('LEFT USER URL? ', item.avatar_url)}
                         <img src={item.avatar_url} /> {item.username}
-                        <div align="right">Song: {this.state.songChoices[item.username]}</div>
+                        <div align="right">Song: {this.props.songSelections[item.username]}</div>
                       </div>
                     </Paper>
                   </Grid>
