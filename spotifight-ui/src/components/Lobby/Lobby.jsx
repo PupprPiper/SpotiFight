@@ -95,7 +95,6 @@ class Lobby extends Component {
         });
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
 
-        // var temp = Object.assign({}, this.state.songChoices);
         var temp = Object.assign({}, this.props.songSelections);
         temp[this.props.localUser] = data.data.tracks.items[0].name;
         this.setState({songChoices: temp})
