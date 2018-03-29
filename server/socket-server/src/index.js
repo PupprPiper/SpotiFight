@@ -17,6 +17,7 @@ const Trivia = require('./Trivia')
 let userObject = {};
 let users = [];
 let connections = [];
+let person = ""
 
 
 io.on("connection", client => {

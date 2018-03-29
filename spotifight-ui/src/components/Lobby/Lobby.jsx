@@ -42,9 +42,8 @@ const style = {
     cursor: "pointer"
   }
 };
-=======
-import Verify from '../Auth/Verify.jsx';
->>>>>>> protecting routes with JWT
+
+
 
 const mapStateToProps = function(state) {
   return {
