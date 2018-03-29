@@ -16,30 +16,34 @@ import TextField from 'material-ui/TextField';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
+import Divider from 'material-ui/Divider';
 
 import MenuIcon from 'material-ui-icons/Menu';
 import ExitToApp from 'material-ui-icons/ExitToApp';
 import PlayArrow from 'material-ui-icons/PlayArrow';
+import Checkbox from 'material-ui/Checkbox';
 
 export {
   Avatar,
-  TextField,
-  Drawer,
   AppBar,
   Button,
+  Checkbox,
+  Drawer,
+  Divider,
+  ExitToApp,
+  Grid,
+  Icon,
+  IconButton,
   List,
   ListItem,
-  ListItemAvatar,
   ListItemIcon,
+  ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
+  MenuIcon,
+  Paper,
   PlayArrow,
+  TextField,
   Toolbar,
   Typography,
-  IconButton,
-  MenuIcon,
-  Grid,
-  Paper,
-  Icon,
-  ExitToApp
 };
