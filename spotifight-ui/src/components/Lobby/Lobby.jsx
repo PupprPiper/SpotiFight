@@ -1,31 +1,35 @@
-import React, { Component } from "react";
-import io from "socket.io-client";
-import axios from "axios";
-import Chat from "../Chat/Chat.jsx";
-import Grid from "material-ui/Grid";
-import { songSwitch, gameSwitch } from "../../actions/index";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import Paper from "material-ui/Paper";
-import { withStyles } from "material-ui/styles";
-import List, {
+import React, { Component } from 'react';
+import io from 'socket.io-client';
+import axios from 'axios';
+import Chat from '../Chat/Chat.jsx';
+import Grid from 'material-ui/Grid';
+import { songSwitch, gameSwitch } from '../../actions/index';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Paper from 'material-ui/Paper';
+import { withStyles } from 'material-ui/styles';
+import {
+  List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  ListItemAvatar
-} from "material-ui/List";
-import Divider from "material-ui/Divider";
-import Avatar from "material-ui/Avatar";
-import "./Lobby.scss";
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  Divider,
+  Avatar,
+  Checkbox
+} from './../Global/Material-Globals';
+
+import './Lobby.scss';
 
 const style = {
   avatar: {
     height: 100,
     width: 100,
-    cursor: "pointer"
+    cursor: 'pointer'
   },
   musicList: {
-    overflow: "scroll",
+    overflow: 'scroll',
     maxHeight: 300,
     maxWidth: 700,
     margin: 'auto',
@@ -56,29 +60,24 @@ class Lobby extends Component {
       ready: false,
       topTen: [],
       song: ''
-
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.searchSong = this.searchSong.bind(this);
   }
-  componentDidMount() {
-    
-
-  }
-
+  componentDidMount() {}
 
   searchSong() {
-    axios.get("/spotify").then(token => {
+    axios.get('/spotify').then(token => {
       axios({
         url: `https://api.spotify.com/v1/search?q=${
           this.state.searchQuery
         }&type=track`,
         headers: {
-          Authorization: "Bearer " + token.data
+          Authorization: 'Bearer ' + token.data
         }
       }).then(data => {
         if (data.data.tracks.items[0].preview_url === null) {
-          alert("This song does not have a preview URL on spotify");
+          alert('This song does not have a preview URL on spotify');
         }
         this.setState({
           song: data.data.tracks.items[0],
@@ -88,7 +87,6 @@ class Lobby extends Component {
         });
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
         this.props.userProfile.userSong = data.data.tracks.items[0].name;
-       
       });
     });
   }
@@ -104,7 +102,7 @@ class Lobby extends Component {
 
   handleSongClick(e) {
     if (e.preview_url === null) {
-      alert("This song does not have a preview URL on spotify");
+      alert('This song does not have a preview URL on spotify');
     }
     this.setState({
       song: e,
@@ -116,25 +114,17 @@ class Lobby extends Component {
   render() {
     return (
       <div>
-        {console.log('lobby props', this.props)}
-        {console.log('lobby states', this.state)}
         <Grid container>
           <Grid item md={3}>
             <Grid container spacing={24}>
               {this.props.leftPlayers.map((item, index) => {
                 return (
-                  <Grid align="left" key={index} item xs={12}>
-                    <Paper>
-                      <div>
-                        {" "}
-                        <img src={item.avatar_url} /> {item.username} <div align ='right'>Song: {item.userSong}</div>
-                      </div>
-                    </Paper>
-              
-                  </Grid>
+                  <ListItem key={index} dense button className="list-item">
+                    <Avatar src={item.avatar_url} />
+                    <ListItemText primary={`Song: ${item.userSong}`} />
+                  </ListItem>
                 );
               })}
-
             </Grid>
           </Grid>
           <Grid item md={6}>
@@ -144,12 +134,16 @@ class Lobby extends Component {
             />
             <div align="center">
               Please search for your Song:
-
-              <div align = 'center'><input type="text" onChange={this.handleSearchChange} /> </div> 
-              <div align = 'center'> <input type="submit" onClick={() => this.searchSong()} /> </div>
+              <div align="center">
+                <input type="text" onChange={this.handleSearchChange} />{' '}
+              </div>
+              <div align="center">
+                {' '}
+                <input type="submit" onClick={() => this.searchSong()} />{' '}
+              </div>
             </div>
             {!this.state.songURI ? null : (
-              <div align= 'center'>
+              <div align="center">
                 <iframe
                   src={`https://open.spotify.com/embed?uri=${
                     this.state.songURI
@@ -163,13 +157,12 @@ class Lobby extends Component {
                 {/* <audio src = {this.state.songPreview} autoPlay/> */}
               </div>
             )}
-                        
-                    
+
             <List className={this.props.classes.musicList}>
               {this.state.topTen.map(item => {
                 return (
                   <ListItem onClick={() => this.handleSongClick(item)}>
-                    {" "}
+                    {' '}
                     <ListItemAvatar>
                       <Avatar
                         src={item.album.images[0].url}
@@ -179,61 +172,61 @@ class Lobby extends Component {
                     <ListItemText
                       primary={item.name}
                       secondary={item.artists[0].name}
-                    />{" "}
+                    />{' '}
                   </ListItem>
                 );
               })}
             </List>
             {this.props.host === this.props.localUser ? (
-                                  <div align ='center'> 
-                      <List className={this.props.classes.musicList}>
-                      <div>Select a game:</div> 
-                        <ListItem
-                          onClick={() => {
-                            this.handleGameSelect("Masher");
-                          }}
-                        >
-                          {" "}
-                          <ListItemText primary="Masher" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem
-                          onClick={() => {
-                            this.handleGameSelect("MusicTrivia");
-                          }}
-                        >
-                          {" "}
-                          <ListItemText primary="MusicTrivia" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem
-                          onClick={() => {
-                            this.handleGameSelect("RPSLS");
-                          }}
-                        >
-                          <ListItemText primary="RPSLS" />
-                        </ListItem>
-                        <Divider />
-                      </List>
-                      </div>
-                    ) : null}
+              <div align="center">
+                <List className={this.props.classes.musicList}>
+                  <div>Select a game:</div>
+                  <ListItem
+                    onClick={() => {
+                      this.handleGameSelect('Masher');
+                    }}
+                  >
+                    {' '}
+                    <ListItemText primary="Masher" />
+                  </ListItem>
+                  <Divider />
+                  <ListItem
+                    onClick={() => {
+                      this.handleGameSelect('MusicTrivia');
+                    }}
+                  >
+                    {' '}
+                    <ListItemText primary="MusicTrivia" />
+                  </ListItem>
+                  <Divider />
+                  <ListItem
+                    onClick={() => {
+                      this.handleGameSelect('RPSLS');
+                    }}
+                  >
+                    <ListItemText primary="RPSLS" />
+                  </ListItem>
+                  <Divider />
+                </List>
+              </div>
+            ) : null}
           </Grid>
           <Grid item md={3}>
-<Grid container spacing={24}>
-  {this.props.rightPlayers.map((item, index) => {
-    return (
-      <Grid align="left" key={index} item xs={12}>
-        <Paper>
-          <div>
-            {" "}
-            <img src={item.avatar_url} /> {item.username}{" "}
-          </div>
-        </Paper>
-      </Grid>
-    );
-  })}
-</Grid>
-</Grid>
+            <Grid container spacing={24}>
+              {this.props.rightPlayers.map((item, index) => {
+                return (
+                  <Grid align="left" key={index} item xs={12}>
+                    <Paper>
+                      <div>
+                        {' '}
+                        <img src={item.avatar_url} /> {item.username}{' '}
+                      </div>
+                    </Paper>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Grid>
         </Grid>
       </div>
     );
@@ -241,4 +234,3 @@ class Lobby extends Component {
 }
 const styledLobby = withStyles(style)(Lobby);
 export default connect(mapStateToProps, mapDispatchToProps)(styledLobby);
-
