@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   Button,
   Drawer,
@@ -15,7 +15,7 @@ import {
 } from './../Material-Globals';
 import axios from 'axios';
 
-import {toggleMenu} from './../../../actions/index';
+import { toggleMenu } from './../../../actions/index';
 import appRoutes from './../../../routes';
 import TitleBar from './../TitleBar/titleBar';
 

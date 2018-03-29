@@ -14,6 +14,7 @@ import {
 import { storeCurrentUser } from './../../actions/index';
 import './UserProfile.scss';
 import Verify from '../Auth/Verify.jsx';
+import { userEmail } from '../../routes.js'
 
 class UserProfile extends Component {
   constructor() {
@@ -28,12 +29,20 @@ class UserProfile extends Component {
     this.setState({
       loading: true
     });
-
-    let email = this.props.location.pathname
+    const {email:storedEmail} = JSON.parse(localStorage.getItem('user')) || {email: ''};
+    let email;
+    console.log('here the location pathname', this.props.location.pathname)
+     if (this.props.location.pathname !== '/user-profile/') {
+     email = this.props.location.pathname
       .match(
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       )[0]
-      .replace('/user-profile/', '');
+      .replace('/user-profile/', '') ;
+
+    } else {
+      email = storedEmail;
+    }
+    console.log(email,'here is the axios email')
     this.getUser(email);
   }
 
@@ -44,7 +53,8 @@ class UserProfile extends Component {
     this.props.storeCurrentUser(payload.data.userProfile);
     this.setState({ loading: false, user: payload.data.userProfile });
     localStorage.setItem('token', payload.data.token);
-    localStorage.setItem('user', payload.data.userProfile);
+    localStorage.setItem('user', JSON.stringify(payload.data.userProfile));
+
   }
 
   render() {

@@ -16,8 +16,7 @@ class App extends Component {
     super(props)
 
     this.state = {}
-
-
+ const {email} = JSON.parse(localStorage.getItem('user')) || {email: ''};
   }
 
   handleToggle() {
@@ -40,6 +39,9 @@ class App extends Component {
           <Switch>
             {
               appRoutes.map((route, index) => {
+                if (Route.path === '/user-profile/') {
+                  Route.path = Route.path + this.email;
+                }
                 return (<Route path={route.path} component={route.component} key={index}/>);
               })
             }
