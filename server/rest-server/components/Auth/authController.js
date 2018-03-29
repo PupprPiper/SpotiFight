@@ -15,18 +15,14 @@ const isLoggedIn = async (req, res) => {
       const user = await jwt.verify(token, 'spotifight');
       let email = user.user;
       const data = await db.query(`SELECT username from users WHERE email = '${email}'`)
-      console.log('bool: this is a legit user <-----', data.rows[0].username)
       const name = data.rows[0].username;
       if (!name) {
-        console.log('warning, not a legit user!')
         res.status(200).redirect(`redirect`);
       }
     } else {
-      console.log('warning, not a legit user! No token!')
       res.status(200).send(`redirect`);
     }
   } catch (error) {
-    console.log(error, 'somethign is up with yo token');
     res.status(200).send(`redirect`);
   }
 }
@@ -45,7 +41,6 @@ const googleRedirectCtrl = (req, res) => {
 };
 
 const createNewUser = async (req, res) => {
-  console.log(req.body, 'req.body in new user maker')
   const password = req.body.password;
   const email = req.body.email;
   const username = req.body.username;
@@ -53,23 +48,48 @@ const createNewUser = async (req, res) => {
 
   bcrypt.hash(password, 9, async (err, hash) => {
     try {
-      if (err) {
-        console.log(err, 'here the error is sign up')
-      } else {
-        console.log(hash, 'here the has, dog, we up in sign up')
+      if (err) {} else {
         const data = await db.query(q.vanillaSignUpHelper(email, hash, username))
         response = data;
       }
-    } catch(error)  {
-      console.log(error.constraint, 'rejected, baby! Im in create new user')
+    } catch (error) {
       res.json(error);
     } finally {
       res.json(response);
     }
-
   });
 
 }
+
+const login = async (req, res) => {
+  try {
+    const email = req.body.email;
+    const plainPass = req.body.password;
+    const userCheck = await db.query(`SELECT username, password from users WHERE email = '${email}'`)
+    const dbPass = (userCheck.rows[0] && userCheck.rows[0].password) || 'no';
+    const dbUser = (userCheck.rows[0] && userCheck.rows[0].username) || 'no';
+    const authorized = await bcrypt.compare(plainPass, dbPass)
+
+    if (!authorized) {
+      res.send({access: false, message: 'bad username or password'})
+    } else {
+      const token = await jwt.sign({
+        user: email
+      }, 'spotifight')
+      const response = {
+        email: email,
+        username: dbUser,
+        token: token,
+        access: true,
+        message: 'access granted, token signed'
+      };
+      res.send(response);
+    }
+  } catch (error) {
+    res.status(200);
+  }
+}
+
 // logout
 const logoutCtrl = (req, res) => {
 
@@ -82,5 +102,6 @@ module.exports = {
   googleRedirectCtrl,
   logoutCtrl,
   isLoggedIn,
-  createNewUser
+  createNewUser,
+  login
 };

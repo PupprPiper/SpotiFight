@@ -4,9 +4,9 @@ const Form = ({ title }) => {
   return (
     <div>
       <h1>{title}</h1>
-      <label>u/n: </label>
+      <label>email: </label>
       <input type="text" />
-      <label>p/w: </label>
+      <label>password: </label>
       <input type="password" />
     </div>
   );

@@ -5,7 +5,8 @@ const {
   googleRedirectCtrl,
   logoutCtrl,
   isLoggedIn,
-  createNewUser
+  createNewUser,
+  login
 } = require('./authController');
 
 // google auth
@@ -18,11 +19,10 @@ router.get(
   googleRedirectCtrl
 );
 
-router.post('/isLoggedIn', isLoggedIn)
+
 router.post('/signUp', createNewUser)
-
-
-// logout
+router.post('/login', login)
+router.post('/isLoggedIn', isLoggedIn)
 router.route('/logout').get(logoutCtrl);
 
 module.exports = router;
