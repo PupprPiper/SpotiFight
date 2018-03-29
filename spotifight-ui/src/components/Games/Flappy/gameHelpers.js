@@ -23,19 +23,17 @@ export let banStyle = {
 export let opponentBanStyle = {
   background: `url(${Ban}) no-repeat center center`,
   backgroundSize: 'contain',
-  width: '75px',
-  height: '75px',
+  width: '100px',
+  height: '100px',
   textAlign: 'center'
 };
 
-export let opponentThumbnailStyle = url => {
-  return {
-    background: `url(${url}) no-repeat center center`,
-    backgroundSize: 'contain',
-    width: '75px',
-    height: '75px',
-    textAlign: 'center'
-  };
+export let thumbnailStyle = {
+  // background: `url(${url}) no-repeat center center`,
+  // backgroundSize: 'contain',
+  width: '100px',
+  height: '100px',
+  textAlign: 'center'
 };
 
 export let createGrid = gridCopy => {

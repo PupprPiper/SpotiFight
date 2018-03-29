@@ -1,32 +1,16 @@
 import React, { Component } from 'react';
-import { OpponentGrid } from './grid';
-import { opponentBanStyle, opponentThumbnailStyle } from './gameHelpers';
-import Ban from './ban.png';
-import Bird from './bird.gif';
+import PlayerStatusItem from './playerStatusItem';
 
 import './playerStatus.scss';
 
-const PlayerStatus = ({ data, players }) => {
-  let usernames = Object.keys(data);
+const PlayerStatus = ({ opponents }) => {
+  let usernames = Object.keys(opponents);
+
   return (
     <div>
-      {usernames.map((username, i, arr) => {
-        let grid = data[username];
-        if (data[username] && data[username].grid) {
-          if (players[i].crashed) {
-            return (
-              <div key={i} style={opponentThumbnailStyle(Ban)}>
-                {username} LOSES!
-              </div>
-            );
-          }
-          return (
-            <div key={i}>
-              <img src={Bird} />
-              {username}
-            </div>
-          );
-        }
+      {usernames.map((username, i) => {
+        console.log(opponents[username])
+        return <PlayerStatusItem opponent={opponents[username]} key={i} />;
       })}
     </div>
   );

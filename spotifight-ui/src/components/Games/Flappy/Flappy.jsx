@@ -35,30 +35,18 @@ export default class Flappy extends Component {
       score: 0,
       towers,
       user: this.props.localUser,
-      players: [],
-      opponentGrids: {}
+      opponents: {}
     };
 
-    socket.on('TO_CLIENT_GRID', data => {
-      this.state.opponentGrids[data.user] = data;
-      this.setState({ opponentGrids: this.state.opponentGrids });
-    });
-
     socket.on('CRASHED', data => {
-      let playersCopy = this.state.players.map(player => {
-        if (player.username === data.username) {
-          player = data;
-        }
-        return player;
-      });
-      this.setState({ players: playersCopy });
+      this.state.opponents[data.username] = data;
+      this.setState({ opponents: this.state.opponents });
     });
 
     this.timerId = setInterval(() => {
       if (this.state.crashed) {
         return;
       }
-      // console.log('opponent grids', this.state.grid);
 
       let gridCopy = [];
       let towersCopy = this.state.towers.slice();
@@ -101,24 +89,16 @@ export default class Flappy extends Component {
         towers: towersCopy,
         score: this.state.score + 1
       });
-
-      // socket.emit('TO_SERVER_GRID', this.state);
     }, 200);
   }
 
   componentDidMount() {
     let obj = {};
-    let players = this.props.players.map(player => {
-      return { username: player.username, crashed: false };
+    this.props.players.forEach(player => {
+      obj[player.username] = { username: player.username, crashed: false };
     });
-
-    players.forEach(player => {
-      obj[player.username] = {};
-    });
-
     this.setState({
-      players: players,
-      opponentGrids: obj
+      opponents: obj
     });
   }
 
@@ -132,22 +112,20 @@ export default class Flappy extends Component {
   }
 
   render() {
-
     let gameOver = (
       <div>
         Game Over! <h1>score: {this.state.score}</h1>
         <div style={banStyle} />
+        <PlayerStatus opponents={this.state.opponents} />
       </div>
     );
 
     let gameOn = (
       <div>
-        <Grid grid={this.state.grid} style={banStyle} />
+        {/* <Grid grid={this.state.grid} style={banStyle} /> */}
+        <Grid grid={this.state.grid} />
         {this.state.score}
-        <PlayerStatus
-          data={this.state.opponentGrids}
-          players={this.state.players}
-        />
+        <PlayerStatus opponents={this.state.opponents} />
       </div>
     );
 
