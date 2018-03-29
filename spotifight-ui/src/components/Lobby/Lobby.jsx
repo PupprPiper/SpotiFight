@@ -66,9 +66,6 @@ class Lobby extends Component {
         this.props.socket.on("songChoices", data => {
             this.setState({ songChoices: data });
           });
-          this.props.socket.on("newUser", () => {
-            this.props.socket.emit("sendSongChoices", this.state.songChoices)
-          })
     }
   }
 
