@@ -28,8 +28,8 @@ const style = {
     overflow: "scroll",
     maxHeight: 300,
     maxWidth: 700,
-    margin: 'auto',
-    cursor: 'pointer'
+    margin: "auto",
+    cursor: "pointer"
   }
 };
 
@@ -55,17 +55,20 @@ class Lobby extends Component {
       songPreview: null,
       ready: false,
       topTen: [],
-      song: ''
-
+      song: "",
+      songChoices: {}
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.searchSong = this.searchSong.bind(this);
   }
-  componentDidMount() {
-    
-
+  componentDidUpdate(prevProps) {
+    if (prevProps.socket !== this.props.socket) {
+        this.props.socket.on("songChoices", data => {
+            this.setState({ songChoices: data });
+          });
+          this.props.socket.on("newUser", )
+    }
   }
-
 
   searchSong() {
     axios.get("/spotify").then(token => {
@@ -87,8 +90,10 @@ class Lobby extends Component {
           topTen: data.data.tracks.items
         });
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
-        this.props.userProfile.userSong = data.data.tracks.items[0].name;
-       
+        // this.props.userProfile.userSong = data.data.tracks.items[0].name;
+        var obj = {};
+        obj[this.props.localUser] = data.data.tracks.items[0].name;
+        this.props.socket.emit("pickSong", obj);
       });
     });
   }
@@ -116,8 +121,8 @@ class Lobby extends Component {
   render() {
     return (
       <div>
-        {console.log('lobby props', this.props)}
-        {console.log('lobby states', this.state)}
+        {console.log("lobby props", this.props)}
+        {console.log("lobby states", this.state)}
         <Grid container>
           <Grid item md={3}>
             <Grid container spacing={24}>
@@ -126,15 +131,13 @@ class Lobby extends Component {
                   <Grid align="left" key={index} item xs={12}>
                     <Paper>
                       <div>
-                        {" "}
-                        <img src={item.avatar_url} /> {item.username} <div align ='right'>Song: {item.userSong}</div>
+                        <img src={item.avatar_url} /> {item.username}{" "}
+                        <div align="right">Song: {this.state.songChoices[item.username]}</div>
                       </div>
                     </Paper>
-              
                   </Grid>
                 );
               })}
-
             </Grid>
           </Grid>
           <Grid item md={6}>
@@ -144,12 +147,16 @@ class Lobby extends Component {
             />
             <div align="center">
               Please search for your Song:
-
-              <div align = 'center'><input type="text" onChange={this.handleSearchChange} /> </div> 
-              <div align = 'center'> <input type="submit" onClick={() => this.searchSong()} /> </div>
+              <div align="center">
+                <input type="text" onChange={this.handleSearchChange} />{" "}
+              </div>
+              <div align="center">
+                {" "}
+                <input type="submit" onClick={() => this.searchSong()} />{" "}
+              </div>
             </div>
             {!this.state.songURI ? null : (
-              <div align= 'center'>
+              <div align="center">
                 <iframe
                   src={`https://open.spotify.com/embed?uri=${
                     this.state.songURI
@@ -163,8 +170,7 @@ class Lobby extends Component {
                 {/* <audio src = {this.state.songPreview} autoPlay/> */}
               </div>
             )}
-                        
-                    
+
             <List className={this.props.classes.musicList}>
               {this.state.topTen.map(item => {
                 return (
@@ -185,55 +191,55 @@ class Lobby extends Component {
               })}
             </List>
             {this.props.host === this.props.localUser ? (
-                                  <div align ='center'> 
-                      <List className={this.props.classes.musicList}>
-                      <div>Select a game:</div> 
-                        <ListItem
-                          onClick={() => {
-                            this.handleGameSelect("Masher");
-                          }}
-                        >
-                          {" "}
-                          <ListItemText primary="Masher" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem
-                          onClick={() => {
-                            this.handleGameSelect("MusicTrivia");
-                          }}
-                        >
-                          {" "}
-                          <ListItemText primary="MusicTrivia" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem
-                          onClick={() => {
-                            this.handleGameSelect("RPSLS");
-                          }}
-                        >
-                          <ListItemText primary="RPSLS" />
-                        </ListItem>
-                        <Divider />
-                      </List>
-                      </div>
-                    ) : null}
+              <div align="center">
+                <List className={this.props.classes.musicList}>
+                  <div>Select a game:</div>
+                  <ListItem
+                    onClick={() => {
+                      this.handleGameSelect("Masher");
+                    }}
+                  >
+                    {" "}
+                    <ListItemText primary="Masher" />
+                  </ListItem>
+                  <Divider />
+                  <ListItem
+                    onClick={() => {
+                      this.handleGameSelect("MusicTrivia");
+                    }}
+                  >
+                    {" "}
+                    <ListItemText primary="MusicTrivia" />
+                  </ListItem>
+                  <Divider />
+                  <ListItem
+                    onClick={() => {
+                      this.handleGameSelect("RPSLS");
+                    }}
+                  >
+                    <ListItemText primary="RPSLS" />
+                  </ListItem>
+                  <Divider />
+                </List>
+              </div>
+            ) : null}
           </Grid>
           <Grid item md={3}>
-<Grid container spacing={24}>
-  {this.props.rightPlayers.map((item, index) => {
-    return (
-      <Grid align="left" key={index} item xs={12}>
-        <Paper>
-          <div>
-            {" "}
-            <img src={item.avatar_url} /> {item.username}{" "}
-          </div>
-        </Paper>
-      </Grid>
-    );
-  })}
-</Grid>
-</Grid>
+            <Grid container spacing={24}>
+              {this.props.rightPlayers.map((item, index) => {
+                return (
+                  <Grid align="left" key={index} item xs={12}>
+                    <Paper>
+                      <div>
+                        {" "}
+                        <img src={item.avatar_url} /> {item.username}{" "}
+                      </div>
+                    </Paper>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Grid>
         </Grid>
       </div>
     );
@@ -241,4 +247,3 @@ class Lobby extends Component {
 }
 const styledLobby = withStyles(style)(Lobby);
 export default connect(mapStateToProps, mapDispatchToProps)(styledLobby);
-

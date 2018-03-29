@@ -33,6 +33,11 @@ lobbyActions: (client, io, userObject, roomId) => {
     io
       .in(client.handshake.query.roomId)
       .emit("ACTIVE_USERS", userObject[roomId]);
+
+      client.on('pickSong', data => {
+        console.log('PICKED SONG OBJECT ', data)
+        io.in(client.handshake.query.roomId).emit("songChoices", data);
+      })
   });
 
 }
