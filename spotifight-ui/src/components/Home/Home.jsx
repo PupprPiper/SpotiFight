@@ -16,6 +16,7 @@ import Verify from '../Auth/Verify.jsx';
 import GameList from './GameList.jsx';
 import {Grid} from '../Global/Material-Globals'
 import OpenRoomsList from './OpenRoomsList.jsx'
+import './Home.scss'
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -59,6 +60,7 @@ class Home extends Component {
         <div>Select a game:</div>
         <GameList
           history={this.props.history}
+          className = 'keyboard'
         />
         <Verify />
         </Grid>

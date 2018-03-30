@@ -115,6 +115,7 @@ this.forceUpdate()
   render() {
     return (
       <div>
+        {console.log('gameroom props', this.props)}
         <audio src={this.state.globalSong} autoPlay />
         <this.state.currRoom
           socket={this.state.socket}
@@ -131,7 +132,7 @@ this.forceUpdate()
           <Grid item md={5} />
 
           <Grid item md={2}>
-            {this.state.host === this.state.localUser ?  (
+            {(this.state.host === this.state.localUser  && this.state.currRoom === Lobby)?  (
               <div align="center">
                 <Button
                   variant="raised"
@@ -143,6 +144,7 @@ this.forceUpdate()
               </div>
             ) : null}
             {this.state.currRoom === Lobby ? null : (
+              <div align="center">
               <Button
                 variant="raised"
                 color="secondary"
@@ -150,6 +152,7 @@ this.forceUpdate()
               >
                 RETURN TO LOBBY
               </Button>
+              </div>
             )}
           </Grid>
         </Grid>
