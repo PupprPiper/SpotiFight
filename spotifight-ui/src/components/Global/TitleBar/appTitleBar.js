@@ -57,7 +57,7 @@ class AppTitleBar extends Component {
 
     return (
       <div>
-        <nav className="navbar is-link">
+        <nav className="navbar is-primary">
           <div className="navbar-brand">
             <a className="navbar-item">
               <IconButton
@@ -90,11 +90,13 @@ class AppTitleBar extends Component {
                 <i className="fa fa-twitter" />
               </span>
             </a>
-            <div className="navbar-burger burger" data-target="navMenuExample3">
+
+            {this.props.userProfile ? logoutBtn: null}
+            {/* <div className="navbar-burger burger" data-target="navMenuExample3"> */}
               <span />
               <span />
               <span />
-            </div>
+            {/* </div> */}
           </div>
         </nav>
       </div>
