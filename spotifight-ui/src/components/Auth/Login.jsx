@@ -29,6 +29,7 @@ class WrappedLogin extends Component {
   async login() {
     console.log('login-->', this.state);
     try {
+      console.log('fgg')
       const { data } = await axios.post('/auth/login', {
         email: this.state.email,
         password: this.state.password

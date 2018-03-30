@@ -15,6 +15,8 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+console.log('yo')
+
 router.get('/', (req, res) => {
   res.send('you have reached friends');
 });

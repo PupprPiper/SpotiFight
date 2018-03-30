@@ -58,7 +58,7 @@ class GameRoom extends Component {
     // listen for other users in room
     this.socket.on('ACTIVE_USERS', data => {
       this.setState({ players: data });
-      
+
       if(this.state.players.length !== 0){
 
         this.setState({ host: this.state.players[0].username });
@@ -91,7 +91,7 @@ class GameRoom extends Component {
     this.state.socket.on('GLOBAL_SONG', song => {
       this.setState({ globalSong: song });
     });
-   
+
   }
 
   force(){
