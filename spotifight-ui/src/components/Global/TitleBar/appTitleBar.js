@@ -20,12 +20,10 @@ class AppTitleBar extends Component {
     this.state = {
       isLoggedIn: false
     };
-    
+
   }
 
-
-
-  componentDidMount() {
+  componentWillReceiveProps() {
     this.setState({
       isLoggedIn: !!localStorage.getItem('token')
     });
@@ -39,13 +37,17 @@ class AppTitleBar extends Component {
   }
 
   async logout() {
-    axios.get('/logout').then(res => {
+    try {
+      await axios.get('/logout')
       this.props.storeCurrentUser(null);
       console.log(this.props);
-    }).catch(err => console.error(err));
-    localStorage.clear();
-    this.setState({isLoggedIn: false});
-    console.log('local storage-->', localStorage);
+      localStorage.clear();
+      this.setState({isLoggedIn: false});
+      window.location.replace('/');
+      console.log('local storage-->', localStorage);
+    } catch (error) {
+      console.log(error, 'here is your logout error')
+    }
   }
 
   render() {

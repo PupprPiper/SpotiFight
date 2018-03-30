@@ -22,7 +22,7 @@ router.use('/auth', authRouter);
 
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/lobby');
+  res.send('logout');
 });
 
 
