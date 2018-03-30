@@ -72,7 +72,9 @@ class Lobby extends Component {
       ready: false,
       topTen: [],
       song: "",
-      songChoices: {}
+      songChoices: {},
+      players: this.props.players
+
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.searchSong = this.searchSong.bind(this);
@@ -146,9 +148,11 @@ class Lobby extends Component {
       <div>
         <Grid container>
           <Grid item md={3}>
-            <Grid container spacing={24}>
+            <Grid >
+            <List>
               {this.props.leftPlayers.map((item, index) => {
                 return (
+                  <Paper> 
                   <ListItem key={index} dense button className="list-item">
                     <Avatar src={item.avatar_url} />
                     <ListItemText
@@ -160,8 +164,10 @@ class Lobby extends Component {
                       }`}
                     />
                   </ListItem>
+                  </Paper>
                 );
               })}
+              </List>
             </Grid>
           </Grid>
           <Grid item md={6}>
@@ -249,7 +255,7 @@ class Lobby extends Component {
             ) : null}
           </Grid>
           <Grid item md={3}>
-            <Grid container spacing={24}>
+            <Grid >
               {this.props.rightPlayers.map((item, index) => {
                 return (
                   <ListItem key={index} dense button className="list-item">

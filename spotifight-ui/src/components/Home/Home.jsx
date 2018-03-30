@@ -13,13 +13,15 @@ import RPSLS from '../Games/RPSLS/rpsls';
 import axios from 'axios';
 import Verify from '../Auth/Verify.jsx';
 
-import GameList from './GameList';
-
+import GameList from './GameList.jsx';
+import {Grid} from '../Global/Material-Globals'
+import OpenRoomsList from './OpenRoomsList.jsx'
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      game: null
+      game: null,
+      openrooms: []
     };
 
   }
@@ -36,15 +38,35 @@ class Home extends Component {
     })
   }
 
+  componentWillMount(){
+    this.socket = io.connect('http://localhost:8000')
+    this.socket.on('OPEN_ROOMS', data =>{
+  
+      this.setState({openrooms: data})
+    })
+  }
+  handleRoomSelect(room){
+    this.props.history.push({pathname: `/game-room/${room}`})
+  }
+
 
   render() {
     return (
       <div>
+        {console.log('home state', this.state)}
+        <Grid container> 
+        <Grid item md={6}> 
         <div>Select a game:</div>
         <GameList
           history={this.props.history}
         />
         <Verify />
+        </Grid>
+        <Grid item md = {6}> 
+          <div> Open Rooms:</div>
+            <OpenRoomsList openrooms = {this.state.openrooms}/>
+        </Grid>
+        </Grid>
       </div>
     );
   }

@@ -81,10 +81,20 @@ class GameRoom extends Component {
     this.state.socket.on('GLOBAL_SONG', song => {
       this.setState({ globalSong: song });
     });
+   
   }
 
-  force() {
-    this.forceUpdate();
+  force(){
+this.forceUpdate()
+  }
+  componentDidMount(){
+    this.props.history.listen((location, action) => {
+      // location is an object like window.location
+      console.log('unlisten', action, location.pathname, location.state, this.props.history)
+  })
+  }
+  componentWillUnmount(){
+    this.state.socket.disconnect()
   }
 
   startGame() {
