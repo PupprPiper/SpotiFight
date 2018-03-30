@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   AppBar,
   Toolbar,
@@ -12,7 +12,7 @@ import {
 } from './../Material-Globals.js';
 import axios from 'axios';
 
-import {toggleMenu, storeCurrentUser} from './../../../actions/index';
+import { toggleMenu, storeCurrentUser } from './../../../actions/index';
 
 class AppTitleBar extends Component {
   constructor() {
@@ -20,7 +20,6 @@ class AppTitleBar extends Component {
     this.state = {
       isLoggedIn: false
     };
-
   }
 
   componentWillReceiveProps() {
@@ -35,58 +34,86 @@ class AppTitleBar extends Component {
 
   async logout() {
     try {
-      await axios.get('/logout')
+      await axios.get('/logout');
       this.props.storeCurrentUser(null);
       console.log(this.props);
       localStorage.clear();
-      this.setState({isLoggedIn: false});
+      this.setState({ isLoggedIn: false });
       window.location.replace('/');
       console.log('local storage-->', localStorage);
     } catch (error) {
-      console.log(error, 'here is your logout error')
+      console.log(error, 'here is your logout error');
     }
   }
 
   render() {
-    let logoutBtn = (<div>
-      <Button onClick={() => this.logout()} color="inherit">
-        logout &nbsp;<ExitToApp/>
-      </Button>
-    </div>);
-
+    let logoutBtn = (
+      <div>
+        <Button onClick={() => this.logout()} color="inherit">
+          logout &nbsp;<ExitToApp />
+        </Button>
+      </div>
+    );
 
     return (
       <div>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              onClick={() => this.handleToggle()}
-              title="Spotifight"
-              color="inherit"
-              aria-label="Menu"
+        <nav className="navbar is-link">
+          <div className="navbar-brand">
+            <a className="navbar-item">
+              <IconButton
+                onClick={() => this.handleToggle()}
+                title="Spotifight"
+                color="inherit"
+                aria-label="Menu"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography color="inherit" variant="title" style={{ flex: 1 }}>
+                Spotifight
+              </Typography>
+            </a>
+            <a
+              className="navbar-item is-hidden-desktop"
+              href="https://github.com/jgthms/bulma"
+              target="_blank"
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography color="inherit" variant="title" style={{ flex: 1 }}>
-              Spotifight
-            </Typography>
-            {this.props.userProfile ? logoutBtn : ''}
-          </Toolbar>
-        </AppBar>
+              <span className="icon" style={{ color: '#333' }}>
+                <i className="fa fa-github" />
+              </span>
+            </a>
+            <a
+              className="navbar-item is-hidden-desktop"
+              href="https://twitter.com/jgthms"
+              target="_blank"
+            >
+              <span className="icon" style={{ color: '#55acee' }}>
+                <i className="fa fa-twitter" />
+              </span>
+            </a>
+            <div className="navbar-burger burger" data-target="navMenuExample3">
+              <span />
+              <span />
+              <span />
+            </div>
+          </div>
+        </nav>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return {menuIsOpen: state.menuIsOpen, userProfile: state.userProfile};
+  return { menuIsOpen: state.menuIsOpen, userProfile: state.userProfile };
 };
 
 const mapDispatchToProps = function(dispatch) {
-  return bindActionCreators({
-    toggleMenu,
-    storeCurrentUser
-  }, dispatch);
+  return bindActionCreators(
+    {
+      toggleMenu,
+      storeCurrentUser
+    },
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppTitleBar);

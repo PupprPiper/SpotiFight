@@ -13,12 +13,20 @@ import List, {
   ListItemSecondaryAction,
   ListItemText
 } from 'material-ui/List';
+
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
+import {
+  withStyles,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions
+} from 'material-ui';
 
 import MenuIcon from 'material-ui-icons/Menu';
 import ExitToApp from 'material-ui-icons/ExitToApp';
@@ -29,6 +37,10 @@ export {
   Avatar,
   AppBar,
   Button,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
   Checkbox,
   Drawer,
   Divider,
@@ -49,4 +61,5 @@ export {
   TextField,
   Toolbar,
   Typography,
+  withStyles
 };
