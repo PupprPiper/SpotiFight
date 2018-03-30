@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { gameSwitch, songSwitch } from "../../../actions/index";
 import axios from 'axios';
-
+import { List, ListItem} from '../../Global/Material-Globals'
+import { withStyles } from "material-ui/styles";
 const mapStateToProps = function(state) {
   return {
     game: state.game,
@@ -17,7 +18,12 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = function(dispatch) {
   return bindActionCreators({ gameSwitch, songSwitch }, dispatch);
 };
-
+const style = {
+  listItem : {
+    cursor: 'pointer',
+    align: 'center'
+  }
+}
 class MusicTrivia extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +43,10 @@ class MusicTrivia extends Component {
     this.props.socket.on('REMOVE_TRIVIA_OPTIONS_ALL', data =>{
       this.state.question.O = ''
       this.forceUpdate()
+    })
+
+    this.props.socket.on('ANNOUNCE_WINNER', winner => {
+      alert(winner + ' HAS WON')
     })
   }
 
@@ -64,6 +74,7 @@ class MusicTrivia extends Component {
       this.state.question.O = ''
       this.props.socket.emit("REMOVE_TRIVIA_OPTIONS", '')
       this.props.socket.emit("SEND_WINNER_SONG", this.props.mySong)
+      this.props.socket.emit('TRIVIA_WINNER', this.props.localUser)
       this.forceUpdate()
       
       this.props.players.forEach((player => {
@@ -81,16 +92,17 @@ class MusicTrivia extends Component {
 
   render() {
     return <div>
-    
+    {console.log('localstore', localStorage)}
     {console.log('trivia state', this.state)}
     {console.log('trivia props', this.props)}
-     <Paper> {this.state.question.Q}</Paper> 
+    <div align = "center" >  <Paper> {this.state.question.Q}</Paper> </div> 
 
-     <div> { this.state.question.O ?
+     <List> { this.state.question.O ?
+      
        this.state.question.O.map(item => {
-         return <div onClick ={()=>this.userAnswerChange(item)}> {item} </div>
+         return <div onClick ={()=>this.userAnswerChange(item)}> <ListItem className = {style.listItem}> {item} </ListItem>  </div>
        }) : null
-       }</div>
+       }</List>
     </div>;
   }
 }
