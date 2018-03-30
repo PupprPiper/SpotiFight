@@ -23,8 +23,8 @@ class AppTitleBar extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isLoggedIn: !!localStorage.getItem('token') });
-    console.log('props-->', this.props);
+    console.log('user profile--->', this.props.userProfile);
+    this.setState({ isLoggedIn: !!localStorage.getItem('token') }); 
   }
 
   handleToggle() {
@@ -71,7 +71,7 @@ class AppTitleBar extends Component {
             <Typography color="inherit" variant="title" style={{ flex: 1 }}>
               Spotifight
             </Typography>
-            {this.state.isLoggedIn ? logoutBtn : ''}
+            {this.props.userProfile ? logoutBtn : ''}
           </Toolbar>
         </AppBar>
       </div>

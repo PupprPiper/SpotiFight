@@ -3,21 +3,25 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
+  AppBar,
   Button,
   Drawer,
-  AppBar,
+  IconButton,
   List,
   ListItem,
-  IconButton,
+  ListItemIcon,
+  ListItemText,
+  MenuIcon,
+  InboxIcon,
   Typography,
-  Toolbar,
-  MenuIcon
+  Toolbar
 } from './../Material-Globals';
 import axios from 'axios';
 
 import { toggleMenu } from './../../../actions/index';
 import appRoutes from './../../../routes';
 import TitleBar from './../TitleBar/titleBar';
+import './Sidebar.scss';
 
 class Navbar extends Component {
   handleToggle() {
@@ -51,7 +55,16 @@ class Navbar extends Component {
                   key={index}
                   activeClassName="active"
                 >
-                  <ListItem>{route.sidebarName}</ListItem>
+                  <ListItem button>
+                    {route.icon ? (
+                      <ListItemIcon>
+                        <route.icon />
+                      </ListItemIcon>
+                    ) : (
+                      ''
+                    )}
+                    <ListItemText primary={route.sidebarName} />
+                  </ListItem>
                 </NavLink>
               );
             })}

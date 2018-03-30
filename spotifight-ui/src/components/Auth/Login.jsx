@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from './../Global/Material-Globals';
 import Form from './../Global/Forms/form';
+import { googleBtnStyle } from './authHelpers';
 import './Login.scss';
 
 class Login extends Component {
   render() {
-    return (
-      <div>
+    return <div>
         <header>
           <h1>Login using...</h1>
         </header>
@@ -14,12 +15,11 @@ class Login extends Component {
           <Form title="email" />
         </div>
         <div className="container">
-          <a href="/auth/google" className="google-btn">
+          <Button href="/auth/google" style={googleBtnStyle} variant="raised">
             Google+
-          </a>
+          </Button>
         </div>
-      </div>
-    );
+      </div>;
   }
 }
 

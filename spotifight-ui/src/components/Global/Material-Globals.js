@@ -4,6 +4,8 @@ import Drawer from 'material-ui/Drawer';
 import Grid from 'material-ui/Grid';
 import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
+import InboxIcon from 'material-ui-icons/Inbox';
+
 import List, {
   ListItem,
   ListItemAvatar,
@@ -34,6 +36,7 @@ export {
   Grid,
   Icon,
   IconButton,
+  InboxIcon,
   List,
   ListItem,
   ListItemIcon,

@@ -81,30 +81,10 @@ const appRoutes = [
     protected: true
   },
   {
-    path: '/landing-page',
-    sidebarName: 'Landing Page',
-    icon: Dashboard,
-    component: LandingPage
-  },
-  {
     path: '/leader-board',
     sidebarName: 'Leader Board',
     icon: Accessibility,
     component: LeaderBoard,
-    protected: true
-  },
-  {
-    path: '/lobby',
-    sidebarName: 'Lobby',
-    icon: Room,
-    component: Lobby,
-    protected: true
-  },
-  {
-    path: '/music-player',
-    sidebarName: 'Music Player',
-    icon: MusicNote,
-    component: MusicPlayer,
     protected: true
   },
   {
@@ -113,13 +93,6 @@ const appRoutes = [
     icon: AccountBox,
     component: UserProfile,
     protected: true
-  },
-  {
-    path: '/flappy',
-    sidebarName: 'Flappy',
-    icon: AccountBox,
-    component: Flappy,
-    store: store
   },
   { redirect: true, path: '/', to: '/home' }
 ];
