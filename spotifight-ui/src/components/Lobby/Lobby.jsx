@@ -145,7 +145,7 @@ class Lobby extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{'color': '#fff'}}>
         <Grid container>
           <Grid item md={3}>
             <Grid >
