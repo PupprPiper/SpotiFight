@@ -54,7 +54,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        {console.log('home state', this.state)}
+      
         <Grid container> 
         <Grid item md={6}> 
         <div>Select a game:</div>

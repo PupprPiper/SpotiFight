@@ -51,8 +51,11 @@ class GameRoom extends Component {
     // listen for other users in room
     this.socket.on('ACTIVE_USERS', data => {
       this.setState({ players: data });
+      
+      if(this.state.players.length !== 0){
 
-      this.setState({ host: this.state.players[0].username });
+        this.setState({ host: this.state.players[0].username });
+      }
 
       let left = assignLeftPlayer(this.state.players);
       let right = assignRightPlayer(this.state.players);
