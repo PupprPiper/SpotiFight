@@ -3,7 +3,7 @@ const db = require('../../../database/config')
 
 module.exports = {
   requestFriend: async (req, res) => {
-    var queryString = helpers.addFriendHelper(req);
+    var queryString = helpers.requestFriendHelper(req);
     var data = await db.queryAsync(queryString)
     res.send("friend request received");
   },

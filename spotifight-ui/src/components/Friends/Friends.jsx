@@ -54,7 +54,7 @@ class Friends extends Component {
 >>>>>>> friend requests/adds should work
       }
     };
-    await axios.delete(`http://localhost:3000/friends/deleteFriend/${this.props.userProfile.id}/${this.state.friends[i].id}`, body)
+    await axios.delete(`http://localhost:3000/friends/deleteFriend/${this.props.userProfile.id}/${friendId}`, body)
     this.fetchAllFriends();
   }
   
@@ -88,19 +88,17 @@ class Friends extends Component {
         />
         <h5>Search Results</h5>
         {this.state.filteredUsers ? this.state.filteredUsers.map((user, i) => {
-          return <li key={i} onClick={()=>this.requestFriend(i)}>{user.username}</li>
+          return (<div key={i}><li>{user.username}</li><button onClick={()=>this.requestFriend(i)}>Request</button></div>)
         }): null}
 
-        {/* {this.state.input.length > 2 ? this.state.allUsers.filter()} */}
-        {/* <input
-          type="submit"
-          value="Add Friend"
-          onClick={() => this.addFriend()}
-        /> */}
         <h3>Your Friends</h3>
 
         <ul>
-          {this.state.friends.map((friend, i) => {
+          {this.state.friends
+          .filter((friend, i)=> {
+            return friend.pending === false
+          })
+          .map((friend, i) => {
             return (
               <div key={i} index={i}>
                 <li>{friend.username}</li>
@@ -115,7 +113,11 @@ class Friends extends Component {
 
         <h3>Pending Friend Requests</h3>
         <ul>
-          {this.state.friends.map((friend, i) => {
+          {this.state.friends 
+          .filter((friend, i)=> {
+            return friend.pending === true
+          })
+          .map((friend, i) => {
             return (
               <div key={i} index={i}>
                 <li>{friend.username}</li>
