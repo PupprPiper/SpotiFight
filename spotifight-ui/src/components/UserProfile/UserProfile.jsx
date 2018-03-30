@@ -2,16 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
-import {
-  withStyles,
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Typography,
-  Avatar
-} from './../Global/Material-Globals';
-import profileCardStyle from './../../styles/profileCardStyle';
 
 import { storeCurrentUser } from './../../actions/index';
 import './UserProfile.scss';
@@ -67,72 +57,33 @@ class UserProfile extends Component {
       return <div>not logged in</div>;
     }
 
-    // return (
-    //   <div>
-    //     <Card>
-    //       <CardHeader avatar={<img src={user.avatar_url} alt="..." />} />
-    //       <CardContent>
-    //         <Typography component="h6">{user.email}</Typography>
-    //         <Typography component="h4">{user.username}</Typography>
-    //         <Typography component="p">
-    //           wins: {user.wins}
-    //           losses: {user.losses}
-    //         </Typography>
-    //       </CardContent>
-    //       <CardActions>footer here</CardActions>
-    //     </Card>
-    //     {this.props.location.pathname === '/user-profile/' ? (
-    //       <Verify history={this.props.history} />
-    //     ) : null}
-    //   </div>
-    // );
-
     return (
-      <Card className={profileCardStyle.card}>
-        <CardHeader
-          classes={{
-            root: profileCardStyle.cardHeader,
-            avatar: profileCardStyle.cardAvatar
-          }}
-          avatar={
-            <Avatar
-              src={user.avatar_url}
-              alt="..."
-              className={profileCardStyle.img}
-            />
-          }
-        />
-        <CardContent className={profileCardStyle.textAlign}>
-          {user.email !== undefined ? (
-            <Typography
-              component="h6"
-              className={profileCardStyle.cardSubtitle}
-            >
-              {user.email}
-            </Typography>
-          ) : null}
-          {user.email !== undefined ? (
-            <Typography component="h4" className={profileCardStyle.cardTitle}>
-              {user.email}
-            </Typography>
-          ) : null}
-          {user.email !== undefined ? (
-            <Typography
-              component="p"
-              className={profileCardStyle.cardDescription}
-            >
-              {user.email}
-            </Typography>
-          ) : null}
-        </CardContent>
-        <CardActions
-          className={
-            profileCardStyle.textAlign + ' ' + profileCardStyle.cardActions
-          }
-        >
-          {user.email}
-        </CardActions>
-      </Card>
+      <div class="section profile-heading">
+        <div class="columns">
+          <div class="column is-4 name">
+            <div class="image is-128x128 avatar">
+              <img src={user.avatar_url} />
+            </div>
+            <span class="button is-primary is-outlined follow">Follow</span>
+            <p>
+              <span class="title is-bold">{user.username}</span>
+            </p>
+            <p class="tagline">The users profile bio would go here.</p>
+          </div>
+          <div class="column is-2 likes has-text-centered">
+            <p class="stat-val">29</p>
+            <p class="stat-key">friends</p>
+          </div>
+          <div class="column is-2 followers has-text-centered">
+            <p class="stat-val">{user.wins}</p>
+            <p class="stat-key">wins</p>
+          </div>
+          <div class="column is-2 following has-text-centered">
+            <p class="stat-val">{user.losses}</p>
+            <p class="stat-key">losses</p>
+          </div>
+        </div>
+      </div>
     );
   }
 }
