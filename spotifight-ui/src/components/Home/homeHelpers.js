@@ -1,19 +1,19 @@
 export let games = [
   {
     title: 'Masher',
-    image: 'http://www.pvhc.net/img218/nqsltgpugozgfjmxmsec.png'
+    image: 'https://i.imgur.com/0o9dWt5.png'
   },
   {
     title: 'MusicTrivia',
-    image: 'https://upload.wikimedia.org/wikipedia/en/2/27/Trivia.png'
+    image: 'https://i.imgur.com/WDORIBi.png'
   },
   {
     title: 'RPSLS',
     image:
-      'https://laughingsquid.com/wp-content/uploads/how-to-play-20110520-080642.jpg'
+      'https://i.imgur.com/PXTgfDy.png'
   },
   {
     title: 'Flappy',
-    image: 'https://upload.wikimedia.org/wikipedia/en/0/0a/Flappy_Bird_icon.png'
+    image: 'https://i.imgur.com/AsasOn5.png'
   }
 ];
