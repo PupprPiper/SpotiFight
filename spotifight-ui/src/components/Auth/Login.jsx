@@ -51,55 +51,13 @@ class Login extends Component {
   }
 
   handleRedirect() {
-    this.history.props.push('/auth/google')
+    this.history.props.push('/auth/google');
   }
 
   render() {
-    return <div>
-        {/* <div className="hero-body">
-          <div className="container has-text-centered">
-            <div className="column is-4 is-offset-4"> */}
-              <h3 className="title has-text-grey">Login</h3>
-              <p className="subtitle has-text-grey">
-                Please login to proceed.
-              </p>
-              <div className="box">
-                <form>
-                  <div className="field">
-                    <div className="control">
-                      <input className="input is-large" type="email" placeholder="Your Email" autoFocus="" />
-                    </div>
-                  </div>
-
-                  <div className="field">
-                    <div className="control">
-                      <input className="input is-large" type="password" placeholder="Your Password" />
-                    </div>
-                  </div>
-                  <div className="field">
-                    <label className="checkbox">
-                      <input type="checkbox" /> Remember me
-                    </label>
-                  </div>
-
-                  <a href="/auth/google" className="button is-block is-danger is-large is-fullwidth">
-                    Google+
-                  </a>
-
-                  <button className="button is-block is-info is-large is-fullwidth">
-                    Login
-                  </button>
-                </form>
-              </div>
-              <p className="has-text-grey">
-                <a href="../">Sign Up</a> &nbsp;·&nbsp;
-                <a href="../">Forgot Password</a>
-              </p>
-            {/* </div>
-          </div>
-        </div> */}
-
-        {/* <div className="container">
+    return (
+      <div>
+        <div className="container">
           <h1>Login, you jerk</h1>
           <label>email:</label>
           <input
@@ -123,8 +81,9 @@ class Login extends Component {
           <a href="/auth/google" className="google-btn">
             Google+
           </a>
-        </div> */}
-      </div>;
+        </div>
+      </div>
+    );
   }
 }
 
