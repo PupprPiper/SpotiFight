@@ -6,9 +6,10 @@ import Form from './../Global/Forms/form';
 import { googleBtnStyle } from './authHelpers';
 import './Login.scss';
 import axios from 'axios';
+import { Grid } from './../Global/Material-Globals';
 import $ from 'jquery';
 
-class Login extends Component {
+class WrappedLogin extends Component {
   constructor(props) {
     super(props);
 
@@ -19,15 +20,14 @@ class Login extends Component {
     };
   }
 
-  handleEmailChange(e) {
-    this.setState({ email: e.target.value });
-  }
-
-  handlePasswordChange(e) {
-    this.setState({ password: e.target.value });
+  handleChange(e) {
+    let name = e.target.name;
+    let value = e.target.value;
+    this.setState({ [name]: value });
   }
 
   async login() {
+    console.log('login-->', this.state);
     try {
       const { data } = await axios.post('/auth/login', {
         email: this.state.email,
@@ -56,35 +56,71 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <div className="container">
-          <h1>Login, you jerk</h1>
-          <label>email:</label>
-          <input
-            className="clearfield"
-            type="text"
-            id="email-field"
-            onChange={e => this.handleEmailChange(e)}
-          />
-          <label>password:</label>
-          <input
-            className="clearfield"
-            type="password"
-            onChange={e => this.handlePasswordChange(e)}
-          />
-          <button id="submit" onClick={() => this.login()}>
-            Login
-          </button>
-          {this.state.authError}
-        </div>
-        <div className="container">
-          <a href="/auth/google" className="google-btn">
-            Google+
-          </a>
-        </div>
-      </div>
+      <Grid container>
+        <Grid md={3} item />
+        <Grid md={6} item>
+          <h3 className="title has-text-grey">Please login to proceed</h3>
+          <div className="box">
+            <form>
+              <div className="field">
+                <div className="control">
+                  <input
+                    className="input is-large"
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    onChange={e => this.handleChange(e)}
+                  />
+                </div>
+              </div>
+
+              <div className="field">
+                <div className="control">
+                  <input
+                    className="input is-large"
+                    type="password"
+                    name="password"
+                    placeholder="Your Password"
+                    onChange={e => this.handleChange(e)}
+                  />
+                </div>
+              </div>
+              <br />
+              <a
+                onClick={() => this.login()}
+                className="button is-block is-primary is-large is-fullwidth"
+              >
+                Login
+              </a>
+              <a
+                href="/auth/google"
+                className="button is-block is-danger is-large is-fullwidth"
+              >
+                Google+
+              </a>
+            </form>
+          </div>
+          <p className="has-text-grey">
+            <Link to="/signup">Sign Up</Link> &nbsp;·&nbsp;
+            <Link to="/">Forgot Password</Link>
+          </p>
+        </Grid>
+        <Grid md={3} item />
+      </Grid>
     );
   }
 }
+
+const Login = () => {
+  return (
+    <section className="hero is-default is-fullheight">
+      <div className="hero-body">
+        <div className="container has-text-centered">
+          <WrappedLogin />
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export default Login;
