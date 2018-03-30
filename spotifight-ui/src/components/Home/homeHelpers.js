@@ -15,5 +15,9 @@ export let games = [
   {
     title: 'Flappy',
     image: 'https://i.imgur.com/AsasOn5.png'
-  }
+  },
+  {
+  title: 'PokeballFinderClient',
+  image: 'http://freepngimg.com/download/pokemon/37545-9-pokeball-free-download.png'
+  },
 ];

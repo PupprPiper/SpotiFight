@@ -51,7 +51,7 @@ GameRoom.sendWinnerSong(client, io, userObject)
   Trivia.removeOptions(client, io, userObject, roomId)
 
 
-  Trivia.removeOptions(client, io, userObject, roomId)
+  Trivia.winner(client,io,userObject,roomId)
 
   Masher.updateScore(client, users, connections,  io);
   Masher.clearBoard(client, users, connections,  io);

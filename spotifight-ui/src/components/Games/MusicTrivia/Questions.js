@@ -67,17 +67,6 @@ const Questions = [
       "Brazil"
     ]
   },
-  {
-    Q:
-      " Avril Lavigne provided the voice of what character in the movie Over the Hedge?",
-    A: "Heather",
-    O:[
-      "A Moment Like This",
-      "Because of You",
-      "Behind These Hazel Eyes",
-      "Breakaway"
-    ]
-  },
   
 ];
 
