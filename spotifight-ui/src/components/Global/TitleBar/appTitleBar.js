@@ -27,8 +27,6 @@ class AppTitleBar extends Component {
     this.setState({
       isLoggedIn: !!localStorage.getItem('token')
     });
-    console.log('props-->', this.props);
-
   }
 
   handleToggle() {
