@@ -22,7 +22,7 @@ class Home extends Component {
     super(props);
     this.state = {
       game: null,
-      openrooms: []
+      openrooms: [],
     };
 
   }
@@ -49,12 +49,15 @@ class Home extends Component {
   handleRoomSelect(room){
     this.props.history.push({pathname: `/game-room/${room}`})
   }
+  componentWillUnmount(){
+    this.socket.disconnect()
+  }
 
 
   render() {
     return (
       <div>
-      
+        {console.log('home props', this.props)}
         <Grid container> 
         <Grid item md={6}> 
         <div>Select a game:</div>

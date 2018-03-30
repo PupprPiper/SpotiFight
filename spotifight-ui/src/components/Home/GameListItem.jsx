@@ -21,7 +21,7 @@ class GameListItem extends Component {
       pathname: `/game-room/${randomstring.generate()}`,
       state: { game: this.props.gameitem.title }
     });
-    // this.props.gameSwitch(this.props.game.title)
+    this.props.gameSwitch(this.props.gameitem.title)
   }
 
   render() {

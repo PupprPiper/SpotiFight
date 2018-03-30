@@ -258,6 +258,7 @@ class Lobby extends Component {
             <Grid >
               {this.props.rightPlayers.map((item, index) => {
                 return (
+                  <Paper> 
                   <ListItem key={index} dense button className="list-item">
                     <Avatar src={item.avatar_url} />
                     <ListItemText
@@ -269,6 +270,7 @@ class Lobby extends Component {
                       }`}
                     />
                   </ListItem>
+                  </Paper>
                 );
               })}
             </Grid>

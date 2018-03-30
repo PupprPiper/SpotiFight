@@ -7,7 +7,7 @@ import players from '../Games/Masher/seed.js';
 import Grid from 'material-ui/Grid';
 import { gameSwitch, songSwitch } from '../../actions/index';
 import Button from 'material-ui/Button';
-import { games, assignLeftPlayer, assignRightPlayer } from './gameRoomHelpers';
+import {assignLeftPlayer, assignRightPlayer } from './gameRoomHelpers';
 
 import Lobby from '../Lobby/Lobby.jsx';
 import Masher from '../Games/Masher/Masher.jsx';
@@ -16,6 +16,13 @@ import Flappy from '../Games/Flappy/Flappy';
 import RPSLS from '../Games/RPSLS/rpsls.jsx';
 import Verify from '../Auth/Verify.jsx';
 
+const games = {
+  Lobby: Lobby,
+  Masher: Masher,
+  MusicTrivia: MusicTrivia,
+  RPSLS: RPSLS,
+  Flappy: Flappy
+};
 class GameRoom extends Component {
   constructor(props) {
     super(props);
