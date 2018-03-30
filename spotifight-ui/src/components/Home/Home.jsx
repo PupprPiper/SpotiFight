@@ -64,7 +64,7 @@ class Home extends Component {
         </Grid>
         <Grid item md = {6}> 
           <div> Open Rooms:</div>
-            <OpenRoomsList openrooms = {this.state.openrooms}/>
+            <OpenRoomsList openrooms = {this.state.openrooms}  history={this.props.history}/>
         </Grid>
         </Grid>
       </div>

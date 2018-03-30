@@ -131,7 +131,7 @@ this.forceUpdate()
           <Grid item md={5} />
 
           <Grid item md={2}>
-            {this.props.game === null ? null : (
+            {this.state.host === this.state.localUser ?  (
               <div align="center">
                 <Button
                   variant="raised"
@@ -141,7 +141,7 @@ this.forceUpdate()
                   START GAME
                 </Button>
               </div>
-            )}
+            ) : null}
             {this.state.currRoom === Lobby ? null : (
               <Button
                 variant="raised"
