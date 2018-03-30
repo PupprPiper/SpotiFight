@@ -27,13 +27,10 @@ class AppTitleBar extends Component {
     this.setState({
       isLoggedIn: !!localStorage.getItem('token')
     });
-    console.log('props-->', this.props);
-
   }
 
   handleToggle() {
     this.props.toggleMenu(!this.props.menuIsOpen);
-    console.log('from title bar -->', this.props);
   }
 
   async logout() {
@@ -57,25 +54,27 @@ class AppTitleBar extends Component {
       </Button>
     </div>);
 
-    return (<div>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton onClick={() => this.handleToggle()} title="Spotifight" color="inherit" aria-label="Menu">
-            <MenuIcon/>
-          </IconButton>
-          <Typography color="inherit" variant="title" style={{
-              flex: 1
-            }}>
-            Spotifight
-          </Typography>
-          {
-            this.props.userProfile
-              ? logoutBtn
-              : ''
-          }
-        </Toolbar>
-      </AppBar>
-    </div>);
+
+    return (
+      <div>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              onClick={() => this.handleToggle()}
+              title="Spotifight"
+              color="inherit"
+              aria-label="Menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography color="inherit" variant="title" style={{ flex: 1 }}>
+              Spotifight
+            </Typography>
+            {this.props.userProfile ? logoutBtn : ''}
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
   }
 }
 

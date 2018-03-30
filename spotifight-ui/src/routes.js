@@ -77,6 +77,7 @@ const appRoutes = [
     path: '/',
     to: '/home'
   }
+
 ];
 
 export default appRoutes;

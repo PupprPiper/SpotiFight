@@ -1,6 +1,9 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from './../Global/Material-Globals';
+
 import Form from './../Global/Forms/form';
+import { googleBtnStyle } from './authHelpers';
 import './Login.scss';
 import axios from 'axios';
 import $ from 'jquery';
@@ -71,6 +74,7 @@ class Login extends Component {
         </a>
       </div>
     </div>);
+
   }
 }
 
