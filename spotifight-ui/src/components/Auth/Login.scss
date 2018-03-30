@@ -1,0 +1,30 @@
+// .container {
+//   padding: 50px 0 50px 0;
+//   margin: 0 50% 0 50%;
+// }
+.is-danger {
+  background-color: red;
+}
+.google-btn {
+  padding: 15px 25px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  text-align: center;
+  cursor: hand;
+  outline: none;
+  color: #fff;
+  background-color: #db3236;
+  border-radius: 15px;
+  box-shadow: 0 9px #990000;
+  text-decoration: none;
+}
+
+.google-btn:hover {
+  background-color: #cc0000;
+}
+
+.google-btn:active {
+  background-color: #cc0000;
+  box-shadow: 0 5px #800000;
+  transform: translateY(4px);
+}
