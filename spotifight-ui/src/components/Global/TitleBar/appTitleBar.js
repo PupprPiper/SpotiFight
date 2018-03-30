@@ -48,58 +48,42 @@ class AppTitleBar extends Component {
 
   render() {
     let logoutBtn = (
-      <div>
-        <Button onClick={() => this.logout()} color="inherit">
-          logout &nbsp;<ExitToApp />
-        </Button>
-      </div>
+      <Button
+        onClick={() => this.logout()}
+        className="navbar-item"
+        color="inherit"
+      >
+        logout &nbsp;<ExitToApp />
+      </Button>
     );
 
     return (
-      <div>
-        <nav className="navbar is-primary">
-          <div className="navbar-brand">
-            <a className="navbar-item">
-              <IconButton
-                onClick={() => this.handleToggle()}
-                title="Spotifight"
-                color="inherit"
-                aria-label="Menu"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography color="inherit" variant="title" style={{ flex: 1 }}>
-                Spotifight
-              </Typography>
-            </a>
-            <a
-              className="navbar-item is-hidden-desktop"
-              href="https://github.com/jgthms/bulma"
-              target="_blank"
+      <nav className="navbar is-primary">
+        <div className="navbar-brand">
+          <a className="navbar-item">
+            <IconButton
+              onClick={() => this.handleToggle()}
+              title="Spotifight"
+              color="inherit"
+              aria-label="Menu"
             >
-              <span className="icon" style={{ color: '#333' }}>
-                <i className="fa fa-github" />
-              </span>
-            </a>
-            <a
-              className="navbar-item is-hidden-desktop"
-              href="https://twitter.com/jgthms"
-              target="_blank"
-            >
-              <span className="icon" style={{ color: '#55acee' }}>
-                <i className="fa fa-twitter" />
-              </span>
-            </a>
-
-            {this.props.userProfile ? logoutBtn: null}
-            {/* <div className="navbar-burger burger" data-target="navMenuExample3"> */}
-              <span />
-              <span />
-              <span />
-            {/* </div> */}
-          </div>
-        </nav>
-      </div>
+              <MenuIcon />
+            </IconButton>
+          </a>
+          <Typography
+            className="navbar-item"
+            color="inherit"
+            variant="title"
+            style={{ flex: 1 }}
+          >
+            Spotifight
+          </Typography>
+          <span />
+          <span />
+          <span />
+          {this.props.userProfile ? logoutBtn : null}
+        </div>
+      </nav>
     );
   }
 }
