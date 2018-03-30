@@ -16,12 +16,13 @@ import Verify from '../Auth/Verify.jsx';
 import GameList from './GameList.jsx';
 import {Grid} from '../Global/Material-Globals'
 import OpenRoomsList from './OpenRoomsList.jsx'
+import './Home.scss'
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       game: null,
-      openrooms: []
+      openrooms: [],
     };
 
   }
@@ -48,17 +49,21 @@ class Home extends Component {
   handleRoomSelect(room){
     this.props.history.push({pathname: `/game-room/${room}`})
   }
+  componentWillUnmount(){
+    this.socket.disconnect()
+  }
 
 
   render() {
     return (
       <div>
-        {console.log('home state', this.state)}
+        {console.log('home props', this.props)}
         <Grid container> 
         <Grid item md={6}> 
         <div>Select a game:</div>
         <GameList
           history={this.props.history}
+          className = 'keyboard'
         />
         <Verify />
         </Grid>
