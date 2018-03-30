@@ -116,6 +116,7 @@ const appRoutes = [
     path: '/',
     to: '/home'
   }
+
 ];
 
 
