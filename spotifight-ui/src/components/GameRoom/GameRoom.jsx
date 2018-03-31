@@ -56,7 +56,7 @@ class GameRoom extends Component {
       });
 
       await this.setState({socket: this.socket});
-      this.props.storeSocket(this.socket);
+      // this.props.storeSocket(this.socket);
       // send user to lobby
       this.state.socket.emit('USER_ENTER_LOBBY', this.props.userProfile);
       // listen for other users in room

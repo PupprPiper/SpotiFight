@@ -155,6 +155,7 @@ class Lobby extends Component {
           </Grid>
           <Grid item md={6}>
             <Chat
+              socket={this.props.socket}
               localUser={this.props.userProfile.username}
             />
             <div align="center">
