@@ -17,6 +17,11 @@ module.exports = {
     var data = await db.queryAsync(queryString);
     res.send(data.rows)
   },
+  fetchAllPendingFriends: async (req, res) => {
+    var queryString = helpers.fetchAllPendingFriendsHelper(req);
+    var data = await db.queryAsync(queryString);
+    res.send(data.rows)
+  },
   acceptFriend: async (req, res) => {
     var queryString = helpers.acceptFriendHelper(req);
     var data = await db.queryAsync(queryString)

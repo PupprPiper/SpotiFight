@@ -8,6 +8,7 @@ class Friends extends Component {
     this.state = {
       user_id: null,
       friends: [],
+      pendingFriends:[],
       input: "",
       allUsers: null,
       filteredUsers: null
@@ -19,6 +20,7 @@ class Friends extends Component {
         user_id: this.props.userProfile.id,
         friend_id: this.state.filteredUsers[i].id
       };
+      console.log('REQUEST FRIEND BODY ', body)
       await axios.post("http://localhost:3000/friends/requestFriend", body);
 
     this.fetchAllFriends();
@@ -35,13 +37,17 @@ class Friends extends Component {
 
   async fetchAllFriends() {
     var allFriends = await axios.get(
-      `http://localhost:3000/friends/fetchAllFriends/${
-        this.props.userProfile.id
-      }`
+      `http://localhost:3000/friends/fetchAllFriends/${this.props.userProfile.id}`
     );
-    this.setState({ friends: allFriends.data });
+    var pendingFriends = await axios.get(
+      `http://localhost:3000/friends/fetchAllPendingFriends/${this.props.userProfile.id}`
+    );
+    this.setState({ 
+      friends: allFriends.data,
+      pendingFriends: pendingFriends.data
+     });
   }
-  
+
   async removeFriend(friendId) {
     var body = {
       data: {
@@ -102,10 +108,7 @@ class Friends extends Component {
         <h3>Your Friends</h3>
 
         <ul>
-          {this.state.friends
-          .filter((friend, i)=> {
-            return friend.pending === false
-          })
+          {this.state.friends ? this.state.friends
           .map((friend, i) => {
             return (
               <div key={i} index={i}>
@@ -113,7 +116,7 @@ class Friends extends Component {
                 <button onClick={() => this.removeFriend(friend.id)}>Remove Friend</button>
               </div>
             );
-          })}
+          }): null}
         </ul>
 <<<<<<< HEAD
               <Verify  />
@@ -121,10 +124,7 @@ class Friends extends Component {
 
         <h3>Pending Friend Requests</h3>
         <ul>
-          {this.state.friends 
-          .filter((friend, i)=> {
-            return friend.pending === true
-          })
+          {this.state.pendingFriends ? this.state.pendingFriends
           .map((friend, i) => {
             return (
               <div key={i} index={i}>
@@ -133,7 +133,7 @@ class Friends extends Component {
                 <button onClick={() => this.removeFriend(friend.id)}>Reject</button>
               </div>
             );
-          })}
+          }): null}
         </ul>
 
 >>>>>>> friend requests/adds should work

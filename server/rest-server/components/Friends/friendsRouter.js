@@ -23,6 +23,10 @@ router
   .route("/fetchAllFriends/:user_id")
   .get(friendsController.fetchAllFriends);
 
+  router
+  .route("/fetchAllPendingFriends/:user_id")
+  .get(friendsController.fetchAllPendingFriends);
+
 router
   .route("/deleteFriend/:user_id/:friend_id")
   .delete(friendsController.deleteFriend);
