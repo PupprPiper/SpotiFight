@@ -14,7 +14,7 @@ import Masher from '../Games/Masher/Masher.jsx';
 import MusicTrivia from '../Games/MusicTrivia/MusicTrivia';
 import Flappy from '../Games/Flappy/Flappy';
 import RPSLS from '../Games/RPSLS/rpsls.jsx';
-import PokeballFinderClient from '../Games/PokeballFinder/pokeballFinderClient'
+import PokeballFinderClient from '../Games/PokeballFinder/pokeballFinderClient.jsx'
 import Verify from '../Auth/Verify.jsx';
 
 const games = {

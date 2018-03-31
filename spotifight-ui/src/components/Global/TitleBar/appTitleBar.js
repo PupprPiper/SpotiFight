@@ -55,16 +55,26 @@ class AppTitleBar extends Component {
       </Button>
     </div>);
 
-    return (<div>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton onClick={() => this.handleToggle()} title="Spotifight" color="inherit" aria-label="Menu">
-            <MenuIcon/>
-          </IconButton>
-          <Typography color="inherit" variant="title" style={{
-              flex: 1
-            }}>
-            Spotifight
+    return (
+      <nav className="navbar is-dark" >
+        <div className="navbar-brand">
+          <a className="navbar-item">
+            <IconButton
+              onClick={() => this.handleToggle()}
+              title="Spotifight"
+              color="inherit"
+              aria-label="Menu"
+            >
+              <MenuIcon />
+            </IconButton>
+          </a>
+          <Typography
+            className="navbar-item"
+            color="inherit"
+            variant="title"
+            style={{ flex: 1 }}
+          >
+         
           </Typography>
           {
             this.props.userProfile

@@ -12,7 +12,8 @@ const style = {
   LobbyItems:{
     cursor: 'Pointer',
     height: 100,
-    width: 100
+    width: 100,
+    color: 'white'
   }
 };
 class GameListItem extends Component {
