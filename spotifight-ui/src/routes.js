@@ -112,9 +112,11 @@ const appRoutes = [
     component: Flappy,
     store: store
   }, {
+    to: '/landing-page',
     redirect: true,
     path: '/',
-    to: '/home'
+    component: LandingPage
+
   }
 
 ];

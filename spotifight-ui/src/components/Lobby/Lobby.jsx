@@ -152,8 +152,8 @@ class Lobby extends Component {
             <List>
               {this.props.leftPlayers.map((item, index) => {
                 return (
-                  <Paper> 
-                  <ListItem key={index} dense button className="list-item">
+                  <Paper key={index}>
+                  <ListItem  dense button className="list-item">
                     <Avatar src={item.avatar_url} />
                     <ListItemText
                       primary={`${item.username}`}
@@ -202,9 +202,9 @@ class Lobby extends Component {
             )}
 
             <List className={this.props.classes.musicList}>
-              {this.state.topTen.map(item => {
+              {this.state.topTen.map((item, index) => {
                 return (
-                  <ListItem onClick={() => this.handleSongClick(item)}>
+                  <ListItem key={index} onClick={() => this.handleSongClick(item)}>
                     {" "}
                     <ListItemAvatar>
                       <Avatar
@@ -258,8 +258,8 @@ class Lobby extends Component {
             <Grid >
               {this.props.rightPlayers.map((item, index) => {
                 return (
-                  <Paper> 
-                  <ListItem key={index} dense button className="list-item">
+                  <Paper key={index}>
+                  <ListItem  dense button className="list-item">
                     <Avatar src={item.avatar_url} />
                     <ListItemText
                       primary={`${item.username}`}

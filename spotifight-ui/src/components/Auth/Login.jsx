@@ -9,7 +9,7 @@ import axios from 'axios';
 import { Grid } from './../Global/Material-Globals';
 import $ from 'jquery';
 
-class WrappedLogin extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -52,12 +52,15 @@ class WrappedLogin extends Component {
   }
 
   handleRedirect() {
-    this.history.props.push('/auth/google');
+    this.props.history.push('/auth/google');
   }
 
   render() {
     return (
       <Grid container>
+      <section className="hero is-default is-fullheight">
+        <div className="hero-body">
+          <div className="container has-text-centered">
         <Grid md={3} item />
         <Grid md={6} item>
           <h3 className="title has-text-grey">Please login to proceed</h3>
@@ -93,8 +96,7 @@ class WrappedLogin extends Component {
               >
                 Login
               </a>
-              <a
-                href="/auth/google"
+              <a href="/auth/google"
                 className="button is-block is-danger is-large is-fullwidth"
               >
                 Google+
@@ -107,21 +109,24 @@ class WrappedLogin extends Component {
           </p>
         </Grid>
         <Grid md={3} item />
+        </div>
+        </div>
+        </section>
       </Grid>
     );
   }
 }
 
-const Login = () => {
-  return (
-    <section className="hero is-default is-fullheight">
-      <div className="hero-body">
-        <div className="container has-text-centered">
-          <WrappedLogin />
-        </div>
-      </div>
-    </section>
-  );
-};
+// const Login = () => {
+//   return (
+//     <section className="hero is-default is-fullheight">
+//       <div className="hero-body">
+//         <div className="container has-text-centered">
+//           <WrappedLogin />
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
 
 export default Login;

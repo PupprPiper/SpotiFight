@@ -12,9 +12,11 @@ import App from './App';
 
 const store = createStore(allReducers);
 
+const Loading = (<div>Loading</div>)
+
 render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={configureStore().persistor}>
+    <PersistGate loading={<div>loading you b</div>} persistor={configureStore().persistor}>
       <App />
     </PersistGate>
   </Provider>,
