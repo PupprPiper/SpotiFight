@@ -14,6 +14,7 @@ import Masher from '../Games/Masher/Masher.jsx';
 import MusicTrivia from '../Games/MusicTrivia/MusicTrivia';
 import Flappy from '../Games/Flappy/Flappy';
 import RPSLS from '../Games/RPSLS/rpsls.jsx';
+import PokeballFinderClient from '../Games/PokeballFinder/pokeballFinderClient'
 import Verify from '../Auth/Verify.jsx';
 
 const games = {
@@ -21,7 +22,8 @@ const games = {
   Masher: Masher,
   MusicTrivia: MusicTrivia,
   RPSLS: RPSLS,
-  Flappy: Flappy
+  Flappy: Flappy,
+  PokeballFinderClient: PokeballFinderClient
 };
 class GameRoom extends Component {
   constructor(props) {
