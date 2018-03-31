@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import players from '../Games/Masher/seed.js';
 import Grid from 'material-ui/Grid';
-import {gameSwitch, songSwitch} from '../../actions/index';
+import {gameSwitch, songSwitch, storeSocket} from '../../actions/index';
 import Button from 'material-ui/Button';
 import {assignLeftPlayer, assignRightPlayer} from './gameRoomHelpers';
 
@@ -56,6 +56,7 @@ class GameRoom extends Component {
       });
 
       await this.setState({socket: this.socket});
+      this.props.storeSocket(this.socket);
       // send user to lobby
       this.state.socket.emit('USER_ENTER_LOBBY', this.props.userProfile);
       // listen for other users in room
@@ -83,7 +84,6 @@ class GameRoom extends Component {
         this.setState({winner: winner});
         this.state.socket.emit('broadcastWinner', winner);
         this.state.socket.emit('clearBoard', {});
-        console.log(this.props.userProfile.username, 'this.props.userProfile.user')
         if (this.state.localUser === winner[0]) {
           this.state.socket.emit('SEND_WINNER_SONG', this.props.mySong);
         }
@@ -103,7 +103,6 @@ class GameRoom extends Component {
   componentDidMount() {
     this.props.history.listen((location, action) => {
       // location is an object like window.location
-      console.log('unlisten', action, location.pathname, location.state, this.props.history)
     })
   }
   componentWillUnmount() {
@@ -129,7 +128,6 @@ class GameRoom extends Component {
 
   render() {
     return (<div>
-      {console.log('gameroom props', this.props)}
       <audio src={this.state.globalSong} autoPlay="autoPlay"/>
       <this.state.currRoom socket={this.state.socket} userImg={this.state.userImg} localUser={this.state.localUser} winner={this.state.winner} players={this.state.players} host={this.state.host} leftPlayers={this.state.leftPlayers} rightPlayers={this.state.rightPlayers}/>
       <Grid container>
@@ -152,8 +150,6 @@ class GameRoom extends Component {
                 <Button variant="raised" color="secondary" onClick={() => this.lobbyReturn()}>
                   RETURN TO LOBBY
                 </Button>
-                <button onClick={() => console.log(this.props)}>test
-                </button>
               </div>)
           }
         </Grid>
@@ -164,13 +160,14 @@ class GameRoom extends Component {
 }
 
 const mapStateToProps = function(state) {
-  return {game: state.game, mySong: state.mySong, userProfile: state.userProfile};
+  return {game: state.game, mySong: state.mySong, userProfile: state.userProfile, socket: state.socket};
 };
 
 const mapDispatchToProps = function(dispatch) {
   return bindActionCreators({
     gameSwitch,
-    songSwitch
+    songSwitch,
+    storeSocket
   }, dispatch);
 };
 

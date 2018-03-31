@@ -1,6 +1,6 @@
 export const storeSocketReducer = (state = null, action) => {
   switch (action.type) {
-    case 'SOCKET_STORE':
+    case 'SOCKET':
       return action.payload;
     default:
       return state;
