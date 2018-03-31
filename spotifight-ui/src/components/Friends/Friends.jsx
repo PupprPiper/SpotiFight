@@ -74,7 +74,7 @@ class Friends extends Component {
   
   filterUsers(){
     var filtered = this.state.allUsers.filter((user)=>{
-      return user.username.includes(this.state.input)
+      return user.username.toLowerCase().includes(this.state.input.toLowerCase());
     })
     this.setState({filteredUsers: filtered})
   }
