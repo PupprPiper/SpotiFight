@@ -43,6 +43,7 @@ module.exports = {
       avatar_url TEXT DEFAULT '${def_pic}',
       wins INT NOT NULL,
       losses INT NOT NULL,
+      friends INT DEFAULT 0,
       CONSTRAINT users_pk
       PRIMARY KEY(id)
       )

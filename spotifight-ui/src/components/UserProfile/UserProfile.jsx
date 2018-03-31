@@ -120,7 +120,7 @@ class UserProfile extends Component {
               <br />
               <span className="title is-bold">{user.username}</span>
             </p>
-            <p className="tagline">The users profile bio would go here.</p>
+            <p className="tagline">{user.status}</p>
             <button onClick={() => this.toggleUpdateInfo()}>Update Info</button>
             {this.state.update ? (
               <div>
@@ -136,7 +136,7 @@ class UserProfile extends Component {
           </div>
 
           <div className="column is-2 likes has-text-centered">
-            <p className="stat-val">29</p>
+            <p className="stat-val">{user.friends}</p>
             <p className="stat-key">friends</p>
           </div>
           <div className="column is-2 followers has-text-centered">

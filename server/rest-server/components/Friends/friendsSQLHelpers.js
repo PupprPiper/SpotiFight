@@ -12,7 +12,8 @@ module.exports  = {
     DELETE FROM friends
     WHERE (user_id=${req.body.user_id} AND friend_id=${req.body.friend_id}) OR 
     (user_id=${req.body.friend_id} AND friend_id=${req.body.user_id})
-    RETURNING id, user_id, friend_id
+    RETURNING id, user_id, friend_id;
+    UPDATE users SET friends = friends - 1 where id = ${req.body.user_id} OR id = ${req.body.friend_id}
   `
   },
   
@@ -41,7 +42,8 @@ module.exports  = {
     return `
       INSERT INTO friends (user_id, friend_id, pending)
       VALUES (${req.body.user_id}, ${req.body.friend_id}, FALSE), (${req.body.friend_id}, ${req.body.user_id}, FALSE)
-      ON CONFLICT (user_id, friend_id) DO UPDATE SET PENDING = FALSE
+      ON CONFLICT (user_id, friend_id) DO UPDATE SET PENDING = FALSE;
+      UPDATE users SET friends = friends + 1 where id = ${req.body.user_id} OR id = ${req.body.friend_id}
     `
   }
 
