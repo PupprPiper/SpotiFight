@@ -15,19 +15,6 @@ import axios from 'axios';
 import { toggleMenu, storeCurrentUser } from './../../../actions/index';
 
 class AppTitleBar extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isLoggedIn: false
-    };
-  }
-
-  componentWillReceiveProps() {
-    this.setState({
-      isLoggedIn: !!localStorage.getItem('token')
-    });
-  }
-
   handleToggle() {
     this.props.toggleMenu(!this.props.menuIsOpen);
   }
@@ -36,23 +23,16 @@ class AppTitleBar extends Component {
     try {
       await axios.get('/logout');
       this.props.storeCurrentUser(null);
-      console.log(this.props);
       localStorage.clear();
-      this.setState({ isLoggedIn: false });
-      window.location.replace('/');
-      console.log('local storage-->', localStorage);
+      window.location.replace('/login');
     } catch (error) {
-      console.log(error, 'here is your logout error');
+      console.log(error);
     }
   }
 
   render() {
     let logoutBtn = (
-      <Button
-        onClick={() => this.logout()}
-        className="navbar-item"
-        color="inherit"
-      >
+      <Button onClick={() => this.logout()} color="inherit">
         logout &nbsp;<ExitToApp />
       </Button>
     );
@@ -70,17 +50,16 @@ class AppTitleBar extends Component {
               <MenuIcon />
             </IconButton>
           </a>
-          <Typography
-            className="navbar-item"
-            color="inherit"
-            variant="title"
-            style={{ flex: 1 }}
-          >
-            Spotifight
-          </Typography>
+          <div className="navbar-item">
+            <Typography color="inherit" variant="title" style={{ flex: 1 }}>
+              Spotifight
+            </Typography>
+          </div>
           <span />
           <span />
           <span />
+        </div>
+        <div className="navbar-end">
           {this.props.userProfile ? logoutBtn : null}
         </div>
       </nav>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import { Grid } from './../Global/Material-Globals';
 
 import { storeCurrentUser } from './../../actions/index';
 import './UserProfile.scss';
@@ -41,8 +42,8 @@ class UserProfile extends Component {
     let payload = await axios.get(`/users/email/${email}`);
     payload.data.userProfile.avatar_url =
       payload.data.userProfile.avatar_url + '0';
-    console.log('user profile', payload.data.userProfile);
     this.props.storeCurrentUser(payload.data.userProfile);
+    console.log('user profile', this.props);
     this.setState({ loading: false, user: payload.data.userProfile });
     localStorage.setItem('token', payload.data.token);
     localStorage.setItem('user', JSON.stringify(payload.data.userProfile));
@@ -58,29 +59,29 @@ class UserProfile extends Component {
     }
 
     return (
-      <div class="section profile-heading">
-        <div class="columns">
-          <div class="column is-4 name">
-            <div class="image is-128x128 avatar">
+      <div className="section profile-heading">
+        <div className="columns">
+          <div className="column is-4 name">
+            <div className="image is-128x128 avatar">
               <img src={user.avatar_url} />
             </div>
-            <span class="button is-primary is-outlined follow">Follow</span>
+            <span className="button is-primary is-outlined follow">Follow</span>
             <p>
-              <span class="title is-bold">{user.username}</span>
+              <span className="title is-bold">{user.username}</span>
             </p>
-            <p class="tagline">The users profile bio would go here.</p>
+            <p className="tagline">The users profile bio would go here.</p>
           </div>
-          <div class="column is-2 likes has-text-centered">
-            <p class="stat-val">29</p>
-            <p class="stat-key">friends</p>
+          <div className="column is-2 likes has-text-centered">
+            <p className="stat-val">29</p>
+            <p className="stat-key">friends</p>
           </div>
-          <div class="column is-2 followers has-text-centered">
-            <p class="stat-val">{user.wins}</p>
-            <p class="stat-key">wins</p>
+          <div className="column is-2 followers has-text-centered">
+            <p className="stat-val">{user.wins}</p>
+            <p className="stat-key">wins</p>
           </div>
-          <div class="column is-2 following has-text-centered">
-            <p class="stat-val">{user.losses}</p>
-            <p class="stat-key">losses</p>
+          <div className="column is-2 following has-text-centered">
+            <p className="stat-val">{user.losses}</p>
+            <p className="stat-key">losses</p>
           </div>
         </div>
       </div>
