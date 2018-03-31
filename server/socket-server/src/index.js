@@ -60,6 +60,7 @@ GameRoom.sendWinnerSong(client, io, userObject)
 
   rpsls.makeChoice(client, users, connections, io);
   rpsls.winner(client, users, connections, io);
+  rpsls.tie(client, users, connections, io);
 
 
   // END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER END MASHER
