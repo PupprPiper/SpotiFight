@@ -29,8 +29,8 @@ module.exports  = {
   acceptFriendHelper: (req) => {
     return `
       UPDATE friends SET pending = FALSE where 
-      (user_id = ${req.body.user_id} AND ${req.body.friend_id})
-      AND (user_id = ${req.body.friend_id} AND ${req.body.user_id})
+      (user_id = ${req.body.user_id} AND friend_id = ${req.body.friend_id})
+      OR (user_id = ${req.body.friend_id} AND friend_id = ${req.body.user_id})
     `
   }
 
