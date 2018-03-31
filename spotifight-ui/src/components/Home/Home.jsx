@@ -59,7 +59,7 @@ class Home extends Component {
       <div>
         {console.log('home props', this.props)}
         <Grid container> 
-        <Grid item md={6}> 
+        <Grid item md={9}> 
         <div>Select a game:</div>
         <GameList
           history={this.props.history}
@@ -67,7 +67,7 @@ class Home extends Component {
         />
         <Verify />
         </Grid>
-        <Grid item md = {6}> 
+        <Grid item md = {3}> 
           <div> Open Rooms:</div>
             <OpenRoomsList openrooms = {this.state.openrooms}  history={this.props.history}/>
         </Grid>

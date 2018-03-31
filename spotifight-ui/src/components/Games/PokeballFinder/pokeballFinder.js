@@ -317,4 +317,5 @@ window.onload = function() {
     else if (e.keyCode == "39") player.move("right");
     else if (e.keyCode == "40") player.move("down");
   };
+  const newPlayer = Object.create(player)
 };

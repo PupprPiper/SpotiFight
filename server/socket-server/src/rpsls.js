@@ -5,12 +5,12 @@ const app = express();
 const http = require('http').Server(app);
 
 module.exports = {
-  makeChoice : (client, users, connections, masherGame, io) => {
+  makeChoice : (client, users, connections,  io) => {
     client.on('makeChoice', data => {
       io.in(client.handshake.query.roomId).emit('oppChoice', data)
     })
   },
-  winner: (client, users, connections, masherGame, io) => {
+  winner: (client, users, connections,  io) => {
     client.on('winner', data => {
       console.log('THE WINNER ', data)
       io.in(client.handshake.query.roomId).emit('final', data)

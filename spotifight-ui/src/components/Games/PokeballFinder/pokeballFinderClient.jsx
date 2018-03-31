@@ -6,14 +6,17 @@ class PokeballFinderClient extends Component {
     super()
     this.state ={}
   }
+  componentDidMount(){
+    window.onload()
+  }
 render(){
 
 
   return(
 
-    <div>
+    
     <canvas id="canvas" width="460" height="460"></canvas>
-    </div>
+    
   )
 }
 }
