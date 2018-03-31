@@ -10,7 +10,7 @@ import './index.scss';
 
 import App from './App';
 
-const store = createStore(allReducers);
+const store = configureStore().store;
 
 const Loading = (<div>Loading</div>)
 

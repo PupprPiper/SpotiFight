@@ -32,6 +32,7 @@ class App extends Component {
 
   render() {
     return (
+      <div>
       <BrowserRouter>
         <div>
           <AppTitleBar title="Spotifight" handleCLick={() => this.handleToggle()} color="inherit" Icon={MenuIcon}/>
@@ -48,6 +49,7 @@ class App extends Component {
           </Switch>
         </div>
       </BrowserRouter>
+      </div>
     );
   }
 }
