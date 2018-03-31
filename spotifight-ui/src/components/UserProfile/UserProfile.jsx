@@ -50,7 +50,6 @@ class UserProfile extends Component {
     this.props.storeCurrentUser(payload.data.userProfile);
 
     this.setState({ loading: false, user: payload.data.userProfile });
-    console.log('AFTER GET USER', this.state)
     localStorage.setItem('token', payload.data.token);
     localStorage.setItem('user', JSON.stringify(payload.data.userProfile));
   } catch (err) {
