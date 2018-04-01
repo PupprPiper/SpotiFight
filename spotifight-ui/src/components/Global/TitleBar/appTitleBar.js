@@ -11,6 +11,7 @@ import {
   ExitToApp
 } from './../Material-Globals.js';
 import axios from 'axios';
+import './AppTitleBar.scss';
 
 import { toggleMenu, storeCurrentUser } from './../../../actions/index';
 
@@ -38,7 +39,7 @@ class AppTitleBar extends Component {
     );
 
     return (
-      <nav className="navbar is-dark">
+      <nav className="navbar is-dark is-fixed-top" >
         <div className="navbar-brand">
           <a className="navbar-item">
             <IconButton
