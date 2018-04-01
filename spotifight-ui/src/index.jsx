@@ -9,40 +9,28 @@ import configureStore from './configureStore';
 import './index.scss';
 
 // material
-// import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-// import indigo from 'material-ui/colors/indigo';
-// import pink from 'material-ui/colors/pink';
-// import red from 'material-ui/colors/red';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
-// // All the following keys are optional.
-// // We try our best to provide a great default value.
-// const theme = createMuiTheme({
-//   palette: {
-//     primary: indigo,
-//     secondary: pink,
-//     error: red,
-//     // Used by `getContrastText()` to maximize the contrast between the background and
-//     // the text.
-//     contrastThreshold: 3,
-//     // Used to shift a color's luminance by approximately
-//     // two indexes within its tonal palette.
-//     // E.g., shift from Red 500 to Red 300 or Red 700.
-//     tonalOffset: 0.2
-//   }
-// });
-
-
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark'
+  }
+});
 
 import App from './App';
-
 const store = configureStore().store;
 
-const Loading = (<div>Loading</div>)
+const Loading = <div>Loading</div>;
 
 render(
   <Provider store={store}>
-    <PersistGate loading={<div>loading you b</div>} persistor={configureStore().persistor}>
-      <App />
+    <PersistGate
+      loading={<div>loading you b</div>}
+      persistor={configureStore().persistor}
+    >
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
     </PersistGate>
   </Provider>,
   document.getElementById('app')

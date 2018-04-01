@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import { Grid } from './../Global/Material-Globals';
 
 import { storeCurrentUser } from './../../actions/index';
 import './UserProfile.scss';
@@ -41,9 +42,8 @@ class UserProfile extends Component {
     let payload = await axios.get(`/users/email/${email}`);
     payload.data.userProfile.avatar_url =
       payload.data.userProfile.avatar_url + '0';
-    console.log('user profile', payload.data.userProfile);
     this.props.storeCurrentUser(payload.data.userProfile);
-    console.log(this.props, 'PROPS IN USERPROFILE');
+
     this.setState({ loading: false, user: payload.data.userProfile });
     localStorage.setItem('token', payload.data.token);
     localStorage.setItem('user', JSON.stringify(payload.data.userProfile));
@@ -58,19 +58,21 @@ class UserProfile extends Component {
       return <div>not logged in</div>;
     }
 
-    return (
-      <div className="section profile-heading">
+    return <div className="section profile-heading">
         <div className="columns">
           <div className="column is-4 name">
             <div className="image is-128x128 avatar">
               <img src={user.avatar_url} />
             </div>
-            <span className="button is-primary is-outlined follow">Follow</span>
+            <br />
+            <span className="button is-primary is-outlined follow">
+              Follow
+            </span>
             <p>
+              <br />
               <span className="title is-bold">{user.username}</span>
             </p>
             <p className="tagline">The users profile bio would go here.</p>
-            <button onClick={()=> console.log(this.props)}>test </button>
           </div>
           <div className="column is-2 likes has-text-centered">
             <p className="stat-val">29</p>
@@ -85,8 +87,7 @@ class UserProfile extends Component {
             <p className="stat-key">losses</p>
           </div>
         </div>
-      </div>
-    );
+      </div>;
   }
 }
 

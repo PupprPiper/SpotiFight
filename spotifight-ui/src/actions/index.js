@@ -21,3 +21,7 @@ export const flappyStore = store => {
 export const updateSongSelections = (songList) => {
   return { type: 'SONG_SELECTIONS', payload: songList }
 };
+
+export const storeSocket = (socket) => {
+  return { type: 'SOCKET', payload: socket }
+};

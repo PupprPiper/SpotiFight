@@ -5,6 +5,7 @@ import { storeCurrentUserReducer } from './../reducers/userReducer';
 import { mySongReducer } from './../reducers/mySongReducer';
 import { flappyReducer } from './../reducers/flappyStoreReducer';
 import { songSelectionsReducer } from './../reducers/songSelectionsReducer';
+import {storeSocketReducer} from './../reducers/reducers';
 
 const allReducers = combineReducers({
   menuIsOpen: ReducerToggleMenu,
@@ -12,7 +13,8 @@ const allReducers = combineReducers({
   userProfile: storeCurrentUserReducer,
   mySong: mySongReducer,
   flappy: flappyReducer,
-  songSelections: songSelectionsReducer
+  songSelections: songSelectionsReducer,
+  socket: storeSocketReducer
 });
 
 export default allReducers;
