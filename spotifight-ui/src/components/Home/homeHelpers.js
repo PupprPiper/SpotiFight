@@ -1,23 +1,28 @@
 export let games = [
   {
     title: 'Masher',
-    image: 'https://i.imgur.com/0o9dWt5.png'
+    image: 'https://i.imgur.com/Dm6FItG.png',
+    hover: 'https://i.imgur.com/Sapo9GL.png'
   },
   {
     title: 'MusicTrivia',
-    image: 'https://i.imgur.com/WDORIBi.png'
+    image: 'https://i.imgur.com/lEcUIHK.png',
+    hover: 'https://i.imgur.com/9wkQNFw.png'
   },
   {
     title: 'RPSLS',
     image:
-      'https://i.imgur.com/PXTgfDy.png'
+      'https://i.imgur.com/eUmDZUF.png',
+      hover: 'https://i.imgur.com/SCaygTN.png'
   },
   {
     title: 'Flappy',
-    image: 'https://i.imgur.com/AsasOn5.png'
+    image: 'https://i.imgur.com/It5nq6S.png',
+    hover: 'https://i.imgur.com/X54XkEI.png'
   },
   {
   title: 'PokeballFinderClient',
-  image: 'http://freepngimg.com/download/pokemon/37545-9-pokeball-free-download.png'
+  image: 'http://freepngimg.com/download/pokemon/37545-9-pokeball-free-download.png',
+  hover: 'https://i.imgur.com/iaMe1UJ.png'
   },
 ];
