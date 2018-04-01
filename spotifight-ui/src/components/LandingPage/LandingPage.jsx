@@ -6,13 +6,9 @@ export default class LandingPage extends Component {
     return (
       
       <div className = 'background landingpage'> 
-<<<<<<< HEAD
-      <div className="text"> the <br /> <b>SPOTIFIGHT</b> </div>
-=======
       <audio className = "landingpagesong" src = 'https://vocaroo.com/media_command.php?media=s1bgaXnLcMJp&command=download_mp3' autoPlay="autoPlay" /> 
       
       <div class="text"> the <br /> <b>SPOTIFIGHT</b> </div>
->>>>>>> lobby UI refactor
       <main></main>
       <div className="grid">
         <div className="grid-inner">
