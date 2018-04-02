@@ -5,14 +5,25 @@ import {
   TextField,
   Grid,
   Paper,
-  Icon
+  Icon,
+  List
 } from "./../Global/Material-Globals";
 import "./Chat.scss";
 import Verify from '../Auth/Verify.jsx';
+import { withStyles } from 'material-ui/styles';
+import $ from 'jquery'
+const style ={
+  chatList: {
+    overflow: 'auto',
+    maxHeight: 200,
+    maxWidth: 700,
+    height: 200,
+    align: 'center'
 
+  }
+}
 
-
-export default class Chat extends Component {
+class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,6 +41,8 @@ export default class Chat extends Component {
             this.setState({
               messages: this.state.messages.concat([data.msg])
             });
+            $(".scrollBottom").animate({ scrollTop: $(document).height() }, "slow");
+            return false;
           });
     }
   }
@@ -41,6 +54,7 @@ export default class Chat extends Component {
       this.setState({
         messages: this.state.messages.concat([data.msg])
       });
+      
     });
   }
   }
@@ -50,6 +64,8 @@ export default class Chat extends Component {
       ? this.props.socket.emit("send message", this.state.textField)
       : console.log("text field empty");
     this.setState({ textField: "" });
+    $(".scrollBottom").animate({ scrollTop: $(document).height() }, "slow");
+      return false;
 
   }
 
@@ -59,20 +75,21 @@ export default class Chat extends Component {
     this.setState({
       [name]: val
     });
+
   }
 
   render() {
     return (
-      <div className="chat">
+      <div align = 'center'className="chat">
 
 
 
 
-            <div>
+            <List className = {`scrollBottom ${this.props.classes.chatList}`}>
               {this.state.messages.map((message, index) => {
-                return <Paper key={index}>{message}</Paper>;
+                return  <Paper key={index}><div align = 'left'> {message} </div></Paper>;
               })}
-            </div>
+            </List>
             <div align = 'center'>
             <TextField
               className="text-field"
@@ -101,3 +118,5 @@ export default class Chat extends Component {
     );
   }
 }
+
+export default withStyles(style)(Chat)
