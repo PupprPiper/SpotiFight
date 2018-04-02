@@ -2,8 +2,7 @@ module.exports  = {
   requestFriendHelper: (req) => {
     return `
       INSERT INTO friends (user_id, friend_id)
-      VALUES 
-      (${req.body.friend_id}, ${req.body.user_id})
+      VALUES (${req.body.friend_id}, ${req.body.user_id})
       RETURNING id, user_id, friend_id
     `
   },
