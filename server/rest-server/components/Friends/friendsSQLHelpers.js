@@ -26,7 +26,7 @@ module.exports  = {
         WHERE f.user_id=${req.params.user_id}
     `
   },
-  rejectFriendHelper: (req) => {
+  acceptFriendHelper: (req) => {
     return `
       UPDATE friends SET pending = FALSE where 
       (user_id = ${req.body.user_id} AND ${req.body.friend_id})

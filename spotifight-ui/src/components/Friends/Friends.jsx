@@ -8,22 +8,28 @@ class Friends extends Component {
     this.state = {
       user_id: null,
       friends: [],
-      input: ""
+      input: "",
+      allUsers: null,
+      filteredUsers: null
     };
   }
 
-  async addFriend() {
-    var allUsers = await axios.get("http://localhost:3000/users/fetchAllUsers");
-    var friend = allUsers.data.filter(
-      user => user.username === this.state.input
-    );
-    if (friend.length > 0 && friend[0].id) {
+  async requestFriend(i) {
       var body = {
         user_id: this.props.userProfile.id,
-        friend_id: friend[0].id
+        friend_id: this.state.filteredUsers[i].id
       };
-      await axios.post("http://localhost:3000/friends/addFriend", body);
-    }
+      await axios.post("http://localhost:3000/friends/requestFriend", body);
+
+    this.fetchAllFriends();
+  }
+  
+  async acceptFriend(friendId) {
+    var body = {
+      user_id: this.props.userProfile.id,
+      friend_id: friendId
+    };
+    await axios.put('http://localhost:3000/friends/acceptFriend', body);
     this.fetchAllFriends();
   }
 
@@ -33,23 +39,35 @@ class Friends extends Component {
         this.props.userProfile.id
       }`
     );
-    console.log(allFriends);
     this.setState({ friends: allFriends.data });
-
   }
-
-  async removeFriend(i) {
+  
+  async removeFriend(friendId) {
     var body = {
       data: {
+<<<<<<< HEAD
         user_id: this.props.userProfile.id,
         friend_id: this.state.friends[i].id
+=======
+        user_id: this.props.userProfile.id, 
+        friend_id: friendId
+>>>>>>> friend requests/adds should work
       }
     };
     await axios.delete(`http://localhost:3000/friends/deleteFriend/${this.props.userProfile.id}/${this.state.friends[i].id}`, body)
     this.fetchAllFriends();
   }
+  
+  filterUsers(){
+    var filtered = this.state.allUsers.filter((user)=>{
+      return user.username.includes(this.state.input)
+    })
+    this.setState({filteredUsers: filtered})
+  }
 
-  componentDidMount() {
+  async componentDidMount() {
+    var allUsers = await axios.get("http://localhost:3000/users/fetchAllUsers");
+    this.setState({allUsers: allUsers.data})
     this.fetchAllFriends();
   }
 
@@ -58,25 +76,57 @@ class Friends extends Component {
       <div>
         <input
           type="text"
-          onChange={e => this.setState({ input: e.target.value })}
+          onChange={async e => {
+            await this.setState({ input: e.target.value });
+            if(this.state.input.length > 2){
+              this.filterUsers();
+            }else{
+              this.setState({filteredUsers: null})
+            }
+        }
+      }
         />
-        <input
+        <h5>Search Results</h5>
+        {this.state.filteredUsers ? this.state.filteredUsers.map((user, i) => {
+          return <li key={i} onClick={()=>this.requestFriend(i)}>{user.username}</li>
+        }): null}
+
+        {/* {this.state.input.length > 2 ? this.state.allUsers.filter()} */}
+        {/* <input
           type="submit"
           value="Add Friend"
           onClick={() => this.addFriend()}
-        />
+        /> */}
         <h3>Your Friends</h3>
+
         <ul>
           {this.state.friends.map((friend, i) => {
             return (
               <div key={i} index={i}>
                 <li>{friend.username}</li>
-                <button onClick={() => this.removeFriend(i)}>Remove Friend</button>
+                <button onClick={() => this.removeFriend(friend.id)}>Remove Friend</button>
               </div>
             );
           })}
         </ul>
+<<<<<<< HEAD
               <Verify  />
+=======
+
+        <h3>Pending Friend Requests</h3>
+        <ul>
+          {this.state.friends.map((friend, i) => {
+            return (
+              <div key={i} index={i}>
+                <li>{friend.username}</li>
+                <button onClick={() => this.acceptFriend(friend.id)}>Accept</button>
+                <button onClick={() => this.removeFriend(friend.id)}>Reject</button>
+              </div>
+            );
+          })}
+        </ul>
+
+>>>>>>> friend requests/adds should work
       </div>
     );
   }
