@@ -27,14 +27,12 @@ class Login extends Component {
   }
 
   async login() {
-    console.log('login-->', this.state);
     try {
-      console.log('fgg');
       const { data } = await axios.post('/auth/login', {
         email: this.state.email,
         password: this.state.password
       });
-      $('#submit').prop('disabled', true);
+
       console.log(data, 'response on the dom in login');
       if (data.access) {
         // localStorage.setItem('token', data.token);
@@ -42,12 +40,11 @@ class Login extends Component {
         console.log(data, 'here is the access data on the dom');
         this.props.history.push(`/user-profile/${data.email}`);
       } else {
-        $('#submit').prop('disabled', false);
+  
         this.setState({ authError: data.message });
       }
     } catch (err) {
       console.log(err);
-    } finally {
     }
   }
 
@@ -89,7 +86,7 @@ class Login extends Component {
                         />
                       </div>
                     </div>
-                    <a
+                    <a id='submit'
                       onClick={() => this.login()}
                       className="button is-block is-primary is-large is-fullwidth"
                     >

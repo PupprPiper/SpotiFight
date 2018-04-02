@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Button from 'material-ui/Button';
 import axios from 'axios';
 import $ from 'jquery';
+import './Signup.scss'
 
 class Signup extends Component {
   constructor(props) {
@@ -40,9 +41,8 @@ class Signup extends Component {
       $('#submit').prop('disabled', true)
       $('.clearField').val('');
       redirect = true;
-      console.log(data,'response on the dom')
-      if (data.data.constraint === 'users_email_key' ||
-      data.data.constraint === 'users_username_key') {
+      console.log(data, 'response on the dom')
+      if (data.data.constraint === 'users_email_key' || data.data.constraint === 'users_username_key') {
         redirect = false;
         message = `Your ${data.data.constraint.split('_')[1]} is already taken.`
       }
@@ -59,7 +59,7 @@ class Signup extends Component {
   }
 
   render() {
-    return (<div>
+    return (<div id="sign-up">
       <h1>Sign up</h1>
       <label>email:
       </label>

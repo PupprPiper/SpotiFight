@@ -1,29 +1,55 @@
 import React, { Component } from 'react';
 import Verify from '../Auth/Verify.jsx';
-import './LandingPage.scss'
+import './LandingPage.scss';
+import Tutorial from './Tutorial.jsx';
+import Arrow from './Arrow.jsx';
+import $ from 'jquery';
+
 export default class LandingPage extends Component {
+
+constructor(props) {
+  super(props)
+
+  this.state = {
+
+  }
+
+
+
+}
+
+
+
+
   render() {
     return (
-      
-      <div className = 'background landingpage'> 
-      <audio className = "landingpagesong" src = 'https://vocaroo.com/media_command.php?media=s1bgaXnLcMJp&command=download_mp3' autoPlay="autoPlay" /> 
-      
-      <div class="text"> the <br /> <b>SPOTIFIGHT</b> </div>
-      <main></main>
-      <div className="grid">
-        <div className="grid-inner">
-          <div className="hori">
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
-            <div className="line"></div>
+      <div>
+
+      <div class = 'background landingpage'>
+
+      <div class="text">
+<img className="logo" align="center" width="120px" src="https://i.imgur.com/t07Faks.png"/>
+       <br /> <b><span className="landing-title">SPOTIFIGHT</span>
+
+      </b> </div>
+
+      <main>
+
+      </main>
+      <div class="grid">
+        <div class="grid-inner">
+          <div class="hori">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
           </div>
           <div className="vert">
             <div className="line"></div>
@@ -38,10 +64,13 @@ export default class LandingPage extends Component {
             <div className="line"></div>
             <div className="line"></div>
           </div>
+
         </div>
-        
+
       </div>
-      <Verify history={this.props.history}  />
+      </div>
+      <Arrow />
+      <Tutorial />
       </div>
       )
   }

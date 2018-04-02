@@ -1,26 +1,20 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import './pokeballFinder.js'
 
 class PokeballFinderClient extends Component {
-  constructor(){
+  constructor() {
     super()
-    this.state ={}
+    this.state = {}
   }
-  componentDidMount(){
+  componentDidMount() {
     window.onload()
   }
-render(){
+  render() {
 
-
-  return(
-
-    
-    <canvas id="canvas" width="460" height="460"></canvas>
-    
-  )
+    return (<div>
+      <canvas id="canvas" width="460" height="460"></canvas>
+    </div>)
+  }
 }
-}
-
-
 
 export default PokeballFinderClient
