@@ -12,7 +12,22 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import Grid from 'material-ui/Grid';
+<<<<<<< HEAD
 >>>>>>> implemeting update user profile functionality
+=======
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  Divider,
+  Avatar,
+  Checkbox
+} from "./../Global/Material-Globals";
+
+>>>>>>> saving progress
 class Friends extends Component {
   constructor(props) {
     super(props);
@@ -146,6 +161,7 @@ class Friends extends Component {
         <Grid container spacing={24}>
           <Grid align="center" item xs={6}>
             <h3>Your Friends</h3>
+<<<<<<< HEAD
 
 <<<<<<< HEAD
         <ul>
@@ -193,27 +209,29 @@ class Friends extends Component {
 >>>>>>> changed up friends page
 =======
             <ul>
+=======
+          <List>
+>>>>>>> saving progress
               {this.state.friends
                 ? this.state.friends.map((friend, i) => {
                     return (
-                      <div key={i} index={i}>
-                        <li>{friend.username}</li>
+                        <ListItem>{friend.username}
                         <button onClick={() => this.removeFriend(friend.id)}>
                           Remove Friend
                         </button>
-                      </div>
+                        </ListItem>
                     );
                   })
                 : null}
-            </ul>
+          </List>
           </Grid>
           <Grid align="center" item xs={6}>
             <h3>Pending Friend Requests</h3>
-            <ul>
+          <List>
               {this.state.pendingFriends
                 ? this.state.pendingFriends.map((friend, i) => {
                     return (
-                      <div key={i} index={i}>
+                      <ListItem>
                         <li>{friend.username}</li>
                         <button onClick={() => this.acceptFriend(friend.id)}>
                           Accept
@@ -221,11 +239,11 @@ class Friends extends Component {
                         <button onClick={() => this.removeFriend(friend.id)}>
                           Reject
                         </button>
-                      </div>
+                        </ListItem>
                     );
                   })
                 : null}
-            </ul>
+            </List>
           </Grid>
         </Grid>
 >>>>>>> implemeting update user profile functionality
