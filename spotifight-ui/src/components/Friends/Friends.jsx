@@ -26,8 +26,12 @@ import {
   Avatar,
   Checkbox
 } from "./../Global/Material-Globals";
+<<<<<<< HEAD
 
 >>>>>>> saving progress
+=======
+import FriendList from './FriendList';
+>>>>>>> refactoring
 class Friends extends Component {
   constructor(props) {
     super(props);
@@ -159,6 +163,7 @@ class Friends extends Component {
             })
           : null}
         <Grid container spacing={24}>
+<<<<<<< HEAD
           <Grid align="center" item xs={6}>
             <h3>Your Friends</h3>
 <<<<<<< HEAD
@@ -245,6 +250,9 @@ class Friends extends Component {
                 : null}
             </List>
           </Grid>
+=======
+            <FriendList />
+>>>>>>> refactoring
         </Grid>
 >>>>>>> implemeting update user profile functionality
       </div>
