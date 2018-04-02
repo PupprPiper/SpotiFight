@@ -2,10 +2,10 @@ const helpers = require('./friendsSQLHelpers');
 const db = require('../../../database/config')
 
 module.exports = {
-  addFriend: async (req, res) => {
+  requestFriend: async (req, res) => {
     var queryString = helpers.addFriendHelper(req);
     var data = await db.queryAsync(queryString)
-    res.send("add friend received");
+    res.send("friend request received");
   },
   deleteFriend: async (req, res) => {
     var queryString = helpers.deleteFriendHelper(req);
@@ -16,5 +16,10 @@ module.exports = {
     var queryString = helpers.fetchAllFriendsHelper(req);
     var data = await db.queryAsync(queryString);
     res.send(data.rows)
-  }
-};
+  },
+  acceptFriend: async (req, res) => {
+    var queryString = helpers.acceptFriendHelper(req);
+    var data = await db.queryAsync(queryString)
+    res.send("accepted friend request");
+  },
+}

@@ -1,5 +1,5 @@
 module.exports  = {
-  addFriendHelper: (req) => {
+  requestFriendHelper: (req) => {
     return `
       INSERT INTO friends (user_id, friend_id)
       VALUES (${req.body.user_id}, ${req.body.friend_id}), 
@@ -24,6 +24,13 @@ module.exports  = {
         INNER JOIN friends AS f
         ON (u.id = f.friend_id)
         WHERE f.user_id=${req.params.user_id}
+    `
+  },
+  rejectFriendHelper: (req) => {
+    return `
+      UPDATE friends SET pending = FALSE where 
+      (user_id = ${req.body.user_id} AND ${req.body.friend_id})
+      AND (user_id = ${req.body.friend_id} AND ${req.body.user_id})
     `
   }
 
