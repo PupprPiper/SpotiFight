@@ -39,6 +39,7 @@ class UserProfile extends Component {
   }
 
   async getUser(email) {
+    try{
     let payload = await axios.get(`/users/email/${email}`);
     payload.data.userProfile.avatar_url =
       payload.data.userProfile.avatar_url + '0';
@@ -47,18 +48,21 @@ class UserProfile extends Component {
     this.setState({ loading: false, user: payload.data.userProfile });
     localStorage.setItem('token', payload.data.token);
     localStorage.setItem('user', JSON.stringify(payload.data.userProfile));
+  } catch (err) {
+    console.log(err, 'error in getUser--> Userprofile')
+  }
   }
 
   render() {
     let { loading } = this.state;
     let user = this.props.userProfile;
     if (loading) {
-      return <div>loading</div>;
+      return <div> loading </div>;
     } else if (!user) {
-      return <div>not logged in</div>;
+      return <div> not logged-in </div>;
     }
 
-    return <div className="section profile-heading">
+    return (<div className="section profile-heading">
         <div className="columns">
           <div className="column is-4 name">
             <div className="image is-128x128 avatar">
@@ -87,7 +91,7 @@ class UserProfile extends Component {
             <p className="stat-key">losses</p>
           </div>
         </div>
-      </div>;
+       </div> );
   }
 }
 

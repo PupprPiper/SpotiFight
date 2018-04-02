@@ -50,7 +50,9 @@ class AppTitleBar extends Component {
       logout &nbsp;<ExitToApp/>
     </Button>);
 
-    return (<nav className="navbar is-dark is-fixed-top">
+    return (
+      <div>
+      <nav className="navbar is-dark is-fixed-top">
       <div className="navbar-brand">
         <a className="navbar-item">
           <IconButton onClick={() => this.handleToggle()} title="Spotifight" color="inherit" aria-label="Menu">
@@ -75,7 +77,9 @@ class AppTitleBar extends Component {
             : null
         }
       </div>
-    </nav>);
+    </nav>
+    <nav className="navbar"></nav>
+  </div>);
   }
 }
 
