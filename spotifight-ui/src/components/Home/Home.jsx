@@ -28,22 +28,11 @@ class Home extends Component {
 
   }
 
-  authCheck() {
-    const token = localStorage.getItem('token')
-    console.log(token);
-    axios.post('auth/isLoggedIn', {token: token})
-    .then((data) => {
-      console.log('auth token has been sent: data back->', data.data)
-      if (data.data === 'redirect') {
-        this.props.history.push('/login');
-      }
-    })
-  }
 
   componentWillMount(){
     this.socket = io.connect('http://localhost:8000')
     this.socket.on('OPEN_ROOMS', data =>{
-  
+
       this.setState({openrooms: data})
     })
   }
@@ -58,21 +47,19 @@ class Home extends Component {
   render() {
     return (
       <div align = 'center' >
-        {console.log('home props', this.props)}
-        {/* <Grid container>  */}
-        {/* <Grid item md={9}>  */}
+
         <div>Select a game:</div>
-      
+
         <GameList
           history={this.props.history}
           align = 'center'
         />
         <div>
-          <div align = 'left'> Open Rooms:</div> 
+          <div align = 'left'> Open Rooms:</div>
             <OpenRoomsList openrooms = {this.state.openrooms}  history={this.props.history}/>
-            </div> 
-        <Verify />
-      
+            </div>
+        <Verify history={this.props.history} />
+
       </div>
     );
   }

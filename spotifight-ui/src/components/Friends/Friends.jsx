@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import Verify from '../Auth/Verify.jsx';
 class Friends extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +41,7 @@ class Friends extends Component {
   async removeFriend(i) {
     var body = {
       data: {
-        user_id: this.props.userProfile.id, 
+        user_id: this.props.userProfile.id,
         friend_id: this.state.friends[i].id
       }
     };
@@ -75,6 +76,7 @@ class Friends extends Component {
             );
           })}
         </ul>
+              <Verify  />
       </div>
     );
   }
