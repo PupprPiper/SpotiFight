@@ -5,7 +5,13 @@ import { withStyles } from "material-ui/styles";
 // import { connect } from 'react-redux';
 const style = {
   LobbyItems:{
-    cursor: 'Pointer'
+    cursor: 'Pointer',
+  
+  },
+  size:{
+    width: 200,
+    align: 'left',
+    display: 'inline-block'
   }
 };
 class OpenRoomItems extends Component {
@@ -26,7 +32,8 @@ class OpenRoomItems extends Component {
 
   render() {
     return (
-     
+      
+       <Paper className = {this.props.classes.size}> 
       <ListItem onClick={() => this.handleRoomClick()} className = {this.props.classes.LobbyItems}>
         <ListItemText
           primary={`ROOM ${this.props.index + 1}`}
@@ -35,6 +42,7 @@ class OpenRoomItems extends Component {
           } player(s) in this room`}
         />
       </ListItem>
+      </Paper>
       
     );
   }

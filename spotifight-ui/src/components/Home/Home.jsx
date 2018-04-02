@@ -17,6 +17,7 @@ import GameList from './GameList.jsx';
 import {Grid} from '../Global/Material-Globals'
 import OpenRoomsList from './OpenRoomsList.jsx'
 import './Home.scss'
+import Carousel from 'nuka-carousel'
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -56,22 +57,22 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
+      <div align = 'center' >
         {console.log('home props', this.props)}
-        <Grid container> 
-        <Grid item md={9}> 
+        {/* <Grid container>  */}
+        {/* <Grid item md={9}>  */}
         <div>Select a game:</div>
+      
         <GameList
           history={this.props.history}
-          className = 'keyboard'
+          align = 'center'
         />
-        <Verify />
-        </Grid>
-        <Grid item md = {3}> 
-          <div> Open Rooms:</div>
+        <div>
+          <div align = 'left'> Open Rooms:</div> 
             <OpenRoomsList openrooms = {this.state.openrooms}  history={this.props.history}/>
-        </Grid>
-        </Grid>
+            </div> 
+        <Verify />
+      
       </div>
     );
   }

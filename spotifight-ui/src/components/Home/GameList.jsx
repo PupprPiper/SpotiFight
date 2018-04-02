@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 import GameListItem from './GameListItem.jsx';
 import { games } from './homeHelpers';
 import {List} from '../Global/Material-Globals'
+import Carousel from 'nuka-carousel'
+
 
 class GameList extends Component {
   render() {
     return (
-      <div>
-        <List> 
+      
+        <Carousel renderBottomCenterControls={false} cellAlign = 'center' slidesToShow={3} > 
         {games.map((item, i) => {
           return (
             <GameListItem
@@ -18,8 +20,8 @@ class GameList extends Component {
             />
           );
         })}
-        </List>
-      </div>
+        </Carousel>
+
     );
   }
 }

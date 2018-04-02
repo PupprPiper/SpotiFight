@@ -11,12 +11,26 @@ import { gameSwitch, songSwitch } from '../../actions/index';
 const style = {
   LobbyItems:{
     cursor: 'Pointer',
-    height: 100,
-    width: 100,
+    height: 500,
+    width: 500,
+    color: 'white',
+    align: 'center'
+  },
+  LobbyText:{
+    fontSize: 40,
     color: 'white'
   }
 };
 class GameListItem extends Component {
+  constructor(props){
+    super(props)
+    this.state= {
+      gameitemimage : this.props.gameitem.image,
+      
+    }
+    this.handleMouseOver = this.handleMouseOver.bind(this)
+    this.handleMouseOut = this.handleMouseOut.bind(this)
+  }
   handleRedirect() {
     this.props.history.push({
       pathname: `/game-room/${randomstring.generate()}`,
@@ -24,17 +38,23 @@ class GameListItem extends Component {
     });
     this.props.gameSwitch(this.props.gameitem.title)
   }
+  handleMouseOver(){
+    this.setState({gameitemimage : this.props.gameitem.hover})
+  }
+  handleMouseOut(){
+    this.setState({gameitemimage: this.props.gameitem.image})
+  }
 
   render() {
     return (
-        
-          <ListItem > 
+          <div > 
           
-            <Avatar onClick={() => this.handleRedirect(this.props.gameitem.title)} src={this.props.gameitem.image} className = {this.props.classes.LobbyItems}/>
-            <ListItemText primary = {`${this.props.gameitem.title}`} />
+          
+            <Avatar onClick={() => this.handleRedirect(this.props.gameitem.title)} src={this.state.gameitemimage} className = {this.props.classes.LobbyItems} onMouseOver ={this.handleMouseOver} onMouseOut = {this.handleMouseOut}/>
+            <div className = {this.props.classes.LobbyText}>{`${this.props.gameitem.title}`} </div>
             
-          </ListItem>
-         
+          
+          </div>
        
     );
   }
