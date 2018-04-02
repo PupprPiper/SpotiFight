@@ -26,8 +26,6 @@ export default class Flappy extends Component {
 
     grid[bird.height][bird.position] = 'yellow';
 
-    let socket = this.props.socket;
-
     this.state = {
       grid: grid,
       bird: bird,
@@ -35,10 +33,19 @@ export default class Flappy extends Component {
       score: 0,
       towers,
       user: this.props.localUser,
-      opponents: {}
+      opponents: {},
+      socket: this.props.socket
     };
 
-    socket.on('CRASHED', data => {
+    let obj = {};
+    // console.log('players--->',this.props.players)
+    this.props.players.forEach(player => {
+      obj[player.username] = { username: player.username, crashed: false };
+    });
+    
+    this.setState({ opponents: obj });
+
+    this.props.socket.on('CRASHED', data => {
       this.state.opponents[data.username] = data;
       this.setState({ opponents: this.state.opponents });
     });
@@ -75,7 +82,7 @@ export default class Flappy extends Component {
       if (crashed) {
         this.setState({ crashed: true });
 
-        socket.emit('PLAYER_CRASHED', {
+        this.props.socket.emit('PLAYER_CRASHED', {
           username: this.props.localUser,
           crashed: true
         });
@@ -92,15 +99,7 @@ export default class Flappy extends Component {
     }, 200);
   }
 
-  componentDidMount() {
-    let obj = {};
-    this.props.players.forEach(player => {
-      obj[player.username] = { username: player.username, crashed: false };
-    });
-    this.setState({
-      opponents: obj
-    });
-  }
+  componentWillMount() {}
 
   handleClick() {
     if (this.state.crashed) {
@@ -112,26 +111,34 @@ export default class Flappy extends Component {
   }
 
   render() {
-    let gameOver = (
-      <div>
-        Game Over! <h1>score: {this.state.score}</h1>
-        <div style={banStyle} />
-        <PlayerStatus opponents={this.state.opponents} />
-      </div>
-    );
+    // let gameOver = (
+    //   <div>
+    //     Game Over! <h1>score: {this.state.score}</h1>
+    //     <div style={banStyle} />
+    //   </div>
+    // );
 
-    let gameOn = (
-      <div>
-        {/* <Grid grid={this.state.grid} style={banStyle} /> */}
-        <Grid grid={this.state.grid} />
-        {this.state.score}
-        <PlayerStatus opponents={this.state.opponents} />
-      </div>
-    );
+    // let gameOn = (
+    //   <div onClick={() => this.handleClick()}>
+    //     <Grid grid={this.state.grid} />
+    //     {this.state.score}
+    //   </div>
+    // );
 
     return (
-      <div onClick={() => this.handleClick()}>
-        {this.state.crashed ? gameOver : gameOn}
+      <div>
+        {this.state.crashed ? (
+          <div>
+            Game Over! <h1>score: {this.state.score}</h1>
+            <div style={banStyle} />
+          </div>
+        ) : (
+          <div onClick={() => this.handleClick()}>
+            <Grid grid={this.state.grid} />
+            {this.state.score}
+          </div>
+        )}
+        <PlayerStatus opponents={this.state.opponents} />
       </div>
     );
   }
