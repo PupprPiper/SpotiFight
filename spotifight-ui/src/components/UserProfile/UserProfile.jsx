@@ -9,13 +9,16 @@ import './UserProfile.scss';
 import Verify from '../Auth/Verify.jsx';
 import { userEmail } from '../../routes.js';
 
-
 class UserProfile extends Component {
   constructor() {
     super();
     this.state = {
       loading: false,
-      user: {}
+      user: {},
+      update: false,
+      usernameInput: '',
+      avatarInput: '',
+      statusInput: ''
     };
   }
 
@@ -47,6 +50,7 @@ class UserProfile extends Component {
     this.props.storeCurrentUser(payload.data.userProfile);
 
     this.setState({ loading: false, user: payload.data.userProfile });
+    console.log('AFTER GET USER', this.state)
     localStorage.setItem('token', payload.data.token);
     localStorage.setItem('user', JSON.stringify(payload.data.userProfile));
   } catch (err) {
@@ -54,6 +58,45 @@ class UserProfile extends Component {
   }
   }
 
+  async toggleUpdateInfo() {
+    await this.setState({ update: !this.state.update });
+    console.log(this.state.update);
+  }
+
+  setTextField(e) {
+    var obj = {};
+    obj[e.target.name] = e.target.value
+    console.log('OBJ HERE ', obj)
+    this.setState(obj)
+    console.log(this.state)
+  }
+
+  async updateInfo () {
+    if(this.state.usernameInput){
+      await axios.put('http://localhost:3000/users/updateInfo', {
+        field: 'username',
+        info: this.state.usernameInput,
+        user_id: this.props.userProfile.id
+      })
+    }
+    if(this.state.avatarInput){
+      await axios.put('http://localhost:3000/users/updateInfo', {
+        field: 'avatar_url',
+        info: this.state.avatarInput,
+        user_id: this.props.userProfile.id
+      })
+    }
+    if(this.state.statusInput){
+      await axios.put('http://localhost:3000/users/updateInfo', {
+        field: 'status',
+        info: this.state.statusInput,
+        user_id: this.props.userProfile.id
+      })
+    }
+    this.getUser(this.state.user.email);
+    await this.setState({usernameInput: '', avatarInput: '', statusInput: ''})
+
+  }
   render() {
     let { loading } = this.state;
     let user = this.props.userProfile;
@@ -78,7 +121,20 @@ class UserProfile extends Component {
               <span className="title is-bold">{user.username}</span>
             </p>
             <p className="tagline">The users profile bio would go here.</p>
+            <button onClick={() => this.toggleUpdateInfo()}>Update Info</button>
+            {this.state.update ? (
+              <div>
+                Username <input type="text" name="usernameInput" value={this.state.usernameInput} onChange={e => this.setTextField(e)} />
+                <br />
+                Avatar <input type="text" name="avatarInput" value={this.state.avatarInput} onChange={e => this.setTextField(e)}/>
+                <br />
+                Status <input type="text" name="statusInput" value={this.state.statusInput} onChange={e => this.setTextField(e)}/>
+                <br/>
+                <button onClick={() => this.updateInfo()}>Save</button>
+              </div>
+            ) : null}
           </div>
+
           <div className="column is-2 likes has-text-centered">
             <p className="stat-val">29</p>
             <p className="stat-key">friends</p>

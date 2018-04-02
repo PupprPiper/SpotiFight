@@ -23,7 +23,7 @@ module.exports = {
   },
   updateInfoHelper: req => {
     return `
-      UPDATE users SET ${req.body.field} = ${req.body.info} where id = ${req.body.user_id}
+      UPDATE users SET ${req.body.field} = '${req.body.info}' where id = ${req.body.user_id}
     `
   }
 };

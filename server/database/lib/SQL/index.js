@@ -40,7 +40,7 @@ module.exports = {
       username VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(300),
       status VARCHAR(140),
-      avatar_url VARCHAR(255) DEFAULT '${def_pic}',
+      avatar_url TEXT DEFAULT '${def_pic}',
       wins INT NOT NULL,
       losses INT NOT NULL,
       CONSTRAINT users_pk

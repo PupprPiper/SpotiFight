@@ -5,7 +5,7 @@ const config = {
   user: 'root',
   host: 'localhost',
   database: 'spotifight',
-  password: '123',
+  password: '',
   port: 5432,
   max: 20
 }

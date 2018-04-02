@@ -31,6 +31,7 @@ module.exports = {
   },
   updateInfo: async (req, res) => {
     var queryString = helpers.updateInfoHelper(req);
+    console.log('QUERY STRING HERE ',queryString)
     var data = await db.queryAsync(queryString);
     res.send('updated user info');
     }
