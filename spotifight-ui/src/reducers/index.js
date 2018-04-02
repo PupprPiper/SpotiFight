@@ -7,10 +7,11 @@ import { flappyReducer } from './../reducers/flappyStoreReducer';
 import { songSelectionsReducer } from './../reducers/songSelectionsReducer';
 import { storeSocketReducer } from './../reducers/reducers';
 import {
-  updateFriendReducer,
-  updatePendingFriendReducer,
+  updateFriendsReducer,
+  updatePendingFriendsReducer,
   filteredUsersReducer,
-  allUsersReducer
+  allUsersReducer,
+  searchInputReducer
 } from './friendReducer';
 
 const allReducers = combineReducers({
@@ -24,11 +25,16 @@ const allReducers = combineReducers({
   // socket: storeSocketReducer
 =======
   socket: storeSocketReducer,
-  friends: updateFriendReducer,
-  pendingFriends: updatePendingFriendReducer,
+  friends: updateFriendsReducer,
+  pendingFriends: updatePendingFriendsReducer,
   filteredUsers: filteredUsersReducer,
+<<<<<<< HEAD
   allUsers: allUsersReducer
 >>>>>>> refactoring with redux
+=======
+  allUsers: allUsersReducer,
+  searchInput: searchInputReducer
+>>>>>>> saving progress
 });
 
 export default allReducers;

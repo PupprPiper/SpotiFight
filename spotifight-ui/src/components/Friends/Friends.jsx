@@ -36,6 +36,8 @@ import FriendList from './FriendList';
 =======
 } from './../Global/Material-Globals';
 import FriendList from './FriendList.jsx';
+import {bindActionCreators} from 'redux';
+import {updateFriends, updatePendingFriends, updateFilteredUsers, updateAllUsers} from '../../actions/index';
 
 >>>>>>> refactoring with redux
 class Friends extends Component {
@@ -81,10 +83,8 @@ class Friends extends Component {
         this.props.userProfile.id
       }`
     );
-    this.setState({
-      friends: allFriends.data,
-      pendingFriends: pendingFriends.data
-    });
+    this.props.updateFriends(allFriends.data);
+    this.props.updatePendingFriends(pendingFriends.data)
   }
 
 <<<<<<< HEAD
@@ -157,13 +157,14 @@ class Friends extends Component {
 
   async componentDidMount() {
     var allUsers = await axios.get('http://localhost:3000/users/fetchAllUsers');
-    this.setState({ allUsers: allUsers.data });
+    this.props.updateAllUsers(allUsers);
     this.fetchAllFriends();
   }
 
   render() {
     return (
       <div>
+<<<<<<< HEAD
         <Grid container spacing={24}>
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -265,6 +266,10 @@ class Friends extends Component {
             filteredUsers={this.state.filteredUsers}
           />
 >>>>>>> refactoring with redux
+=======
+        <Grid container spacing={24}>    
+          <FriendList/>
+>>>>>>> saving progress
         </Grid>
 >>>>>>> implemeting update user profile functionality
       </div>
@@ -272,10 +277,21 @@ class Friends extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = function(state) {
   return {
-    userProfile: state.userProfile
-  };
+    userProfile: state.userProfile,
+    friends: state.friends, 
+    pendingFriends: state.pendingFriends, 
+    filteredUsers: state.filteredUsers, 
+    allUsers: state.allUsers};
 };
 
-export default connect(mapStateToProps)(Friends);
+const mapDispatchToProps = function(dispatch) {
+  return bindActionCreators({
+    updateFriends,
+    updatePendingFriends,
+    updateFilteredUsers,
+    updateAllUsers
+  }, dispatch);
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Friends);

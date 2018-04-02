@@ -31,13 +31,17 @@ export const updateFriends = (friends) => {
 };
 
 export const updatePendingFriends = (pendingFriends) => {
-  return { type: 'PENDING_FRIENDS', payload: friends }
+  return { type: 'PENDING_FRIENDS', payload: pendingFriends }
 };
 
-export const filteredUsers = (pendingFriends) => {
-  return { type: 'FILTERED_USERS', payload: pendingFriends }
+export const updateFilteredUsers = (filteredUsers) => {
+  return { type: 'FILTERED_USERS', payload: filteredUsers }
 };
 
-export const allUsers = (allUsers) => {
+export const updateAllUsers = (allUsers) => {
   return { type: 'ALL_USERS', payload: allUsers }
+};
+
+export const updateSearchInput = (searchInput) => {
+  return { type: 'SEARCH_INPUT', payload: searchInput }
 };

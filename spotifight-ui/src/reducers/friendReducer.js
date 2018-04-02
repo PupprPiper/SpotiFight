@@ -33,3 +33,12 @@ export const allUsersReducer = (state = null, action) => {
       return state;
   }
 };
+
+export const searchInputReducer = (state = '', action) => {
+  switch (action.type) {
+    case 'SEARCH_INPUT':
+      return action.payload;
+    default:
+      return state;
+  }
+};
