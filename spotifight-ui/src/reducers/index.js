@@ -14,7 +14,7 @@ const allReducers = combineReducers({
   mySong: mySongReducer,
   flappy: flappyReducer,
   songSelections: songSelectionsReducer,
-  socket: storeSocketReducer
+  // socket: storeSocketReducer
 });
 
 export default allReducers;
