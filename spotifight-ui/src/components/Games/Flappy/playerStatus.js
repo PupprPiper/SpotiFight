@@ -9,7 +9,7 @@ const PlayerStatus = ({ opponents }) => {
   return (
     <div>
       {usernames.map((username, i) => {
-        console.log(opponents[username])
+        {/* console.log('opponents username', opponents[username]); */}
         return <PlayerStatusItem opponent={opponents[username]} key={i} />;
       })}
     </div>
