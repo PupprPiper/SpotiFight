@@ -17,8 +17,8 @@ const style ={
     overflow: 'auto',
     maxHeight: 200,
     maxWidth: 700,
-    height: 200
-
+    height: 200,
+    align: 'center'
 
   }
 }
@@ -80,14 +80,14 @@ class Chat extends Component {
 
   render() {
     return (
-      <div className="chat">
+      <div align = 'center'className="chat">
 
 
 
 
             <List className = {`scrollBottom ${this.props.classes.chatList}`}>
               {this.state.messages.map((message, index) => {
-                return <Paper key={index}>{message}</Paper>;
+                return  <Paper key={index}><div align = 'left'> {message} </div></Paper>;
               })}
             </List>
             <div align = 'center'>
