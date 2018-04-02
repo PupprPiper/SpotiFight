@@ -26,7 +26,9 @@ import {
   Checkbox
 } from './../Global/Material-Globals';
 import PlayerList from './players/playerList';
-
+import Carousel from 'nuka-carousel'
+import {games} from '../Home/homeHelpers'
+import GameListItem from '../Home/GameListItem'
 import './Lobby.scss';
 
 const style = {
@@ -40,8 +42,15 @@ const style = {
     maxHeight: 300,
     maxWidth: 700,
     margin: 'auto',
+    cursor: 'pointer',
+  
+  
+  },
+  gameItem:{
+    height: 100,
+    width: 100,
     cursor: 'pointer'
-  }
+  },
 };
 
 const mapStateToProps = function(state) {
@@ -72,7 +81,7 @@ class Lobby extends Component {
       topTen: [],
       song: '',
       songChoices: {},
-      players: this.props.players
+      players: this.props.players,
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.searchSong = this.searchSong.bind(this);
@@ -128,6 +137,8 @@ class Lobby extends Component {
   }
   handleGameSelect(item) {
     this.props.gameSwitch(item);
+    this.props.socket.emit("CHAT_USER", this.props.localUser)
+    this.props.socket.emit("send message", `I have changed the game to ${item}`)
   }
 
   handleSongClick(e) {
@@ -183,7 +194,7 @@ class Lobby extends Component {
                 {/* <audio src = {this.state.songPreview} autoPlay/> */}
               </div>
             )}
-
+            
             <List className={this.props.classes.musicList}>
               {this.state.topTen.map((item, index) => {
                 return (
@@ -208,7 +219,7 @@ class Lobby extends Component {
             </List>
             {this.props.host === this.props.localUser ? (
               <div align="center">
-                <List className={this.props.classes.musicList}>
+                {/* <List className={this.props.classes.musicList}>
                   <div>Select a game:</div>
                   <ListItem
                     onClick={() => {
@@ -236,7 +247,21 @@ class Lobby extends Component {
                     <ListItemText primary="RPSLS" />
                   </ListItem>
                   <Divider />
-                </List>
+                </List> */
+                <Carousel renderBottomCenterControls={false} slidesToShow={4} > 
+                {games.map((item, i) => {
+                  return (
+                    <div
+                      key={i}
+                      gameitem={item}
+                      //if selected item, set item.hover, else item.image
+                    >
+                    <Avatar src = {item.image} className = {this.props.classes.gameItem} onClick={() => {
+                      this.handleGameSelect(item.title)}} />
+                    </div>
+                  );
+                })}
+                </Carousel>}
               </div>
             ) : null}
           </Grid>
