@@ -1,4 +1,3 @@
-
 import {
   AccountBox,
   MusicNote,
@@ -41,85 +40,68 @@ const appRoutes = [
     icon: HomeIcon,
     component: Home,
     protected: true
-  }, {
+  },
+  {
     path: '/friends',
     sidebarName: 'Friends',
     icon: Person,
     component: Friends,
     protected: true
-  }, {
+  },
+  {
     path: '/signup',
     sidebarName: 'Signup',
     icon: AccountBox,
     component: Signup
-  }, {
+  },
+  {
     path: '/login',
     sidebarName: 'Login',
     icon: AccountBox,
     component: Login
-  }, {
-    path: '/chat',
-    sidebarName: 'Chat',
-    icon: Person,
-    component: Chat,
-    protected: true
-  }, {
+  },
+  {
     path: '/game-room',
     sidebarName: 'Game Room',
     icon: Gamepad,
     component: GameRoom,
-    protected: true
-  }, {
-    path: '/games',
-    sidebarName: 'Games',
-    icon: Gamepad,
-    component: Games,
-    protected: true
-  }, {
+    protected: true,
+    hidden: true
+  },
+  {
     path: '/landing-page',
     sidebarName: 'Landing Page',
     icon: Dashboard,
     component: LandingPage
   },
-    {
+  {
     path: '/leader-board',
     sidebarName: 'Leader Board',
     icon: Accessibility,
     component: LeaderBoard,
     protected: true
-  }, {
+  },
+  {
     path: '/lobby',
     sidebarName: 'Lobby',
     icon: Room,
     component: Lobby,
-    protected: true
-  }, {
-    path: '/music-player',
-    sidebarName: 'Music Player',
-    icon: MusicNote,
-    component: MusicPlayer,
-    protected: true
-  }, {
+    protected: true,
+    hidden: true
+  },
+  {
     path: `/user-profile/`,
     sidebarName: 'User Profile',
     icon: AccountBox,
     component: UserProfile,
     protected: true
-  }, {
-    path: '/flappy',
-    sidebarName: 'Flappy',
-    icon: AccountBox,
-    component: Flappy,
-    store: store
-  }, {
+  },
+  {
     to: '/landing-page',
     redirect: true,
     path: '/',
     component: LandingPage
-
   }
-
 ];
-
 
 export default appRoutes;

@@ -29,7 +29,7 @@ class Login extends Component {
   async login() {
     console.log('login-->', this.state);
     try {
-      console.log('fgg')
+      console.log('fgg');
       const { data } = await axios.post('/auth/login', {
         email: this.state.email,
         password: this.state.password
@@ -57,76 +57,66 @@ class Login extends Component {
 
   render() {
     return (
-      <Grid container>
       <section className="hero is-default is-fullheight">
         <div className="hero-body">
           <div className="container has-text-centered">
-        <Grid md={3} item />
-        <Grid md={6} item>
-          <h3 className="title has-text-grey">Please login to proceed</h3>
-          <div className="box">
-            <form>
-              <div className="field">
-                <div className="control">
-                  <input
-                    className="input is-large"
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    onChange={e => this.handleChange(e)}
-                  />
-                </div>
-              </div>
+            <Grid container>
+              <Grid item sm={12} md={3} lg={3} />
+              <Grid item sm={12} md={6} lg={6}>
+                <h3 className="title has-text-grey">Please login to proceed</h3>
+                <div className="box">
+                  <form>
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          className="input is-large"
+                          type="email"
+                          name="email"
+                          placeholder="Your Email"
+                          onChange={e => this.handleChange(e)}
+                        />
+                      </div>
+                    </div>
 
-              <div className="field">
-                <div className="control">
-                  <input
-                    className="input is-large"
-                    type="password"
-                    name="password"
-                    placeholder="Your Password"
-                    onChange={e => this.handleChange(e)}
-                  />
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          className="input is-large"
+                          type="password"
+                          name="password"
+                          placeholder="Your Password"
+                          onChange={e => this.handleChange(e)}
+                        />
+                      </div>
+                    </div>
+                    <a
+                      onClick={() => this.login()}
+                      className="button is-block is-primary is-large is-fullwidth"
+                    >
+                      Login
+                    </a>
+                    <br />
+                    <h3 className="title has-text-grey">Social</h3>
+                    <a
+                      href="/auth/google"
+                      className="button is-block is-danger is-large is-fullwidth"
+                    >
+                      Google+
+                    </a>
+                  </form>
                 </div>
-              </div>
-              <br />
-              <a
-                onClick={() => this.login()}
-                className="button is-block is-primary is-large is-fullwidth"
-              >
-                Login
-              </a>
-              <a href="/auth/google"
-                className="button is-block is-danger is-large is-fullwidth"
-              >
-                Google+
-              </a>
-            </form>
+                <p className="has-text-grey">
+                  <Link to="/signup">Sign Up</Link> &nbsp;·&nbsp;
+                  <Link to="/">Forgot Password</Link>
+                </p>
+              </Grid>
+              <Grid item sm={12} md={3} lg={3} />
+            </Grid>
           </div>
-          <p className="has-text-grey">
-            <Link to="/signup">Sign Up</Link> &nbsp;·&nbsp;
-            <Link to="/">Forgot Password</Link>
-          </p>
-        </Grid>
-        <Grid md={3} item />
         </div>
-        </div>
-        </section>
-      </Grid>
+      </section>
     );
   }
 }
-
-// const Login = () => {
-//   return (
-//     <section className="hero is-default is-fullheight">
-//       <div className="hero-body">
-//         <div className="container has-text-centered">
-//           <WrappedLogin />
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
 
 export default Login;

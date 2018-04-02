@@ -29,10 +29,8 @@ class Navbar extends Component {
 
     this.state = {
       authorized: false
-
-    }
+    };
     this.authCheck = this.authCheck.bind(this);
-
   }
 
   handleToggle() {
@@ -51,28 +49,35 @@ class Navbar extends Component {
 
   async authCheck() {
     try {
-      const token = await localStorage.getItem('token')
-      const data = await axios.post('auth/isLoggedIn', {token: token})
-      console.log('sid ebar loads')
+      const token = await localStorage.getItem('token');
+      const data = await axios.post('auth/isLoggedIn', { token: token });
+      console.log('sid ebar loads');
       console.log(data, 'in sidebar');
       if (data.data === 'granted') {
-        this.setState({authorized: true});
+        this.setState({ authorized: true });
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
   }
 
   render() {
-    return (<div>
-      <Drawer width={300} open={this.props.menuIsOpen}>
-        <TitleBar handleCLick={() => this.handleToggle()} color="inherit" title="Spotifight" Icon={MenuIcon}/>
+    return (
+      <div>
+        <Drawer width={300} open={this.props.menuIsOpen}>
+          <TitleBar
+            handleCLick={() => this.handleToggle()}
+            color="inherit"
+            title="Spotifight"
+            Icon={MenuIcon}
+          />
 
-        <List>
-          {
-            appRoutes.map((route, index) => {
-              if (route.protected && this.state.authorized === false) {
+          <List>
+            {appRoutes.map((route, index) => {
+              if (
+                (route.protected && this.state.authorized === false) ||
+                route.hidden
+              ) {
                 return;
               }
 
@@ -104,13 +109,16 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = state => {
-  return {menuIsOpen: state.menuIsOpen};
+  return { menuIsOpen: state.menuIsOpen };
 };
 
 const mapDispatchToProps = function(dispatch) {
-  return bindActionCreators({
-    toggleMenu
-  }, dispatch);
+  return bindActionCreators(
+    {
+      toggleMenu
+    },
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
