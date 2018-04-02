@@ -9,6 +9,7 @@ import './UserProfile.scss';
 import Verify from '../Auth/Verify.jsx';
 import { userEmail } from '../../routes.js';
 
+
 class UserProfile extends Component {
   constructor() {
     super();
