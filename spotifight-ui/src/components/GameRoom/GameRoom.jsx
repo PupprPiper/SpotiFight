@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import players from '../Games/Masher/seed.js';
 import Grid from 'material-ui/Grid';
-import {gameSwitch, songSwitch, storeSocket} from '../../actions/index';
+import {gameSwitch, songSwitch} from '../../actions/index';
 import Button from 'material-ui/Button';
 import {assignLeftPlayer, assignRightPlayer} from './gameRoomHelpers';
 
@@ -160,14 +160,13 @@ class GameRoom extends Component {
 }
 
 const mapStateToProps = function(state) {
-  return {game: state.game, mySong: state.mySong, userProfile: state.userProfile, socket: state.socket};
+  return {game: state.game, mySong: state.mySong, userProfile: state.userProfile};
 };
 
 const mapDispatchToProps = function(dispatch) {
   return bindActionCreators({
     gameSwitch,
     songSwitch,
-    storeSocket
   }, dispatch);
 };
 
