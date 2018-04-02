@@ -29,8 +29,8 @@ class Signup extends Component {
   }
 
   async signUp() {
-    let redirect;
-    let message;
+  let redirect;
+let message;
     try {
       const data = await axios.post('/auth/signUp', {
         email: this.state.email,

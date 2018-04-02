@@ -20,8 +20,8 @@ export default class Tutorial extends Component {
       cellSpacing={500}
       margin="200px"
 
-     renderBottomleftControls={true}
-    renderBottomCenterControls={false}
+
+    renderBottomMiddleControls={false}
 
       >
         <img src="https://i.imgur.com/5gO6hun.png"/>

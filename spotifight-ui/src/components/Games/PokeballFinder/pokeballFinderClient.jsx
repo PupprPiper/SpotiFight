@@ -13,10 +13,10 @@ render(){
 
 
   return(
+<div>
 
-    
-    <canvas id="canvas" width="460" height="460"></canvas>
-    
+
+</div>
   )
 }
 }
@@ -24,3 +24,4 @@ render(){
 
 
 export default PokeballFinderClient
+    // <canvas id="canvas" width="460" height="460"></canvas>

@@ -23,7 +23,7 @@ const games = {
   MusicTrivia: MusicTrivia,
   RPSLS: RPSLS,
   Flappy: Flappy,
-  PokeballFinderClient: PokeballFinderClient
+
 };
 class GameRoom extends Component {
   constructor(props) {
