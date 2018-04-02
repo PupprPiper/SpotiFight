@@ -20,5 +20,10 @@ module.exports = {
     return `
       UPDATE users SET ${req.body.field} = ${req.body.field} + 1 where id = ${req.body.user_id}
     `
+  },
+  updateInfoHelper: req => {
+    return `
+      UPDATE users SET ${req.body.field} = ${req.body.info} where id = ${req.body.user_id}
+    `
   }
 };

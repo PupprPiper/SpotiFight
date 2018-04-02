@@ -28,5 +28,10 @@ module.exports = {
     var queryString = helpers.addWinLossHelper(req);
     var data = await db.queryAsync(queryString);
     res.send('updated win/loss column!');
-  }
+  },
+  updateInfo: async (req, res) => {
+    var queryString = helpers.updateInfoHelper(req);
+    var data = await db.queryAsync(queryString);
+    res.send('updated user info');
+    }
 };
