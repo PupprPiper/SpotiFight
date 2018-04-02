@@ -9,6 +9,7 @@ import Grid from "material-ui/Grid";
 >>>>>>> changed up friends page
 =======
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import axios from 'axios';
 import { connect } from 'react-redux';
 import Grid from 'material-ui/Grid';
@@ -35,14 +36,15 @@ import FriendList from './FriendList';
 >>>>>>> refactoring
 =======
 } from './../Global/Material-Globals';
+=======
+>>>>>>> refactoring
 import FriendList from './FriendList.jsx';
-import {bindActionCreators} from 'redux';
-import {updateFriends, updatePendingFriends, updateFilteredUsers, updateAllUsers} from '../../actions/index';
 
 >>>>>>> refactoring with redux
 class Friends extends Component {
   constructor(props) {
     super(props);
+<<<<<<< HEAD
     this.state = {
       user_id: null,
       friends: [],
@@ -159,11 +161,15 @@ class Friends extends Component {
     var allUsers = await axios.get('http://localhost:3000/users/fetchAllUsers');
     this.props.updateAllUsers(allUsers);
     this.fetchAllFriends();
+=======
+    this.state = {};
+>>>>>>> refactoring
   }
 
   render() {
     return (
       <div>
+<<<<<<< HEAD
 <<<<<<< HEAD
         <Grid container spacing={24}>
 <<<<<<< HEAD
@@ -272,26 +278,12 @@ class Friends extends Component {
 >>>>>>> saving progress
         </Grid>
 >>>>>>> implemeting update user profile functionality
+=======
+        <FriendList />
+>>>>>>> refactoring
       </div>
     );
   }
 }
 
-const mapStateToProps = function(state) {
-  return {
-    userProfile: state.userProfile,
-    friends: state.friends, 
-    pendingFriends: state.pendingFriends, 
-    filteredUsers: state.filteredUsers, 
-    allUsers: state.allUsers};
-};
-
-const mapDispatchToProps = function(dispatch) {
-  return bindActionCreators({
-    updateFriends,
-    updatePendingFriends,
-    updateFilteredUsers,
-    updateAllUsers
-  }, dispatch);
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Friends);
+export default Friends;

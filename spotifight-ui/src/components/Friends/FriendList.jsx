@@ -21,7 +21,14 @@ import {
   updateAllUsers,
   updateSearchInput
 } from '../../actions/index';
+import axios from 'axios';
+
 class FriendList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { propUpdate: false };
+  }
+
   async fetchAllFriends() {
     var allFriends = await axios.get(
       `http://localhost:3000/friends/fetchAllFriends/${
@@ -39,7 +46,7 @@ class FriendList extends Component {
 
   filterUsers() {
     var filtered = this.props.allUsers.data.filter(user => {
-      console.log('USER HERE ', user)
+      console.log('USER HERE ', user);
       return user.username
         .toLowerCase()
         .includes(this.props.searchInput.toLowerCase());
@@ -47,12 +54,20 @@ class FriendList extends Component {
     this.props.updateFilteredUsers(filtered);
   }
 
+  async componentDidMount() {
+    var allUsers = await axios.get('http://localhost:3000/users/fetchAllUsers');
+    this.props.updateAllUsers(allUsers);
+    this.fetchAllFriends();
+    this.props.updateSearchInput('');
+    this.props.updateFilteredUsers(null);
+  }
+
   render() {
     return (
       <div>
         {console.log('HERE ARE ALL THE PROPS ', this.props)}
         <Grid container spacing={24}>
-          <Grid align="center" item xs={6}>
+          <Grid align="center" item xs={4}>
             <h3>Your Friends</h3>
             <List>
               {this.props.friends
@@ -61,10 +76,14 @@ class FriendList extends Component {
                       <ListItem key={i}>
                         {friend.username}
                         <button
-                          onClick={() => {
-                            removeFriend(this.props.userProfile.id, friend.id);
+                          onClick={async () => {
+                            await removeFriend(
+                              this.props.userProfile.id,
+                              friend.id
+                            );
                             this.fetchAllFriends();
-                          }}>
+                          }}
+                        >
                           Remove Friend
                         </button>
                       </ListItem>
@@ -73,7 +92,7 @@ class FriendList extends Component {
                 : null}
             </List>
           </Grid>
-          <Grid align="center" item xs={6}>
+          <Grid align="center" item xs={4}>
             <h3>Pending Friend Requests</h3>
             <List>
               {this.props.pendingFriends
@@ -82,17 +101,25 @@ class FriendList extends Component {
                       <ListItem key={i}>
                         {friend.username}
                         <button
-                          onClick={() => {
-                            acceptFriend(this.props.userProfile.id, friend.id);
+                          onClick={async () => {
+                            await acceptFriend(
+                              this.props.userProfile.id,
+                              friend.id
+                            );
                             this.fetchAllFriends();
-                          }}>
+                          }}
+                        >
                           Accept
                         </button>
                         <button
-                          onClick={() => {
-                            removeFriend(this.props.userProfile.id, friend.id);
+                          onClick={async () => {
+                            await removeFriend(
+                              this.props.userProfile.id,
+                              friend.id
+                            );
                             this.fetchAllFriends();
-                          }}>
+                          }}
+                        >
                           Reject
                         </button>
                       </ListItem>
@@ -101,13 +128,12 @@ class FriendList extends Component {
                 : null}
             </List>
           </Grid>
-          <Grid align="center" item xs={6}>
+          <Grid align="center" item xs={4}>
             <input
               type="text"
+              value={this.props.searchInput}
               onChange={async e => {
-                console.log('SEARCH VAL HERE ', e.target.value)
                 await this.props.updateSearchInput(e.target.value);
-                console.log('SEARCH INPUT HERE', this.props.searchInput)
                 if (this.props.searchInput.length > 2) {
                   this.filterUsers();
                 } else {
@@ -122,9 +148,18 @@ class FriendList extends Component {
                     <div key={i}>
                       <li>{user.username}</li>
                       <button
-                        onClick={() =>
-                          requestFriend(this.props.userProfile.id, user.id)
-                        }
+                        onClick={async () => {
+                          if (this.props.userProfile.id !== user.id) {
+                            await requestFriend(
+                              this.props.userProfile.id,
+                              user.id
+                            );
+                            this.props.updateSearchInput('');
+                            this.props.updateFilteredUsers(null);
+                          } else {
+                            console.log("Can't add self as friend");
+                          }
+                        }}
                       >
                         Request
                       </button>
