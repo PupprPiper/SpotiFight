@@ -16,7 +16,7 @@ class Friends extends Component {
 
   async requestFriend(i) {
       var body = {
-        user_id: this.props.userProfile.id,
+        // user_id: this.props.userProfile.id,
         friend_id: this.state.filteredUsers[i].id
       };
       await axios.post("http://localhost:3000/friends/requestFriend", body);
@@ -26,7 +26,7 @@ class Friends extends Component {
   
   async acceptFriend(friendId) {
     var body = {
-      user_id: this.props.userProfile.id,
+      // user_id: this.props.userProfile.id,
       friend_id: friendId
     };
     await axios.put('http://localhost:3000/friends/acceptFriend', body);
@@ -34,22 +34,26 @@ class Friends extends Component {
   }
 
   async fetchAllFriends() {
-    var allFriends = await axios.get(
-      `http://localhost:3000/friends/fetchAllFriends/${
-        this.props.userProfile.id
-      }`
-    );
-    this.setState({ friends: allFriends.data });
+    // var allFriends = await axios.get(
+    //   `http://localhost:3000/friends/fetchAllFriends/${
+    //     this.props.userProfile.id
+    //   }`
+    // );
+    // this.setState({ friends: allFriends.data });
   }
   
   async removeFriend(friendId) {
     var body = {
       data: {
 <<<<<<< HEAD
+<<<<<<< HEAD
         user_id: this.props.userProfile.id,
         friend_id: this.state.friends[i].id
 =======
         user_id: this.props.userProfile.id, 
+=======
+        // user_id: this.props.userProfile.id, 
+>>>>>>> bugs
         friend_id: friendId
 >>>>>>> friend requests/adds should work
       }
