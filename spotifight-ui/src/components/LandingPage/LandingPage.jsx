@@ -28,9 +28,9 @@ constructor(props) {
       <div class = 'background landingpage'>
 
       <div class="text">
+<img className="logo" align="center" width="120px" src="https://i.imgur.com/t07Faks.png"/>
+       <br /> <b><span className="landing-title">SPOTIFIGHT</span>
 
-       <br /> <b>SPOTIFIGHT
-<img align="center" width="50px" src="https://i.imgur.com/radjhpZ.png"/>
       </b> </div>
 
       <main>
