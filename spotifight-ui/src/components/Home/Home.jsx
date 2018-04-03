@@ -46,7 +46,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div align = 'center' >
+      <div align = 'center' className="top-margin">
 
         <div>Select a game:</div>
 

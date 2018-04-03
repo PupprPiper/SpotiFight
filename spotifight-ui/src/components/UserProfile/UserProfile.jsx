@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import axios from 'axios';
 import {Grid, Button} from './../Global/Material-Globals';
-import './Background.scss'
+import './Background.scss';
+import $ from 'jquery';
 
 import {storeCurrentUser} from './../../actions/index';
 
@@ -55,8 +56,7 @@ class UserProfile extends Component {
   }
 
   async toggleUpdateInfo() {
-    await this.setState({ update: !this.state.update });
-    console.log(this.state.update);
+    $('.modal').addClass('is-active');
   }
 
   setTextField(e) {
@@ -67,22 +67,22 @@ class UserProfile extends Component {
     console.log(this.state)
   }
 
-  async updateInfo () {
-    if(this.state.usernameInput){
+  async updateInfo() {
+    if (this.state.usernameInput) {
       await axios.put('http://localhost:3000/users/updateInfo', {
         field: 'username',
         info: this.state.usernameInput,
         user_id: this.props.userProfile.id
       })
     }
-    if(this.state.avatarInput){
+    if (this.state.avatarInput) {
       await axios.put('http://localhost:3000/users/updateInfo', {
         field: 'avatar_url',
         info: this.state.avatarInput,
         user_id: this.props.userProfile.id
       })
     }
-    if(this.state.statusInput){
+    if (this.state.statusInput) {
       await axios.put('http://localhost:3000/users/updateInfo', {
         field: 'status',
         info: this.state.statusInput,
@@ -134,29 +134,68 @@ class UserProfile extends Component {
               </div>
             ) : null}
           </div>
+          <br/>
+          <span className="button is-primary is-outlined follow">
+            Follow
+          </span>
+          <p>
+            <br/>
+            <span className="title is-bold">{user.username}</span>
+          </p>
+          <p className="tagline">{user.status}</p>
+          <button onClick={() => this.toggleUpdateInfo()}>Update Info</button>
+          <div class="modal ">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+              <div class="field">
+                <label class="label">Username</label>
+                <div class="control">
+                  <input type="text" name="usernameInput" value={this.state.usernameInput} onChange={e => this.setTextField(e)}/></div>
+              </div>
 
-          <div className="column is-2 likes has-text-centered">
-            <p className="stat-val">{user.friends}</p>
-            <p className="stat-key">friends</p>
+              <div class="field">
+                <label class="label">
+                  Avatar</label>
+
+                <div class="control">
+                  <input type="text" name="avatarInput" value={this.state.avatarInput} onChange={e => this.setTextField(e)}/>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label">
+                  Status</label>
+                <div class="control">
+                  <input type="text" name="statusInput" value={this.state.statusInput} onChange={e => this.setTextField(e)}/>
+                </div>
+              </div>
+
+              <button className="primary" onClick={() => this.updateInfo()}>Save</button>
+
+            </div>
+            <button class="modal-close is-large" aria-label="close"></button>
           </div>
-          <div className="column is-2 followers has-text-centered">
-            <p className="stat-val">{user.wins}</p>
-            <p className="stat-key">wins</p>
-          </div>
-          <div className="column is-2 following has-text-centered">
-            <p className="stat-val">{user.losses}</p>
-            <p className="stat-key">losses</p>
+        </div>
+
+        <div className="column is-2 likes has-text-centered">
+          <p className="stat-val">{user.friends}</p>
+          <p className="stat-key">friends</p>
+        </div>
+        <div className="column is-2 followers has-text-centered">
+          <p className="stat-val">{user.wins}</p>
+          <p className="stat-key">wins</p>
+        </div>
+        <div className="column is-2 following has-text-centered">
+          <p className="stat-val">{user.losses}</p>
+          <p className="stat-key">losses</p>
         </div>
       </div>
-    </div>
 );
   }
 }
-
 const mapStateToProps = state => {
   return {userProfile: state.userProfile};
 };
-
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
     storeCurrentUser
