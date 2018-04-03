@@ -16,7 +16,7 @@ import {
   updateSearchInput
 } from '../../actions/index';
 
-class FriendListItem extends Component {
+class PendingFriendListItem extends Component {
     constructor(props){
         super(props)
     }
@@ -36,17 +36,16 @@ class FriendListItem extends Component {
                   <small style={{ float: 'right' }}>{this.props.friend.status}</small>
                   <br />
                   <small>
-                      {console.log('PROPS HERE ', this.props.userProfile)}
                     wins: {this.props.friend.wins} losses: {this.props.friend.losses}
                   </small>
                 </p>
                   <button
                     onClick={async () => {
-                      await removeFriend(this.props.userProfile.id, this.props.friend.id);
+                      await rejectFriend(this.props.userProfile.id, this.props.friend.id);
                       this.props.fetchAllFriends();
                     }}
                   >
-                    Remove Friend
+                    Reject
                   </button>
               </div>
               <nav className="level">
@@ -98,4 +97,4 @@ const mapStateToProps = function(state) {
     );
   };
 
-  export default connect(mapStateToProps, mapDispatchToProps)(FriendListItem);
+  export default connect(mapStateToProps, mapDispatchToProps)(PendingFriendListItem);

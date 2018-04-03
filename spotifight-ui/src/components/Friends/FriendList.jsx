@@ -23,15 +23,18 @@ import {
   updateSearchInput
 } from '../../actions/index';
 import FriendListItem from './FriendListItem.jsx';
+import PendingFriendListItem from './PendingFriendListItem.jsx';
 import axios from 'axios';
 
 class FriendList extends Component {
   constructor(props) {
     super(props);
-    this.state = { propUpdate: false };
+    this.state = {};
+    this.fetchAllFriends = this.fetchAllFriends.bind(this);
   }
 
   async fetchAllFriends() {
+    console.log('PROPS FROM FRIEND LIST ', this.props)
     var allFriends = await axios.get(
       `http://localhost:3000/friends/fetchAllFriends/${
         this.props.userProfile.id
@@ -69,12 +72,12 @@ class FriendList extends Component {
         <Grid style={{marginTop: '5%'}} container spacing={24}>
           <Grid align="center" item xs={12} md={4}>
             <h3>Your Friends</h3>
-            <List>
+             <List>
               {this.props.friends
                 ? this.props.friends.map((friend, i) => {
                     return (
                       <Paper>
-                      <FriendListItem friend={friend}/>
+                      <FriendListItem fetchAllFriends={this.fetchAllFriends} friend={friend}/>
                       </Paper>
                       // <ListItem key={i}>
                       //   {friend.username}
@@ -101,7 +104,9 @@ class FriendList extends Component {
               {this.props.pendingFriends
                 ? this.props.pendingFriends.map((friend, i) => {
                     return (
-                      <FriendListItem friend={friend}/>
+                      <Paper>
+                      <PendingFriendListItem fetchAllFriends={this.fetchAllFriends} friend={friend}/>
+                      </Paper>
                       // <ListItem key={i}>
                       //   {friend.username}
                       //   <button

@@ -39,6 +39,14 @@ export default class Flappy extends Component {
       winner: ''
     };
 
+<<<<<<< HEAD
+=======
+    // socket.on('CRASHED', data => {
+    //   this.state.opponents[data.username] = data;
+    //   this.setState({ opponents: this.state.opponents });
+    // });
+
+>>>>>>> saving progress
     this.timerId = setInterval(() => {
       if (this.state.crashed) {
         return;
@@ -71,10 +79,17 @@ export default class Flappy extends Component {
       if (crashed) {
         this.setState({ crashed: true });
 
+<<<<<<< HEAD
         this.props.socket.emit('PLAYER_CRASHED', {
           username: this.props.localUser,
           crashed: true
         });
+=======
+        // socket.emit('PLAYER_CRASHED', {
+        //   username: this.props.localUser,
+        //   crashed: true
+        // });
+>>>>>>> saving progress
       }
       // birdy copy
       gridCopy[birdCopy.height][birdCopy.position] = 'yellow';
