@@ -38,6 +38,7 @@ class UserProfile extends Component {
       email = storedEmail;
     }
     console.log(email, 'here is the axios email');
+    
     this.getUser(email);
   }
 
@@ -120,7 +121,7 @@ class UserProfile extends Component {
               <br />
               <span className="title is-bold">{user.username}</span>
             </p>
-            <p className="tagline">{user.status}</p>
+            <p className="tagline"><em>"{user.status}"</em></p>
             <Button variant="raised" color="primary" onClick={() => this.toggleUpdateInfo()}>Update Info</Button>
             {this.state.update ? (
               <div>
@@ -134,16 +135,19 @@ class UserProfile extends Component {
               </div>
             ) : null}
           </div>
-          <br/>
-          <span className="button is-primary is-outlined follow">
-            Follow
-          </span>
-          <p>
-            <br/>
-            <span className="title is-bold">{user.username}</span>
-          </p>
-          <p className="tagline">{user.status}</p>
-          <button onClick={() => this.toggleUpdateInfo()}>Update Info</button>
+          <div className="column is-2 likes has-text-centered">
+            <p className="stat-val">{user.friends}</p>
+            <p className="stat-key">friends</p>
+          </div>
+          <div className="column is-2 followers has-text-centered">
+            <p className="stat-val">{user.wins}</p>
+            <p className="stat-key">wins</p>
+          </div>
+          <div className="column is-2 following has-text-centered">
+            <p className="stat-val">{user.losses}</p>
+            <p className="stat-key">losses</p>
+          </div>
+
           <div class="modal ">
             <div class="modal-background"></div>
             <div class="modal-content">
@@ -177,18 +181,7 @@ class UserProfile extends Component {
           </div>
         </div>
 
-        <div className="column is-2 likes has-text-centered">
-          <p className="stat-val">{user.friends}</p>
-          <p className="stat-key">friends</p>
-        </div>
-        <div className="column is-2 followers has-text-centered">
-          <p className="stat-val">{user.wins}</p>
-          <p className="stat-key">wins</p>
-        </div>
-        <div className="column is-2 following has-text-centered">
-          <p className="stat-val">{user.losses}</p>
-          <p className="stat-key">losses</p>
-        </div>
+
       </div>
 );
   }

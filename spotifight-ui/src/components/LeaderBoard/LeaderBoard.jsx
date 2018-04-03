@@ -23,7 +23,7 @@ export default class LeaderBoard extends Component {
 
   render() {
     return (
-      <div>
+      <div >
         <Table/>
 
               <Verify history={this.props.history}  />

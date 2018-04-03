@@ -15,7 +15,7 @@ export default class Tutorial extends Component {
       <Carousel
       className="carousel" id="tutorial"
       cellAlign="center"
-      slideWidth={0.5}
+      slideWidth={0.4}
       slidesToShow={1}
       cellSpacing={500}
       margin="200px"

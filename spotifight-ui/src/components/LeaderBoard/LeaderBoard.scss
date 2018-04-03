@@ -19,6 +19,7 @@ th, td {
 th, td {
   text-align: center;
   vertical-align: center;
+  padding: 0 1 0 1
 }
 .sort-header {
   cursor: pointer;
@@ -33,4 +34,8 @@ tbody > tr:hover {
   background-color: var(--hover-bg, rgba(50, 50, 70, 0.4));
   color: var(--hover-text, rgb(240, 88, 67));
   font-weight: 400;
+}
+
+.margin-top {
+  margin:3% 3% 3% 3%;
 }
