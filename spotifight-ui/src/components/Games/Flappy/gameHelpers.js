@@ -17,7 +17,7 @@ export let banStyle = {
   background: `url(${Ban}) no-repeat center center`,
   backgroundSize: 'contain',
   width: '400px',
-  height: '400px'
+  height: '400px',
 };
 
 export let opponentBanStyle = {
@@ -33,6 +33,11 @@ export let thumbnailStyle = {
   // backgroundSize: 'contain',
   width: '100px',
   height: '100px',
+  textAlign: 'center'
+};
+
+export let winnerStyle = {
+  fontSize: '6em',
   textAlign: 'center'
 };
 

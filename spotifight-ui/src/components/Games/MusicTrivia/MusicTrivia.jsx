@@ -18,12 +18,14 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = function(dispatch) {
   return bindActionCreators({ gameSwitch, songSwitch }, dispatch);
 };
+
 const style = {
   listItem : {
     cursor: 'pointer',
     align: 'center'
   }
 }
+
 class MusicTrivia extends Component {
   constructor(props) {
     super(props);
