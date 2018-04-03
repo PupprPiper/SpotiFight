@@ -7,6 +7,7 @@ const port = 3000;
 const request = require('request');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const cors = require('cors');
 require('babel-register');
 require('babel-polyfill');
 
@@ -15,6 +16,13 @@ const keys = require('./../environment/keys');
 require('../database/config/index');
 
 // body-parser
+app.use(
+  cors({
+    allowedHeaders: 'Content-Type, authorization',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+  })
+);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
