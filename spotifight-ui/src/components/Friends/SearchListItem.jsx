@@ -39,7 +39,7 @@ class SearchListItem extends Component {
                     wins: {this.props.user.wins} losses: {this.props.user.losses}
                   </small>
                 </p>
-                  <Button
+                  <Button variant="raised" color="primary"
                     onClick={async () => {
                       if(this.props.userProfile.id !== this.props.user.id){
                         await requestFriend(this.props.userProfile.id, this.props.user.id);

@@ -26,7 +26,10 @@ constructor(props) {
       <div>
 
       <div className= 'background landingpage'>
-
+      <audio
+ className="landingpagesong"
+ src="https://vocaroo.com/media_command.php?media=s1bgaXnLcMJp&command=download_mp3" autoPlay="autoPlay"
+  /> 
       <div className="text">
 <img className="logo" align="center" width="120px" src="https://i.imgur.com/t07Faks.png"/>
        <br /> <b><span className="landing-title">SPOTIFIGHT</span>

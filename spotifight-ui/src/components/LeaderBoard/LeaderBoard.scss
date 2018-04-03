@@ -1,0 +1,36 @@
+.leaderboard-table {
+  overflow-x: auto;
+}
+
+.leaderboard-head{
+  font-size: 40px;
+  text-align: center;
+  background-color: rgba(0,0,0,0.1)
+}
+
+th {
+  border-radius: 5px;
+  background-color: rgba(240, 88, 67, 0.8);
+  color: white;
+}
+th, td {
+  padding: 15px;
+}
+th, td {
+  text-align: center;
+  vertical-align: center;
+}
+.sort-header {
+  cursor: pointer;
+}
+tbody {
+  overflow-y: auto;
+}
+tbody > tr > td:nth-child(3) {
+  cursor: pointer;
+}
+tbody > tr:hover {
+  background-color: var(--hover-bg, rgba(50, 50, 70, 0.4));
+  color: var(--hover-text, rgb(240, 88, 67));
+  font-weight: 400;
+}

@@ -31,11 +31,11 @@ export default class rpsls extends Component {
         scissorsrock: "LOSE!"
       },
       images: {
-        rock: "https://i.imgur.com/z8yK0Q4.jpg",
-        paper: "https://i.imgur.com/wXq7nj8.jpg",
-        scissors: "https://i.imgur.com/jljkva5.jpg",
-        lizard: "https://i.imgur.com/6ix7L4A.jpg",
-        spock: "https://i.imgur.com/sRHZvfq.jpg"
+        rock: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTagMbbXUGJEB7Cvi-5xKIPbxo-BNJUeWIl3ANMxoqS7Cjp26S5",
+        paper: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR68B5NXataRl4zYvuq8U8Wz47Kchy_yd_7IRkh1ZgJ7f9VhDgTcQ",
+        scissors: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAbCBpE7qAoUh933CYf1YwNSvxyZ3RYcjUE5jbbo-s2uTBQpRU",
+        lizard: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNeccTSL2ZSTqmiuZ1wpt-F5CcTsKj6atO1jrv1puEWSgvgFW3",
+        spock: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTVRio44mvgUjFhwgPA-HkODTwknUCpHTrKBNf0zOTb4HKbDod"
       },
       players: this.props.players,
       userChoice: null,

@@ -39,7 +39,7 @@ class FriendListItem extends Component {
                     wins: {this.props.friend.wins} losses: {this.props.friend.losses}
                   </small>
                 </p>
-                  <Button
+                  <Button variant="raised" color="primary"
                     onClick={async () => {
                       await removeFriend(this.props.userProfile.id, this.props.friend.id);
                       this.props.fetchAllFriends();

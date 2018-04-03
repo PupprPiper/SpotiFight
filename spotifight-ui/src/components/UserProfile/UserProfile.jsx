@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import axios from 'axios';
-import {Grid} from './../Global/Material-Globals';
+import {Grid, Button} from './../Global/Material-Globals';
 import './Background.scss'
 
 import {storeCurrentUser} from './../../actions/index';
+
 
 import Verify from '../Auth/Verify.jsx';
 import {userEmail} from '../../routes.js';
@@ -120,7 +121,7 @@ class UserProfile extends Component {
               <span className="title is-bold">{user.username}</span>
             </p>
             <p className="tagline">{user.status}</p>
-            <button onClick={() => this.toggleUpdateInfo()}>Update Info</button>
+            <Button variant="raised" color="primary" onClick={() => this.toggleUpdateInfo()}>Update Info</Button>
             {this.state.update ? (
               <div>
                 Username <input type="text" name="usernameInput" value={this.state.usernameInput} onChange={e => this.setTextField(e)} />
@@ -129,7 +130,7 @@ class UserProfile extends Component {
                 <br />
                 Status <input type="text" name="statusInput" value={this.state.statusInput} onChange={e => this.setTextField(e)}/>
                 <br/>
-                <button onClick={() => this.updateInfo()}>Save</button>
+                <Button variant="raised" color="primary" onClick={() => this.updateInfo()}>Save</Button>
               </div>
             ) : null}
           </div>

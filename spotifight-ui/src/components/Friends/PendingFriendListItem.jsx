@@ -39,7 +39,7 @@ class PendingFriendListItem extends Component {
                     wins: {this.props.friend.wins} losses: {this.props.friend.losses}
                   </small>
                 </p>
-                  <Button
+                  <Button variant="raised" color="primary"
                     onClick={async () => {
                       await acceptFriend(this.props.userProfile.id, this.props.friend.id);
                       this.props.fetchAllFriends();
@@ -47,7 +47,7 @@ class PendingFriendListItem extends Component {
                   >
                     Accept
                   </Button>
-                  <Button
+                  <Button variant="raised" color="primary"
                     onClick={async () => {
                       await rejectFriend(this.props.userProfile.id, this.props.friend.id);
                       this.props.fetchAllFriends();
