@@ -25,3 +25,19 @@ export const updateSongSelections = (songList) => {
 export const storeSocket = (socket) => {
   return { type: 'SOCKET', payload: socket }
 };
+
+export const updateFriends = (friends) => {
+  return { type: 'FRIENDS', payload: friends }
+};
+
+export const updatePendingFriends = (pendingFriends) => {
+  return { type: 'PENDING_FRIENDS', payload: friends }
+};
+
+export const filteredUsers = (pendingFriends) => {
+  return { type: 'FILTERED_USERS', payload: pendingFriends }
+};
+
+export const allUsers = (allUsers) => {
+  return { type: 'ALL_USERS', payload: allUsers }
+};

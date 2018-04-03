@@ -25,6 +25,7 @@ import {
   Divider,
   Avatar,
   Checkbox
+<<<<<<< HEAD
 } from "./../Global/Material-Globals";
 <<<<<<< HEAD
 
@@ -32,6 +33,11 @@ import {
 =======
 import FriendList from './FriendList';
 >>>>>>> refactoring
+=======
+} from './../Global/Material-Globals';
+import FriendList from './FriendList.jsx';
+
+>>>>>>> refactoring with redux
 class Friends extends Component {
   constructor(props) {
     super(props);
@@ -45,24 +51,24 @@ class Friends extends Component {
     };
   }
 
-  async requestFriend(i) {
-    var body = {
-      user_id: this.props.userProfile.id,
-      friend_id: this.state.filteredUsers[i].id
-    };
-    await axios.post('http://localhost:3000/friends/requestFriend', body);
-    this.fetchAllFriends();
-    this.setState({ input: '' });
-  }
+  // async requestFriend(i) {
+  //   var body = {
+  //     user_id: this.props.userProfile.id,
+  //     friend_id: this.state.filteredUsers[i].id
+  //   };
+  //   await axios.post('http://localhost:3000/friends/requestFriend', body);
+  //   this.fetchAllFriends();
+  //   this.setState({ input: '' });
+  // }
 
-  async acceptFriend(friendId) {  
-    var body = {
-      user_id: this.props.userProfile.id,
-      friend_id: friendId
-    };
-    await axios.put('http://localhost:3000/friends/acceptFriend', body);
-    this.fetchAllFriends();
-  }
+  // async acceptFriend(friendId) {
+  //   var body = {
+  //     user_id: this.props.userProfile.id,
+  //     friend_id: friendId
+  //   };
+  //   await axios.put('http://localhost:3000/friends/acceptFriend', body);
+  //   this.fetchAllFriends();
+  // }
 
   async fetchAllFriends() {
     var allFriends = await axios.get(
@@ -81,6 +87,7 @@ class Friends extends Component {
     });
   }
 
+<<<<<<< HEAD
   async removeFriend(friendId) {
     var body = {
       data: {
@@ -121,6 +128,23 @@ class Friends extends Component {
     );
     this.fetchAllFriends();
   }
+=======
+  // async removeFriend(friendId) {
+  //   var body = {
+  //     data: {
+  //       user_id: this.props.userProfile.id,
+  //       friend_id: friendId
+  //     }
+  //   };
+  //   await axios.delete(
+  //     `http://localhost:3000/friends/deleteFriend/${
+  //       this.props.userProfile.id
+  //     }/${friendId}`,
+  //     body
+  //   );
+  //   this.fetchAllFriends();
+  // }
+>>>>>>> refactoring with redux
 
   filterUsers() {
     var filtered = this.state.allUsers.filter(user => {
@@ -140,29 +164,8 @@ class Friends extends Component {
   render() {
     return (
       <div>
-        <input
-          type="text"
-          onChange={async e => {
-            await this.setState({ input: e.target.value });
-            if (this.state.input.length > 2) {
-              this.filterUsers();
-            } else {
-              this.setState({ filteredUsers: null });
-            }
-          }}
-        />
-        <h5>Search Results</h5>
-        {this.state.filteredUsers
-          ? this.state.filteredUsers.map((user, i) => {
-              return (
-                <div key={i}>
-                  <li>{user.username}</li>
-                  <button onClick={() => this.requestFriend(i)}>Request</button>
-                </div>
-              );
-            })
-          : null}
         <Grid container spacing={24}>
+<<<<<<< HEAD
 <<<<<<< HEAD
           <Grid align="center" item xs={6}>
             <h3>Your Friends</h3>
@@ -253,6 +256,15 @@ class Friends extends Component {
 =======
             <FriendList />
 >>>>>>> refactoring
+=======
+          
+          <FriendList
+            friends={this.state.friends}
+            pendingFriends={this.state.pendingFriends}
+            input={this.state.input}
+            filteredUsers={this.state.filteredUsers}
+          />
+>>>>>>> refactoring with redux
         </Grid>
 >>>>>>> implemeting update user profile functionality
       </div>

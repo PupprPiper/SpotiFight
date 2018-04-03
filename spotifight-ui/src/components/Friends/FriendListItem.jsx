@@ -40,5 +40,5 @@ const FriendListItem = () => {
 </article>)
 }
 
-export const FriendListItem;
+export default FriendListItem;
 
