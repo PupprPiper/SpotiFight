@@ -40,7 +40,7 @@ class Login extends Component {
         console.log(data, 'here is the access data on the dom');
         this.props.history.push(`/user-profile/${data.email}`);
       } else {
-  
+
         this.setState({ authError: data.message });
       }
     } catch (err) {
@@ -60,7 +60,7 @@ class Login extends Component {
             <Grid container>
               <Grid item sm={12} md={3} lg={3} />
               <Grid item sm={12} md={6} lg={6}>
-                <h3 className="title has-text-grey">Please login to proceed</h3>
+                <h3 className="title has-text-grey">Please Log In To Proceed</h3>
                 <div className="box">
                   <form>
                     <div className="field">
@@ -101,6 +101,9 @@ class Login extends Component {
                       Google+
                     </a>
                   </form>
+                  <div className="authError">
+                        <h3 className="title has-text-red">      {this.state.authError} </h3>
+                  </div>
                 </div>
                 <p className="has-text-grey">
                   <Link to="/signup">Sign Up</Link> &nbsp;·&nbsp;
