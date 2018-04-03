@@ -23,7 +23,7 @@ const games = {
   MusicTrivia: MusicTrivia,
   RPSLS: RPSLS,
   Flappy: Flappy,
-
+  PokeballFinderClient: PokeballFinderClient
 };
 class GameRoom extends Component {
   constructor(props) {
@@ -93,6 +93,9 @@ class GameRoom extends Component {
         this.setState({globalSong: song});
       });
 
+      this.state.socket.on('RETURN_ALL_TO_LOBBY', data => {
+        this.setState({currRoom: games[data]})
+      })
     }
     catch (error) {
       console.error('in component did mount GAMEROOM')
@@ -117,7 +120,9 @@ class GameRoom extends Component {
   }
 
   lobbyReturn() {
-    this.setState({currRoom: Lobby});
+    this.state.socket.emit('RETURN_TO_LOBBY', 'Lobby')
+    this.setState({currRoom: games['Lobby']});
+    
   }
   getWinner(final) {
     let values = Object.entries(final);
@@ -138,17 +143,17 @@ class GameRoom extends Component {
           {
             (this.state.host === this.state.localUser && this.state.currRoom === Lobby)
               ? (<div align="center">
-                <Button variant="raised" color="secondary" onClick={() => this.startGame()}>
+                <Button variant="raised" color="primary" onClick={() => this.startGame()}>
                   START GAME
                 </Button>
               </div>)
               : null
           }
           {
-            this.state.currRoom === Lobby
+            this.state.currRoom === Lobby 
               ? null
               : (<div align="center">
-                <Button variant="raised" color="secondary" onClick={() => this.lobbyReturn()}>
+                <Button variant="raised" color="primary" onClick={() => this.lobbyReturn()}>
                   RETURN TO LOBBY
                 </Button>
               </div>)
