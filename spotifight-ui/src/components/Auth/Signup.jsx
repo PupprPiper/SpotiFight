@@ -3,6 +3,8 @@ import Button from 'material-ui/Button';
 import axios from 'axios';
 import $ from 'jquery';
 import './Signup.scss'
+import { Grid } from './../Global/Material-Globals';
+import { Link } from 'react-router-dom';
 
 class Signup extends Component {
   constructor(props) {
@@ -59,24 +61,74 @@ class Signup extends Component {
   }
 
   render() {
-    return (<div id="sign-up">
-      <h1>Sign up</h1>
-      <label>email:
-      </label>
-      <input type="text" className='clearField' onChange={(e) => this.handleEmailChange(e)}/>
-      <label>p/w:
-      </label>
-      <input type="password" className='clearField' onChange={(e) => this.handlePasswordChange(e)}/>
-      <label>username:
-      </label>
-      <input type="text" className='clearField' onChange={(e) => this.handleUsernameChange(e)}/>
-      <button id="submit" onClick={() => this.signUp()}>
-        Sign-Up
-      </button>
-      <div className="authError">
-        {this.state.authError}
-      </div>
-    </div>);
+    return (
+      <section className="hero is-default is-fullheight">
+        <div className="hero-body">
+          <div className="container has-text-centered">
+            <Grid container>
+              <Grid item sm={12} md={3} lg={3} />
+              <Grid item sm={12} md={6} lg={6}>
+                <h3 className="title has-text-grey">Create a New Account</h3>
+                <div className="box">
+                  <form>
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          className="input is-large clearField"
+                          type="email"
+                          name="email"
+                          placeholder="Your Email"
+                          onChange={e => this.handleEmailChange(e)}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          className="input is-large clearField"
+                          type="username"
+                          name="username"
+                          placeholder="Your Username"
+                          onChange={e => this.handleUsernameChange(e)}
+                        />
+                      </div>
+                    </div>
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          className="input is-large clearField"
+                          type="password"
+                          name="password"
+                          placeholder="Your Password"
+                          onChange={e => this.handlePasswordChange(e)}
+                        />
+                      </div>
+                    </div>
+                    <a id='submit'
+                      onClick={() => this.signUp()}
+                      className="button is-block is-primary is-large is-fullwidth"
+                    >
+                    Sign Up
+                    </a>
+
+                  </form>
+                  <div className="authError">
+                        <h3 className="title has-text-red">      {this.state.authError} </h3>
+                  </div>
+                </div>
+                <p className="has-text-grey">
+                  <Link to="/login">Login</Link> &nbsp;·&nbsp;
+                  <Link to="/">Forgot Password</Link>
+                </p>
+              </Grid>
+              <Grid item sm={12} md={3} lg={3} />
+            </Grid>
+          </div>
+        </div>
+      </section>
+
+  );
   }
 }
 
