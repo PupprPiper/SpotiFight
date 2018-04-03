@@ -20,6 +20,7 @@ class PokeballFinderClient extends Component {
 
     return (<div align = 'center'>
     {console.log('pokemon state', this.state)}
+    
       <canvas id="canvas" width="460" height="460"></canvas>
     </div>)
   }

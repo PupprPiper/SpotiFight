@@ -169,7 +169,7 @@ class Lobby extends Component {
 
   render() {
     return (
-      <div>
+      <div style = {{marginTop:'1%'}}>
         <Grid container>
           <Grid item md={3}>
             <Grid>
