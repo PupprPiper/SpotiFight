@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Grid } from './grid';
+import { FlappyGrid } from './grid';
+import { Grid } from './../../Global/Material-Globals';
 import { Button } from './../../Global/Material-Globals';
 import io from 'socket.io-client';
+import { connect } from 'react-redux';
 import './Flappy.scss';
 
 import {
@@ -11,11 +13,12 @@ import {
   createTowers,
   moveTowers,
   checkCeilingAndFloor,
-  banStyle
+  banStyle,
+  winnerStyle
 } from './gameHelpers';
 import PlayerStatus from './playerStatus';
 
-export default class Flappy extends Component {
+class Flappy extends Component {
   constructor(props) {
     super(props);
 
@@ -36,7 +39,7 @@ export default class Flappy extends Component {
       socket: this.props.socket,
       opponents: {},
       temp: {},
-      winner: ''
+      winner: null
     };
 
     this.timerId = setInterval(() => {
@@ -85,10 +88,17 @@ export default class Flappy extends Component {
         towers: towersCopy,
         score: this.state.score + 1
       });
-    }, 200);
+    }, 150);
   }
 
   componentDidMount() {
+    this.props.socket.on('WINNER_SERVER', data => {
+      this.setState({ winner: data.winner });
+      if (this.props.localUser === data.winner) {
+        this.props.socket.emit('SEND_WINNER_SONG', this.props.mySong);
+      }
+    });
+
     this.props.socket.on('CRASHED', data => {
       const temp = this.state.temp;
       this.state.opponents[data.username] = data;
@@ -96,7 +106,7 @@ export default class Flappy extends Component {
 
       if (Object.keys(temp).length === 1) {
         console.log('we have a winner!!!!', Object.keys(temp)[0]);
-        this.props.socket.emit('FLAPPY_WINNER', Object.keys(temp)[0]);
+        this.props.socket.emit('WINNER_CLIENT', Object.keys(temp)[0]);
       }
 
       this.setState({ opponents: this.state.opponents, temp: this.state.temp });
@@ -122,21 +132,45 @@ export default class Flappy extends Component {
   }
 
   render() {
+    const { winner } = this.state;
+    if (winner) {
+      return <div style={winnerStyle}>{winner} IS THE WINNER!</div>;
+    }
+
     return (
-      <div>
-        {this.state.crashed ? (
+      <Grid container>
+        <Grid item sm={12} md={3} align="center">
           <div>
-            Game Over! <h1>score: {this.state.score}</h1>
-            <div style={banStyle} />
+            <PlayerStatus opponents={this.state.opponents} />
           </div>
-        ) : (
-          <div onClick={() => this.handleClick()}>
-            <Grid grid={this.state.grid} />
-            {this.state.score}
-          </div>
-        )}
-        <PlayerStatus opponents={this.state.opponents} />
-      </div>
+        </Grid>
+        <Grid item sm={12} md={6} align="center">
+          {this.state.crashed ? (
+            <div style={{ fontSize: '6em' }}>
+              Game Over! <h1>score: {this.state.score}</h1>
+              <div style={banStyle} />
+            </div>
+          ) : (
+            <div onClick={() => this.handleClick()}>
+              <h2 style={{ fontSize: '6em' }}>{this.state.score}</h2>
+              <FlappyGrid grid={this.state.grid} />
+            </div>
+          )}
+        </Grid>
+        <Grid item sm={12} md={3} />
+      </Grid>
     );
   }
+
 }
+
+const mapStateToProps = function(state) {
+  return {
+    mySong: state.mySong
+  };
+};
+
+export default connect(mapStateToProps)(Flappy);
+
+}
+

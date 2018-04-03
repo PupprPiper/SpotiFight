@@ -7,7 +7,7 @@ const PlayerStatus = ({ opponents }) => {
   let usernames = Object.keys(opponents);
 
   return (
-    <div>
+    <div style={{paddingBottom: '20px'}}>
       {usernames.map((username, i) => {
         {/* console.log('opponents username', opponents[username]); */}
         return <PlayerStatusItem opponent={opponents[username]} key={i} />;

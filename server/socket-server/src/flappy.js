@@ -9,8 +9,10 @@ module.exports = {
     });
   },
   updateWinner: (client, users, connections, io) => {
-    client.on('FLAPPY_WINNER', data => {
-      io.in(client.handshake.query.roomId).emit('WINNER');
+    client.on('WINNER_CLIENT', data => {
+      io
+        .in(client.handshake.query.roomId)
+        .emit('WINNER_SERVER', { winner: data });
     });
   }
 };

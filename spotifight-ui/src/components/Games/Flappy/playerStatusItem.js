@@ -13,7 +13,7 @@ const PlayerStatusItem = ({ opponent }) => {
         <div style={opponentBanStyle}>{opponent.username} LOSES! </div>
       ) : (
         <div style={thumbnailStyle}>
-          <img src={Bird} />
+          <img src={Bird} /> {opponent.username}
         </div>
       )}
     </div>
