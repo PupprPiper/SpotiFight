@@ -66,6 +66,8 @@ GameRoom.sendWinnerSong(client, io, userObject)
 
   // START FLAPPY
   Flappy.updateCrashed(client, users, connections, io);
+  Flappy.updateWinner(client, users, connections, io);
+
   // END FLAPPY
 });
 
