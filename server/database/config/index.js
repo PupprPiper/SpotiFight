@@ -2,7 +2,7 @@ const pg = require('pg');
 const Promise = require('bluebird')
 
 const config = {
-  user: 'postgres',
+  user: 'root',
   host: 'localhost',
   database: 'spotifight',
   password: '123',
