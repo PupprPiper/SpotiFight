@@ -36,7 +36,7 @@ export default class Flappy extends Component {
       socket: this.props.socket,
       opponents: {},
       temp: {},
-      winner: null
+      winner: ''
     };
 
     this.timerId = setInterval(() => {
@@ -90,8 +90,15 @@ export default class Flappy extends Component {
 
   componentDidMount() {
     this.props.socket.on('CRASHED', data => {
+      const temp = this.state.temp;
       this.state.opponents[data.username] = data;
-      delete this.state.temp[data.username];
+      delete temp[data.username];
+
+      if (Object.keys(temp).length === 1) {
+        console.log('we have a winner!!!!', Object.keys(temp)[0]);
+        this.props.socket.emit('FLAPPY_WINNER', Object.keys(temp)[0]);
+      }
+
       this.setState({ opponents: this.state.opponents, temp: this.state.temp });
     });
     let obj = {};
@@ -115,20 +122,6 @@ export default class Flappy extends Component {
   }
 
   render() {
-    const { temp } = this.state;
-    const players = Object.keys(temp);
-
-    if (players.length === 1) {
-      return (
-        <div style={{ fontSize: '6em' }}>
-          we have a winner!!!
-          {players.map((player, i) => {
-            return <div key={i}>player: {player}</div>;
-          })}
-        </div>
-      );
-    }
-
     return (
       <div>
         {this.state.crashed ? (
