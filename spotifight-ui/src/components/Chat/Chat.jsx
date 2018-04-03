@@ -87,7 +87,7 @@ class Chat extends Component {
 
             <List className = {`scrollBottom ${this.props.classes.chatList}`}>
               {this.state.messages.map((message, index) => {
-                return  <Paper key={index}><div align = 'left'> {message} </div></Paper>;
+                return  <div key={index}><div align = 'left'> {message} </div></div>;
               })}
             </List>
             <div align = 'center'>
