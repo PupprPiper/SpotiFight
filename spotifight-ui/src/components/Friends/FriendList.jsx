@@ -24,6 +24,7 @@ import {
 } from '../../actions/index';
 import FriendListItem from './FriendListItem.jsx';
 import PendingFriendListItem from './PendingFriendListItem.jsx';
+import SearchListItem from './SearchListItem.jsx';
 import axios from 'axios';
 
 class FriendList extends Component {
@@ -76,23 +77,9 @@ class FriendList extends Component {
               {this.props.friends
                 ? this.props.friends.map((friend, i) => {
                     return (
-                      <Paper>
+                      <Paper key={i} >
                       <FriendListItem fetchAllFriends={this.fetchAllFriends} friend={friend}/>
                       </Paper>
-                      // <ListItem key={i}>
-                      //   {friend.username}
-                      //   <button
-                      //     onClick={async () => {
-                      //       await removeFriend(
-                      //         this.props.userProfile.id,
-                      //         friend.id
-                      //       );
-                      //       this.fetchAllFriends();
-                      //     }}
-                      //   >
-                      //     Remove Friend
-                      //   </button>
-                      // </ListItem>
                     );
                   })
                 : null}
@@ -104,34 +91,9 @@ class FriendList extends Component {
               {this.props.pendingFriends
                 ? this.props.pendingFriends.map((friend, i) => {
                     return (
-                      <Paper>
+                      <Paper key={i}>
                       <PendingFriendListItem fetchAllFriends={this.fetchAllFriends} friend={friend}/>
                       </Paper>
-                      // <ListItem key={i}>
-                      //   {friend.username}
-                      //   <button
-                      //     onClick={async () => {
-                      //       await acceptFriend(
-                      //         this.props.userProfile.id,
-                      //         friend.id
-                      //       );
-                      //       this.fetchAllFriends();
-                      //     }}
-                      //   >
-                      //     Accept
-                      //   </button>
-                      //   <button
-                      //     onClick={async () => {
-                      //       await rejectFriend(
-                      //         this.props.userProfile.id,
-                      //         friend.id
-                      //       );
-                      //       this.fetchAllFriends();
-                      //     }}
-                      //   >
-                      //     Reject
-                      //   </button>
-                      // </ListItem>
                     );
                   })
                 : null}
@@ -154,25 +116,7 @@ class FriendList extends Component {
             {this.props.filteredUsers
               ? this.props.filteredUsers.map((user, i) => {
                   return (
-                    <div key={i}>
-                      <li>{user.username}</li>
-                      <button
-                        onClick={async () => {
-                          if (this.props.userProfile.id !== user.id) {
-                            await requestFriend(
-                              this.props.userProfile.id,
-                              user.id
-                            );
-                            this.props.updateSearchInput('');
-                            this.props.updateFilteredUsers(null);
-                          } else {
-                            console.log("Can't add self as friend");
-                          }
-                        }}
-                      >
-                        Request
-                      </button>
-                    </div>
+                    <SearchListItem fetchAllFriends={this.fetchAllFriends} user={user}/>
                   );
                 })
               : null}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Button from './../Global/Material-Globals';
+import {Button} from './../Global/Material-Globals';
 import {
   requestFriend,
   acceptFriend,
@@ -39,14 +39,22 @@ class PendingFriendListItem extends Component {
                     wins: {this.props.friend.wins} losses: {this.props.friend.losses}
                   </small>
                 </p>
-                  <button
+                  <Button
+                    onClick={async () => {
+                      await acceptFriend(this.props.userProfile.id, this.props.friend.id);
+                      this.props.fetchAllFriends();
+                    }}
+                  >
+                    Accept
+                  </Button>
+                  <Button
                     onClick={async () => {
                       await rejectFriend(this.props.userProfile.id, this.props.friend.id);
                       this.props.fetchAllFriends();
                     }}
                   >
                     Reject
-                  </button>
+                  </Button>
               </div>
               <nav className="level">
                 <div className="level-left">

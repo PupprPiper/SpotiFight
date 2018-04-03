@@ -16,7 +16,7 @@ import {
   updateSearchInput
 } from '../../actions/index';
 
-class FriendListItem extends Component {
+class SearchListItem extends Component {
     constructor(props){
         super(props)
     }
@@ -26,26 +26,30 @@ class FriendListItem extends Component {
           <article className="media">
             <div className="media-left">
               <figure className="image is-64x64">
-                <img src={this.props.friend.avatar_url} alt="Image" />
+                <img src={this.props.user.avatar_url} alt="Image" />
               </figure>
             </div>
             <div className="media-content">
               <div className="content">
                 <p>
-                  <strong style={{ fontSize: '20px' }}>{this.props.friend.username}</strong>
-                  <small style={{ float: 'right' }}>{this.props.friend.status}</small>
+                  <strong style={{ fontSize: '20px' }}>{this.props.user.username}</strong>
+                  <small style={{ float: 'right' }}>{this.props.user.status}</small>
                   <br />
                   <small>
-                    wins: {this.props.friend.wins} losses: {this.props.friend.losses}
+                    wins: {this.props.user.wins} losses: {this.props.user.losses}
                   </small>
                 </p>
                   <Button
                     onClick={async () => {
-                      await removeFriend(this.props.userProfile.id, this.props.friend.id);
-                      this.props.fetchAllFriends();
+                      if(this.props.userProfile.id !== this.props.user.id){
+                        await requestFriend(this.props.userProfile.id, this.props.user.id);
+                        this.props.fetchAllFriends();
+                      }else{
+                        console.log('Can\'t add self as friend')
+                      }
                     }}
                   >
-                    Remove Friend
+                     Send Friend Request
                   </Button>
               </div>
               <nav className="level">
@@ -97,4 +101,4 @@ const mapStateToProps = function(state) {
     );
   };
 
-  export default connect(mapStateToProps, mapDispatchToProps)(FriendListItem);
+  export default connect(mapStateToProps, mapDispatchToProps)(SearchListItem);
