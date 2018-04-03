@@ -2,6 +2,12 @@ import Ban from './ban.png';
 
 export let bird = { height: 10, position: 2 };
 
+export let asteroids = [
+  { position: 29, vertical: 12 },
+  { position: 22, vertical: 14 },
+  { position: 19, vertical: 10 }
+];
+
 export let towers = [
   { position: 29, height: 3, upright: false },
   { position: 26, height: 5, upright: true },
@@ -17,7 +23,7 @@ export let banStyle = {
   background: `url(${Ban}) no-repeat center center`,
   backgroundSize: 'contain',
   width: '400px',
-  height: '400px',
+  height: '400px'
 };
 
 export let opponentBanStyle = {
@@ -29,8 +35,6 @@ export let opponentBanStyle = {
 };
 
 export let thumbnailStyle = {
-  // background: `url(${url}) no-repeat center center`,
-  // backgroundSize: 'contain',
   width: '100px',
   height: '100px',
   textAlign: 'center'
@@ -65,6 +69,22 @@ export let moveTowers = towersCopy => {
     if (towersCopy[i].position < 0) {
       towersCopy[i].position = 29;
       towersCopy[i].height = Math.floor(Math.random() * 7) + 3;
+    }
+  }
+};
+
+export let createAsteroids = (gridCopy, asteroidsCopy) => {
+  for (let i = 0; i < asteroidsCopy.length; i++) {
+    gridCopy[asteroidsCopy[i].vertical][asteroidsCopy[i].position] = 'red';
+  }
+};
+
+export let moveAsteroids = asteroidsCopy => {
+  for (let i = 0; i < asteroidsCopy.length; i++) {
+    asteroidsCopy[i].position--;
+    if (asteroidsCopy[i].position < 0) {
+      asteroidsCopy[i].position = 29;
+      asteroidsCopy[i].vertical = Math.floor(Math.random() * 5 + 10);
     }
   }
 };

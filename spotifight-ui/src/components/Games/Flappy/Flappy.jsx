@@ -7,13 +7,16 @@ import { connect } from 'react-redux';
 import './Flappy.scss';
 
 import {
+  asteroids,
+  banStyle,
   bird,
-  towers,
+  checkCeilingAndFloor,
   createGrid,
   createTowers,
+  createAsteroids,
   moveTowers,
-  checkCeilingAndFloor,
-  banStyle,
+  moveAsteroids,
+  towers,
   winnerStyle
 } from './gameHelpers';
 import PlayerStatus from './playerStatus';
@@ -32,9 +35,10 @@ class Flappy extends Component {
     this.state = {
       grid,
       bird,
+      towers,
+      asteroids,
       crashed: false,
       score: 0,
-      towers,
       user: this.props.localUser,
       socket: this.props.socket,
       opponents: {},
@@ -49,12 +53,15 @@ class Flappy extends Component {
 
       let gridCopy = [];
       let towersCopy = this.state.towers.slice();
+      let asteroidsCopy = this.state.asteroids.slice();
       let birdCopy = this.state.bird;
       let crashed = false;
       // towers
       createGrid(gridCopy, towersCopy);
       createTowers(gridCopy, towersCopy);
       moveTowers(towersCopy);
+      createAsteroids(gridCopy, asteroidsCopy);
+      moveAsteroids(asteroidsCopy);
 
       birdCopy.height++;
 
@@ -65,7 +72,10 @@ class Flappy extends Component {
       }
 
       for (let i = 0; i < 20; i++) {
-        if (gridCopy[i][2] === 'blue' && birdCopy.height === i) {
+        if (
+          (gridCopy[i][2] === 'blue' && birdCopy.height === i) ||
+          (gridCopy[i][2] === 'red' && birdCopy.height === i)
+        ) {
           birdCopy.height = 10;
           crashed = true;
         }
