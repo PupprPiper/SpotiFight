@@ -13,10 +13,6 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-router.get("/", (req, res) => {
-  res.send("you have reached friends");
-});
-
 router.route("/requestFriend").post(friendsController.requestFriend);
 
 router

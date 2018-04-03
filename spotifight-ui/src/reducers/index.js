@@ -21,20 +21,13 @@ const allReducers = combineReducers({
   mySong: mySongReducer,
   flappy: flappyReducer,
   songSelections: songSelectionsReducer,
-<<<<<<< HEAD
   // socket: storeSocketReducer
-=======
   socket: storeSocketReducer,
   friends: updateFriendsReducer,
   pendingFriends: updatePendingFriendsReducer,
   filteredUsers: filteredUsersReducer,
-<<<<<<< HEAD
-  allUsers: allUsersReducer
->>>>>>> refactoring with redux
-=======
   allUsers: allUsersReducer,
   searchInput: searchInputReducer
->>>>>>> saving progress
 });
 
 export default allReducers;

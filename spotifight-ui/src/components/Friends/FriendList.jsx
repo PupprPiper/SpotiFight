@@ -46,7 +46,6 @@ class FriendList extends Component {
 
   filterUsers() {
     var filtered = this.props.allUsers.data.filter(user => {
-      console.log('USER HERE ', user);
       return user.username
         .toLowerCase()
         .includes(this.props.searchInput.toLowerCase());
@@ -65,7 +64,6 @@ class FriendList extends Component {
   render() {
     return (
       <div>
-        {console.log('HERE ARE ALL THE PROPS ', this.props)}
         <Grid container spacing={24}>
           <Grid align="center" item xs={4}>
             <h3>Your Friends</h3>
