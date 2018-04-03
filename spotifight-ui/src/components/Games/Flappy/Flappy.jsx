@@ -26,22 +26,18 @@ export default class Flappy extends Component {
 
     grid[bird.height][bird.position] = 'yellow';
 
-    let socket = this.props.socket;
-
     this.state = {
-      grid: grid,
-      bird: bird,
+      grid,
+      bird,
       crashed: false,
       score: 0,
       towers,
       user: this.props.localUser,
-      opponents: {}
+      socket: this.props.socket,
+      opponents: {},
+      temp: {},
+      winner: ''
     };
-
-    socket.on('CRASHED', data => {
-      this.state.opponents[data.username] = data;
-      this.setState({ opponents: this.state.opponents });
-    });
 
     this.timerId = setInterval(() => {
       if (this.state.crashed) {
@@ -75,7 +71,7 @@ export default class Flappy extends Component {
       if (crashed) {
         this.setState({ crashed: true });
 
-        socket.emit('PLAYER_CRASHED', {
+        this.props.socket.emit('PLAYER_CRASHED', {
           username: this.props.localUser,
           crashed: true
         });
@@ -93,12 +89,26 @@ export default class Flappy extends Component {
   }
 
   componentDidMount() {
+    this.props.socket.on('CRASHED', data => {
+      const temp = this.state.temp;
+      this.state.opponents[data.username] = data;
+      delete temp[data.username];
+
+      if (Object.keys(temp).length === 1) {
+        console.log('we have a winner!!!!', Object.keys(temp)[0]);
+        this.props.socket.emit('FLAPPY_WINNER', Object.keys(temp)[0]);
+      }
+
+      this.setState({ opponents: this.state.opponents, temp: this.state.temp });
+    });
     let obj = {};
+
     this.props.players.forEach(player => {
       obj[player.username] = { username: player.username, crashed: false };
     });
     this.setState({
-      opponents: obj
+      opponents: Object.assign({}, obj),
+      temp: Object.assign({}, obj)
     });
   }
 
@@ -112,26 +122,20 @@ export default class Flappy extends Component {
   }
 
   render() {
-    let gameOver = (
-      <div>
-        Game Over! <h1>score: {this.state.score}</h1>
-        <div style={banStyle} />
-        <PlayerStatus opponents={this.state.opponents} />
-      </div>
-    );
-
-    let gameOn = (
-      <div>
-        {/* <Grid grid={this.state.grid} style={banStyle} /> */}
-        <Grid grid={this.state.grid} />
-        {this.state.score}
-        <PlayerStatus opponents={this.state.opponents} />
-      </div>
-    );
-
     return (
-      <div onClick={() => this.handleClick()}>
-        {this.state.crashed ? gameOver : gameOn}
+      <div>
+        {this.state.crashed ? (
+          <div>
+            Game Over! <h1>score: {this.state.score}</h1>
+            <div style={banStyle} />
+          </div>
+        ) : (
+          <div onClick={() => this.handleClick()}>
+            <Grid grid={this.state.grid} />
+            {this.state.score}
+          </div>
+        )}
+        <PlayerStatus opponents={this.state.opponents} />
       </div>
     );
   }

@@ -1,14 +1,16 @@
 const express = require('express');
 
 module.exports = {
-  updateCrashed: (client, users, connections, flappyGame, io) => {
+  updateCrashed: (client, users, connections, io) => {
     client.on('PLAYER_CRASHED', data => {
-      io.emit('CRASHED', { username: data.username, crashed: data.crashed });
+      io
+        .in(client.handshake.query.roomId)
+        .emit('CRASHED', { username: data.username, crashed: data.crashed });
     });
   },
-  updateGrid: (client, users, connections, flappyGame, io) => {
-    client.on('TO_SERVER_GRID', data => {
-      io.emit('TO_CLIENT_GRID', data);
+  updateWinner: (client, users, connections, io) => {
+    client.on('FLAPPY_WINNER', data => {
+      io.in(client.handshake.query.roomId).emit('WINNER');
     });
   }
 };

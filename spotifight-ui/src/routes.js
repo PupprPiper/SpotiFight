@@ -29,6 +29,7 @@ import UserProfile from './components/UserProfile/UserProfile';
 import Friends from './components/Friends/Friends';
 import Flappy from './components/Games/Flappy/Flappy';
 import Verify from './components/Auth/Verify';
+import CountDown from './components/Games/CountDown';
 
 // import store from './components/Games/Flappy/store';
 const store = 'test';
@@ -95,6 +96,13 @@ const appRoutes = [
     icon: AccountBox,
     component: UserProfile,
     protected: true
+  },
+  {
+    path: `/count-down`,
+    sidebarName: 'Count Down',
+    component: CountDown,
+    protected: true,
+    hidden: true
   },
   {
     to: '/landing-page',
