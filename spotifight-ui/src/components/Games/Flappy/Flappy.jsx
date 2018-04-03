@@ -27,28 +27,17 @@ export default class Flappy extends Component {
     grid[bird.height][bird.position] = 'yellow';
 
     this.state = {
-      grid: grid,
-      bird: bird,
+      grid,
+      bird,
       crashed: false,
       score: 0,
       towers,
       user: this.props.localUser,
+      socket: this.props.socket,
       opponents: {},
-      socket: this.props.socket
+      temp: {},
+      winner: null
     };
-
-    let obj = {};
-    // console.log('players--->',this.props.players)
-    this.props.players.forEach(player => {
-      obj[player.username] = { username: player.username, crashed: false };
-    });
-    
-    this.setState({ opponents: obj });
-
-    this.props.socket.on('CRASHED', data => {
-      this.state.opponents[data.username] = data;
-      this.setState({ opponents: this.state.opponents });
-    });
 
     this.timerId = setInterval(() => {
       if (this.state.crashed) {
@@ -99,7 +88,22 @@ export default class Flappy extends Component {
     }, 200);
   }
 
-  componentWillMount() {}
+  componentDidMount() {
+    this.props.socket.on('CRASHED', data => {
+      this.state.opponents[data.username] = data;
+      delete this.state.temp[data.username];
+      this.setState({ opponents: this.state.opponents, temp: this.state.temp });
+    });
+    let obj = {};
+
+    this.props.players.forEach(player => {
+      obj[player.username] = { username: player.username, crashed: false };
+    });
+    this.setState({
+      opponents: Object.assign({}, obj),
+      temp: Object.assign({}, obj)
+    });
+  }
 
   handleClick() {
     if (this.state.crashed) {
@@ -111,19 +115,19 @@ export default class Flappy extends Component {
   }
 
   render() {
-    // let gameOver = (
-    //   <div>
-    //     Game Over! <h1>score: {this.state.score}</h1>
-    //     <div style={banStyle} />
-    //   </div>
-    // );
+    const { temp } = this.state;
+    const players = Object.keys(temp);
 
-    // let gameOn = (
-    //   <div onClick={() => this.handleClick()}>
-    //     <Grid grid={this.state.grid} />
-    //     {this.state.score}
-    //   </div>
-    // );
+    if (players.length === 1) {
+      return (
+        <div style={{ fontSize: '6em' }}>
+          we have a winner!!!
+          {players.map((player, i) => {
+            return <div key={i}>player: {player}</div>;
+          })}
+        </div>
+      );
+    }
 
     return (
       <div>

@@ -113,8 +113,9 @@ class GameRoom extends Component {
     this.socket.emit('startGameHost', this.props.game);
     this.setState({
       currRoom: games[this.props.game]
-    });
+    });    
   }
+
   lobbyReturn() {
     this.setState({currRoom: Lobby});
   }
