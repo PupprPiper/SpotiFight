@@ -48,12 +48,6 @@ export default class rpsls extends Component {
     this.makeChoice = this.makeChoice.bind(this);
   }
   componentDidMount() {
-    console.log(
-      "LEFT PLAYERS ",
-      this.props.leftPlayers,
-      "RIGHT PLAYERS ",
-      this.props.rightPlayers
-    );
     this.props.socket.on("oppChoice", data => {
       if (data.user !== this.props.localUser) {
         this.setState({ opp: data.user, oppChoice: data.choice });

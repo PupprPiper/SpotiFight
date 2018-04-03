@@ -81,3 +81,22 @@
 //     to: '/home'
 //   }
 // ];
+
+
+
+
+//   <div id="sign-up">
+//   <h1>Sign up</h1>
+//   <label>email:
+//   </label>
+//   <input type="text" className='clearField' onChange={(e) => this.handleEmailChange(e)}/>
+//   <label>p/w:
+//   </label>
+//   <input type="password" className='clearField' onChange={(e) => this.handlePasswordChange(e)}/>
+//   <label>username:
+//   </label>
+//   <input type="text" className='clearField' onChange={(e) => this.handleUsernameChange(e)}/>
+//   <button id="submit" onClick={() => this.signUp()}>
+//     Sign-Up
+//   </button>
+// </div>

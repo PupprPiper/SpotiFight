@@ -161,6 +161,7 @@ class Flappy extends Component {
       </Grid>
     );
   }
+
 }
 
 const mapStateToProps = function(state) {
@@ -170,3 +171,6 @@ const mapStateToProps = function(state) {
 };
 
 export default connect(mapStateToProps)(Flappy);
+
+}
+

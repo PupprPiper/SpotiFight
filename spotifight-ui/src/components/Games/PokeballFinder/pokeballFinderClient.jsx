@@ -1,17 +1,25 @@
 import React, {Component} from "react";
-import './pokeballFinder.js'
+import {pokemon, newPlayer} from './pokeballFinder.js'
 
 class PokeballFinderClient extends Component {
   constructor() {
     super()
-    this.state = {}
+    this.state = {
+      pokemonPlayers: []
+    }
   }
   componentDidMount() {
-    window.onload()
+    pokemon()
+
+    this.props.players.forEach(item => {
+      this.state.pokemonPlayers.push(Object.assign({}, newPlayer))
+    })
+
   }
   render() {
 
-    return (<div>
+    return (<div align = 'center'>
+    {console.log('pokemon state', this.state)}
       <canvas id="canvas" width="460" height="460"></canvas>
     </div>)
   }

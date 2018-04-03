@@ -39,7 +39,7 @@ class AppTitleBar extends Component {
       this.props.storeCurrentUser(null);
       this.setState({ isLoggedIn: false });
       localStorage.clear();
-      window.location.replace('/login');
+      window.location.replace('/');
     } catch (error) {
       console.log(error);
     }
