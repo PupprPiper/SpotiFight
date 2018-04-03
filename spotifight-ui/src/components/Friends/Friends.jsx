@@ -6,7 +6,6 @@ class Friends extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user_id: null,
     };
   }
 

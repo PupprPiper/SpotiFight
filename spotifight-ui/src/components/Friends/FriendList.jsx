@@ -9,9 +9,10 @@ import {
   ListItemSecondaryAction,
   Divider,
   Avatar,
-  Checkbox
+  Checkbox,
+  Paper
 } from './../Global/Material-Globals';
-import { requestFriend, acceptFriend, removeFriend } from './FriendListHelpers';
+import { requestFriend, acceptFriend, removeFriend, rejectFriend } from './FriendListHelpers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -21,6 +22,7 @@ import {
   updateAllUsers,
   updateSearchInput
 } from '../../actions/index';
+import FriendListItem from './FriendListItem.jsx';
 import axios from 'axios';
 
 class FriendList extends Component {
@@ -64,69 +66,73 @@ class FriendList extends Component {
   render() {
     return (
       <div>
-        <Grid container spacing={24}>
-          <Grid align="center" item xs={4}>
+        <Grid style={{marginTop: '5%'}} container spacing={24}>
+          <Grid align="center" item xs={12} md={4}>
             <h3>Your Friends</h3>
             <List>
               {this.props.friends
                 ? this.props.friends.map((friend, i) => {
                     return (
-                      <ListItem key={i}>
-                        {friend.username}
-                        <button
-                          onClick={async () => {
-                            await removeFriend(
-                              this.props.userProfile.id,
-                              friend.id
-                            );
-                            this.fetchAllFriends();
-                          }}
-                        >
-                          Remove Friend
-                        </button>
-                      </ListItem>
+                      <Paper>
+                      <FriendListItem friend={friend}/>
+                      </Paper>
+                      // <ListItem key={i}>
+                      //   {friend.username}
+                      //   <button
+                      //     onClick={async () => {
+                      //       await removeFriend(
+                      //         this.props.userProfile.id,
+                      //         friend.id
+                      //       );
+                      //       this.fetchAllFriends();
+                      //     }}
+                      //   >
+                      //     Remove Friend
+                      //   </button>
+                      // </ListItem>
                     );
                   })
                 : null}
             </List>
           </Grid>
-          <Grid align="center" item xs={4}>
+          <Grid align="center" item xs={12} md={4}>
             <h3>Pending Friend Requests</h3>
             <List>
               {this.props.pendingFriends
                 ? this.props.pendingFriends.map((friend, i) => {
                     return (
-                      <ListItem key={i}>
-                        {friend.username}
-                        <button
-                          onClick={async () => {
-                            await acceptFriend(
-                              this.props.userProfile.id,
-                              friend.id
-                            );
-                            this.fetchAllFriends();
-                          }}
-                        >
-                          Accept
-                        </button>
-                        <button
-                          onClick={async () => {
-                            await removeFriend(
-                              this.props.userProfile.id,
-                              friend.id
-                            );
-                            this.fetchAllFriends();
-                          }}
-                        >
-                          Reject
-                        </button>
-                      </ListItem>
+                      <FriendListItem friend={friend}/>
+                      // <ListItem key={i}>
+                      //   {friend.username}
+                      //   <button
+                      //     onClick={async () => {
+                      //       await acceptFriend(
+                      //         this.props.userProfile.id,
+                      //         friend.id
+                      //       );
+                      //       this.fetchAllFriends();
+                      //     }}
+                      //   >
+                      //     Accept
+                      //   </button>
+                      //   <button
+                      //     onClick={async () => {
+                      //       await rejectFriend(
+                      //         this.props.userProfile.id,
+                      //         friend.id
+                      //       );
+                      //       this.fetchAllFriends();
+                      //     }}
+                      //   >
+                      //     Reject
+                      //   </button>
+                      // </ListItem>
                     );
                   })
                 : null}
             </List>
           </Grid>
-          <Grid align="center" item xs={4}>
+          <Grid align="center" item xs={12} md={4}>
             <input
               type="text"
               value={this.props.searchInput}

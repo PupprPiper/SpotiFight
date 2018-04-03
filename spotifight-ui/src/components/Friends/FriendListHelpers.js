@@ -31,3 +31,19 @@ export const removeFriend = async (myId, friendId) => {
     body
   );
 }
+
+export const rejectFriend = async (myId, friendId) => {
+  var body = {
+    data: {
+      user_id: myId,
+      friend_id: friendId
+    }
+  };
+
+  await axios.delete(
+    `http://localhost:3000/friends/rejectFriend/${
+      myId
+    }/${friendId}`,
+    body
+  );
+}

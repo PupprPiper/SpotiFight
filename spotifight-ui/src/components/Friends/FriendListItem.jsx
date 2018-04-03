@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-
-const FriendListItem = () => { 
-  return   (<article className="media">
+import {Paper} from './../Global/Material-Globals';
+const FriendListItem = ({friend}) => { 
+  return   (
+      <Paper>
+  <article className="media">
   <div className="media-left">
       <figure className="image is-64x64">
-          <img src="http://placehold.it/128x128" alt="Image"/>
+          <img src={friend.avatar_url} alt="Image"/>
       </figure>
   </div>
   <div className="media-content">
       <div className="content">
           <p>
-              <strong>John Smith</strong>
-              <small>@johnsmith</small>
-              <small style="float:right;">31m</small>
-              <br/> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet
-              massa fringilla egestas. Nullam condimentum luctus turpis.
+              <strong style={{fontSize: '20px'}}>{friend.username}</strong>
+              <small style={{float: "right"}}>{friend.status}</small>
+              <br/>
+              <small>wins: {friend.wins} losses: {friend.losses}</small>
           </p>
       </div>
       <nav className="level">
@@ -37,7 +38,9 @@ const FriendListItem = () => {
           </div>
       </nav>
   </div>
-</article>)
+</article>
+</Paper>
+)
 }
 
 export default FriendListItem;

@@ -12,6 +12,11 @@ module.exports = {
     var data = await db.queryAsync(queryString)
     res.send("delete friend received");
   },
+  rejectFriend: async (req, res) => {
+    var queryString = helpers.rejectFriendHelper(req);
+    var data = await db.queryAsync(queryString)
+    res.send("reject friend received");
+  },
   fetchAllFriends: async (req, res) => {
     var queryString = helpers.fetchAllFriendsHelper(req);
     var data = await db.queryAsync(queryString);
