@@ -13,6 +13,7 @@ import { bindActionCreators } from 'redux';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 import Verify from '../Auth/Verify.jsx';
+import lobbyHelpers from './LobbyHelpers'
 
 import {
   List,
@@ -97,6 +98,7 @@ class Lobby extends Component {
           this.setState({ songChoices: this.props.songSelections });
         }
       });
+
     }
   }
 
@@ -119,6 +121,7 @@ class Lobby extends Component {
           songPreview: data.data.tracks.items[0].preview_url,
           topTen: data.data.tracks.items
         });
+
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
         console.log('SONG SELECTIONS HERE ', this.props.songSelections);
         var temp = Object.assign({}, this.props.songSelections);
@@ -126,6 +129,7 @@ class Lobby extends Component {
         temp[this.props.localUser] = data.data.tracks.items[0].name;
         this.setState({ songChoices: temp });
         this.props.socket.emit('sendSongChoices', temp);
+
       });
     });
   }
@@ -145,6 +149,7 @@ class Lobby extends Component {
     if (e.preview_url === null) {
       alert('This song does not have a preview URL on spotify');
     }
+
     this.setState({
       song: e,
       songURI: e.uri,
@@ -181,7 +186,8 @@ class Lobby extends Component {
             </div>
             {!this.state.songURI ? null : (
               <div align="center">
-                <iframe
+          
+                <iframe id="spotiplayer"
                   src={`https://open.spotify.com/embed?uri=${
                     this.state.songURI
                   }`}
@@ -190,6 +196,7 @@ class Lobby extends Component {
                   frameBorder="0"
                   allowtransparency="true"
                   allow="encrypted-media"
+
                 />
                 {/* <audio src = {this.state.songPreview} autoPlay/> */}
               </div>
