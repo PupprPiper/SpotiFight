@@ -1,7 +1,5 @@
-// import express from 'express';
 const express = require('express');
 
-// import { friendsController } from './friendsControllers';
 const friendsController = require('./friendsController');
 const router = express.Router();
 
@@ -15,18 +13,24 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-// router.get('/', (req, res) => {
-//   res.send('you have reached friends');
-// });
-
-router.route('/addFriend').post(friendsController.addFriend);
+router.route('/requestFriend').post(friendsController.requestFriend);
 
 router
   .route('/fetchAllFriends/:user_id')
   .get(friendsController.fetchAllFriends);
 
 router
+  .route('/fetchAllPendingFriends/:user_id')
+  .get(friendsController.fetchAllPendingFriends);
+
+router
   .route('/deleteFriend/:user_id/:friend_id')
   .delete(friendsController.deleteFriend);
+
+router
+  .route('/rejectFriend/:user_id/:friend_id')
+  .delete(friendsController.rejectFriend);
+
+router.route('/acceptFriend').put(friendsController.acceptFriend);
 
 module.exports = router;
