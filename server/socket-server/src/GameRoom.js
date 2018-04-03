@@ -20,6 +20,12 @@ module.exports ={
     });
   
 
+  },
+
+  returnToLobby: (client, io, users)=> {
+    client.on('RETURN_TO_LOBBY', data => {
+      io.in(client.handshake.query.roomId).emit('RETURN_ALL_TO_LOBBY', data)
+    });
   }
    
 

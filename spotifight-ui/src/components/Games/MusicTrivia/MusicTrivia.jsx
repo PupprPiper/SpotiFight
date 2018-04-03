@@ -7,6 +7,7 @@ import { gameSwitch, songSwitch } from "../../../actions/index";
 import axios from 'axios';
 import { List, ListItem} from '../../Global/Material-Globals'
 import { withStyles } from "material-ui/styles";
+import './MusicTrivia.scss'
 const mapStateToProps = function(state) {
   return {
     game: state.game,
@@ -100,11 +101,11 @@ class MusicTrivia extends Component {
      <List> { this.state.question.O ?
       
        this.state.question.O.map(item => {
-         return <div onClick ={()=>this.userAnswerChange(item)}> <ListItem className = {style.listItem}> {item} </ListItem>  </div>
+         return <div onClick ={()=>this.userAnswerChange(item)} className = 'musicItem'> {item} </div>
        }) : null
        }</List>
     </div>;
   }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(MusicTrivia)
+const styledMusicTrivia = withStyles(style)(MusicTrivia)
+export default connect(mapStateToProps, mapDispatchToProps)(styledMusicTrivia)

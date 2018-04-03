@@ -1,5 +1,5 @@
 
-window.onload = function() {
+export let pokemon = function() {
   "use strict";
 
   var canvas = document.getElementById("canvas");
@@ -35,7 +35,7 @@ window.onload = function() {
   var mainTheme = new Audio("https://www.dropbox.com/s/uru3oz9mxzpt5gx/main-theme.mp3?raw=1");
   mainTheme.loop = true;
   mainTheme.volume = 0.5;
-  mainTheme.play();
+  // mainTheme.play();
 
   //pokeball-selection
   var pokePick = new Audio("https://www.dropbox.com/s/weemcqn1wlxelll/pickup.mp3?raw=1");
@@ -239,6 +239,8 @@ window.onload = function() {
     console.log("y:", (player.y * objectSizes) / objectSizes);
     console.log("x", (player.x * objectSizes) / objectSizes);
     ctx.drawImage(playerImage, player.direction[player.currentDirection].x, player.direction[player.currentDirection].y, objectSizes - 2, objectSizes, player.x * objectSizes, player.y * objectSizes, objectSizes, objectSizes);
+    ctx.drawImage(playerImage,  newPlayer.direction[newPlayer.currentDirection].x,  newPlayer.direction[newPlayer.currentDirection].y, objectSizes - 2, objectSizes, newPlayer.x * objectSizes, newPlayer.y * objectSizes, objectSizes, objectSizes);
+
   }
 
   /**
@@ -305,6 +307,141 @@ window.onload = function() {
   /**
    * Assign of the arrow keys to call the player move
    */
+
+  const newPlayer = {
+    x: Math.round((w / 2) / objectSizes),
+    y: Math.round((h / 2) / objectSizes),
+    currentDirection: "stand",
+    direction: {
+      "stand": {
+        x: 0,
+        y: 0
+      },
+      "down-1": {
+        x: 17,
+        y: 0
+      },
+      "down-2": {
+        x: 34,
+        y: 0
+      },
+      "up-1": {
+        x: 125,
+        y: 0
+      },
+      "up-2": {
+        x: 142,
+        y: 0
+      },
+      "left-1": {
+        x: 69,
+        y: 0
+      },
+      "left-2": {
+        x: 87,
+        y: 0
+      },
+      "right-1": {
+        x: 160,
+        y: 0
+      },
+      "right-2": {
+        x: 178,
+        y: 0
+      }
+    },
+    move : function(direction) {
+
+      /**
+       * A temporary object to hold the current x, y so if there is a collision with the new coordinates to fallback here
+       */
+      var hold_player = {
+        x: newPlayer.x,
+        y: newPlayer.y
+      };
+      switch (direction) {
+        case "left":
+          newPlayer.x -= speed / modifier;
+          if (newPlayer.currentDirection == "stand") {
+            newPlayer.currentDirection = "left-1";
+          } else if (newPlayer.currentDirection == "left-1") {
+            newPlayer.currentDirection = "left-2";
+          } else if (newPlayer.currentDirection == "left-2") {
+            newPlayer.currentDirection = "left-1";
+          } else {
+            newPlayer.currentDirection = "left-1";
+          }
+          break;
+        case "right":
+          newPlayer.x += speed / modifier;
+          if (newPlayer.currentDirection == "stand") {
+            newPlayer.currentDirection = "right-1";
+          } else if (newPlayer.currentDirection == "right-1") {
+            newPlayer.currentDirection = "right-2";
+          } else if (newPlayer.currentDirection == "right-2") {
+            newPlayer.currentDirection = "right-1";
+          } else {
+            newPlayer.currentDirection = "right-1";
+          }
+          break;
+        case "up":
+          newPlayer.y -= speed / modifier;
+    
+          if (newPlayer.currentDirection == "stand") {
+            newPlayer.currentDirection = "up-1";
+          } else if (newPlayer.currentDirection == "up-1") {
+            newPlayer.currentDirection = "up-2";
+          } else if (newPlayer.currentDirection == "up-2") {
+            newPlayer.currentDirection = "up-1";
+          } else {
+            newPlayer.currentDirection = "up-1";
+          }
+    
+          break;
+        case "down":
+          newPlayer.y += speed / modifier;
+    
+          if (newPlayer.currentDirection == "stand") {
+            newPlayer.currentDirection = "down-1";
+          } else if (newPlayer.currentDirection == "down-1") {
+            newPlayer.currentDirection = "down-2";
+          } else if (newPlayer.currentDirection == "down-2") {
+            newPlayer.currentDirection = "down-1";
+          } else {
+            newPlayer.currentDirection = "down-1";
+          }
+    
+          break;
+      }
+          /**
+       * if there is a collision just fallback to the temp object i build before while not change back the direction so we can have a movement
+       */
+      if (check_collision(newPlayer.x, newPlayer.y)) {
+        newPlayer.x = hold_player.x;
+        newPlayer.y = hold_player.y;
+      }
+  
+      /**
+       * If newPlayer finds the coordinates of pokeball the generate new one, play the sound and update the score
+       */
+      if (newPlayer.x == pokeball.x && newPlayer.y == pokeball.y) { // found a pokeball !! create a new one
+        console.log("found a pokeball of " + pokeball.spritePosition + "! Bravo! ");
+        pokePick.pause();
+        pokePick.currentTime = 0;
+        pokePick.play();
+        score += 1;
+        pokeball.generatePosition();
+      }
+  
+      update();
+  }
+
+  }
+
+
+  console.log('newplay' ,newPlayer)
+  console.log("y:", (newPlayer.y * objectSizes) / objectSizes);
+  console.log("x", (newPlayer.x * objectSizes) / objectSizes);
   document.onkeydown = function(e) {
     e = e || window.event;
 
@@ -312,6 +449,23 @@ window.onload = function() {
     else if (e.keyCode == "38") player.move("up");
     else if (e.keyCode == "39") player.move("right");
     else if (e.keyCode == "40") player.move("down");
+    else if (e.keyCode == "87") newPlayer.move("up");
+    else if (e.keyCode == "65") newPlayer.move("left");
+    else if (e.keyCode == "68") newPlayer.move("right");
+    else if (e.keyCode == "83") newPlayer.move("down");
   };
-  const newPlayer = Object.create(player)
+  
 };
+
+
+//forEach player in the room, instantiate a new player object
+//put the move function inside each object
+
+//array of playerobjects, add username to each object as well
+//only host instantiates board
+//host emits board
+
+
+//onkeydown, socket.emit(newPlayer.move)
+
+
