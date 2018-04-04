@@ -28,6 +28,7 @@ export let banStyle = {
 
 export let opponentBanStyle = {
   background: `url(${Ban}) no-repeat center center`,
+  padding: '50px',
   backgroundSize: 'contain',
   width: '100px',
   height: '100px',
@@ -47,7 +48,7 @@ export let winnerStyle = {
 
 export let createGrid = gridCopy => {
   for (let i = 0; i < 20; i++) {
-    gridCopy.push(new Array(30).fill('lightgreen'));
+    gridCopy.push(new Array(30).fill(''));
   }
 };
 
