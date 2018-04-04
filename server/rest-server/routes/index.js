@@ -5,18 +5,12 @@ const spotifyRouter = require('../components/Spotify/spotifyRouter');
 const authRouter = require('./../components/Auth/authRouter');
 //to add the rest later
 // const passport = require('passport');
-router.use('/home', (req, res) => {
-
-})
 
 // user route
 router.use('/users', userRouter);
 router.use('/friends', friendsRouter);
 
-
-
 router.use('/spotify', spotifyRouter);
-
 
 router.use('/auth', authRouter);
 
@@ -24,7 +18,6 @@ router.get('/logout', (req, res) => {
   req.logout();
   res.send('logout');
 });
-
 
 // router.post('/', (req, res) => {
 //  if (!!req.body) {
@@ -36,7 +29,6 @@ router.get('/logout', (req, res) => {
 // router.use('/songs', songRouter);
 // router.use('/history', historyRouter);
 // router.use('/leaderboard', leaderboardRouter);
-
 
 // router.post('/auth/isLoggedIn', (req, res)=> {
 //   console.log(req.body, 'in the new post')
