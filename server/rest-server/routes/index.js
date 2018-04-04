@@ -5,6 +5,12 @@ const spotifyRouter = require('../components/Spotify/spotifyRouter');
 const authRouter = require('./../components/Auth/authRouter');
 //to add the rest later
 // const passport = require('passport');
+<<<<<<< HEAD
+=======
+// router.use('/home', (req, res) => {
+
+// })
+>>>>>>> cosmetics
 
 // user route
 router.use('/users', userRouter);
