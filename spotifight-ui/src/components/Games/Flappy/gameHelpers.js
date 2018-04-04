@@ -47,7 +47,7 @@ export let winnerStyle = {
 
 export let createGrid = gridCopy => {
   for (let i = 0; i < 20; i++) {
-    gridCopy.push(new Array(30).fill('lightgreen'));
+    gridCopy.push(new Array(30).fill(''));
   }
 };
 

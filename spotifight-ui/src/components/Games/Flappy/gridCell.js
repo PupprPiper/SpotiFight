@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 const GridCell = ({ cell }) => {
   const style = {
     width: 20,
     height: 20,
-    // border: '1px solid black',
+    // background: `url("https://files.gamebanana.com/img/ico/sprays/_1317-.gif") no-repeat center center`,
     backgroundColor: cell
   };
   return <div style={style} />;

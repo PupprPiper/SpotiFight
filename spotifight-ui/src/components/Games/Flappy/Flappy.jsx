@@ -5,9 +5,9 @@ import { Button } from './../../Global/Material-Globals';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
 import './Flappy.scss';
-
 import {
   asteroids,
+  asteroidsOriginal,
   banStyle,
   bird,
   checkCeilingAndFloor,
@@ -17,6 +17,7 @@ import {
   moveTowers,
   moveAsteroids,
   towers,
+  towersOriginal,
   winnerStyle
 } from './gameHelpers';
 import PlayerStatus from './playerStatus';
@@ -27,7 +28,7 @@ class Flappy extends Component {
 
     let grid = [];
     for (let i = 0; i < 20; i++) {
-      grid.push(new Array(30).fill('yellow'));
+      grid.push(new Array(30).fill('lightgreen'));
     }
 
     grid[bird.height][bird.position] = 'yellow';
@@ -48,6 +49,7 @@ class Flappy extends Component {
 
     this.timerId = setInterval(() => {
       if (this.state.crashed) {
+        clearInterval(this.timerId);
         return;
       }
 
@@ -83,7 +85,6 @@ class Flappy extends Component {
 
       if (crashed) {
         this.setState({ crashed: true });
-
         this.props.socket.emit('PLAYER_CRASHED', {
           username: this.props.localUser,
           crashed: true
@@ -98,10 +99,27 @@ class Flappy extends Component {
         towers: towersCopy,
         score: this.state.score + 1
       });
-    }, 150);
+    }, 125);
   }
 
   componentDidMount() {
+    let asteroidsOriginal = [
+      { position: 29, vertical: 12 },
+      { position: 22, vertical: 14 },
+      { position: 19, vertical: 10 }
+    ];
+    let towersOriginal = [
+      { position: 29, height: 3, upright: false },
+      { position: 26, height: 5, upright: true },
+      { position: 22, height: 7, upright: false },
+      { position: 18, height: 6, upright: true },
+      { position: 14, height: 7, upright: false },
+      { position: 11, height: 5, upright: true },
+      { position: 7, height: 8, upright: false },
+      { position: 3, height: 2, upright: true }
+    ];
+
+    this.setState({ asteroids: asteroidsOriginal, towers: towersOriginal });
     this.props.socket.on('WINNER_SERVER', data => {
       this.setState({ winner: data.winner });
       if (this.props.localUser === data.winner) {
@@ -115,7 +133,6 @@ class Flappy extends Component {
       delete temp[data.username];
 
       if (Object.keys(temp).length === 1) {
-        console.log('we have a winner!!!!', Object.keys(temp)[0]);
         this.props.socket.emit('WINNER_CLIENT', Object.keys(temp)[0]);
       }
 
