@@ -49,7 +49,6 @@ export default class rpsls extends Component {
   }
   componentDidMount() {
     this.props.socket.on("oppChoice", data => {
-      console.log('DATA USER ', data.user, ' LOCAL USER ', this.props.localUser)
       if (data.user !== this.props.localUser) {
         this.setState({ opp: data.user, oppChoice: data.choice });
       }
