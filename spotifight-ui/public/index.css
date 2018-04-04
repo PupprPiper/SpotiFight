@@ -2,22 +2,22 @@
   font-family: 'Aldrich', sans-serif;
 }
 
+.loading {
+  margin-top: 28% 20% 0 0 ;
+  font-size: 2em;
+}
 
 .sk-cube-grid {
   width: 40px;
   height: 40px;
-  margin: 40% auto;
-  /*
-   * Spinner positions
-   * 1 2 3
-   * 4 5 6
-   * 7 8 9
-   */ }
+  margin: 24% 0 24% 0;
+   }
+
   .sk-cube-grid .sk-cube {
     width: 33.33%;
     height: 33.33%;
-    background-color: #333;
-    float: left;
+    background-color: white;
+    float: right;
     -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
             animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; }
   .sk-cube-grid .sk-cube1 {

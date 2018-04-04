@@ -8,7 +8,6 @@ import $ from 'jquery';
 
 import {storeCurrentUser} from './../../actions/index';
 
-
 import Verify from '../Auth/Verify.jsx';
 import {userEmail} from '../../routes.js';
 
@@ -23,9 +22,20 @@ class UserProfile extends Component {
       avatarInput: '',
       statusInput: ''
     };
+
+this.updateModal = this.updateModal.bind(this);
+
+$('.modal-background').on('click', function() {
+  this.updateModal();
+});
+
+
   }
 
   componentDidMount() {
+    // listener for modal black space click
+
+
     this.setState({loading: true});
     const {email: storedEmail} = JSON.parse(localStorage.getItem('user')) || {
       email: ''
@@ -38,7 +48,7 @@ class UserProfile extends Component {
       email = storedEmail;
     }
     console.log(email, 'here is the axios email');
-    
+
     this.getUser(email);
   }
 
@@ -56,8 +66,16 @@ class UserProfile extends Component {
     }
   }
 
-  async toggleUpdateInfo() {
-    $('.modal').addClass('is-active');
+  async updateModal() {
+    $('.modal-background').on('click', function() {
+      this.updateModal();
+    });
+    var $el = $('.modal');
+    if ($el.hasClass('is-active')) {
+      $el.removeClass('is-active');
+    } else if (!$el.hasClass('is-active')) {
+      $el.addClass('is-active');
+    }
   }
 
   setTextField(e) {
@@ -108,49 +126,42 @@ class UserProfile extends Component {
     }
 
     return (<div className="section profile-heading">
-        <div className="columns">
-          <div className="column is-4 name">
-            <div className="image is-128x128 avatar">
-              <img src={user.avatar_url} />
-            </div>
-            <br />
-            <span className="button is-primary is-outlined follow">
-              Follow
-            </span>
-            <p>
-              <br />
-              <span className="title is-bold">{user.username}</span>
-            </p>
-            <p className="tagline"><em>"{user.status}"</em></p>
-            <Button variant="raised" color="primary" onClick={() => this.toggleUpdateInfo()}>Update Info</Button>
-            {this.state.update ? (
-              <div>
-                Username <input type="text" name="usernameInput" value={this.state.usernameInput} onChange={e => this.setTextField(e)} />
-                <br />
-                Avatar <input type="text" name="avatarInput" value={this.state.avatarInput} onChange={e => this.setTextField(e)}/>
-                <br />
-                Status <input type="text" name="statusInput" value={this.state.statusInput} onChange={e => this.setTextField(e)}/>
-                <br/>
-                <Button variant="raised" color="primary" onClick={() => this.updateInfo()}>Save</Button>
-              </div>
-            ) : null}
+      <div className="columns">
+        <div className="column is-4 name">
+          <div className="image is-128x128 avatar">
+            <img src={user.avatar_url}/>
           </div>
-          <div className="column is-2 likes has-text-centered">
-            <p className="stat-val">{user.friends}</p>
-            <p className="stat-key">friends</p>
-          </div>
-          <div className="column is-2 followers has-text-centered">
-            <p className="stat-val">{user.wins}</p>
-            <p className="stat-key">wins</p>
-          </div>
-          <div className="column is-2 following has-text-centered">
-            <p className="stat-val">{user.losses}</p>
-            <p className="stat-key">losses</p>
-          </div>
+          <br/>
+          <span className="button is-primary is-outlined follow">
+            Follow
+          </span>
+          <p>
+            <br/>
+            <span className="title is-bold">{user.username}</span>
+          </p>
+          <p className="tagline">
+            <em>"{user.status}"</em>
+          </p>
+          <Button variant="raised" color="primary" onClick={() => this.updateModal()}>Update Info</Button>
 
-          <div class="modal ">
-            <div class="modal-background"></div>
-            <div class="modal-content">
+        </div>
+        <div className="column is-2 likes has-text-centered">
+          <p className="stat-val">{user.friends}</p>
+          <p className="stat-key">friends</p>
+        </div>
+        <div className="column is-2 followers has-text-centered">
+          <p className="stat-val">{user.wins}</p>
+          <p className="stat-key">wins</p>
+        </div>
+        <div className="column is-2 following has-text-centered">
+          <p className="stat-val">{user.losses}</p>
+          <p className="stat-key">losses</p>
+        </div>
+
+        <div class="modal ">
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <div class="content">
               <div class="field">
                 <label class="label">Username</label>
                 <div class="control">
@@ -173,17 +184,19 @@ class UserProfile extends Component {
                   <input type="text" name="statusInput" value={this.state.statusInput} onChange={e => this.setTextField(e)}/>
                 </div>
               </div>
-
-              <button className="primary" onClick={() => this.updateInfo()}>Save</button>
-
             </div>
-            <button class="modal-close is-large" aria-label="close"></button>
+
+            <button className="primary" onClick={() => {
+                this.updateInfo();
+                this.updateModal()
+              }}>Save</button>
+
           </div>
+          <button class="modal-close is-large" aria-label="close" onClick={() => this.updateModal()}></button>
         </div>
-
-
       </div>
-);
+
+    </div>);
   }
 }
 const mapStateToProps = state => {
