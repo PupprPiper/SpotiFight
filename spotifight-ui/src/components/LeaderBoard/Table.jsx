@@ -18,12 +18,12 @@ class Table extends React.Component {
 
     await this.setState({ users: data.data });
   }
-  
+
   render () {
     return (
-      <div className="leaderboard-table">
+      <div className="leaderboard-table top-margin">
       <h3 className="leaderboard-head"> LEADERBOARD </h3>
-        <table style={{ width: "100%" }}>
+        <table align="center" style={{ width: "90%" }}>
         <thead>
         <tr>
           <th>Rank</th>
@@ -35,7 +35,7 @@ class Table extends React.Component {
       </thead>
           <tbody>
           {this.state.users?(
-            this.state.users.map((user, i) => 
+            this.state.users.map((user, i) =>
             (
               <tr key={i}>
                 <td>{i + 1}</td>

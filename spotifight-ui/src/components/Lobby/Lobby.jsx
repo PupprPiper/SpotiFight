@@ -169,7 +169,7 @@ class Lobby extends Component {
 
   render() {
     return (
-      <div style = {{marginTop:'1%'}}>
+      <div className="top-margin">
         <Grid container>
           <Grid item md={3}>
             <Grid>
@@ -207,7 +207,7 @@ class Lobby extends Component {
 
             {!this.state.songURI ? null : (
               <div align="center">
-          
+
                 <iframe id="spotiplayer"
                   src={`https://open.spotify.com/embed?uri=${
                     this.state.songURI

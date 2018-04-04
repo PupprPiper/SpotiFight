@@ -8,13 +8,18 @@ import allReducers from './reducers/index';
 import configureStore from './configureStore';
 import './index.scss';
 
+
 // material
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 const theme = createMuiTheme({
   palette: {
     type: 'dark'
-  }
+  },
+  typography: {
+    fontFamily: '"Aldrich"',
+  },
+
 });
 
 import App from './App';
