@@ -454,7 +454,7 @@ export let pokemon = function() {
     else if (e.keyCode == "68") newPlayer.move("right");
     else if (e.keyCode == "83") newPlayer.move("down");
   };
-  return score
+  
 };
 
 
