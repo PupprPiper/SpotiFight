@@ -100,3 +100,6 @@
 //     Sign-Up
 //   </button>
 // </div>
+
+
+      // <div id="particle-div"><UserParticle userProfile={this.props.userProfile}/></div>

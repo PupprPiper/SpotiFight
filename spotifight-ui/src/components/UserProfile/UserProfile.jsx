@@ -5,15 +5,18 @@ import axios from 'axios';
 import {Grid, Button} from './../Global/Material-Globals';
 import './Background.scss';
 import $ from 'jquery';
+import Paper from "material-ui/Paper";
+import ProfileUpdate from './ProfileUpdate.jsx'
 
 import {storeCurrentUser} from './../../actions/index';
+import UserParticle from '../Games/Masher/particles/Particles.jsx'
 
 import Verify from '../Auth/Verify.jsx';
 import {userEmail} from '../../routes.js';
 
 class UserProfile extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       loading: false,
       user: {},
@@ -23,20 +26,25 @@ class UserProfile extends Component {
       statusInput: ''
     };
 
-this.updateModal = this.updateModal.bind(this);
-
-$('.modal-background').on('click', function() {
-  this.updateModal();
-});
-
+    this.weUpdated = this.weUpdated.bind(this);
+    this.getUser = this.getUser.bind(this);
 
   }
 
-  componentDidMount() {
+  async weUpdated(email) {
+    try {
+      const user = this.props.userProfile
+      await this.getUser(email)
+      await this.setState({usernameInput: user.email, avatarInput: user.avatar_url, statusInput: user.status})
+    }
+    catch(err) {
+      console.log(err)
+    }
+  }
+
+  async componentDidMount() {
     // listener for modal black space click
 
-
-    this.setState({loading: true});
     const {email: storedEmail} = JSON.parse(localStorage.getItem('user')) || {
       email: ''
     };
@@ -49,7 +57,7 @@ $('.modal-background').on('click', function() {
     }
     console.log(email, 'here is the axios email');
 
-    this.getUser(email);
+    await this.getUser(email);
   }
 
   async getUser(email) {
@@ -58,7 +66,7 @@ $('.modal-background').on('click', function() {
       payload.data.userProfile.avatar_url = payload.data.userProfile.avatar_url + '0';
       this.props.storeCurrentUser(payload.data.userProfile);
 
-      this.setState({loading: false, user: payload.data.userProfile});
+      this.setState({user: payload.data.userProfile});
       localStorage.setItem('token', payload.data.token);
       localStorage.setItem('user', JSON.stringify(payload.data.userProfile));
     } catch (err) {
@@ -66,133 +74,49 @@ $('.modal-background').on('click', function() {
     }
   }
 
-  async updateModal() {
-    $('.modal-background').on('click', function() {
-      this.updateModal();
-    });
-    var $el = $('.modal');
-    if ($el.hasClass('is-active')) {
-      $el.removeClass('is-active');
-    } else if (!$el.hasClass('is-active')) {
-      $el.addClass('is-active');
-    }
-  }
-
-  setTextField(e) {
-    var obj = {};
-    obj[e.target.name] = e.target.value
-    console.log('OBJ HERE ', obj)
-    this.setState(obj)
-    console.log(this.state)
-  }
-
-  async updateInfo() {
-    if (this.state.usernameInput) {
-      await axios.put('http://localhost:3000/users/updateInfo', {
-        field: 'username',
-        info: this.state.usernameInput,
-        user_id: this.props.userProfile.id
-      })
-    }
-    if (this.state.avatarInput) {
-      await axios.put('http://localhost:3000/users/updateInfo', {
-        field: 'avatar_url',
-        info: this.state.avatarInput,
-        user_id: this.props.userProfile.id
-      })
-    }
-    if (this.state.statusInput) {
-      await axios.put('http://localhost:3000/users/updateInfo', {
-        field: 'status',
-        info: this.state.statusInput,
-        user_id: this.props.userProfile.id
-      })
-    }
-    this.getUser(this.state.user.email);
-    await this.setState({usernameInput: '', avatarInput: '', statusInput: ''})
-
-  }
   render() {
-    let {loading} = this.state;
+
     let user = this.props.userProfile;
-    if (loading) {
-      return <div>
-        loading
-      </div>;
-    } else if (!user) {
-      return <div>
-        not logged-in
-      </div>;
-    }
 
-    return (<div className="section profile-heading">
-      <div className="columns">
-        <div className="column is-4 name">
-          <div className="image is-128x128 avatar">
-            <img src={user.avatar_url}/>
-          </div>
-          <br/>
-          <span className="button is-primary is-outlined follow">
-            Follow
-          </span>
-          <p>
-            <br/>
-            <span className="title is-bold">{user.username}</span>
-          </p>
-          <p className="tagline">
-            <em>"{user.status}"</em>
-          </p>
-          <Button variant="raised" color="primary" onClick={() => this.updateModal()}>Update Info</Button>
 
-        </div>
-        <div className="column is-2 likes has-text-centered">
-          <p className="stat-val">{user.friends}</p>
-          <p className="stat-key">friends</p>
-        </div>
-        <div className="column is-2 followers has-text-centered">
-          <p className="stat-val">{user.wins}</p>
-          <p className="stat-key">wins</p>
-        </div>
-        <div className="column is-2 following has-text-centered">
-          <p className="stat-val">{user.losses}</p>
-          <p className="stat-key">losses</p>
-        </div>
-
-        <div class="modal ">
-          <div class="modal-background"></div>
-          <div class="modal-content">
-            <div class="content">
-              <div class="field">
-                <label class="label">Username</label>
-                <div class="control">
-                  <input type="text" name="usernameInput" value={this.state.usernameInput} onChange={e => this.setTextField(e)}/></div>
-              </div>
-
-              <div class="field">
-                <label class="label">
-                  Avatar</label>
-
-                <div class="control">
-                  <input type="text" name="avatarInput" value={this.state.avatarInput} onChange={e => this.setTextField(e)}/>
-                </div>
-              </div>
-
-              <div class="field">
-                <label class="label">
-                  Status</label>
-                <div class="control">
-                  <input type="text" name="statusInput" value={this.state.statusInput} onChange={e => this.setTextField(e)}/>
-                </div>
-              </div>
+    return (<div className="section profile-heading margin-me">
+      <div id="particle-div"><UserParticle userProfile={this.props.userProfile}/></div>
+      <div className="content">
+        <div className="columns">
+          <div className="column is-4 name">
+            <div className="image is-128x128 avatar">
+              <img src='{user.avatar_url}' />
             </div>
+            <br/>
+            <span className="button is-primary is-outlined follow">
+              Follow
+            </span>
+            <p>
+              <br/>
+              <span className="title is-bold">{user.username}</span>
+            </p>
+            <p className="tagline">
+              <em>"{user.status}"</em>
+            </p>
 
-            <button className="primary" onClick={() => {
-                this.updateInfo();
-                this.updateModal()
-              }}>Save</button>
+            <ProfileUpdate userProfile={this.props.userProfile} weUpdated={this.weUpdated}/>
 
           </div>
-          <button class="modal-close is-large" aria-label="close" onClick={() => this.updateModal()}></button>
+          <div className="column is-2 likes has-text-centered">
+            <p className="stat-val">{user.friends}</p>
+            <p className="stat-key">friends</p>
+
+          </div>
+          <div className="column is-2 followers has-text-centered">
+            <p className="stat-val">{user.wins}</p>
+            <p className="stat-key">wins</p>
+          </div>
+          <div className="column is-2 following has-text-centered">
+            <p className="stat-val">{user.losses}</p>
+            <p className="stat-key">losses</p>
+
+          </div>
+
         </div>
       </div>
 

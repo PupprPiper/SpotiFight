@@ -20,8 +20,10 @@ shouldComponentUpdate() {
 
 
   render(jsParticles) {
+    const str = this.props.userProfile.avatar_url
+    const avatar = str.substring(0, str.length - 1)
     return (<div>
-      <Particles id="particle-hook" params={pSetup} />
+      <Particles id="particle-hook" params={pSetup(avatar)} />
       </div>)
   }
 
