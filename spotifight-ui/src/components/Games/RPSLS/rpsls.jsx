@@ -31,11 +31,11 @@ export default class rpsls extends Component {
         scissorsrock: "LOSE!"
       },
       images: {
-        rock: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTagMbbXUGJEB7Cvi-5xKIPbxo-BNJUeWIl3ANMxoqS7Cjp26S5",
-        paper: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR68B5NXataRl4zYvuq8U8Wz47Kchy_yd_7IRkh1ZgJ7f9VhDgTcQ",
-        scissors: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAbCBpE7qAoUh933CYf1YwNSvxyZ3RYcjUE5jbbo-s2uTBQpRU",
-        lizard: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNeccTSL2ZSTqmiuZ1wpt-F5CcTsKj6atO1jrv1puEWSgvgFW3",
-        spock: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTVRio44mvgUjFhwgPA-HkODTwknUCpHTrKBNf0zOTb4HKbDod"
+        rock: "https://i.imgur.com/zmLVJZp.png",
+        paper: "https://i.imgur.com/ybk2XTA.png",
+        scissors: "https://i.imgur.com/sJs4NvB.png",
+        lizard: "https://i.imgur.com/eKh70tA.png",
+        spock: "https://i.imgur.com/XftFR1M.png"
       },
       players: this.props.players,
       userChoice: null,
@@ -130,13 +130,11 @@ export default class rpsls extends Component {
                   <img src={player.avatar_url} className="buttonCard" />
                   <p>{player.username}</p>
 
-                  {this.state.result === "END" ? (
-                    i === 0 ? (
-                      <img src={this.state.images[this.state.userChoice]} />
-                    ) : (
-                      <img src={this.state.images[this.state.oppChoice]} />
-                    )
-                  ) : null}
+                  {this.state.result === "END" ? 
+                  player.username === this.props.localUser ?
+                  <img src={this.state.images[this.state.userChoice]} />:
+                  <img src={this.state.images[this.state.oppChoice]} />
+                  : null}
 
                   {this.state.result === "TIE" ? (
                     i === 0 ? (
