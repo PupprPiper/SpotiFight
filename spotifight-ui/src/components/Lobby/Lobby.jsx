@@ -30,6 +30,7 @@ import PlayerList from "./players/playerList";
 import Carousel from "nuka-carousel";
 import { games } from "../Home/homeHelpers";
 import GameListItem from "../Home/GameListItem";
+import AlertDialog from './alert.jsx'
 import "./Lobby.scss";
 
 const style = {
@@ -84,6 +85,7 @@ class Lobby extends Component {
       song: "",
       songChoices: {},
       players: this.props.players,
+      alert: false
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.searchSong = this.searchSong.bind(this);
@@ -104,6 +106,7 @@ class Lobby extends Component {
   }
 
   searchSong() {
+    this.setState({alert:false})
     axios.get("/spotify").then(token => {
       axios({
         url: `https://api.spotify.com/v1/search?q=${
@@ -114,7 +117,9 @@ class Lobby extends Component {
         }
       }).then(data => {
         if (data.data.tracks.items[0].preview_url === null) {
-          alert("This song does not have a preview URL on spotify");
+          this.setState({alert:true})
+          // alert("This song does not have a preview URL on spotify");
+          
         }
         this.setState({
           song: data.data.tracks.items[0],
@@ -126,7 +131,7 @@ class Lobby extends Component {
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
         console.log("SONG SELECTIONS HERE ", this.props.songSelections);
         var temp = Object.assign({}, this.props.songSelections);
-        console.log("RIGHT HERE ", temp);
+        
         temp[this.props.localUser] = data.data.tracks.items[0].name;
         this.setState({ songChoices: temp });
         this.props.socket.emit('sendSongChoices', temp);
@@ -150,18 +155,19 @@ class Lobby extends Component {
     );
   }
 
-  handleSongClick(e) {
+  async handleSongClick(e) {
+    await this.setState({alert:false})
     if (e.preview_url === null) {
-      alert("This song does not have a preview URL on spotify");
+      await this.setState({alert:true})
     }
-
+    
     this.setState({
       song: e,
       songURI: e.uri,
       songPreview: e.preview_url
     });
     var temp = Object.assign({}, this.props.songSelections);
-    console.log("RIGHT HERE ", temp);
+    console.log("lobby state ", this.state);
     temp[this.props.localUser] = e.name;
     this.setState({ songChoices: temp });
     this.props.socket.emit("sendSongChoices", temp);
@@ -170,6 +176,9 @@ class Lobby extends Component {
   render() {
     return (
       <div style = {{marginTop:'1%'}}>
+
+      {this.state.alert === true ? <AlertDialog />  : null}
+     
         <Grid container>
           <Grid item md={3}>
             <Grid>

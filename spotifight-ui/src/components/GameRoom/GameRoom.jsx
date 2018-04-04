@@ -97,8 +97,9 @@ class GameRoom extends Component {
         this.setState({currRoom: games[data]})
       })
       this.state.socket.on('QUIT_ALL', data => {
+        this.props.history.forced = true
         this.props.history.push({pathname: `/home`})
-        alert("Your Host has closed this room")
+
       })
     }
     catch (error) {

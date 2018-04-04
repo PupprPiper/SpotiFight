@@ -18,6 +18,7 @@ import {Grid} from '../Global/Material-Globals'
 import OpenRoomsList from './OpenRoomsList.jsx'
 import './Home.scss'
 import Carousel from 'nuka-carousel'
+import SimpleSnackbar from './Snackbar.jsx'
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -42,13 +43,16 @@ class Home extends Component {
   }
   componentWillUnmount(){
     this.socket.disconnect()
+    this.props.history.forced = false;
   }
 
 
   render() {
     return (
-      <div align = 'center' className="top-margin">
-
+      
+      <div align = 'center' className="top-margin" style = {{padding: '50px'}}>
+      {console.log('home props',this.props)}
+      {(this.props.history.action === 'PUSH'  && this.props.history.forced === true)? <SimpleSnackbar/> : null}
         <div>Select a game:</div>
 
         <GameList
@@ -59,6 +63,8 @@ class Home extends Component {
           <div align = 'left'> Open Rooms:</div>
             <OpenRoomsList openrooms = {this.state.openrooms}  history={this.props.history}/>
             </div>
+
+            
         <Verify history={this.props.history} />
 
       </div>
