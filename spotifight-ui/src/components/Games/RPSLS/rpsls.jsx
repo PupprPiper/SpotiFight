@@ -31,10 +31,10 @@ export default class rpsls extends Component {
         scissorsrock: "LOSE!"
       },
       images: {
-        rock: "blob:https://imgur.com/d8bf4533-41f9-41e5-bf48-c5b66a6ffc66",
-        paper: "blob:https://imgur.com/6199bc09-a99c-421d-b99a-dab5139b4e0c",
-        scissors: "blob:https://imgur.com/af52a9fe-bbe9-4585-ab8d-af3672fac837",
-        lizard: "https://imgur.com/wfU9xbi",
+        rock: "https://i.imgur.com/zmLVJZp.png",
+        paper: "https://i.imgur.com/ybk2XTA.png",
+        scissors: "https://i.imgur.com/sJs4NvB.png",
+        lizard: "https://i.imgur.com/eKh70tA.png",
         spock: "https://i.imgur.com/XftFR1M.png"
       },
       players: this.props.players,
@@ -49,6 +49,7 @@ export default class rpsls extends Component {
   }
   componentDidMount() {
     this.props.socket.on("oppChoice", data => {
+      console.log('DATA USER ', data.user, ' LOCAL USER ', this.props.localUser)
       if (data.user !== this.props.localUser) {
         this.setState({ opp: data.user, oppChoice: data.choice });
       }
