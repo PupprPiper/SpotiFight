@@ -1,45 +1,24 @@
-<<<<<<< HEAD
-import React, { Component, PropTypes } from 'react';
-import randomstring from 'randomstring';
-=======
 import React, { Component, PropTypes } from "react";
 import randomstring from "randomstring";
->>>>>>> cosmetics
 import {
   ListItem,
   Avatar,
   ListItemText,
   Paper
-<<<<<<< HEAD
-} from '../Global/Material-Globals';
-import { withStyles } from 'material-ui/styles';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { gameSwitch, songSwitch } from '../../actions/index';
-=======
 } from "../Global/Material-Globals";
 import { withStyles } from "material-ui/styles";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { gameSwitch, songSwitch } from "../../actions/index";
->>>>>>> cosmetics
 // import { connect } from 'react-redux';
 
 const style = {
   LobbyItems: {
-<<<<<<< HEAD
-    cursor: 'Pointer',
-    height: 500,
-    width: 500,
-    color: 'white',
-    align: 'center'
-=======
     cursor: "Pointer",
     height: "90%",
     width: "90%",
     color: "white",
     align: "center"
->>>>>>> cosmetics
   },
   LobbyText: {
     fontSize: 40,
