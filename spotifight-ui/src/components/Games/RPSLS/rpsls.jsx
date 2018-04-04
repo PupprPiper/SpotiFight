@@ -131,13 +131,11 @@ export default class rpsls extends Component {
                   <img src={player.avatar_url} className="buttonCard" />
                   <p>{player.username}</p>
 
-                  {this.state.result === "END" ? (
-                    i === 0 ? (
-                      <img src={this.state.images[this.state.userChoice]} />
-                    ) : (
-                      <img src={this.state.images[this.state.oppChoice]} />
-                    )
-                  ) : null}
+                  {this.state.result === "END" ? 
+                  player.username === this.props.localUser ?
+                  <img src={this.state.images[this.state.userChoice]} />:
+                  <img src={this.state.images[this.state.oppChoice]} />
+                  : null}
 
                   {this.state.result === "TIE" ? (
                     i === 0 ? (
