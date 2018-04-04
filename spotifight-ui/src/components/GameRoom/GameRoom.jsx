@@ -96,6 +96,10 @@ class GameRoom extends Component {
       this.state.socket.on('RETURN_ALL_TO_LOBBY', data => {
         this.setState({currRoom: games[data]})
       })
+      this.state.socket.on('QUIT_ALL', data => {
+        this.props.history.push({pathname: `/home`})
+        alert("Your Host has closed this room")
+      })
     }
     catch (error) {
       console.error('in component did mount GAMEROOM')
@@ -109,6 +113,14 @@ class GameRoom extends Component {
     })
   }
   componentWillUnmount() {
+
+
+    if(this.state.localUser === this.state.host){
+      // this.state.socket.emit('RETURN_TO_LOBBY', 'Lobby') REDIRECT TO HOME
+      // const exit = this.props.history.push({pathname: `/game-room/${room}`})
+      this.state.socket.emit('delete_room', this.props.location.pathname.slice(11))
+    }
+
     this.state.socket.disconnect()
   }
 

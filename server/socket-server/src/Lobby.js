@@ -19,12 +19,14 @@ module.exports = {
       console.log(`${user.username} has entered lobby`);
 
       client.on("disconnect", data => {
-        userObject[roomId].splice(userObject[roomId].indexOf(user.username), 1);
+        if(userObject[roomId]){
+        userObject[roomId].splice(userObject[roomId].indexOf(user.username), 1)
+        }
         io.in(client.handshake.query.roomId).emit("newMessage", {
           msg: `${user.username} has disconnected`
         });
 
-        if (userObject[roomId].length === 0) {
+        if (userObject[roomId] && userObject[roomId].length === 0 ) {
           delete userObject[roomId];
         }
         io
