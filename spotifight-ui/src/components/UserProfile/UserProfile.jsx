@@ -65,7 +65,9 @@ componentDidMount() {
   async getUser(email) {
     try {
       let payload = await axios.get(`/users/email/${email}`);
-      payload.data.userProfile.avatar_url = payload.data.userProfile.avatar_url + '0';
+      if (payload.data.userProfile.avatar_url.includes('googleusercontent')){
+        payload.data.userProfile.avatar_url = payload.data.userProfile.avatar_url + '0';
+      }
       await this.props.storeCurrentUser(payload.data.userProfile);
 
       await this.setState({loading: false, user: payload.data.userProfile});
@@ -86,21 +88,21 @@ componentDidMount() {
 
   async updateInfo() {
     if (this.state.usernameInput) {
-      await axios.put('http://localhost:3000/users/updateInfo', {
+      await axios.put('/users/updateInfo', {
         field: 'username',
         info: this.state.usernameInput,
         user_id: this.props.userProfile.id
       })
     }
     if (this.state.avatarInput) {
-      await axios.put('http://localhost:3000/users/updateInfo', {
+      await axios.put('/users/updateInfo', {
         field: 'avatar_url',
         info: this.state.avatarInput,
         user_id: this.props.userProfile.id
       })
     }
     if (this.state.statusInput) {
-      await axios.put('http://localhost:3000/users/updateInfo', {
+      await axios.put('/users/updateInfo', {
         field: 'status',
         info: this.state.statusInput,
         user_id: this.props.userProfile.id

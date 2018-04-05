@@ -21,6 +21,7 @@ import {
   winnerStyle
 } from './gameHelpers';
 import PlayerStatus from './playerStatus';
+import axios from 'axios';
 
 class Flappy extends Component {
   constructor(props) {
@@ -124,6 +125,18 @@ class Flappy extends Component {
       this.setState({ winner: data.winner });
       if (this.props.localUser === data.winner) {
         this.props.socket.emit('SEND_WINNER_SONG', this.props.mySong);
+
+        this.props.players.forEach((player => {
+          console.log(player.username, data.winner)
+          if(player.username !== data.winner){
+            console.log('GETS HERE')
+            
+            axios.put('/users/addWinLoss', {field: 'losses', user_id: player.id })
+          }else{
+            console.log('ELSE HERE')
+            axios.put('/users/addWinLoss', {field: 'wins', user_id: player.id })
+          }
+        }))
       }
     });
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+
 
 const GridCell = ({ cell }) => {
   // if (cell === 'yellow') {
