@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   AppBar,
   Toolbar,
@@ -8,12 +8,13 @@ import {
   Button,
   IconButton,
   MenuIcon,
-  ExitToApp
+  ExitToApp,
+  Grid
 } from './../Material-Globals.js';
 import axios from 'axios';
 import './AppTitleBar.scss';
 
-import {toggleMenu, storeCurrentUser} from './../../../actions/index';
+import { toggleMenu, storeCurrentUser } from './../../../actions/index';
 
 class AppTitleBar extends Component {
   handleToggle() {
@@ -46,52 +47,59 @@ class AppTitleBar extends Component {
   }
 
   render() {
-    let logoutBtn = (<Button onClick={() => this.logout()} color="inherit">
-      logout &nbsp;<ExitToApp/>
-    </Button>);
+    let logoutBtn = (
+      <Button onClick={() => this.logout()} color="inherit">
+        logout &nbsp;<ExitToApp />
+      </Button>
+    );
 
     return (
       <div>
-      <nav className="navbar is-dark is-fixed-top">
-      <div className="navbar-brand">
-        <a className="navbar-item">
-          <IconButton onClick={() => this.handleToggle()} title="Spotifight" color="inherit" aria-label="Menu">
-            <MenuIcon/>
-          </IconButton>
-        </a>
-        <div className="navbar-item">
-          <Typography color="inherit" variant="title" style={{
-              flex: 1
-            }}>
-            Spotifight
-          </Typography>
-        </div>
-        <span/>
-        <span/>
-        <span/>
+        <nav className="navbar is-dark is-fixed-top">
+          <Grid container>
+            <div className="navbar-brand">
+              <a className="navbar-item">
+                <IconButton
+                  onClick={() => this.handleToggle()}
+                  title="Spotifight"
+                  color="inherit"
+                  aria-label="Menu"
+                >
+                  <MenuIcon />
+                </IconButton>
+              </a>
+              <div className="navbar-item">
+                <Typography color="inherit" variant="title" style={{ flex: 1 }}>
+                  Spotifight
+                </Typography>
+              </div>
+              <span />
+              <span />
+              <span />
+            </div>
+            <div className="navbar-end">
+              {this.props.userProfile ? logoutBtn : null}
+            </div>
+          </Grid>
+        </nav>
+        <nav className="navbar" />
       </div>
-      <div className="navbar-end">
-        {
-          this.props.userProfile
-            ? logoutBtn
-            : null
-        }
-      </div>
-    </nav>
-    <nav className="navbar"></nav>
-  </div>);
+    );
   }
 }
 
 const mapStateToProps = state => {
-  return {menuIsOpen: state.menuIsOpen, userProfile: state.userProfile};
+  return { menuIsOpen: state.menuIsOpen, userProfile: state.userProfile };
 };
 
 const mapDispatchToProps = function(dispatch) {
-  return bindActionCreators({
-    toggleMenu,
-    storeCurrentUser
-  }, dispatch);
+  return bindActionCreators(
+    {
+      toggleMenu,
+      storeCurrentUser
+    },
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppTitleBar);
