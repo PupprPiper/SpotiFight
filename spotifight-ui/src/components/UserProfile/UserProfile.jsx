@@ -5,11 +5,12 @@ import axios from 'axios';
 import {Grid, Button} from './../Global/Material-Globals';
 import './Background.scss';
 import $ from 'jquery';
-import Paper from "material-ui/Paper";
-import ProfileUpdate from './ProfileUpdate.jsx'
+import Dialog from 'material-ui/Dialog';
+import './UserProfile.scss'
+import UserParticle from '../Games/Masher/particles/Particles.jsx'
+
 
 import {storeCurrentUser} from './../../actions/index';
-import UserParticle from '../Games/Masher/particles/Particles.jsx'
 
 import Verify from '../Auth/Verify.jsx';
 import {userEmail} from '../../routes.js';
@@ -23,28 +24,25 @@ class UserProfile extends Component {
       update: false,
       usernameInput: '',
       avatarInput: '',
-      statusInput: ''
-    };
+      statusInput: '',
+      open:false
+    }
 
-    this.weUpdated = this.weUpdated.bind(this);
-    this.getUser = this.getUser.bind(this);
-
+    this.handleOpen = this.handleOpen.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
 
-  async weUpdated(email) {
-    try {
-      const user = this.props.userProfile
-      await this.getUser(email)
-      await this.setState({usernameInput: user.email, avatarInput: user.avatar_url, statusInput: user.status})
-    }
-    catch(err) {
-      console.log(err)
-    }
+  handleOpen () {
+    this.setState({open: true});
+  }
+
+  handleClose() {
+    this.setState({open: false});
   }
 
   async componentDidMount() {
     // listener for modal black space click
-
+    await this.setState({loading: true});
     const {email: storedEmail} = JSON.parse(localStorage.getItem('user')) || {
       email: ''
     };
@@ -56,17 +54,16 @@ class UserProfile extends Component {
       email = storedEmail;
     }
     console.log(email, 'here is the axios email');
-
-    await this.getUser(email);
+    this.getUser(email);
   }
 
   async getUser(email) {
     try {
       let payload = await axios.get(`/users/email/${email}`);
       payload.data.userProfile.avatar_url = payload.data.userProfile.avatar_url + '0';
-      this.props.storeCurrentUser(payload.data.userProfile);
+      await this.props.storeCurrentUser(payload.data.userProfile);
 
-      this.setState({user: payload.data.userProfile});
+      await this.setState({loading: false, user: payload.data.userProfile});
       localStorage.setItem('token', payload.data.token);
       localStorage.setItem('user', JSON.stringify(payload.data.userProfile));
     } catch (err) {
@@ -74,53 +71,145 @@ class UserProfile extends Component {
     }
   }
 
+  setTextField(e) {
+    var obj = {};
+    obj[e.target.name] = e.target.value
+    console.log('OBJ HERE ', obj)
+    this.setState(obj)
+    console.log(this.state)
+  }
+
+  async updateInfo() {
+    if (this.state.usernameInput) {
+      await axios.put('http://localhost:3000/users/updateInfo', {
+        field: 'username',
+        info: this.state.usernameInput,
+        user_id: this.props.userProfile.id
+      })
+    }
+    if (this.state.avatarInput) {
+      await axios.put('http://localhost:3000/users/updateInfo', {
+        field: 'avatar_url',
+        info: this.state.avatarInput,
+        user_id: this.props.userProfile.id
+      })
+    }
+    if (this.state.statusInput) {
+      await axios.put('http://localhost:3000/users/updateInfo', {
+        field: 'status',
+        info: this.state.statusInput,
+        user_id: this.props.userProfile.id
+      })
+    }
+    this.getUser(this.state.user.email);
+    await this.setState({usernameInput: '', avatarInput: '', statusInput: ''})
+
+  }
   render() {
+    let {loading} = this.state;
+    const user = this.props.userProfile;
+    if (loading) { return (<div> loading  </div>)}
+    else if (!user) {
+      return (<div>
+        not logged-in
+      </div>);
+    }
 
-    let user = this.props.userProfile;
+    const actions = [
+      <Button
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClose}
+      />,
+      <Button
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.handleClose}
+      />,
+    ]
 
-
-    return (<div className="section profile-heading margin-me">
-      <div id="particle-div"><UserParticle userProfile={this.props.userProfile}/></div>
-      <div className="content">
-        <div className="columns">
-          <div className="column is-4 name">
-            <div className="image is-128x128 avatar">
-              <img src='{user.avatar_url}' />
-            </div>
+    return (
+      <div>
+      <div id="particle-div">
+  <UserParticle userProfile={this.props.userProfile}/>
+      </div>
+      <div className="section profile-heading">
+      <div className="columns">
+        <div className="column is-4 name">
+          <div className="image is-128x128 avatar">
+            <img src={user.avatar_url}/>
+          </div>
+          <br/>
+          <span className="button is-primary is-outlined follow">
+            Follow
+          </span>
+          <p>
             <br/>
-            <span className="button is-primary is-outlined follow">
-              Follow
-            </span>
-            <p>
-              <br/>
-              <span className="title is-bold">{user.username}</span>
-            </p>
-            <p className="tagline">
-              <em>"{user.status}"</em>
-            </p>
+            <span className="title is-bold">{user.username}</span>
+          </p>
+          <p className="tagline">
+            <em>"{user.status}"</em>
+          </p>
+          <Button variant="raised" color="primary" className="primary" label="Dialog" onClick={this.handleOpen}>
+            Update Info
+          </Button>
 
-            <ProfileUpdate userProfile={this.props.userProfile} weUpdated={this.weUpdated}/>
+        </div>
+        <div className="column is-2 likes has-text-centered">
+          <p className="stat-val">{user.friends}</p>
+          <p className="stat-key">friends</p>
+        </div>
+        <div className="column is-2 followers has-text-centered">
+          <p className="stat-val">{user.wins}</p>
+          <p className="stat-key">wins</p>
+        </div>
+        <div className="column is-2 following has-text-centered">
+          <p className="stat-val">{user.losses}</p>
+          <p className="stat-key">losses</p>
+        </div>
+        <div>
 
-          </div>
-          <div className="column is-2 likes has-text-centered">
-            <p className="stat-val">{user.friends}</p>
-            <p className="stat-key">friends</p>
+          <Dialog title="Dialog With Actions" actions={actions} modal="false" open={this.state.open} onBackdropClick={this.handleClose}>
+            <div className="content user-modal">
+              <h3>Username</h3>
+              <div className="field">
+                <div className="control">
+                  <input type="text" className="input is-medium" name="usernameInput" value={this.state.usernameInput} onChange={e => this.setTextField(e)}/>
+                </div>
+              </div>
 
-          </div>
-          <div className="column is-2 followers has-text-centered">
-            <p className="stat-val">{user.wins}</p>
-            <p className="stat-key">wins</p>
-          </div>
-          <div className="column is-2 following has-text-centered">
-            <p className="stat-val">{user.losses}</p>
-            <p className="stat-key">losses</p>
+              <h3>
+                Avatar
+              </h3>
 
-          </div>
+              <div className="field">
+                <div className="control">
+                  <input type="text" name="avatarInput" className="input is-medium" value={this.state.avatarInput} onChange={e => this.setTextField(e)}/>
+                </div>
+              </div>
 
+              <h3>
+                Status
+              </h3>
+
+              <div className="field">
+                <div className="control">
+                  <input type="text" name="statusInput" className="input is-medium" value={this.state.statusInput} onChange={e => this.setTextField(e)}/>
+                </div>
+              </div>
+
+              <Button align="center" variant="raised" color="primary" className="primary" onClick={() => {
+                  this.updateInfo();
+                  this.handleClose()
+                }}>Save</Button>
+            </div>
+          </Dialog>
         </div>
       </div>
 
-    </div>);
+    </div>
+  </div>);
   }
 }
 const mapStateToProps = state => {
