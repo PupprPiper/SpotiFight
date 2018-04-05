@@ -11,7 +11,7 @@ class Table extends React.Component {
   }
 
   async componentDidMount() {
-    var data = await axios.get("http://localhost:3000/users/fetchAllUsers");
+    var data = await axios.get("/users/fetchAllUsers");
     data.data.sort((a, b) => {
       return b.wins - a.wins;
     });

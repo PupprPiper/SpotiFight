@@ -5,7 +5,7 @@ export const requestFriend = async (myId, friendId) => {
     user_id: myId,
     friend_id: friendId
   };
-  await axios.post('http://localhost:3000/friends/requestFriend', body);
+  await axios.post('/friends/requestFriend', body);
 }
 
 export const acceptFriend = async (myId, friendId) => {
@@ -13,7 +13,7 @@ export const acceptFriend = async (myId, friendId) => {
     user_id: myId,
     friend_id: friendId
   };
-  await axios.put('http://localhost:3000/friends/acceptFriend', body);
+  await axios.put('/friends/acceptFriend', body);
 }
 
 export const removeFriend = async (myId, friendId) => {
@@ -25,7 +25,7 @@ export const removeFriend = async (myId, friendId) => {
   };
 
   await axios.delete(
-    `http://localhost:3000/friends/deleteFriend/${
+    `/friends/deleteFriend/${
       myId
     }/${friendId}`,
     body
@@ -43,7 +43,7 @@ export const rejectFriend = async (myId, friendId) => {
   console.log('BODY FROM REJECT FRIEND ', body)
 
   await axios.delete(
-    `http://localhost:3000/friends/rejectFriend/${
+    `/friends/rejectFriend/${
       myId
     }/${friendId}`,
     body

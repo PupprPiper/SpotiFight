@@ -83,9 +83,9 @@ class MusicTrivia extends Component {
       this.props.players.forEach((player => {
         console.log(player.username, 'WINNER ', this.state.trivia_winner)
         if(player.username !== this.state.trivia_winner){
-          axios.put('http://localhost:3000/users/addWinLoss', {field: 'losses', user_id: player.id })
+          axios.put('/users/addWinLoss', {field: 'losses', user_id: player.id })
         }else{
-          axios.put('http://localhost:3000/users/addWinLoss', {field: 'wins', user_id: player.id })
+          axios.put('/users/addWinLoss', {field: 'wins', user_id: player.id })
         }
       }))
       
