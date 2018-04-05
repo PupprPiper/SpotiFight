@@ -14,14 +14,14 @@ export default class Particle extends Component {
   }
 
 
+shouldComponentUpdate() {
+  return false;
+}
 
   render() {
     const str = this.props.userProfile.avatar_url
-    const avatar = str.substring(0, str.length - 1)
-    console.log(avatar)
-    console.log(pSetup(avatar))
     return (<div>
-      <Particles id="particle-hook" params={pSetup(avatar)} />
+      <Particles id="particle-hook" params={pSetup(str)} />
       </div>)
   }
 
