@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+
 
 const GridCell = ({ cell }) => {
+  // if (cell === 'yellow') {
+  //   console.log('user profile--->');
+  // }
+
   const style = {
     width: 20,
     height: 20,
@@ -11,14 +15,10 @@ const GridCell = ({ cell }) => {
   return <div style={style} />;
 };
 
-const OpponentGridCell = ({ cell }) => {
-  const style = {
-    width: 5,
-    height: 5,
-    // border: '1px solid black',
-    backgroundColor: cell
-  };
-  return <div style={style} />;
-};
+// const mapStateToProps = state => {
+//   return {
+//     userProfile: state.userProfile
+//   };
+// };
 
-module.exports = { GridCell, OpponentGridCell };
+module.exports = { GridCell };

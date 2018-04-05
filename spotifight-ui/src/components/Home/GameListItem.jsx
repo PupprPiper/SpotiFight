@@ -1,24 +1,26 @@
-import React, { Component, PropTypes } from "react";
-import randomstring from "randomstring";
+import React, { Component, PropTypes } from 'react';
+import randomstring from 'randomstring';
+
 import {
   ListItem,
   Avatar,
   ListItemText,
   Paper
-} from "../Global/Material-Globals";
-import { withStyles } from "material-ui/styles";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { gameSwitch, songSwitch } from "../../actions/index";
+} from '../Global/Material-Globals';
+import { withStyles } from 'material-ui/styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { gameSwitch, songSwitch } from '../../actions/index';
+
 // import { connect } from 'react-redux';
 
 const style = {
   LobbyItems: {
-    cursor: "Pointer",
-    height: "90%",
-    width: "90%",
-    color: "white",
-    align: "center"
+    cursor: 'Pointer',
+    height: 500,
+    width: 500,
+    color: 'white',
+    align: 'center'
   },
   LobbyText: {
     fontSize: 40,
@@ -42,6 +44,7 @@ class GameListItem extends Component {
     });
     this.props.gameSwitch(this.props.gameitem.title);
   }
+
   handleMouseOver() {
     this.setState({ gameitemimage: this.props.gameitem.hover });
   }
@@ -51,6 +54,7 @@ class GameListItem extends Component {
 
   render() {
     return (
+
       <div style = {{padding: '50px'}}>
         <Avatar
           onClick={() => this.handleRedirect(this.props.gameitem.title)}
@@ -60,7 +64,8 @@ class GameListItem extends Component {
           onMouseOut={this.handleMouseOut}
         />
         <div className={this.props.classes.LobbyText}>
-          {`${this.props.gameitem.title}`}{" "}
+          {`${this.props.gameitem.title}`}{' '}
+
         </div>
       </div>
     );
@@ -78,5 +83,6 @@ const mapStateToProps = function(state) {
 const mapDispatchToProps = function(dispatch) {
   return bindActionCreators({ gameSwitch, songSwitch }, dispatch);
 };
+
 const styledGameListItem = withStyles(style)(GameListItem);
 export default connect(mapStateToProps, mapDispatchToProps)(styledGameListItem);
