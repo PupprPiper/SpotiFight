@@ -50,17 +50,23 @@
 }
 
 .draw-border {
-  @include btn-border-drawing(green, red, 4px, bottom, right);
+  @include btn-border-drawing(white, green, 4px, bottom, right);
+}
+
+.draw-border-down {
+  @include btn-border-drawing(yellow, red, 4px, bottom, right);
 }
 
 //=== Button styling, semi-ignore
 .btn {
+  min-width: 150px;
+  min-height: 70px;
   background: none;
   border: none;
   cursor: pointer;
   line-height: 1.5;
-  font: 700 1.2rem 'Roboto Slab', sans-serif;
-  padding: 1em 2em;
+  font: 700 3rem 'Aldrich', sans-serif;
+  padding: 20;
   letter-spacing: 0.05rem;
 
   &:focus { outline: 2px dotted #55d7dc; }
