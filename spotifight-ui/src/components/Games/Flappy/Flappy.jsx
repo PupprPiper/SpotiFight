@@ -131,6 +131,7 @@ class Flappy extends Component {
       const temp = this.state.temp;
       this.state.opponents[data.username] = data;
       delete temp[data.username];
+      console.log('state opponents-->', this.state.opponents);
 
       if (Object.keys(temp).length === 1) {
         this.props.socket.emit('WINNER_CLIENT', Object.keys(temp)[0]);

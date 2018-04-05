@@ -28,7 +28,8 @@ export let banStyle = {
 
 export let opponentBanStyle = {
   background: `url(${Ban}) no-repeat center center`,
-  padding: '50px',
+  display: 'table-cell',
+  verticalAlign: 'middle',
   backgroundSize: 'contain',
   width: '100px',
   height: '100px',
