@@ -6,7 +6,8 @@ import Grid from "material-ui/Grid";
 import {
   songSwitch,
   gameSwitch,
-  updateSongSelections
+  updateSongSelections,
+  updatePlayers
 } from "../../actions/index";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -30,7 +31,7 @@ import PlayerList from "./players/playerList";
 import Carousel from "nuka-carousel";
 import { games } from "../Home/homeHelpers";
 import GameListItem from "../Home/GameListItem";
-import AlertDialog from './alert.jsx'
+import AlertDialog from "./alert.jsx";
 import "./Lobby.scss";
 
 const style = {
@@ -61,13 +62,14 @@ const mapStateToProps = function(state) {
     mySong: state.mySong,
     userProfile: state.userProfile,
     game: state.game,
-    songSelections: state.songSelections
+    songSelections: state.songSelections,
+    globalPlayers: state.globalPlayers
   };
 };
 
 const mapDispatchToProps = function(dispatch) {
   return bindActionCreators(
-    { gameSwitch, songSwitch, updateSongSelections },
+    { gameSwitch, songSwitch, updateSongSelections, updatePlayers },
     dispatch
   );
 };
@@ -101,12 +103,11 @@ class Lobby extends Component {
           this.setState({ songChoices: this.props.songSelections });
         }
       });
-
     }
   }
 
   searchSong() {
-    this.setState({alert:false})
+    this.setState({ alert: false });
     axios.get("/spotify").then(token => {
       axios({
         url: `https://api.spotify.com/v1/search?q=${
@@ -117,9 +118,8 @@ class Lobby extends Component {
         }
       }).then(data => {
         if (data.data.tracks.items[0].preview_url === null) {
-          this.setState({alert:true})
+          this.setState({ alert: true });
           // alert("This song does not have a preview URL on spotify");
-          
         }
         this.setState({
           song: data.data.tracks.items[0],
@@ -131,14 +131,12 @@ class Lobby extends Component {
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
         console.log("SONG SELECTIONS HERE ", this.props.songSelections);
         var temp = Object.assign({}, this.props.songSelections);
-        
+
         temp[this.props.localUser] = data.data.tracks.items[0].name;
         this.setState({ songChoices: temp });
-        this.props.socket.emit('sendSongChoices', temp);
-
+        this.props.socket.emit("sendSongChoices", temp);
       });
     });
-
   }
 
   handleSearchChange(e) {
@@ -156,16 +154,18 @@ class Lobby extends Component {
   }
 
   async handleSongClick(e) {
-    await this.setState({alert:false})
+    await this.setState({ alert: false });
     if (e.preview_url === null) {
-      await this.setState({alert:true})
+      await this.setState({ alert: true });
     }
-    
+
     this.setState({
       song: e,
       songURI: e.uri,
       songPreview: e.preview_url
     });
+    this.props.songSwitch(e.preview_url);
+    console.log("e", e);
     var temp = Object.assign({}, this.props.songSelections);
     console.log("lobby state ", this.state);
     temp[this.props.localUser] = e.name;
@@ -175,17 +175,41 @@ class Lobby extends Component {
 
   render() {
     return (
-      <div style = {{marginTop:'1%'}}>
+      <div style={{ marginTop: "1%" }}>
+        {this.state.alert === true ? <AlertDialog /> : null}
 
-      {this.state.alert === true ? <AlertDialog />  : null}
-     
         <Grid container>
           <Grid item md={3}>
             <Grid>
-              <PlayerList
+              {/* <PlayerList
                 leftPlayers={this.props.leftPlayers}
                 songChoices={this.state.songChoices}
-              />
+              /> */}
+              {this.props.players
+                .filter((item, index) => {
+                  if (index % 2 === 0) {
+                    return item;
+                  }
+                })
+                .map((filtered, index) => {
+                  return (
+                    <Paper key={index}>
+                      <ListItem dense button className="list-item">
+                        <Avatar src={filtered.avatar_url} />
+                        <ListItemText
+                          primary={`${filtered.username}`}
+                          secondary={`Song: ${
+                            this.state.songChoices.hasOwnProperty([
+                              filtered.username
+                            ])
+                              ? this.state.songChoices[filtered.username]
+                              : ""
+                          }`}
+                        />
+                      </ListItem>
+                    </Paper>
+                  );
+                })}
             </Grid>
           </Grid>
           <Grid item md={6}>
@@ -216,8 +240,8 @@ class Lobby extends Component {
 
             {!this.state.songURI ? null : (
               <div align="center">
-          
-                <iframe id="spotiplayer"
+                <iframe
+                  id="spotiplayer"
                   src={`https://open.spotify.com/embed?uri=${
                     this.state.songURI
                   }`}
@@ -226,7 +250,6 @@ class Lobby extends Component {
                   frameBorder="0"
                   allowtransparency="true"
                   allow="encrypted-media"
-
                 />
                 {/* <audio src = {this.state.songPreview} autoPlay/> */}
               </div>
@@ -283,23 +306,31 @@ class Lobby extends Component {
           </Grid>
           <Grid item md={3}>
             <Grid>
-              {this.props.rightPlayers.map((item, index) => {
-                return (
-                  <Paper key={index}>
-                    <ListItem dense button className="list-item">
-                      <Avatar src={item.avatar_url} />
-                      <ListItemText
-                        primary={`${item.username}`}
-                        secondary={`Song: ${
-                          this.state.songChoices.hasOwnProperty([item.username])
-                            ? this.state.songChoices[item.username]
-                            : ""
-                        }`}
-                      />
-                    </ListItem>
-                  </Paper>
-                );
-              })}
+            {this.props.players
+                .filter((item, index) => {
+                  if (index % 2 === 1) {
+                    return item;
+                  }
+                })
+                .map((filtered, index) => {
+                  return (
+                    <Paper key={index}>
+                      <ListItem dense button className="list-item">
+                        <Avatar src={filtered.avatar_url} />
+                        <ListItemText
+                          primary={`${filtered.username}`}
+                          secondary={`Song: ${
+                            this.state.songChoices.hasOwnProperty([
+                              filtered.username
+                            ])
+                              ? this.state.songChoices[filtered.username]
+                              : ""
+                          }`}
+                        />
+                      </ListItem>
+                    </Paper>
+                  );
+                })}
             </Grid>
           </Grid>
         </Grid>
