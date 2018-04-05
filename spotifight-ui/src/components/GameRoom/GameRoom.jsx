@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import players from '../Games/Masher/seed.js';
 import Grid from 'material-ui/Grid';
-import {gameSwitch, songSwitch} from '../../actions/index';
+import {gameSwitch, songSwitch, updatePlayers} from '../../actions/index';
 import Button from 'material-ui/Button';
 import {assignLeftPlayer, assignRightPlayer} from './gameRoomHelpers';
 
@@ -62,10 +62,11 @@ class GameRoom extends Component {
       // listen for other users in room
       this.socket.on('ACTIVE_USERS', data => {
         this.setState({players: data});
-
+        this.props.updatePlayers(data)
         if (this.state.players.length !== 0) {
-
+          
           this.setState({host: this.state.players[0].username});
+          // this.setState({host: this.props.globalPlayers[0]});
         }
 
         let left = assignLeftPlayer(this.state.players);
@@ -179,13 +180,14 @@ class GameRoom extends Component {
 }
 
 const mapStateToProps = function(state) {
-  return {game: state.game, mySong: state.mySong, userProfile: state.userProfile};
+  return {game: state.game, mySong: state.mySong, userProfile: state.userProfile, globalPlayers: state.globalPlayers};
 };
 
 const mapDispatchToProps = function(dispatch) {
   return bindActionCreators({
     gameSwitch,
     songSwitch,
+    updatePlayers,
   }, dispatch);
 };
 

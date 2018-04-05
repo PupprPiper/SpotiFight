@@ -13,6 +13,7 @@ import {
   allUsersReducer,
   searchInputReducer
 } from './friendReducer';
+import {playerReducer} from './playersReducer'
 
 const allReducers = combineReducers({
   menuIsOpen: ReducerToggleMenu,
@@ -27,7 +28,8 @@ const allReducers = combineReducers({
   pendingFriends: updatePendingFriendsReducer,
   filteredUsers: filteredUsersReducer,
   allUsers: allUsersReducer,
-  searchInput: searchInputReducer
+  searchInput: searchInputReducer,
+  globalPlayers: playerReducer
 });
 
 export default allReducers;
