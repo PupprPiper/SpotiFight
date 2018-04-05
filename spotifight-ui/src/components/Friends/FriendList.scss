@@ -1,0 +1,52 @@
+.friend-table {
+  overflow-x: auto;
+}
+
+.friend-head{
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgba(0,0,0,0.1);
+}
+
+th {
+  border-radius: 5px;
+  background-color: rgba(240, 88, 67, 0.8);
+  color: white;
+}
+th, td {
+  padding: 15px;
+}
+th, td {
+  text-align: center;
+  vertical-align: center;
+  padding: 0 1 0 1
+}
+.sort-header {
+  cursor: pointer;
+}
+tbody {
+  overflow-y: auto;
+}
+tbody > tr > td:nth-child(3) {
+  cursor: pointer;
+}
+tbody > tr:hover {
+  background-color: var(--hover-bg, rgba(50, 50, 70, 0.4));
+  color: var(--hover-text, rgb(240, 88, 67));
+  font-weight: 400;
+}
+
+.margin-top {
+  margin:3% 3% 3% 3%;
+}
+
+.delete {
+  color: var(--bg-text, white);
+  background: var(--bg, gray);
+  border: 1px solid lightblue;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px 5px;
+  padding: 5px 15px;
+}
