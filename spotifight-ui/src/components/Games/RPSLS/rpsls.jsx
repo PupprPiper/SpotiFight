@@ -3,7 +3,8 @@ import "./rpsls.scss";
 import axios from "axios";
 import Paper from "material-ui/Paper";
 import Grid from "material-ui/Grid";
-export default class rpsls extends Component {
+import { connect } from 'react-redux';
+class rpsls extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -109,6 +110,9 @@ export default class rpsls extends Component {
         }, 1000)
       } else if (this.state.outcome[result] === "WIN!") {
         this.props.socket.emit("winner", this.props.localUser);
+        console.log(this.props.mySong)
+        this.props.socket.emit('SEND_WINNER_SONG', this.props.mySong);
+        
       }
     }
   }
@@ -126,7 +130,7 @@ export default class rpsls extends Component {
           {this.state.players.map((player, i) => {
             return (
               <Grid align="center" key={i} item xs={6}>
-                <Paper style={{ minWidth: "110px", maxWidth: "300px" }}>
+                <Paper style={{ minWidth: "110px", maxWidth: "300px", marginTop: "1%"}}>
                   <img src={player.avatar_url} className="buttonCard" />
                   <p>{player.username}</p>
 
@@ -167,3 +171,11 @@ export default class rpsls extends Component {
     );
   }
 }
+
+const mapStateToProps = function(state) {
+  return {
+    mySong: state.mySong
+  };
+};
+
+export default connect(mapStateToProps)(rpsls);

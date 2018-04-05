@@ -12,7 +12,12 @@ import {
   Checkbox,
   Paper
 } from './../Global/Material-Globals';
-import { requestFriend, acceptFriend, removeFriend, rejectFriend } from './FriendListHelpers';
+import {
+  requestFriend,
+  acceptFriend,
+  removeFriend,
+  rejectFriend
+} from './FriendListHelpers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -35,7 +40,6 @@ class FriendList extends Component {
   }
 
   async fetchAllFriends() {
-    console.log('PROPS FROM FRIEND LIST ', this.props)
     var allFriends = await axios.get(
       `http://localhost:3000/friends/fetchAllFriends/${
         this.props.userProfile.id
@@ -70,38 +74,70 @@ class FriendList extends Component {
   render() {
     return (
       <div>
-        <Grid style={{marginTop: '5%'}} container spacing={24}>
-          <Grid align="center" item xs={12} md={4}>
-            <h3>Your Friends</h3>
-             <List>
-              {this.props.friends
-                ? this.props.friends.map((friend, i) => {
-                    return (
-                      <Paper key={i} >
-                      <FriendListItem fetchAllFriends={this.fetchAllFriends} friend={friend}/>
-                      </Paper>
-                    );
-                  })
-                : null}
-            </List>
-          </Grid>
-          <Grid align="center" item xs={12} md={4}>
-            <h3>Pending Friend Requests</h3>
-            <List>
-              {this.props.pendingFriends
-                ? this.props.pendingFriends.map((friend, i) => {
-                    return (
-                      <Paper key={i}>
-                      <PendingFriendListItem fetchAllFriends={this.fetchAllFriends} friend={friend}/>
-                      </Paper>
-                    );
-                  })
-                : null}
-            </List>
-          </Grid>
-          <Grid align="center" item xs={12} md={4}>
+        {/* <Grid style={{ marginTop: '1%' }} container spacing={24}> */}
+          {/* <Grid align="center" item xs={12} sm={12} md={4} lg={4}> */}
+            <div className="friend-table">
+              <h3 className="friend-head"> Friends </h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th className="friends">Avatar</th>
+                    <th className="friends">Username</th>
+                    <th className="friends">Wins</th>
+                    <th className="friends">Losses</th>
+                    <th className="friends">Delete?</th>
+                  </tr>
+                </thead>
+                {this.props.friends
+                  ? this.props.friends.map((friend, i) => {
+                      return (
+                        <FriendListItem
+                          key={i}
+                          fetchAllFriends={this.fetchAllFriends}
+                          friend={friend}
+                        />
+                      );
+                    })
+                  : null}
+              </table>
+            </div>
+
+            <div className="pendingFriend-table">
+              <h3 className="friend-head"> Friend Requests </h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th className="friends">Avatar</th>
+                    <th className="friends">Username</th>
+                    <th className="friends">Accept?</th>
+                    <th className="friends">Reject?</th>
+                  </tr>
+                </thead>
+                {this.props.pendingFriends
+                  ? this.props.pendingFriends.map((friend, i) => {
+                      return (
+                        <PendingFriendListItem
+                          key={i}
+                          fetchAllFriends={this.fetchAllFriends}
+                          friend={friend}
+                        />
+                      );
+                    })
+                  : null}
+              </table>
+            </div>
+          {/* </Grid> */}
+          {/* <Grid align="center" item xs={6} sm={12} md={4} lg={4}> */}
+          
+
+          
+          <div className="search">
+          <h3 className="friend-head"> Search </h3>
+          <form>
             <input
+            class="searchForm"
               type="text"
+              placeholder="Search friends..."
               value={this.props.searchInput}
               onChange={async e => {
                 await this.props.updateSearchInput(e.target.value);
@@ -112,16 +148,21 @@ class FriendList extends Component {
                 }
               }}
             />
-            <h5>Search Results</h5>
+          </form>
             {this.props.filteredUsers
               ? this.props.filteredUsers.map((user, i) => {
                   return (
-                    <SearchListItem fetchAllFriends={this.fetchAllFriends} user={user}/>
+                    <SearchListItem
+                      fetchAllFriends={this.fetchAllFriends}
+                      user={user}
+                    />
                   );
                 })
               : null}
-          </Grid>
-        </Grid>
+
+          </div>
+          {/* </Grid> */}
+        {/* </Grid> */}
       </div>
     );
   }
@@ -152,3 +193,61 @@ const mapDispatchToProps = function(dispatch) {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FriendList);
+
+{
+  /* 
+<div>
+<Grid style={{marginTop: '5%'}} container spacing={24}>
+  <Grid align="center" item xs={12} md={4}>
+    <h3>Your Friends</h3>
+     <List>
+      {this.props.friends
+        ? this.props.friends.map((friend, i) => {
+            return (
+              <Paper key={i} >
+              <FriendListItem fetchAllFriends={this.fetchAllFriends} friend={friend}/>
+              </Paper>
+            );
+          })
+        : null}
+    </List>
+  </Grid>
+  <Grid align="center" item xs={12} md={4}>
+    <h3>Pending Friend Requests</h3>
+    <List>
+      {this.props.pendingFriends
+        ? this.props.pendingFriends.map((friend, i) => {
+            return (
+              <Paper key={i}>
+              <PendingFriendListItem fetchAllFriends={this.fetchAllFriends} friend={friend}/>
+              </Paper>
+            );
+          })
+        : null}
+    </List>
+  </Grid>
+  <Grid align="center" item xs={12} md={4}>
+    <input
+      type="text"
+      value={this.props.searchInput}
+      onChange={async e => {
+        await this.props.updateSearchInput(e.target.value);
+        if (this.props.searchInput.length > 2) {
+          this.filterUsers();
+        } else {
+          this.props.updateFilteredUsers(null);
+        }
+      }}
+    />
+    <h5>Search Results</h5>
+    {this.props.filteredUsers
+      ? this.props.filteredUsers.map((user, i) => {
+          return (
+            <SearchListItem fetchAllFriends={this.fetchAllFriends} user={user}/>
+          );
+        })
+      : null}
+  </Grid>
+</Grid>
+</div> */
+}

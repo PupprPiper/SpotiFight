@@ -103,7 +103,22 @@ class Lobby extends Component {
           this.setState({ songChoices: this.props.songSelections });
         }
       });
+      
     }
+  }
+  
+  componentDidMount(){
+    if(this.props.socket){
+      this.props.socket.on('RETURN_ALL_TO_LOBBY', () => {
+        this.props.updateSongSelections({});
+      this.setState({songChoices:{}})
+      })
+      this.props.socket.on("songChoices", data => {
+        this.props.updateSongSelections(data);
+        this.setState({ songChoices: this.props.songSelections });
+      });
+    }
+    
   }
 
   searchSong() {

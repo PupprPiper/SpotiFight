@@ -124,6 +124,14 @@ class Flappy extends Component {
       this.setState({ winner: data.winner });
       if (this.props.localUser === data.winner) {
         this.props.socket.emit('SEND_WINNER_SONG', this.props.mySong);
+        
+        this.props.players.forEach((player => {
+          if(player.username !== data.winner){
+            axios.put('http://localhost:3000/users/addWinLoss', {field: 'losses', user_id: player.id })
+          }else{
+            axios.put('http://localhost:3000/users/addWinLoss', {field: 'wins', user_id: player.id })
+          }
+        }))
       }
     });
 
