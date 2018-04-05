@@ -31,7 +31,6 @@ import FriendListItem from './FriendListItem.jsx';
 import PendingFriendListItem from './PendingFriendListItem.jsx';
 import SearchListItem from './SearchListItem.jsx';
 import axios from 'axios';
-import './FriendList.scss';
 
 class FriendList extends Component {
   constructor(props) {
@@ -75,18 +74,18 @@ class FriendList extends Component {
   render() {
     return (
       <div>
-        <Grid style={{ minWidth: '300px', marginTop: '1%' }} container spacing={40}>
-          <Grid align="center" item xs={12} sm={12} md={4} lg={4}>
-            <div className="friend-table top-margin">
+        {/* <Grid style={{ marginTop: '1%' }} container spacing={24}> */}
+          {/* <Grid align="center" item xs={12} sm={12} md={4} lg={4}> */}
+            <div className="friend-table">
               <h3 className="friend-head"> Friends </h3>
               <table>
                 <thead>
                   <tr>
-                    <th>Avatar</th>
-                    <th>Username</th>
-                    <th>Wins</th>
-                    <th>Losses</th>
-                    <th>Delete?</th>
+                    <th className="friends">Avatar</th>
+                    <th className="friends">Username</th>
+                    <th className="friends">Wins</th>
+                    <th className="friends">Losses</th>
+                    <th className="friends">Delete?</th>
                   </tr>
                 </thead>
                 {this.props.friends
@@ -102,17 +101,17 @@ class FriendList extends Component {
                   : null}
               </table>
             </div>
-          </Grid>
-          <Grid align="center" item xs={12} sm={12} md={4} lg={4}>
-            <div className="friend-table top-margin">
-              <h3 className="friend-head"> Pending Requests </h3>
+          {/* </Grid> */}
+          {/* <Grid align="center" item xs={6} sm={12} md={4} lg={4}> */}
+            <div className="pendingFriend-table">
+              <h3 className="friend-head"> Friend Requests </h3>
               <table>
                 <thead>
                   <tr>
-                    <th>Avatar</th>
-                    <th>Username</th>
-                    <th>Accept?</th>
-                    <th>Reject?</th>
+                    <th className="friends">Avatar</th>
+                    <th className="friends">Username</th>
+                    <th className="friends">Accept?</th>
+                    <th className="friends">Reject?</th>
                   </tr>
                 </thead>
                 {this.props.pendingFriends
@@ -128,10 +127,18 @@ class FriendList extends Component {
                   : null}
               </table>
             </div>
-          </Grid>
-          <Grid align="center" item xs={12} sm={12} md={4} lg={4}>
+          {/* </Grid> */}
+          {/* <Grid align="center" item xs={6} sm={12} md={4} lg={4}> */}
+          
+
+          
+          <div className="search">
+          <h3 className="friend-head"> Search </h3>
+          <form>
             <input
+            class="searchForm"
               type="text"
+              placeholder="Search friends..."
               value={this.props.searchInput}
               onChange={async e => {
                 await this.props.updateSearchInput(e.target.value);
@@ -142,7 +149,7 @@ class FriendList extends Component {
                 }
               }}
             />
-            <h5>Search Results</h5>
+          </form>
             {this.props.filteredUsers
               ? this.props.filteredUsers.map((user, i) => {
                   return (
@@ -153,8 +160,10 @@ class FriendList extends Component {
                   );
                 })
               : null}
-          </Grid>
-        </Grid>
+
+          </div>
+          {/* </Grid> */}
+        {/* </Grid> */}
       </div>
     );
   }

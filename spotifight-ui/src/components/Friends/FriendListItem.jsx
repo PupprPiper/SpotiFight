@@ -15,7 +15,6 @@ import {
   updateAllUsers,
   updateSearchInput
 } from '../../actions/index';
-import './FriendList.scss';
 
 class FriendListItem extends Component {
   constructor(props) {
