@@ -25,7 +25,8 @@ class UserProfile extends Component {
       usernameInput: '',
       avatarInput: '',
       statusInput: '',
-      open:false
+      open:false,
+      _mounted: false
     }
 
     this.handleOpen = this.handleOpen.bind(this)
@@ -40,9 +41,11 @@ class UserProfile extends Component {
     this.setState({open: false});
   }
 
-  async componentDidMount() {
+componentDidMount() {
     // listener for modal black space click
-    await this.setState({loading: true});
+    this.setState({loading: true});
+    this.setState({_mounted: true})
+
     const {email: storedEmail} = JSON.parse(localStorage.getItem('user')) || {
       email: ''
     };
@@ -55,6 +58,8 @@ class UserProfile extends Component {
     }
     console.log(email, 'here is the axios email');
     this.getUser(email);
+
+
   }
 
   async getUser(email) {
@@ -130,11 +135,12 @@ class UserProfile extends Component {
     ]
 
     return (
-      <div>
-      <div id="particle-div">
-  <UserParticle userProfile={this.props.userProfile}/>
-      </div>
+
+
       <div className="section profile-heading">
+      <div id="particle-div">
+  {this.state._mounted ? <UserParticle userProfile={this.props.userProfile}/> : ''}
+      </div>
       <div className="columns">
         <div className="column is-4 name">
           <div className="image is-128x128 avatar">
@@ -209,7 +215,7 @@ class UserProfile extends Component {
       </div>
 
     </div>
-  </div>);
+);
   }
 }
 const mapStateToProps = state => {
