@@ -1,32 +1,32 @@
-module.exports = {
-  particles: {
+module.exports = function(image) {
+  return {particles : {
     number: {
-      value: 1,
+      value: 10,
       density: {
         enable: true,
         value_area: 800
       }
     },
     color: {
-      value: '#FF0000'
+      value: '#F5F5F5'
     },
     shape: {
-      type: 'circle',
+      type: ['image','circle'],
       stroke: {
-        width: 0,
-        color: '#FF0000'
+        width: 10,
+        color: '#F5F5F5'
       },
       polygon: {
-        nb_sides: 5
+        nb_sides: 2
       },
       image: {
-        src: 'img/github.svg',
-        width: 100,
-        height: 100
+        src: `${image}`,
+        width: 40,
+        height: 40
       }
     },
     opacity: {
-      value: 0.5,
+      value: 1,
       random: false,
       anim: {
         enable: false,
@@ -36,25 +36,25 @@ module.exports = {
       }
     },
     size: {
-      value: 1,
-      random: true,
+      value: 25,
+      random: false,
       anim: {
-        enable: false,
-        speed: 80,
-        size_min: 0.1,
+        enable: true,
+        speed: 10,
+        size_min: 10,
         sync: false
       }
     },
     line_linked: {
       enable: true,
       distance: 300,
-      color: '#FF0000',
-      opacity: 0.4,
-      width: 2
+      color:  '#F5F5F5',
+      opacity: .9,
+      width: 3
     },
     move: {
       enable: true,
-      speed: 12,
+      speed: 2,
       direction: 'none',
       random: false,
       straight: false,
@@ -71,7 +71,7 @@ module.exports = {
     detect_on: 'canvas',
     events: {
       onhover: {
-        enable: false,
+        enable: true,
         mode: 'repulse'
       },
       onclick: {
@@ -95,8 +95,8 @@ module.exports = {
         speed: 3
       },
       repulse: {
-        distance: 400,
-        duration: 0.4
+        distance: 100,
+        duration: 2
       },
       push: {
         particles_nb: 1
@@ -107,4 +107,6 @@ module.exports = {
     }
   },
   retina_detect: true
+}
+
 }

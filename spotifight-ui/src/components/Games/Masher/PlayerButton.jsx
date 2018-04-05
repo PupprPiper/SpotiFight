@@ -6,7 +6,7 @@ import ButtonBase from 'material-ui/ButtonBase';
 import Typography from 'material-ui/Typography';
 import "./PlayerButton.scss";
 import Subheader from 'material-ui/List/ListSubheader';
-import Particle from './particles/Particles.jsx'
+
 
 const classes = {
   image: "PlayerButton-image-190",
@@ -156,7 +156,7 @@ class PlayerButton extends Component {
 
   render(props) {
     return (<div className="btn-div">
-      <Particle  />
+
       <Subheader>{this.props.player.username}</Subheader>
       <button className="btn draw-border" onClick={() => this.updateScore()} >{this.state.scoreDisplay}</button>
     </div>);

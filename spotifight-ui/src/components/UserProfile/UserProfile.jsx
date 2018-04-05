@@ -5,6 +5,10 @@ import axios from 'axios';
 import {Grid, Button} from './../Global/Material-Globals';
 import './Background.scss';
 import $ from 'jquery';
+import Dialog from 'material-ui/Dialog';
+import './UserProfile.scss'
+import UserParticle from '../Games/Masher/particles/Particles.jsx'
+
 
 import {storeCurrentUser} from './../../actions/index';
 
@@ -12,31 +16,36 @@ import Verify from '../Auth/Verify.jsx';
 import {userEmail} from '../../routes.js';
 
 class UserProfile extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       loading: false,
       user: {},
       update: false,
       usernameInput: '',
       avatarInput: '',
-      statusInput: ''
-    };
+      statusInput: '',
+      open:false,
+      _mounted: false
+    }
 
-this.updateModal = this.updateModal.bind(this);
-
-$('.modal-background').on('click', function() {
-  this.updateModal();
-});
-
-
+    this.handleOpen = this.handleOpen.bind(this)
+    this.handleClose = this.handleClose.bind(this)
   }
 
-  componentDidMount() {
+  handleOpen () {
+    this.setState({open: true});
+  }
+
+  handleClose() {
+    this.setState({open: false});
+  }
+
+componentDidMount() {
     // listener for modal black space click
-
-
     this.setState({loading: true});
+    this.setState({_mounted: true})
+
     const {email: storedEmail} = JSON.parse(localStorage.getItem('user')) || {
       email: ''
     };
@@ -48,33 +57,22 @@ $('.modal-background').on('click', function() {
       email = storedEmail;
     }
     console.log(email, 'here is the axios email');
-
     this.getUser(email);
+
+
   }
 
   async getUser(email) {
     try {
       let payload = await axios.get(`/users/email/${email}`);
       payload.data.userProfile.avatar_url = payload.data.userProfile.avatar_url + '0';
-      this.props.storeCurrentUser(payload.data.userProfile);
+      await this.props.storeCurrentUser(payload.data.userProfile);
 
-      this.setState({loading: false, user: payload.data.userProfile});
+      await this.setState({loading: false, user: payload.data.userProfile});
       localStorage.setItem('token', payload.data.token);
       localStorage.setItem('user', JSON.stringify(payload.data.userProfile));
     } catch (err) {
       console.log(err, 'error in getUser--> Userprofile')
-    }
-  }
-
-  async updateModal() {
-    $('.modal-background').on('click', function() {
-      this.updateModal();
-    });
-    var $el = $('.modal');
-    if ($el.hasClass('is-active')) {
-      $el.removeClass('is-active');
-    } else if (!$el.hasClass('is-active')) {
-      $el.addClass('is-active');
     }
   }
 
@@ -114,18 +112,35 @@ $('.modal-background').on('click', function() {
   }
   render() {
     let {loading} = this.state;
-    let user = this.props.userProfile;
-    if (loading) {
-      return <div>
-        loading
-      </div>;
-    } else if (!user) {
-      return <div>
+    const user = this.props.userProfile;
+    if (loading) { return (<div> loading  </div>)}
+    else if (!user) {
+      return (<div>
         not logged-in
-      </div>;
+      </div>);
     }
 
-    return (<div className="section profile-heading">
+    const actions = [
+      <Button
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClose}
+      />,
+      <Button
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.handleClose}
+      />,
+    ]
+
+    return (
+
+
+      <div className="section profile-heading">
+      <div id="particle-div">
+  {this.state._mounted ? <UserParticle userProfile={this.props.userProfile}/> : ''}
+      </div>
       <div className="columns">
         <div className="column is-4 name">
           <div className="image is-128x128 avatar">
@@ -142,7 +157,9 @@ $('.modal-background').on('click', function() {
           <p className="tagline">
             <em>"{user.status}"</em>
           </p>
-          <Button variant="raised" color="primary" onClick={() => this.updateModal()}>Update Info</Button>
+          <Button variant="raised" color="primary" className="primary" label="Dialog" onClick={this.handleOpen}>
+            Update Info
+          </Button>
 
         </div>
         <div className="column is-2 likes has-text-centered">
@@ -157,46 +174,48 @@ $('.modal-background').on('click', function() {
           <p className="stat-val">{user.losses}</p>
           <p className="stat-key">losses</p>
         </div>
+        <div>
 
-        <div class="modal ">
-          <div class="modal-background"></div>
-          <div class="modal-content">
-            <div class="content">
-              <div class="field">
-                <label class="label">Username</label>
-                <div class="control">
-                  <input type="text" name="usernameInput" value={this.state.usernameInput} onChange={e => this.setTextField(e)}/></div>
-              </div>
-
-              <div class="field">
-                <label class="label">
-                  Avatar</label>
-
-                <div class="control">
-                  <input type="text" name="avatarInput" value={this.state.avatarInput} onChange={e => this.setTextField(e)}/>
+          <Dialog title="Dialog With Actions" actions={actions} modal="false" open={this.state.open} onBackdropClick={this.handleClose}>
+            <div className="content user-modal">
+              <h3>Username</h3>
+              <div className="field">
+                <div className="control">
+                  <input type="text" className="input is-medium" name="usernameInput" value={this.state.usernameInput} onChange={e => this.setTextField(e)}/>
                 </div>
               </div>
 
-              <div class="field">
-                <label class="label">
-                  Status</label>
-                <div class="control">
-                  <input type="text" name="statusInput" value={this.state.statusInput} onChange={e => this.setTextField(e)}/>
+              <h3>
+                Avatar
+              </h3>
+
+              <div className="field">
+                <div className="control">
+                  <input type="text" name="avatarInput" className="input is-medium" value={this.state.avatarInput} onChange={e => this.setTextField(e)}/>
                 </div>
               </div>
+
+              <h3>
+                Status
+              </h3>
+
+              <div className="field">
+                <div className="control">
+                  <input type="text" name="statusInput" className="input is-medium" value={this.state.statusInput} onChange={e => this.setTextField(e)}/>
+                </div>
+              </div>
+
+              <Button align="center" variant="raised" color="primary" className="primary" onClick={() => {
+                  this.updateInfo();
+                  this.handleClose()
+                }}>Save</Button>
             </div>
-
-            <button className="primary" onClick={() => {
-                this.updateInfo();
-                this.updateModal()
-              }}>Save</button>
-
-          </div>
-          <button class="modal-close is-large" aria-label="close" onClick={() => this.updateModal()}></button>
+          </Dialog>
         </div>
       </div>
 
-    </div>);
+    </div>
+);
   }
 }
 const mapStateToProps = state => {
