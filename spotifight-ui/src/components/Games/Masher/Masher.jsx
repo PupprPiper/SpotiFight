@@ -6,6 +6,7 @@ import Subheader from "material-ui/List/ListSubheader";
 import "./Masher.scss";
 import axios from "axios";
 import masherHelpers from './masherHelpers.js';
+import $ from 'jquery'
 
 import {
   TextField,
@@ -47,7 +48,7 @@ export default class Masher extends Component {
       this.setState({
         counter: (this.state.counter = "GAME OVER")
       });
-
+       $('.btn').prop('disabled', true)
       //this makes it so that only host emits(prevents multiple receiveWinners)
       if (this.props.localUser === this.props.host) {
         this.state.socket.emit("finalScore");
@@ -62,6 +63,7 @@ export default class Masher extends Component {
   componentDidMount() {
     var id = setInterval(() => this.countdown(), 1000);
     if (this.counter === 0) {
+      //nelsons
       clearInterval(id);
     }
     this.state.socket.on("receiveWinner", winner => {
@@ -95,8 +97,8 @@ export default class Masher extends Component {
       ("I AM IN MASHER");
     }
     return (
-      <div>
-  
+      <div id="masher">
+
         <div align="center" className="masher-counter masher-animate"  >
           {this.state.counter}
         </div>

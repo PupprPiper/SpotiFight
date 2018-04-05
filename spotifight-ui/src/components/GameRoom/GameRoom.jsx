@@ -64,7 +64,7 @@ class GameRoom extends Component {
         this.setState({players: data});
         this.props.updatePlayers(data)
         if (this.state.players.length !== 0) {
-          
+
           this.setState({host: this.state.players[0].username});
           // this.setState({host: this.props.globalPlayers[0]});
         }
@@ -130,13 +130,13 @@ class GameRoom extends Component {
     this.socket.emit('startGameHost', this.props.game);
     this.setState({
       currRoom: games[this.props.game]
-    });    
+    });
   }
 
   lobbyReturn() {
     this.state.socket.emit('RETURN_TO_LOBBY', 'Lobby')
     this.setState({currRoom: games['Lobby']});
-    
+
   }
   getWinner(final) {
     let values = Object.entries(final);
@@ -147,7 +147,7 @@ class GameRoom extends Component {
   }
 
   render() {
-    return (<div>
+    return (<div id="game-room">
       <audio src={this.state.globalSong} autoPlay="autoPlay"/>
       <this.state.currRoom socket={this.state.socket} userImg={this.state.userImg} localUser={this.state.localUser} winner={this.state.winner} players={this.state.players} host={this.state.host} leftPlayers={this.state.leftPlayers} rightPlayers={this.state.rightPlayers}/>
       <Grid container>
@@ -164,7 +164,7 @@ class GameRoom extends Component {
               : null
           }
           {
-            this.state.currRoom === Lobby 
+            this.state.currRoom === Lobby
               ? null
               : (<div align="center">
                 <Button variant="raised" color="primary" onClick={() => this.lobbyReturn()}>
