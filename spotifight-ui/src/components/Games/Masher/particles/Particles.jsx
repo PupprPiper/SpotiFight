@@ -14,9 +14,6 @@ export default class Particle extends Component {
   }
 
 
-shouldComponentUpdate() {
-  return false;
-}
 
   render() {
     const str = this.props.userProfile.avatar_url
