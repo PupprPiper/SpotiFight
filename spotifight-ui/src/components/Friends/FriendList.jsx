@@ -41,12 +41,12 @@ class FriendList extends Component {
 
   async fetchAllFriends() {
     var allFriends = await axios.get(
-      `http://localhost:3000/friends/fetchAllFriends/${
+      `/friends/fetchAllFriends/${
         this.props.userProfile.id
       }`
     );
     var pendingFriends = await axios.get(
-      `http://localhost:3000/friends/fetchAllPendingFriends/${
+      `/friends/fetchAllPendingFriends/${
         this.props.userProfile.id
       }`
     );
@@ -64,7 +64,7 @@ class FriendList extends Component {
   }
 
   async componentDidMount() {
-    var allUsers = await axios.get('http://localhost:3000/users/fetchAllUsers');
+    var allUsers = await axios.get('/users/fetchAllUsers');
     this.props.updateAllUsers(allUsers);
     this.fetchAllFriends();
     this.props.updateSearchInput('');

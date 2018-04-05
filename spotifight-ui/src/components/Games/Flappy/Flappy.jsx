@@ -131,10 +131,10 @@ class Flappy extends Component {
           if(player.username !== data.winner){
             console.log('GETS HERE')
             
-            axios.put('http://localhost:3000/users/addWinLoss', {field: 'losses', user_id: player.id })
+            axios.put('/users/addWinLoss', {field: 'losses', user_id: player.id })
           }else{
             console.log('ELSE HERE')
-            axios.put('http://localhost:3000/users/addWinLoss', {field: 'wins', user_id: player.id })
+            axios.put('/users/addWinLoss', {field: 'wins', user_id: player.id })
           }
         }))
       }
