@@ -15,13 +15,13 @@ export default class Tutorial extends Component {
       <Carousel
       className="carousel" id="tutorial"
       cellAlign="center"
-      slideWidth={0.4}
+      // slideWidth={0.8}
       slidesToShow={1}
       cellSpacing={500}
       margin="200px"
 
 
-    renderBottomMiddleControls={false}
+    renderBottomCenterControls={false}
 
       >
         <img src="https://i.imgur.com/5gO6hun.png"/>

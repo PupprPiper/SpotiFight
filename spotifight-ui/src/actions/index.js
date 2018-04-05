@@ -45,3 +45,7 @@ export const updateAllUsers = (allUsers) => {
 export const updateSearchInput = (searchInput) => {
   return { type: 'SEARCH_INPUT', payload: searchInput }
 };
+
+export const updatePlayers = (players) => {
+  return { type: 'PLAYERS', payload: players }
+};

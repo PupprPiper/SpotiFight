@@ -6,6 +6,7 @@ const authRouter = require('./../components/Auth/authRouter');
 //to add the rest later
 // const passport = require('passport');
 
+
 // user route
 router.use('/users', userRouter);
 router.use('/friends', friendsRouter);

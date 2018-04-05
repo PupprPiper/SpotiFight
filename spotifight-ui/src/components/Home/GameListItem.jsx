@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import randomstring from 'randomstring';
+
 import {
   ListItem,
   Avatar,
@@ -10,6 +11,7 @@ import { withStyles } from 'material-ui/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { gameSwitch, songSwitch } from '../../actions/index';
+
 // import { connect } from 'react-redux';
 
 const style = {
@@ -22,7 +24,7 @@ const style = {
   },
   LobbyText: {
     fontSize: 40,
-    color: 'white'
+    color: "white"
   }
 };
 class GameListItem extends Component {
@@ -46,14 +48,14 @@ class GameListItem extends Component {
   handleMouseOver() {
     this.setState({ gameitemimage: this.props.gameitem.hover });
   }
-
   handleMouseOut() {
     this.setState({ gameitemimage: this.props.gameitem.image });
   }
 
   render() {
     return (
-      <div>
+
+      <div style = {{padding: '50px'}}>
         <Avatar
           onClick={() => this.handleRedirect(this.props.gameitem.title)}
           src={this.state.gameitemimage}
@@ -63,6 +65,7 @@ class GameListItem extends Component {
         />
         <div className={this.props.classes.LobbyText}>
           {`${this.props.gameitem.title}`}{' '}
+
         </div>
       </div>
     );
