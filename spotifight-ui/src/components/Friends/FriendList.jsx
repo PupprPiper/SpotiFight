@@ -31,6 +31,7 @@ import FriendListItem from './FriendListItem.jsx';
 import PendingFriendListItem from './PendingFriendListItem.jsx';
 import SearchListItem from './SearchListItem.jsx';
 import axios from 'axios';
+import './FriendList.scss';
 
 class FriendList extends Component {
   constructor(props) {
@@ -40,7 +41,6 @@ class FriendList extends Component {
   }
 
   async fetchAllFriends() {
-    console.log('PROPS FROM FRIEND LIST ', this.props);
     var allFriends = await axios.get(
       `http://localhost:3000/friends/fetchAllFriends/${
         this.props.userProfile.id
@@ -75,11 +75,11 @@ class FriendList extends Component {
   render() {
     return (
       <div>
-        <Grid style={{ marginTop: '5%' }} container spacing={24}>
-          <Grid align="center" item xs={12} md={4}>
+        <Grid style={{ minWidth: '300px', marginTop: '1%' }} container spacing={40}>
+          <Grid align="center" item xs={12} sm={12} md={4} lg={4}>
             <div className="friend-table top-margin">
               <h3 className="friend-head"> Friends </h3>
-              <table align="left" style={{ width: '100%' }}>
+              <table>
                 <thead>
                   <tr>
                     <th>Avatar</th>
@@ -103,24 +103,33 @@ class FriendList extends Component {
               </table>
             </div>
           </Grid>
-          <Grid align="center" item xs={12} md={4}>
-            <h3>Pending Friend Requests</h3>
-            <List>
-              {this.props.pendingFriends
-                ? this.props.pendingFriends.map((friend, i) => {
-                    return (
-                      <Paper key={i}>
+          <Grid align="center" item xs={12} sm={12} md={4} lg={4}>
+            <div className="friend-table top-margin">
+              <h3 className="friend-head"> Pending Requests </h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Avatar</th>
+                    <th>Username</th>
+                    <th>Accept?</th>
+                    <th>Reject?</th>
+                  </tr>
+                </thead>
+                {this.props.pendingFriends
+                  ? this.props.pendingFriends.map((friend, i) => {
+                      return (
                         <PendingFriendListItem
+                          key={i}
                           fetchAllFriends={this.fetchAllFriends}
                           friend={friend}
                         />
-                      </Paper>
-                    );
-                  })
-                : null}
-            </List>
+                      );
+                    })
+                  : null}
+              </table>
+            </div>
           </Grid>
-          <Grid align="center" item xs={12} md={4}>
+          <Grid align="center" item xs={12} sm={12} md={4} lg={4}>
             <input
               type="text"
               value={this.props.searchInput}

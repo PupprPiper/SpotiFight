@@ -10,8 +10,9 @@
 }
 
 th {
+  text-align: center;
   border-radius: 5px;
-  background-color: rgba(240, 88, 67, 0.8);
+  background-color: rgb(52, 60, 219);
   color: white;
 }
 th, td {
@@ -22,13 +23,10 @@ th, td {
   vertical-align: center;
   padding: 0 1 0 1
 }
-.sort-header {
-  cursor: pointer;
-}
 tbody {
   overflow-y: auto;
 }
-tbody > tr > td:nth-child(3) {
+tbody {
   cursor: pointer;
 }
 tbody > tr:hover {
@@ -41,7 +39,8 @@ tbody > tr:hover {
   margin:3% 3% 3% 3%;
 }
 
-.delete {
+.btn {
+  text-align: center;
   color: var(--bg-text, white);
   background: var(--bg, gray);
   border: 1px solid lightblue;
