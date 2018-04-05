@@ -101,8 +101,7 @@ class FriendList extends Component {
                   : null}
               </table>
             </div>
-          {/* </Grid> */}
-          {/* <Grid align="center" item xs={6} sm={12} md={4} lg={4}> */}
+
             <div className="pendingFriend-table">
               <h3 className="friend-head"> Friend Requests </h3>
               <table>
