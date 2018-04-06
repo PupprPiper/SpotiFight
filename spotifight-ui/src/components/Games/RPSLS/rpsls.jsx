@@ -55,7 +55,7 @@ class rpsls extends Component {
       }
       this.checkWin();
     });
-    this.props.socket.on("final", data => {
+    this.props.socket.once("final", data => {
       this.setState({ result: "END", winner: data });
       if (this.props.localUser === this.props.host) {
         this.props.players.forEach(player => {
