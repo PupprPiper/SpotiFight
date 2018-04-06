@@ -35,6 +35,7 @@ $scanlines: 1px;
 }
 html {
 	background: rgba(46, 46, 46, 1.00);
+	
 }
 .landingpage {
 	background: rgba(46, 46, 46, 1.00);
@@ -57,6 +58,7 @@ html {
 		// -moz-background-size: 100% $scanlines*2;
 		display: block;
 		z-index: 10;
+		
 	}
 	// &:after {
 	// 	animation: bg 10s infinite ease-out;
@@ -184,4 +186,8 @@ main {
 		&:nth-child(9) {animation-delay: $increase-vert*8;}
 		&:nth-child(10) {animation-delay: $increase-vert*9;}
 	}
+
+}
+.landing-title{
+	font-family: Aldrich !important;
 }
