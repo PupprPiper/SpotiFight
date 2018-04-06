@@ -11,6 +11,7 @@ module.exports = {
      
       userObject[roomId].push(user);
       io.emit("OPEN_ROOMS", Object.keys(userObject));
+      io.emit('NUMBER_OF_PEOPLE', Object.values(userObject))
       io.in(client.handshake.query.roomId).emit("newMessage", {
         msg: `${user.username} has entered lobby`
       });
@@ -39,6 +40,7 @@ module.exports = {
         }
 
         io.emit("OPEN_ROOMS", Object.keys(userObject));
+        io.emit('NUMBER_OF_PEOPLE', Object.values(userObject))
       });
       io
         .in(client.handshake.query.roomId)

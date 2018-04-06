@@ -121,6 +121,9 @@ class GameRoom extends Component {
         }
 
       })
+      if(this.state.currRoom === Lobby){
+        this.setState({confetti: false})
+      }
     } catch (error) {
       console.error("in component did mount GAMEROOM");
     }
@@ -196,7 +199,7 @@ class GameRoom extends Component {
     return (
       <div >
         <audio src={this.state.globalSong} autoPlay="autoPlay" />
-        {this.state.confetti === true? <Confetti height = '1000%' width = '1500%'/> : null}
+        {this.state.confetti === true? <Confetti height = '1000%' width = '2000%'/> : null}
         <div align="center" className="gameroom-counter above" style={{'height': '10px', 'color': 'white', 'fontSize': '150pt', 'zIndex': '1000000000000 !important'  }}>
           {this.state.counter}
         </div>

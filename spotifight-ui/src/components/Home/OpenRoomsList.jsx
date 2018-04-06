@@ -12,7 +12,7 @@ class OpenRoomsList extends Component {
     return (
       <div align = 'left'>
         {this.props.openrooms.map((room ,i) =>{
-          return <OpenRoomItems index = {i} key = {i} room = {room} openrooms = {this.props.openrooms}  history={this.props.history}/>
+          return <OpenRoomItems index = {i} key = {i} room = {room} openrooms = {this.props.openrooms}  history={this.props.history} people = {this.props.people}/>
         })}
       </div>
     );
