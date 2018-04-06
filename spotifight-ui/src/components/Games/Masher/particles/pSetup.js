@@ -1,19 +1,19 @@
 module.exports = function(image) {
   return {particles : {
     number: {
-      value: 10,
+      value: 4,
       density: {
         enable: true,
-        value_area: 800
+        value_area: 400
       }
     },
     color: {
       value: '#F5F5F5'
     },
     shape: {
-      type: ['image','circle'],
+      type: ['circle'],
       stroke: {
-        width: 10,
+        width: 1,
         color: '#F5F5F5'
       },
       polygon: {
@@ -22,11 +22,12 @@ module.exports = function(image) {
       image: {
         src: `${image}`,
         width: 40,
-        height: 40
+        height: 40,
+        border_radius: 200
       }
     },
     opacity: {
-      value: 1,
+      value: .3,
       random: false,
       anim: {
         enable: false,
@@ -36,7 +37,7 @@ module.exports = function(image) {
       }
     },
     size: {
-      value: 25,
+      value: 1,
       random: false,
       anim: {
         enable: true,
@@ -49,8 +50,8 @@ module.exports = function(image) {
       enable: true,
       distance: 300,
       color:  '#F5F5F5',
-      opacity: .9,
-      width: 3
+      opacity: .7,
+      width: 1
     },
     move: {
       enable: true,
@@ -91,12 +92,12 @@ module.exports = function(image) {
         distance: 800,
         size: 80,
         duration: 2,
-        opacity: 0.8,
+        opacity: 0.5,
         speed: 3
       },
       repulse: {
-        distance: 100,
-        duration: 2
+        distance: 20,
+        duration: 5
       },
       push: {
         particles_nb: 1
@@ -106,7 +107,8 @@ module.exports = function(image) {
       }
     }
   },
-  retina_detect: true
+  retina_detect: true,
+
 }
 
 }
