@@ -36,7 +36,6 @@ module.exports  = {
     `
   },
   fetchAllPendingFriendsHelper: (req) => {
-    console.log('USER ID HERE ', req.params.user_id)
     return `
     SELECT u.id, u.username, status, avatar_url, u.wins, u.losses, friends
       FROM users AS u

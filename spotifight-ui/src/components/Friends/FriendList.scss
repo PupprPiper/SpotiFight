@@ -1,7 +1,7 @@
-.allTables{
-  display:flex;
+.allTables {
+  display: flex;
   width: 100%;
-  min-width:800px;
+  min-width: 800px;
   overflow: auto;
   white-space: nowrap;
 }
@@ -9,24 +9,15 @@
   float: left;
   width: 300px;
   display: inline-block;
-  // margin: 5px;
-  // padding: 2px;
-  // width: 38%;
-  // min-width: 
-  // overflow-x: auto;
 }
 .pendingFriend-table {
   display: inline-block;
   margin: 0px 200px;
-  // padding: 2px;
-  // width: 30%;
-  // overflow-x: auto;
 }
 .search {
   width: 200px;
-  float:left;
+  float: left;
   display: inline-block;
-  // margin: 20px auto;
 }
 .friend-head {
   font-size: 40px;
@@ -73,7 +64,6 @@ tbody > tr:hover {
   margin: 5px 5px;
   padding: 5px 15px;
 }
-
 .searchForm {
   width: 330px;
   padding: 15px;
@@ -103,23 +93,10 @@ tbody > tr:hover {
   font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }
-// .searchForm input:focus {
-// outline: 0;
-// background: #fff;
-// -moz-box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
-// -webkit-box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
-// box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
-// }
-// .searchForm input::-webkit-input-placeholder {
-// color: #999;
-// font-weight: normal;
-// font-style: italic;
-// }
-
-.searchItem{
+.searchItem {
   width: 200px;
   overflow: display;
 }
-.media{
+.media {
   width: 300px;
 }
