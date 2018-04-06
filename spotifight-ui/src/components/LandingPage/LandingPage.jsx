@@ -4,6 +4,7 @@ import './LandingPage.scss';
 import Tutorial from './Tutorial.jsx';
 import Arrow from './Arrow.jsx';
 import $ from 'jquery';
+import Logo from './images/final_logo.png'
 
 export default class LandingPage extends Component {
 
@@ -31,7 +32,7 @@ constructor(props) {
  src="https://vocaroo.com/media_command.php?media=s1bgaXnLcMJp&command=download_mp3" autoPlay="autoPlay"
   />  */}
       <div className="text">
-<img className="logo" align="center" width="120px" src="https://i.imgur.com/t07Faks.png"/>
+<img className="logo" align="center" width="120px" src={Logo}/>
        <br /> <b><span className="landing-title">SPOTIFIGHT</span>
 
       </b> </div>

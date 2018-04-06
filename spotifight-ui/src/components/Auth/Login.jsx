@@ -101,6 +101,9 @@ class Login extends Component {
                       Google+
                     </a>
                   </form>
+                  <div class='.auth-container'>
+                  {this.state.authError}
+                  </div>
                 </div>
                 <p className="has-text-grey">
                   <Link to="/signup">Sign Up</Link> &nbsp;·&nbsp;
