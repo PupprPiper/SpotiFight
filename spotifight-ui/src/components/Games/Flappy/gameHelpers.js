@@ -3,20 +3,24 @@ import Ban from './ban.png';
 export let bird = { height: 10, position: 2 };
 
 export let asteroids = [
-  { position: 29, vertical: 12 },
-  { position: 22, vertical: 14 },
-  { position: 19, vertical: 10 }
+  { position: 39, vertical: 12 },
+  { position: 32, vertical: 14 },
+  { position: 30, vertical: 11 },
+  { position: 23, vertical: 9 },
+  { position: 19, vertical: 7 }
 ];
 
 export let towers = [
-  { position: 29, height: 3, upright: false },
-  { position: 26, height: 5, upright: true },
-  { position: 22, height: 7, upright: false },
-  { position: 18, height: 6, upright: true },
-  { position: 14, height: 7, upright: false },
-  { position: 11, height: 5, upright: true },
-  { position: 7, height: 8, upright: false },
-  { position: 3, height: 2, upright: true }
+  { position: 39, height: 3, upright: false },
+  { position: 36, height: 5, upright: true },
+  { position: 32, height: 7, upright: false },
+  { position: 28, height: 6, upright: true },
+  { position: 24, height: 7, upright: false },
+  { position: 21, height: 5, upright: true },
+  { position: 17, height: 8, upright: false },
+  { position: 13, height: 2, upright: true },
+  { position: 9, height: 8, upright: false },
+  { position: 5, height: 2, upright: true }
 ];
 
 export let banStyle = {
@@ -50,7 +54,7 @@ export let winnerStyle = {
 
 export let createGrid = gridCopy => {
   for (let i = 0; i < 20; i++) {
-    gridCopy.push(new Array(30).fill(''));
+    gridCopy.push(new Array(40).fill(''));
   }
 };
 
@@ -70,7 +74,7 @@ export let moveTowers = towersCopy => {
   for (let i = 0; i < towersCopy.length; i++) {
     towersCopy[i].position--;
     if (towersCopy[i].position < 0) {
-      towersCopy[i].position = 29;
+      towersCopy[i].position = 39;
       towersCopy[i].height = Math.floor(Math.random() * 7) + 3;
     }
   }
@@ -86,7 +90,7 @@ export let moveAsteroids = asteroidsCopy => {
   for (let i = 0; i < asteroidsCopy.length; i++) {
     asteroidsCopy[i].position--;
     if (asteroidsCopy[i].position < 0) {
-      asteroidsCopy[i].position = 29;
+      asteroidsCopy[i].position = 39;
       asteroidsCopy[i].vertical = Math.floor(Math.random() * 5 + 10);
     }
   }
