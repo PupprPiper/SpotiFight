@@ -121,7 +121,7 @@ class Flappy extends Component {
     ];
 
     this.setState({ asteroids: asteroidsOriginal, towers: towersOriginal });
-    this.props.socket.on('WINNER_SERVER', data => {
+    this.props.socket.once('WINNER_SERVER', data => {
       this.setState({ winner: data.winner });
       if (this.props.localUser === data.winner) {
         this.props.socket.emit('SEND_WINNER_SONG', this.props.mySong);
