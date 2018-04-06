@@ -66,7 +66,7 @@ export default class Masher extends Component {
       //nelsons
       clearInterval(id);
     }
-    this.state.socket.on("receiveWinner", winner => {
+    this.state.socket.once("receiveWinner", winner => {
       this.setState({
         counter: (this.state.counter = `${winner[0]} WINS! FINAL SCORE: ${
           winner[1]
