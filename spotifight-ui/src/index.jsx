@@ -17,7 +17,7 @@ const theme = createMuiTheme({
     type: 'dark'
   },
   typography: {
-    fontFamily: '"Aldrich"',
+    fontFamily: 'Aldrich !important',
   },
 
 });
