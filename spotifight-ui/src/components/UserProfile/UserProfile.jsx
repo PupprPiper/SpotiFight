@@ -81,9 +81,7 @@ componentDidMount() {
   setTextField(e) {
     var obj = {};
     obj[e.target.name] = e.target.value
-    console.log('OBJ HERE ', obj)
     this.setState(obj)
-    console.log(this.state)
   }
 
   async updateInfo() {

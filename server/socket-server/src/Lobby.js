@@ -45,7 +45,6 @@ module.exports = {
         .emit("ACTIVE_USERS", userObject[roomId]);
         
       client.on("sendSongChoices", data => {
-        console.log("PICKED SONG OBJECT ", data);
         io.in(client.handshake.query.roomId).emit("songChoices", data);
       });
     });

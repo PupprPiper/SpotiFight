@@ -40,8 +40,6 @@ export const rejectFriend = async (myId, friendId) => {
     }
   };
 
-  console.log('BODY FROM REJECT FRIEND ', body)
-
   await axios.delete(
     `/friends/rejectFriend/${
       myId
