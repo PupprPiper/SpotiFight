@@ -34,6 +34,7 @@ class OpenRoomItems extends Component {
     return (
       
        <Paper className = {this.props.classes.size}> 
+       {console.log(this.props.openrooms)}
       <ListItem onClick={() => this.handleRoomClick()} className = {this.props.classes.LobbyItems}>
         <ListItemText
           primary={`ROOM ${this.props.index + 1}`}
