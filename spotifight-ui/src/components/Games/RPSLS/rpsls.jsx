@@ -121,9 +121,9 @@ class rpsls extends Component {
     return (
       <div>
         {this.state.result === "TIE" ? (
-          <h3>TIE! Go again </h3>
+          <h3 style={{textAlign: 'center', fontSize: '40px'}}>TIE! Go again </h3>
         ) : this.state.result === "END" ? (
-          <h3>{this.state.winner} WINS! </h3>
+          <h1 style={{textAlign: 'center', fontSize: '40px'}}>{this.state.winner} WINS! </h1>
         ) : null}
         <div />
         <Grid container spacing={24}>
