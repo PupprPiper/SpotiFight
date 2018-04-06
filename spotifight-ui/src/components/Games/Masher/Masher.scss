@@ -12,6 +12,18 @@
   -webkit-animation: animation 1000ms linear 1 both;
   animation: animation 1000ms linear 1 both;
 }
+.gameroom-counter {
+
+  font-size: 5em;
+  font-family: 'VT323', monospace;
+  align-items: center;
+  color: white;
+}
+
+.gameroom-animate {
+  -webkit-animation: animation 1000ms linear 1 both;
+  animation: animation 1000ms linear 1 both;
+}
 
 
 /* Generated with Bounce.js. Edit at https://goo.gl/bkOekC */

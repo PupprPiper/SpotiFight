@@ -56,9 +56,11 @@ io.on("connection", client => {
   GameRoom.broadcastWinner(client, io, userObject);
   GameRoom.sendWinnerSong(client, io, userObject);
   GameRoom.returnToLobby(client, io, userObject);
+  GameRoom.countdown(client, io, userObject)
   Trivia.removeOptions(client, io, userObject, roomId);
 
   Trivia.winner(client, io, userObject, roomId);
+  Trivia.question(client, io, userObject, roomId)
 
   Masher.updateScore(client, users, connections, io);
   Masher.clearBoard(client, users, connections, io);

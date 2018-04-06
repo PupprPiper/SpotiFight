@@ -19,6 +19,7 @@ import OpenRoomsList from './OpenRoomsList.jsx'
 import './Home.scss'
 import Carousel from 'nuka-carousel'
 import SimpleSnackbar from './Snackbar.jsx'
+import $ from 'jquery'
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +30,9 @@ class Home extends Component {
 
   }
 
-
+  componentDidMount(){
+    $(window).scrollTop(0);
+  }
   componentWillMount(){
     this.socket = io.connect('http://localhost:8000')
     this.socket.on('OPEN_ROOMS', data =>{
@@ -50,7 +53,7 @@ class Home extends Component {
   render() {
     return (
       
-      <div align = 'center' className="top-margin" style = {{padding: '50px'}}>
+      <div align = 'center' className="top-margin" style = {{padding: '10px'}}>
       {console.log('home props',this.props)}
       {(this.props.history.action === 'PUSH'  && this.props.history.forced === true)? <SimpleSnackbar/> : null}
         <div>Select a game:</div>
@@ -75,7 +78,8 @@ class Home extends Component {
 const mapStateToProps = function(state) {
   return {
     game: state.game,
-    userProfile: state.userProfile
+    userProfile: state.userProfile,
+    globalPlayers: state.globalPlayers
   };
 };
 
