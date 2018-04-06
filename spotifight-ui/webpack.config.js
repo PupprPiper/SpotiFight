@@ -1,13 +1,9 @@
 var path = require('path');
 var webpack = require('webpack');
-<<<<<<< HEAD
 var CompressionPlugin = require('compression-webpack-plugin');
 
-=======
->>>>>>> test
 var SRC_DIR = path.join(__dirname, '/src');
 var DIST_DIR = path.join(__dirname, '/public');
-var CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: [`babel-polyfill`, `${SRC_DIR}/index.jsx`],
@@ -53,18 +49,7 @@ module.exports = {
       test: /\.js$|\.css$|\.html$/,
       threshold: 10240,
       minRatio: 0.8
-    }),
-
-    new webpack.optimize.AggressiveMergingPlugin(),
-
-    new CompressionPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: /\.js$|\.css$|\.html$/,
-      threshold: 10240,
-      minRatio: 0.8
     })
-
   ],
   resolve: {
     extensions: ['.js', '.jsx']
