@@ -18,6 +18,7 @@ class OpenRoomItems extends Component {
   constructor(props) {
     super(props);
   }
+
   handleRedirect() {
     this.props.history.push({
       pathname: `/game-room/${randomstring.generate()}`,
@@ -34,12 +35,12 @@ class OpenRoomItems extends Component {
     return (
       
        <Paper className = {this.props.classes.size}> 
-       {console.log(this.props.openrooms)}
+       {console.log(this.props.people)}
       <ListItem onClick={() => this.handleRoomClick()} className = {this.props.classes.LobbyItems}>
         <ListItemText
           primary={`ROOM ${this.props.index + 1}`}
           secondary={`There is ${
-            this.props.openrooms.length
+           this.props.people[this.props.index]? this.props.people[this.props.index].length : 1
           } player(s) in this room`}
         />
       </ListItem>

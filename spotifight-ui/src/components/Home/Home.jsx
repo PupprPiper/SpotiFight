@@ -24,8 +24,9 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      game: null,
+      game: this.props.game,
       openrooms: [],
+      people: []
     };
 
   }
@@ -34,10 +35,14 @@ class Home extends Component {
     $(window).scrollTop(0);
   }
   componentWillMount(){
-    this.socket = io.connect('http://localhost:8000')
+  this.socket = io.connect('http://localhost:8000');
     this.socket.on('OPEN_ROOMS', data =>{
 
       this.setState({openrooms: data})
+    })
+
+   this.socket.on('NUMBER_OF_PEOPLE', data =>{
+      this.setState({people: data})
     })
   }
   handleRoomSelect(room){
@@ -64,7 +69,7 @@ class Home extends Component {
         />
         <div>
           <div align = 'left'> Open Rooms:</div>
-            <OpenRoomsList openrooms = {this.state.openrooms}  history={this.props.history}/>
+            <OpenRoomsList openrooms = {this.state.openrooms}  history={this.props.history} people = {this.state.people}/>
             </div>
 
 
