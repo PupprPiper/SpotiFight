@@ -32,8 +32,8 @@ function ButtonGrid(props) {
 
       {
         props.players.map((player) => {
-          return (<Grid align="center" key={player.username}  item xs={6}>
-            <Paper className={`${classes.paper}`} style={{ minWidth: '110px', maxWidth:'300px' }}>
+          return (<Grid align="center" key={player.username}  item xs={3}>
+            <Paper className={`${classes.paper}`} style={{ minWidth: '200px', maxWidth:'200px', 'textAlign' : 'center' }}>
                 <img src={player.avatar_url} className="buttonCard" />
               <PlayerButton player={player} socket={props.socket}/>
             </Paper>

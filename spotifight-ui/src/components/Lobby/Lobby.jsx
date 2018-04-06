@@ -103,10 +103,10 @@ class Lobby extends Component {
           this.setState({ songChoices: this.props.songSelections });
         }
       });
-      
+
     }
   }
-  
+
   componentDidMount(){
     if(this.props.socket){
       this.props.socket.on('RETURN_ALL_TO_LOBBY', () => {
@@ -118,7 +118,7 @@ class Lobby extends Component {
         this.setState({ songChoices: this.props.songSelections });
       });
     }
-    
+
   }
 
   searchSong() {
@@ -190,7 +190,7 @@ class Lobby extends Component {
 
   render() {
     return (
-      <div style={{ marginTop: "1%" }}>
+      <div style={{ marginTop: "1%" }}   >
         {this.state.alert === true ? <AlertDialog /> : null}
 
         <Grid container>
