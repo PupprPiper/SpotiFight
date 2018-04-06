@@ -121,6 +121,9 @@ class GameRoom extends Component {
         }
 
       })
+      if(this.state.currRoom === Lobby){
+        this.setState({confetti: false})
+      }
     } catch (error) {
       console.error("in component did mount GAMEROOM");
     }
