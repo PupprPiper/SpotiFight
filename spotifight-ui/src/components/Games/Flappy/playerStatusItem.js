@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { OpponentGrid } from './grid';
 import { opponentBanStyle, thumbnailStyle } from './gameHelpers';
 import Ban from './ban.png';
-import Bird from './bird.gif';
+import Bird from './bird2.gif';
 
 import './playerStatus.scss';
 

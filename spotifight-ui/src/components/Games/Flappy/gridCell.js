@@ -10,13 +10,11 @@ const GridCell = ({ cell }) => {
       width: 20,
       height: 20,
       overflow: 'visible !important'
-      // background: `url(${Bird}) no-repeat center center`,
-      // backgroundSize: 'fixed',
     };
 
     return (
       <div style={style}>
-        <img src={Bird}/>
+        <img src={Bird} />
       </div>
     );
   } else if (cell === 'red') {
@@ -30,9 +28,7 @@ const GridCell = ({ cell }) => {
     style = {
       width: 20,
       height: 20,
-      background: `url(${
-        Brick // backgroundColor: cell
-      }) no-repeat center center`,
+      background: `url(${Brick}) no-repeat center center`,
       backgroundSize: 'contain'
     };
   } else {

@@ -29,7 +29,7 @@ class Flappy extends Component {
 
     let grid = [];
     for (let i = 0; i < 20; i++) {
-      grid.push(new Array(30).fill('lightgreen'));
+      grid.push(new Array(40).fill('lightgreen'));
     }
 
     grid[bird.height][bird.position] = 'yellow';
@@ -105,19 +105,23 @@ class Flappy extends Component {
 
   componentDidMount() {
     let asteroidsOriginal = [
-      { position: 29, vertical: 12 },
-      { position: 22, vertical: 14 },
-      { position: 19, vertical: 10 }
+      { position: 39, vertical: 12 },
+      { position: 32, vertical: 14 },
+      { position: 30, vertical: 11 },
+      { position: 23, vertical: 9 },
+      { position: 19, vertical: 7 }
     ];
     let towersOriginal = [
-      { position: 29, height: 3, upright: false },
-      { position: 26, height: 5, upright: true },
-      { position: 22, height: 7, upright: false },
-      { position: 18, height: 6, upright: true },
-      { position: 14, height: 7, upright: false },
-      { position: 11, height: 5, upright: true },
-      { position: 7, height: 8, upright: false },
-      { position: 3, height: 2, upright: true }
+      { position: 39, height: 3, upright: false },
+      { position: 36, height: 5, upright: true },
+      { position: 32, height: 7, upright: false },
+      { position: 28, height: 6, upright: true },
+      { position: 24, height: 7, upright: false },
+      { position: 21, height: 5, upright: true },
+      { position: 17, height: 8, upright: false },
+      { position: 13, height: 2, upright: true },
+      { position: 9, height: 8, upright: false },
+      { position: 5, height: 2, upright: true }
     ];
 
     this.setState({ asteroids: asteroidsOriginal, towers: towersOriginal });
@@ -126,17 +130,23 @@ class Flappy extends Component {
       if (this.props.localUser === data.winner) {
         this.props.socket.emit('SEND_WINNER_SONG', this.props.mySong);
 
-        this.props.players.forEach((player => {
-          console.log(player.username, data.winner)
-          if(player.username !== data.winner){
-            console.log('GETS HERE')
-            
-            axios.put('/users/addWinLoss', {field: 'losses', user_id: player.id })
-          }else{
-            console.log('ELSE HERE')
-            axios.put('/users/addWinLoss', {field: 'wins', user_id: player.id })
+        this.props.players.forEach(player => {
+          console.log(player.username, data.winner);
+          if (player.username !== data.winner) {
+            console.log('GETS HERE');
+
+            axios.put('/users/addWinLoss', {
+              field: 'losses',
+              user_id: player.id
+            });
+          } else {
+            console.log('ELSE HERE');
+            axios.put('/users/addWinLoss', {
+              field: 'wins',
+              user_id: player.id
+            });
           }
-        }))
+        });
       }
     });
 
@@ -144,7 +154,6 @@ class Flappy extends Component {
       const temp = this.state.temp;
       this.state.opponents[data.username] = data;
       delete temp[data.username];
-      console.log('state opponents-->', this.state.opponents);
 
       if (Object.keys(temp).length === 1) {
         this.props.socket.emit('WINNER_CLIENT', Object.keys(temp)[0]);

@@ -1,5 +1,6 @@
 environment/keys.js
 public/bundle.js
+public/bundle.js.gz
 
 ## node ##
 node_modules
