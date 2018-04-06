@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "react-dev": "webpack -w --mode development"
+    "react-dev": "webpack -w --mode development",
+    "react-prod": "webpack -w --mode production"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -35,6 +36,7 @@
     "webpack": "^4.1.1"
   },
   "devDependencies": {
+    "compression-webpack-plugin": "^1.1.11",
     "css-loader": "^0.28.10",
     "file-loader": "^1.1.11",
     "node-sass": "^4.7.2",
