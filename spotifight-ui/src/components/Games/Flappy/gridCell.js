@@ -16,7 +16,7 @@ const GridCell = ({ cell }) => {
 
     return (
       <div style={style}>
-        <img src={Bird} style={{ width: '200px' }} />
+        <img src={Bird}/>
       </div>
     );
   } else if (cell === 'red') {
@@ -26,8 +26,6 @@ const GridCell = ({ cell }) => {
       background: `url(${Asteroid}) no-repeat center center`,
       backgroundSize: 'contain'
     };
-
-    // background: `url("https://files.gamebanana.com/img/ico/sprays/_1317-.gif") no-repeat center center`,
   } else if (cell === 'blue') {
     style = {
       width: 20,
