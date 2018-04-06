@@ -41,6 +41,12 @@ app.use(passport.session());
 // serve static assets
 app.use(express.static(path.join(__dirname, '../../spotifight-ui/public/')));
 
+app.get('*.js', function(req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
+
 app.use(router);
 
 app.use('*', (err, res) => {
