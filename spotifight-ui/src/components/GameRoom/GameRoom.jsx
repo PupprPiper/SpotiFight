@@ -146,18 +146,6 @@ class GameRoom extends Component {
   componentDidUpdate() {}
 
   startGame() {
-<<<<<<< HEAD
-    this.socket.emit('startGameHost', this.props.game);
-    this.setState({
-      currRoom: games[this.props.game]
-    });
-  }
-
-  lobbyReturn() {
-    this.state.socket.emit('RETURN_TO_LOBBY', 'Lobby')
-    this.setState({currRoom: games['Lobby']});
-
-=======
     this.state.socket.emit('COUNTER', '')
 
 
@@ -174,7 +162,6 @@ class GameRoom extends Component {
   lobbyReturn() {
     this.state.socket.emit("RETURN_TO_LOBBY", "Lobby");
     this.setState({ currRoom: games["Lobby"] });
->>>>>>> lobby, gameroom, musictrivia
   }
   getWinner(final) {
     let values = Object.entries(final);
@@ -206,29 +193,6 @@ class GameRoom extends Component {
 
 
   render() {
-<<<<<<< HEAD
-    return (<div id="game-room">
-      <audio src={this.state.globalSong} autoPlay="autoPlay"/>
-      <this.state.currRoom socket={this.state.socket} userImg={this.state.userImg} localUser={this.state.localUser} winner={this.state.winner} players={this.state.players} host={this.state.host} leftPlayers={this.state.leftPlayers} rightPlayers={this.state.rightPlayers}/>
-      <Grid container>
-        <Grid item md={5}/>
-
-        <Grid item md={2}>
-          {
-            (this.state.host === this.state.localUser && this.state.currRoom === Lobby)
-              ? (<div align="center">
-                <Button variant="raised" color="primary" onClick={() => this.startGame()}>
-                  START GAME
-                </Button>
-              </div>)
-              : null
-          }
-          {
-            this.state.currRoom === Lobby
-              ? null
-              : (<div align="center">
-                <Button variant="raised" color="primary" onClick={() => this.lobbyReturn()}>
-=======
     return (
       <div >
         <audio src={this.state.globalSong} autoPlay="autoPlay" />
@@ -270,7 +234,6 @@ class GameRoom extends Component {
                   color="primary"
                   onClick={() => this.lobbyReturn()}
                 >
->>>>>>> lobby, gameroom, musictrivia
                   RETURN TO LOBBY
                 </Button>
               </div>
