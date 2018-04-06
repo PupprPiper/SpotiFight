@@ -73,7 +73,7 @@ class FriendList extends Component {
 
   render() {
     return (
-      <div>
+      <div className="allTables">
         {/* <Grid style={{ marginTop: '1%' }} container spacing={24}> */}
           {/* <Grid align="center" item xs={12} sm={12} md={4} lg={4}> */}
             <div className="friend-table">
@@ -135,7 +135,7 @@ class FriendList extends Component {
           <h3 className="friend-head"> Search </h3>
           <form>
             <input
-            class="searchForm"
+            className="searchForm"
               type="text"
               placeholder="Search friends..."
               value={this.props.searchInput}
@@ -152,7 +152,7 @@ class FriendList extends Component {
             {this.props.filteredUsers
               ? this.props.filteredUsers.map((user, i) => {
                   return (
-                    <SearchListItem
+                    <SearchListItem key={i}
                       fetchAllFriends={this.fetchAllFriends}
                       user={user}
                     />

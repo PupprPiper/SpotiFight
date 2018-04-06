@@ -31,7 +31,7 @@ class SearchListItem extends Component {
             </div>
             <div className="media-content">
               <div className="content">
-                <p>
+                <p class="searchItem">
                   <strong style={{ fontSize: '20px' }}>{this.props.user.username}</strong>
                   <small style={{ float: 'right' }}>{this.props.user.status}</small>
                   <br />
