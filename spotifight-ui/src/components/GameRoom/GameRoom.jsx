@@ -119,7 +119,7 @@ class GameRoom extends Component {
         } else {
           gameRoomCountdown.animate();
         }
-    
+
       })
     } catch (error) {
       console.error("in component did mount GAMEROOM");
@@ -187,7 +187,7 @@ class GameRoom extends Component {
           counter: ''
         });
         clearInterval(this.gameCount);
-      
+
     }
   }
 
@@ -197,10 +197,10 @@ class GameRoom extends Component {
       <div >
         <audio src={this.state.globalSong} autoPlay="autoPlay" />
         {this.state.confetti === true? <Confetti height = '1000%' width = '1500%'/> : null}
-        <div align="center" className="gameroom-counter">
+        <div align="center" className="gameroom-counter above" style={{'height': '10px', 'color': 'white', 'fontSize': '150pt', 'zIndex': '1000000000000 !important'  }}>
           {this.state.counter}
         </div>
-  
+
         <this.state.currRoom
           socket={this.state.socket}
           userImg={this.state.userImg}

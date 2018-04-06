@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import axios from 'axios';
 import {Grid, Button} from './../Global/Material-Globals';
-import './Background.scss';
+
 import $ from 'jquery';
 import Dialog from 'material-ui/Dialog';
 import './UserProfile.scss'
@@ -154,30 +154,33 @@ componentDidMount() {
             <br/>
             <span className="title is-bold">{user.username}</span>
           </p>
-          <p className="tagline">
+          <p className="tagline base-margin-tb">
             <em>"{user.status}"</em>
           </p>
-          <Button variant="raised" color="primary" className="primary" label="Dialog" onClick={this.handleOpen}>
+          <Button variant="raised" style={{'marginTop': '15px'}}color="primary" className="primary base-margin-tb" label="Dialog" onClick={this.handleOpen}>
             Update Info
           </Button>
 
         </div>
         <div className="column is-2 likes has-text-centered">
-          <p className="stat-val">{user.friends}</p>
-          <p className="stat-key">friends</p>
+          <p className="stat-key two-em">friends</p>
+          <p className="stat-val two-em">{user.friends}</p>
+
         </div>
         <div className="column is-2 followers has-text-centered">
-          <p className="stat-val">{user.wins}</p>
-          <p className="stat-key">wins</p>
+          <p className="stat-key two-em">wins</p>
+          <p className="stat-val two-em">{user.wins}</p>
+
         </div>
         <div className="column is-2 following has-text-centered">
-          <p className="stat-val">{user.losses}</p>
-          <p className="stat-key">losses</p>
+            <p className="stat-key two-em">losses</p>
+          <p className="stat-val two-em">{user.losses}</p>
+
         </div>
         <div>
 
-          <Dialog title="Dialog With Actions" actions={actions} modal="false" open={this.state.open} onBackdropClick={this.handleClose}>
-            <div className="content user-modal">
+          <Dialog title="Dialog With Actions" className="base-margin-tb" actions={actions} modal="false" open={this.state.open} onBackdropClick={this.handleClose}>
+            <div className="content base-pad">
               <h3>Username</h3>
               <div className="field">
                 <div className="control">

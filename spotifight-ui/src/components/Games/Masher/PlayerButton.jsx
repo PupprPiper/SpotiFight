@@ -72,12 +72,14 @@ class PlayerButton extends Component {
 
 
   render(props) {
-    return (<div autoFocus onKeyUp={(e) => this.buttonHandler(e)}>
+    return (<div style={{'textAlign':'center', 'align':'center'}} autoFocus onKeyUp={(e) => this.buttonHandler(e)}>
       <button autoFocus className="btn draw-border" onClick={() => this.updateScore(1)}>{this.state.scoreDisplay}</button>
-      <Subheader style={{
-          'fontSize' : '2.5em'
-        }}>{this.props.player.username}</Subheader>
-      <button className="btn draw-border-down" onClick={() => this.updateScore(-1)}>{String.fromCharCode(0x25BC)}</button>
+      <div style={{
+          'fontSize' : '2.5em',
+          'align' : 'center',
+          'textAlign' :'center'
+        }}>{this.props.player.username}</div>
+      <button className="btn draw-border-down" style={{'color': '#ff0000'}} onClick={() => this.updateScore(-1)}>{String.fromCharCode(0x25BC)}</button>
     </div>);
   }
 }

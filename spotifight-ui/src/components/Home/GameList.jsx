@@ -21,8 +21,8 @@ const style = {
 class GameList extends Component {
   render() {
     return (
-      
-        <Carousel renderBottomCenterControls={false} cellAlign = 'center' slidesToShow={3} > 
+
+        <Carousel renderBottomCenterControls={false} cellAlign = 'center' slidesToShow={3} >
         {games.map((item, i) => {
           return (
             <GameListItem

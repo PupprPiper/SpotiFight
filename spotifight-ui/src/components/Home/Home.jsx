@@ -42,7 +42,7 @@ class Home extends Component {
   }
   handleRoomSelect(room){
     this.props.history.push({pathname: `/game-room/${room}`})
-   
+
   }
   componentWillUnmount(){
     this.socket.disconnect()
@@ -52,7 +52,7 @@ class Home extends Component {
 
   render() {
     return (
-      
+
       <div align = 'center' className="top-margin" style = {{padding: '10px'}}>
       {console.log('home props',this.props)}
       {(this.props.history.action === 'PUSH'  && this.props.history.forced === true)? <SimpleSnackbar/> : null}
@@ -67,7 +67,7 @@ class Home extends Component {
             <OpenRoomsList openrooms = {this.state.openrooms}  history={this.props.history}/>
             </div>
 
-            
+
         <Verify history={this.props.history} />
 
       </div>

@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import Carousel from 'nuka-carousel';
-import './Tutorial.scss'
+import './Tutorial.scss';
+import Best from './images/best_your_friends.png';
+import Start from './images/start_a_party.png';
+import PlaySong from './images/play_your_song.png';
 
 export default class Tutorial extends Component {
 
@@ -15,18 +18,15 @@ export default class Tutorial extends Component {
       <Carousel
       className="carousel" id="tutorial"
       cellAlign="center"
-      // slideWidth={0.8}
+      slideWidth={0.8}
       slidesToShow={1}
       cellSpacing={500}
       margin="200px"
-
-
-    renderBottomCenterControls={false}
-
+      renderBottomCenterControls={false}
       >
-        <img src="https://i.imgur.com/5gO6hun.png"/>
-        <img src="https://i.imgur.com/SrHaZAQ.png"/>
-        <img src="https://i.imgur.com/yRDFFS3.png"/>
+        <img src={Start}/>
+        <img src={Best}/>
+        <img src={PlaySong}/>
       </Carousel>
 
     </div>);

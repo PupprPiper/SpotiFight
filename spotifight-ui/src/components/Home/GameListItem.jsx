@@ -15,16 +15,20 @@ import { gameSwitch, songSwitch } from '../../actions/index';
 // import { connect } from 'react-redux';
 
 const style = {
-  LobbyItems: {
+  LobbyItems:{
     cursor: 'Pointer',
-    height: 500,
-    width: 500,
+    height: '100%',
+    width: '100%',
     color: 'white',
-    align: 'center'
+    align: 'center',
+    minWidth:'150px',
+    minHeight:'150px',
+
+
   },
-  LobbyText: {
-    fontSize: 40,
-    color: "white"
+  LobbyText:{
+    fontSize: 'calc(12px + 2vw)',
+    color: 'white'
   }
 };
 class GameListItem extends Component {
