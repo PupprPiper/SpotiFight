@@ -45,7 +45,7 @@ class FriendListItem extends Component {
                 );
                 this.props.fetchAllFriends();
               }}
-              className="btn"
+              className="friendsBtn"
               type="button"
             >
               Delete
