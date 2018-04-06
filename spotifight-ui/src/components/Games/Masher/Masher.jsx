@@ -61,6 +61,7 @@ export default class Masher extends Component {
   }
 
   componentDidMount() {
+    $(window).scrollTop(0);
     var id = setInterval(() => this.countdown(), 1000);
     if (this.counter === 0) {
       //nelsons

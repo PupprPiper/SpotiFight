@@ -25,4 +25,9 @@ export let games = [
   image: 'http://freepngimg.com/download/pokemon/37545-9-pokeball-free-download.png',
   hover: 'https://i.imgur.com/iaMe1UJ.png'
   },
+  {
+    title: 'Coders of the Cosmos',
+    image: 'https://i.imgur.com/BbRVe8E.png',
+    hover: 'https://i.imgur.com/BbRVe8E.png'
+    },
 ];
