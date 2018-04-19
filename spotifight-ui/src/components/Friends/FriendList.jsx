@@ -68,7 +68,7 @@ class FriendList extends Component {
   }
 
   render() {
-    return (
+    return ( 
       <div className="allTables">
         <div className="friend-table">
           <h3 className="friend-head"> Friends </h3>
