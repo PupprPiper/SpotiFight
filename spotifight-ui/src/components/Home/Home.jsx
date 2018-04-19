@@ -66,7 +66,7 @@ class Home extends Component {
       }
       <div>Select a game:</div>
 
-      <GameList history={this.props.history} align='center'/>
+      <GameList history={this.props.history} align='left'/>
       <div>
         <div align='left'>
           Open Rooms:</div>

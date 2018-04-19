@@ -22,6 +22,7 @@ import {
   Grid
 } from "../../Global/Material-Globals.js";
 
+
 export default class Masher extends Component {
   constructor(props) {
     super(props);
@@ -100,7 +101,7 @@ export default class Masher extends Component {
     return (
       <div id="masher">
 
-        <div align="center" className="masher-counter masher-animate"  >
+        <div align="center" className="masher-counter masher-animate counterFont"  >
           {this.state.counter}
         </div>
 

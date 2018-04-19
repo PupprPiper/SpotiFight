@@ -19,6 +19,8 @@ const styles = theme => ({
   }
 });
 
+const inLine = { minWidth: '200px', maxWidth:'200px', maxWidth:'200px', 'textAlign' : 'center' }
+
 function ButtonGrid(props) {
 
   {
@@ -32,8 +34,8 @@ function ButtonGrid(props) {
 
       {
         props.players.map((player) => {
-          return (<Grid align="center" key={player.username}  item xs={3}>
-            <Paper className={`${classes.paper}`} style={{ minWidth: '200px', maxWidth:'200px', 'textAlign' : 'center' }}>
+          return (<Grid align="center" key={player.username}  item xs={12} sm={3}>
+            <Paper className={`${classes.paper}`} style={inLine}>
                 <img src={player.avatar_url} className="buttonCard" />
               <PlayerButton player={player} socket={props.socket}/>
             </Paper>
