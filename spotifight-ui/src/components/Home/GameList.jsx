@@ -22,7 +22,7 @@ class GameList extends Component {
   render() {
     return (
 
-        <Carousel renderBottomCenterControls={false} cellAlign = 'center' slidesToShow={3} >
+        <Carousel renderBottomCenterControls={false} cellAlign={'center'} slidesToShow={3}  cellSpacing={100} >
         {games.map((item, i) => {
           return (
             <GameListItem
@@ -30,6 +30,7 @@ class GameList extends Component {
               gameitem={item}
               history={this.props.history}
               style = {style}
+
             />
           );
         })}
