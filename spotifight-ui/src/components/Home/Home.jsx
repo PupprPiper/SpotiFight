@@ -34,9 +34,9 @@ class Home extends Component {
   componentDidMount() {
     $(window).scrollTop(0);
   }
-  componentWillMount() {
-    this.socket = io.connect('http://localhost:8000');
-    this.socket.on('OPEN_ROOMS', data => {
+  componentWillMount(){
+    this.socket = io.connect('http://52.52.112.169:8000')
+    this.socket.on('OPEN_ROOMS', data =>{
 
       this.setState({openrooms: data})
     })

@@ -60,7 +60,7 @@ class GameRoom extends Component {
   async componentWillMount() {
     try {
       // connect to server
-      this.socket = await io.connect("http://localhost:8000", {
+      this.socket = await io.connect('http://52.52.112.169:8000', {
         query: {
           roomId: this.props.location.pathname.slice(11)
         }
