@@ -19,6 +19,7 @@ import Verify from "../Auth/Verify.jsx";
 import gameRoomCountdown from "./gameRoomCountdown";
 import Confetti from 'react-confetti'
 import $ from "jquery";
+import './GameRoom.scss';
 
 const games = {
   Lobby: Lobby,
@@ -200,7 +201,7 @@ class GameRoom extends Component {
       <div >
         <audio src={this.state.globalSong} autoPlay="autoPlay" />
         {this.state.confetti === true? <Confetti height = '1000%' width = '2000%'/> : null}
-        <div align="center" className="gameroom-counter above" style={{'height': '10px', 'color': 'white', 'fontSize': '150pt', 'zIndex': '1000000000000 !important'  }}>
+        <div align="center" className="gameroom-counter above counter counterFont" style={{'height': '10px', 'color': 'white',  'zIndex': '1000000000000 !important'  }}>
           {this.state.counter}
         </div>
 

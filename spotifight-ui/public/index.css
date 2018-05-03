@@ -2,6 +2,10 @@
   font-family: 'Aldrich', sans-serif;
 }
 
+.counterFont {
+    font-size: calc(25px + 5.5vw);
+}
+
 .loading {
   margin-top: 28% 20% 0 0 ;
   font-size: 2em;

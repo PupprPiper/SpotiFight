@@ -23,7 +23,7 @@ class SearchListItem extends Component {
     render(){
 
         return (
-          <article className="media">
+          <article className="media" style={{minWidth:'250px'}}>
             <div className="media-left">
               <figure className="image is-64x64">
                 <img src={this.props.user.avatar_url} alt="Image" />
@@ -33,7 +33,7 @@ class SearchListItem extends Component {
               <div className="content">
                 <p class="searchItem">
                   <strong style={{ fontSize: '20px' }}>{this.props.user.username}</strong>
-                  <small style={{ float: 'right' }}>{this.props.user.status}</small>
+                  <small  style={{ float: 'right', margin: '2% 2%', display:'block' }}>{this.props.user.status}</small>
                   <br />
                   <small>
                     wins: {this.props.user.wins} losses: {this.props.user.losses}
@@ -87,7 +87,7 @@ const mapStateToProps = function(state) {
       searchInput: state.searchInput
     };
   };
-  
+
   const mapDispatchToProps = function(dispatch) {
     return bindActionCreators(
       {
