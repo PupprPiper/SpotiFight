@@ -4,6 +4,7 @@ var CompressionPlugin = require('compression-webpack-plugin');
 
 var SRC_DIR = path.join(__dirname, '/src');
 var DIST_DIR = path.join(__dirname, '/public');
+var CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: [`babel-polyfill`, `${SRC_DIR}/index.jsx`],
