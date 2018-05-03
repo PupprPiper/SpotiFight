@@ -1,10 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
-<<<<<<< HEAD
 var CompressionPlugin = require('compression-webpack-plugin');
 
-=======
->>>>>>> test
 var SRC_DIR = path.join(__dirname, '/src');
 var DIST_DIR = path.join(__dirname, '/public');
 
@@ -41,15 +38,10 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-<<<<<<< HEAD
-=======
-      //<--key to reduce React's size
->>>>>>> test
       'process.env': {
         NODE_ENV: JSON.stringify('production')
       }
     }),
-<<<<<<< HEAD
     new webpack.optimize.AggressiveMergingPlugin(),
     new CompressionPlugin({
       asset: '[path].gz[query]',
@@ -58,10 +50,6 @@ module.exports = {
       threshold: 10240,
       minRatio: 0.8
     })
-=======
-    // new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.AggressiveMergingPlugin(),
->>>>>>> test
   ],
   resolve: {
     extensions: ['.js', '.jsx']
