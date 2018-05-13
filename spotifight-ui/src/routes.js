@@ -14,7 +14,6 @@ import {
   Home as HomeIcon
 } from 'material-ui-icons';
 
-import Auth from './components/Auth/Auth';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import Chat from './components/Chat/Chat';
