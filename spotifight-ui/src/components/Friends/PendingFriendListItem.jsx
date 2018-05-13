@@ -43,7 +43,7 @@ class PendingFriendListItem extends Component {
                 );
                 this.props.fetchAllFriends();
               }}
-              className="btn"
+              className="friendsBtn"
               type="button"
             >
               Accept
@@ -58,7 +58,7 @@ class PendingFriendListItem extends Component {
                 );
                 this.props.fetchAllFriends();
               }}
-              className="btn"
+              className="friendsBtn"
               type="button"
             >
               Reject
