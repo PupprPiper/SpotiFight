@@ -3,9 +3,9 @@ const Promise = require('bluebird')
 
 const config = {
   user: 'root',
+  password: '123',
   host: 'localhost',
   database: 'spotifight',
-  password: '123',
   port: 5432,
   max: 20
 }

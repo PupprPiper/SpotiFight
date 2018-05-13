@@ -7,7 +7,6 @@ import { googleBtnStyle } from './authHelpers';
 import './Login.scss';
 import axios from 'axios';
 import { Grid } from './../Global/Material-Globals';
-import $ from 'jquery';
 
 class Login extends Component {
   constructor(props) {
@@ -32,15 +31,9 @@ class Login extends Component {
         email: this.state.email,
         password: this.state.password
       });
-
-      console.log(data, 'response on the dom in login');
       if (data.access) {
-        // localStorage.setItem('token', data.token);
-        // localStorage.setItem('user', data.email);
-        console.log(data, 'here is the access data on the dom');
         this.props.history.push(`/user-profile/${data.email}`);
       } else {
-
         this.setState({ authError: data.message });
       }
     } catch (err) {
@@ -60,13 +53,15 @@ class Login extends Component {
             <Grid container>
               <Grid item sm={12} md={3} lg={3} />
               <Grid item sm={12} md={6} lg={6}>
-                <h3 className="title has-text-grey">Please login to proceed</h3>
+                <h3 className="title has-text-grey">
+                  Please log in to proceed
+                </h3>
                 <div className="box">
                   <form>
                     <div className="field">
                       <div className="control">
                         <input
-                          className="input is-large"
+                          className="input is-medium"
                           type="email"
                           name="email"
                           placeholder="Your Email"
@@ -78,7 +73,7 @@ class Login extends Component {
                     <div className="field">
                       <div className="control">
                         <input
-                          className="input is-large"
+                          className="input is-medium"
                           type="password"
                           name="password"
                           placeholder="Your Password"
@@ -86,9 +81,11 @@ class Login extends Component {
                         />
                       </div>
                     </div>
-                    <a id='submit'
+                    <div class=".auth-container">{this.state.authError}</div>
+                    <a
+                      id="submit"
                       onClick={() => this.login()}
-                      className="button is-block is-primary is-large is-fullwidth"
+                      className="button is-block is-medium is-primary"
                     >
                       Login
                     </a>
@@ -96,18 +93,14 @@ class Login extends Component {
                     <h3 className="title has-text-grey">Social</h3>
                     <a
                       href="/auth/google"
-                      className="button is-block is-danger is-large is-fullwidth"
+                      className="button is-block is-medium google-btn"
                     >
                       Google+
                     </a>
                   </form>
-                  <div class='.auth-container'>
-                  {this.state.authError}
-                  </div>
                 </div>
                 <p className="has-text-grey">
-                  <Link to="/signup">Sign Up</Link> &nbsp;·&nbsp;
-                  <Link to="/">Forgot Password</Link>
+                  <Link to="/signup">Sign Up</Link>
                 </p>
               </Grid>
               <Grid item sm={12} md={3} lg={3} />

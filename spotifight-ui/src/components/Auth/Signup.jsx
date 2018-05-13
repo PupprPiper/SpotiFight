@@ -1,34 +1,27 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Button from 'material-ui/Button';
 import axios from 'axios';
 import $ from 'jquery';
-import './Signup.scss'
+import './Signup.scss';
 import { Grid } from './../Global/Material-Globals';
 import { Link } from 'react-router-dom';
 
 class Signup extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       email: '',
       password: '',
       username: '',
       authError: ''
-    }
-
+    };
   }
 
-  handleEmailChange(e) {
-    this.setState({email: e.target.value});
-  }
-
-  handlePasswordChange(e) {
-    this.setState({password: e.target.value});
-  }
-
-  handleUsernameChange(e) {
-    this.setState({username: e.target.value});
+  handleChange(e) {
+    let name = e.target.name;
+    let value = e.target.value;
+    this.setState({ [name]: value });
   }
 
   async signUp() {
@@ -40,22 +33,26 @@ class Signup extends Component {
         password: this.state.password,
         username: this.state.username
       });
-      $('#submit').prop('disabled', true)
+      $('#submit').prop('disabled', true);
       $('.clearField').val('');
       redirect = true;
-      console.log(data, 'response on the dom')
-      if (data.data.constraint === 'users_email_key' || data.data.constraint === 'users_username_key') {
+      if (
+        data.data.constraint === 'users_email_key' ||
+        data.data.constraint === 'users_username_key'
+      ) {
         redirect = false;
-        message = `Your ${data.data.constraint.split('_')[1]} is already taken.`
+        message = `Your ${
+          data.data.constraint.split('_')[1]
+        } is already taken.`;
       }
     } catch (err) {
       console.log(err);
     } finally {
       if (redirect) {
-        this.props.history.push('/login')
+        this.props.history.push('/login');
       } else {
-        $('#submit').prop('disabled', false)
-        this.setState({authError: message})
+        $('#submit').prop('disabled', false);
+        this.setState({ authError: message });
       }
     }
   }
@@ -74,11 +71,11 @@ class Signup extends Component {
                     <div className="field">
                       <div className="control">
                         <input
-                          className="input is-large clearField"
+                          className="input is-medium clearField"
                           type="email"
                           name="email"
                           placeholder="Your Email"
-                          onChange={e => this.handleEmailChange(e)}
+                          onChange={e => this.handleChange(e)}
                         />
                       </div>
                     </div>
@@ -86,40 +83,42 @@ class Signup extends Component {
                     <div className="field">
                       <div className="control">
                         <input
-                          className="input is-large clearField"
+                          className="input is-medium clearField"
                           type="username"
                           name="username"
                           placeholder="Your Username"
-                          onChange={e => this.handleUsernameChange(e)}
+                          onChange={e => this.handleChange(e)}
                         />
                       </div>
                     </div>
                     <div className="field">
                       <div className="control">
                         <input
-                          className="input is-large clearField"
+                          className="input is-medium clearField"
                           type="password"
                           name="password"
                           placeholder="Your Password"
-                          onChange={e => this.handlePasswordChange(e)}
+                          onChange={e => this.handleChange(e)}
                         />
                       </div>
                     </div>
-                    <a id='submit'
+                    <a
+                      id="submit"
                       onClick={() => this.signUp()}
-                      className="button is-block is-primary is-large is-fullwidth"
+                      className="button is-block is-primary is-medium is-fullwidth"
                     >
-                    Sign Up
+                      Sign Up
                     </a>
-
                   </form>
                   <div className="authError">
-                        <h3 className="title has-text-red">      {this.state.authError} </h3>
+                    <h3 className="title has-text-red">
+                      {' '}
+                      {this.state.authError}{' '}
+                    </h3>
                   </div>
                 </div>
                 <p className="has-text-grey">
-                  <Link to="/login">Login</Link> &nbsp;·&nbsp;
-                  <Link to="/">Forgot Password</Link>
+                  <Link to="/login">Login</Link>
                 </p>
               </Grid>
               <Grid item sm={12} md={3} lg={3} />
@@ -127,8 +126,7 @@ class Signup extends Component {
           </div>
         </div>
       </section>
-
-  );
+    );
   }
 }
 
