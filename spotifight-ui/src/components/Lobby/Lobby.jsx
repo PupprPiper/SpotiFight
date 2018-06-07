@@ -121,7 +121,7 @@ class Lobby extends Component {
 
   }
 
-  searchSong() {
+ searchSong() {
     this.setState({ alert: false });
     axios.get("/spotify").then(token => {
       axios({
@@ -134,7 +134,6 @@ class Lobby extends Component {
       }).then(data => {
         if (data.data.tracks.items[0].preview_url === null) {
           this.setState({ alert: true });
-          // alert("This song does not have a preview URL on spotify");
         }
         this.setState({
           song: data.data.tracks.items[0],
@@ -144,7 +143,6 @@ class Lobby extends Component {
         });
 
         this.props.songSwitch(data.data.tracks.items[0].preview_url);
-        console.log("SONG SELECTIONS HERE ", this.props.songSelections);
         var temp = Object.assign({}, this.props.songSelections);
 
         temp[this.props.localUser] = data.data.tracks.items[0].name;
@@ -180,9 +178,7 @@ class Lobby extends Component {
       songPreview: e.preview_url
     });
     this.props.songSwitch(e.preview_url);
-    console.log("e", e);
     var temp = Object.assign({}, this.props.songSelections);
-    console.log("lobby state ", this.state);
     temp[this.props.localUser] = e.name;
     this.setState({ songChoices: temp });
     this.props.socket.emit("sendSongChoices", temp);
@@ -196,10 +192,6 @@ class Lobby extends Component {
         <Grid container>
           <Grid item md={3}>
             <Grid>
-              {/* <PlayerList
-                leftPlayers={this.props.leftPlayers}
-                songChoices={this.state.songChoices}
-              /> */}
               {this.props.players
                 .filter((item, index) => {
                   if (index % 2 === 0) {
@@ -266,7 +258,6 @@ class Lobby extends Component {
                   allowtransparency="true"
                   allow="encrypted-media"
                 />
-                {/* <audio src = {this.state.songPreview} autoPlay/> */}
               </div>
             )}
 
@@ -281,7 +272,7 @@ class Lobby extends Component {
                     {" "}
                     <ListItemAvatar>
                       <Avatar
-                        src={item.album.images[0].url}
+                        src={item.album.images[0] ? item.album.images[0].url : 0}
                         className={this.props.classes.avatar}
                       />
                     </ListItemAvatar>
@@ -302,7 +293,6 @@ class Lobby extends Component {
                         <div
                           key={i}
                           gameitem={item}
-                          //if selected item, set item.hover, else item.image
                         >
                           <Avatar
                             src={item.image}
