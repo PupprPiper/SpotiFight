@@ -1,27 +1,3 @@
-<<<<<<< HEAD
-import React, {Component} from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import randomstring from 'randomstring';
-import io from 'socket.io-client';
-import Button from 'material-ui/Button';
-import Masher from '../Games/Masher/Masher';
-import {gameSwitch} from '../../actions/index';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import MusicTrivia from '../Games/MusicTrivia/MusicTrivia'
-import './Home.scss'
-import RPSLS from '../Games/RPSLS/rpsls';
-import axios from 'axios';
-import Verify from '../Auth/Verify.jsx';
-
-import GameList from './GameList.jsx';
-import {Grid} from '../Global/Material-Globals'
-import OpenRoomsList from './OpenRoomsList.jsx'
-import './Home.scss'
-import Carousel from 'nuka-carousel'
-import SimpleSnackbar from './Snackbar.jsx'
-import $ from 'jquery'
-=======
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import randomstring from "randomstring";
@@ -44,7 +20,6 @@ import "./Home.scss";
 import Carousel from "nuka-carousel";
 import SimpleSnackbar from "./Snackbar.jsx";
 import $ from "jquery";
->>>>>>> removed console logs from home and lobby
 class Home extends Component {
   constructor(props) {
     super(props);
