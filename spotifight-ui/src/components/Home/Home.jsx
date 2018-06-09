@@ -30,9 +30,12 @@ class Home extends Component {
     };
   }
 
+  //jQuery function to force to top of the page onload
   componentDidMount() {
     $(window).scrollTop(0);
   }
+
+  //Connect to socket so we can see who is currently playing and how many lobbys are open
   componentWillMount() {
     this.socket = io.connect("http://localhost:8000");
     this.socket.on("OPEN_ROOMS", data => {
@@ -43,9 +46,13 @@ class Home extends Component {
       this.setState({ people: data });
     });
   }
+
+  //Joins selected room
   handleRoomSelect(room) {
     this.props.history.push({ pathname: `/game-room/${room}` });
   }
+
+  //disconnects from socket when you leave the page
   componentWillUnmount() {
     this.socket.disconnect();
     this.props.history.forced = false;
@@ -55,7 +62,8 @@ class Home extends Component {
     return (
       <div align="center" className="top-margin" style={{ padding: "10px" }}>
 
-        {this.props.history.action === "PUSH" &&
+        { //alerts all users that the reason they've been kicked out is due to the host leaving
+          this.props.history.action === "PUSH" &&
         this.props.history.forced === true ? (
           <SimpleSnackbar />
         ) : null}
@@ -63,6 +71,7 @@ class Home extends Component {
 
         <GameList history={this.props.history} align="center" />
         <div>
+          {/* Shows number of current players in number of current rooms */}
           <div align="left"> Open Rooms:</div>
           <OpenRoomsList
             openrooms={this.state.openrooms}
