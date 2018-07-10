@@ -82,7 +82,7 @@ class AppTitleBar extends Component {
             </div>
           </Grid>
         </nav>
-        <nav className="navbar" />
+     
       </div>
     );
   }
