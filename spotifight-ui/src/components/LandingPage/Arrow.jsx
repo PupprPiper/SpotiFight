@@ -10,7 +10,7 @@ this.state={
 }
 
 $(window).scroll(function() {
-    if ($(this).scrollTop() > 600) { //use `this`, not `document`
+    if ($(this).scrollTop() > 500) { //use `this`, not `document`
         $('.arrow').css({
             'display': 'none'
         });
@@ -20,7 +20,7 @@ $(window).scroll(function() {
         $('.logo').css({
             'opacity': '0'
         });
-    } else if ($(this).scrollTop() < 600) { //use `this`, not `document`
+    } else if ($(this).scrollTop() < 500) { //use `this`, not `document`
           $('.arrow').css({
               'display': 'inline'
           });
@@ -42,10 +42,10 @@ $(window).scroll(function() {
 
 
   scrollPage () {
-    console.log('clickity click')
+
     $('html, body').animate({
-        scrollTop: 1200
-    },1200);
+        scrollTop: 800
+    },800);
 
 
   }
