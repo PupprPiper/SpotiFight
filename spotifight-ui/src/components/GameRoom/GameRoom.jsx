@@ -186,7 +186,7 @@ class GameRoom extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ marginTop: 40 }}>
         <audio src={this.state.globalSong} autoPlay="autoPlay" />
         {this.state.confetti === true ? (
           <Confetti height="1000%" width="2000%" />
