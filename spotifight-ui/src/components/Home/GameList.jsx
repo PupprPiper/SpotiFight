@@ -11,7 +11,8 @@ const style = {
     height: 500,
     width: 500,
     color: 'white',
-    align: 'center'
+    align: 'center',
+    overflow: 'visible'
   },
   LobbyText:{
     fontSize: 40,

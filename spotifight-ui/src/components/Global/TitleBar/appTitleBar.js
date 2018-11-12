@@ -54,8 +54,8 @@ class AppTitleBar extends Component {
     );
 
     return (
-      <div>
-        <nav className="navbar is-dark is-fixed-top">
+      <div style={{marginBottom: "70px !important", display: "block"}}>
+        <nav className="navbar is-dark is-fixed-top" >
           <Grid container>
             <div className="navbar-brand">
               <a className="navbar-item">

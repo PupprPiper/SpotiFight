@@ -196,7 +196,7 @@ class Lobby extends Component {
 
   render() {
     return (
-      <div style={{ marginTop: "1%" }}   >
+      <div style={{ marginTop: 70 }}   >
         {this.state.alert === true ? <AlertDialog /> : null}
 
         <Grid container>
