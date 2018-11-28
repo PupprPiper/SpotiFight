@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import io from "socket.io-client";
 import axios from "axios";
 import Chat from "../Chat/Chat.jsx";
-import Grid from "material-ui/Grid";
+import Grid from "@material-ui/core/Grid";
 import {
   songSwitch,
   gameSwitch,
@@ -11,8 +11,8 @@ import {
 } from "../../actions/index";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import Paper from "material-ui/Paper";
-import { withStyles } from "material-ui/styles";
+import Paper from "@material-ui/core/Paper";
+import { withStyles } from "@material-ui/core/styles";
 import Verify from "../Auth/Verify.jsx";
 
 import {

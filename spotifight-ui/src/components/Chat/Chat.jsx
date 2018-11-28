@@ -10,7 +10,7 @@ import {
 } from "./../Global/Material-Globals";
 import "./Chat.scss";
 import Verify from '../Auth/Verify.jsx';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import $ from 'jquery'
 const style ={
   chatList: {

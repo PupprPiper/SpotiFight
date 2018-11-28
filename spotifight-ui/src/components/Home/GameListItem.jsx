@@ -7,7 +7,7 @@ import {
   ListItemText,
   Paper
 } from '../Global/Material-Globals';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { gameSwitch, songSwitch } from '../../actions/index';

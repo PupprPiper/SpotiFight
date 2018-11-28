@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import randomstring from "randomstring";
 import io from "socket.io-client";
-import Button from "material-ui/Button";
+import Button from "@material-ui/core/Button";
 import Masher from "../Games/Masher/Masher";
 import { gameSwitch } from "../../actions/index";
 import { connect } from "react-redux";

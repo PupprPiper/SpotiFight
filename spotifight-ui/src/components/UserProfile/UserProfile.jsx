@@ -5,7 +5,7 @@ import axios from 'axios';
 import {Grid, Button} from './../Global/Material-Globals';
 
 import $ from 'jquery';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
 import './UserProfile.scss'
 import UserParticle from '../Games/Masher/particles/Particles.jsx'
 

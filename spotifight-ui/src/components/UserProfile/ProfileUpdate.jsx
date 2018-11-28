@@ -1,5 +1,5 @@
 import React from 'react';
-import Dialog from 'material-ui/Dialog';
+import Dialog from '@material-ui/core/Dialog';
 import {Button} from './../Global/Material-Globals';
 import './UserProfile.scss';
 import axios from 'axios';

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ButtonGrid from "./ButtonGrid.jsx";
 import Particle from "./particles/Particles.jsx"
 
-import Subheader from "material-ui/List/ListSubheader";
+import Subheader from "@material-ui/core/ListSubheader";
 import "./Masher.scss";
 import axios from "axios";
 import masherHelpers from './masherHelpers.js';

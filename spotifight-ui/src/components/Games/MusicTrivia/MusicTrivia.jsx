@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Questions from './Questions.js'
-import Paper from "material-ui/Paper";
+import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { gameSwitch, songSwitch } from "../../../actions/index";
 import axios from 'axios';
 import { List, ListItem} from '../../Global/Material-Globals'
-import { withStyles } from "material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 import AlertDialog from './alert'
 import Confetti from 'react-confetti'
 import './MusicTrivia.scss'

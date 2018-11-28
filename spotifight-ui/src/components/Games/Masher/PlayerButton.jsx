@@ -1,11 +1,11 @@
 import React from 'react';
 import {Component} from 'react';
 import PropTypes from 'prop-types';
-import {withStyles} from 'material-ui/styles';
-import ButtonBase from 'material-ui/ButtonBase';
-import Typography from 'material-ui/Typography';
+import {withStyles} from '@material-ui/core/styles';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Typography from '@material-ui/core/Typography';
 import "./PlayerButton.scss";
-import Subheader from 'material-ui/List/ListSubheader';
+import Subheader from '@material-ui/core/ListSubheader';
 
 import $ from 'jquery';
 

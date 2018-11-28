@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from "react";
 import randomstring from "randomstring";
 import { ListItem, Avatar, ListItemText, Paper } from "../Global/Material-Globals";
-import { withStyles } from "material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 // import { connect } from 'react-redux';
 const style = {
   LobbyItems:{

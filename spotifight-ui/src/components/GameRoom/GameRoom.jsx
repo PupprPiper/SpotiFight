@@ -4,9 +4,9 @@ import Chat from "../Chat/Chat.jsx";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import players from "../Games/Masher/seed.js";
-import Grid from "material-ui/Grid";
+import Grid from "@material-ui/core/Grid";
 import { gameSwitch, songSwitch, updatePlayers } from "../../actions/index";
-import Button from "material-ui/Button";
+import Button from "@material-ui/core/Button";
 import { assignLeftPlayer, assignRightPlayer } from "./gameRoomHelpers";
 
 import Lobby from "../Lobby/Lobby.jsx";

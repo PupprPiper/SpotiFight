@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./rpsls.scss";
 import axios from "axios";
-import Paper from "material-ui/Paper";
-import Grid from "material-ui/Grid";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 import { connect } from 'react-redux';
 class rpsls extends Component {
   constructor(props) {

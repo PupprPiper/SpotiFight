@@ -12,7 +12,7 @@ import {
   Accessibility,
   Gamepad,
   Home as HomeIcon
-} from 'material-ui-icons';
+} from '@material-ui/icons';
 
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
